@@ -1,6 +1,6 @@
-# Model Implementation Guidance
+## Model Implementation Guidance
 
-## Read the paper
+### Read the paper
 
 - Download the original paper + online appendix + data files + programming files, and store them in the 'Reference' folder
 - Read through the paper and code, and create a readme file to record the following information: Title, Authors, Publication information, Summary of the paper, Summary of the model(s), Common observables, Unique observables
@@ -8,13 +8,12 @@
 - Highlight any other specific features of the model (e.g., whether the data is de-trended, whether the estimation method is non-standard, etc.)
 - A **readme template** can be found in the root folder
 
-## Collect and transform data
+### Collect and transform data
 
-## Check the forecast performance
+### Check the forecast performance
 
-## Run estimation and generate forecasts
+### Run estimation and generate forecasts
 
-# Guidance for Data Processing
 (1) Download the time series for the original paper, and check which series are already included in the 
 
 
