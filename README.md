@@ -12,7 +12,7 @@
 - Highlight any other specific features of the model (e.g., whether the estimation method is non-standard)
 - A **readme template** can be found in the root folder
 
-### Collect and transform data
+### Collect and transform the data
 
 - Download the time series for the original paper, and check which series are already included in our database 
 - For series that are not yet included in the database, download the corresponding raw data series to the 'Data/Raw' folder
