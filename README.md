@@ -1,5 +1,7 @@
 ## Model Implementation Guidance
 
+**Please report any issues and/or mistakes in the 'Issues' section above!**
+
 ### Read the paper
 
 - Download the original paper + online appendix + data files + programming files, and store them in the 'Reference' folder
