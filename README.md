@@ -7,19 +7,19 @@
 ### Read the paper
 
 - Download the paper + online appendix + data files + programming files, and store them in the 'Reference' folder
-- Read through the paper and code, and create a *readme file* to record the following information: Short summary of the paper, Short summary of the model(s), Common observables, Unique observables
-- Specify how the unique observables are constructed (if any)
-- Highlight any other specific features of the model (e.g., whether the estimation method is non-standard)
+- Read through the paper and code, and create a *readme file* to record the following information: Short summary of the paper, Short summary of the model(s)
+- Highlight any other features of the model (e.g., when the estimation method is non-standard)
 
 ### Collect and transform the data
 
-- For unique observables, download the corresponding raw data series to the 'Data/Raw' folder
-- Record the following information for the raw data series: Data ID, Title, Frequency, Units, Seasonal adjustment, Is revised, Vintage Dates, Source, Source_URL
-- For a specific vintage date (e.g., 2008Q3), create a new Excel file (or merge into an existing file) to include all the raw data series and all the observables respectively
+- Create a spreadsheet named *'data_comparison_ModelName.xlsx'* to compare those observed variables constructed by the authors and those constructed by us
+- Please use the observables we construct as many as possible; Notice that some observables in the paper can be easily transformed to those observables we construct
+- For observables that are not included yet, first download the raw data series to the 'data/raw_variables' folder, then record the basic information of the raw series in *'raw_variable_description.csv'*, and record the basic information of the observables in *'observed_variable_description.xlsx'*
+- Update *'vintage_generation.ipynb'* or your own code to include the new data transformation process
 
-### Update the code and generate forecasts (subject to change)
+### Estimation and forecast generation test
 
-- Start from reivising the Dynare MOD-file, such as changing the name of the observables
-- If the MOD file runs smoothly, then check whether the forecasts makes sense (e.g., you can compare the results you obtained with the ones from the paper)
+- Create an Excel file named *data_ModelName_VintageDate.xlsx* to include all the observed variables for a specific vintage
+- Revise the original dynare MOD-file, such as changing the name of the observables
+- Estimate the model and generate forecasts using the data file you created
 - If some issues cannot be resolved easily, report them in the 'Issues' section
-- Once everything look okay, set a loop in Matlab to run estimations and generate forecasts automatically
