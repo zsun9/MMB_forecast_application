@@ -1,0 +1,91 @@
+
+\documentclass[12pt]{article}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{setspace}
+
+%TCIDATA{OutputFilter=LATEX.DLL}
+%TCIDATA{Version=5.50.0.2890}
+%TCIDATA{<META NAME="SaveForMode" CONTENT="1">}
+%TCIDATA{BibliographyScheme=Manual}
+%TCIDATA{Created=Saturday, July 18, 2009 21:06:40}
+%TCIDATA{LastRevised=Tuesday, July 21, 2009 13:32:47}
+%TCIDATA{<META NAME="GraphicsSave" CONTENT="32">}
+%TCIDATA{<META NAME="DocumentShell" CONTENT="Standard LaTeX\Blank - Standard LaTeX Article">}
+%TCIDATA{CSTFile=LaTeX article.cst}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{acknowledgement}[theorem]{Acknowledgement}
+\newtheorem{algorithm}[theorem]{Algorithm}
+\newtheorem{axiom}[theorem]{Axiom}
+\newtheorem{case}[theorem]{Case}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{conclusion}[theorem]{Conclusion}
+\newtheorem{condition}[theorem]{Condition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{criterion}[theorem]{Criterion}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{exercise}[theorem]{Exercise}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{notation}[theorem]{Notation}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{solution}[theorem]{Solution}
+\newtheorem{summary}[theorem]{Summary}
+\newenvironment{proof}[1][Proof]{\noindent\textbf{#1.} }{\ \rule{0.5em}{0.5em}}
+\input{tcilatex}
+\begin{document}
+
+
+%TCIMACRO{\TeXButton{setstretch1.15}{\setstretch{1.15}}}%
+%BeginExpansion
+\setstretch{1.15}%
+%EndExpansion
+
+{\Large Readme file for replicating the estimation results in
+\textquotedblleft Housing Market Spillovers: Evidence from an Estimated DSGE
+Model\textquotedblright\ (AEJ:\ Macro), by Matteo Iacoviello and Stefano Neri%
+}
+
+The directory \texttt{aej\_spillovers} contains the files for replication
+the main results of our paper.
+
+It contains the following files:
+
+\begin{enumerate}
+\item \texttt{jules1.mod}: main dynare file for either: (a)\ estimating the
+model; or (b) plotting impulse responses/doing post-estimation analysis;
+
+\item \texttt{jules1\_steadystate.m}:\ file containing the calculations of
+the steady state of the model;
+
+\item \texttt{US\_data\_65Q106Q4.m}:\ file containing the observable
+variables for the estimation.
+
+\item \texttt{rideaej1.m:\ }main file that changes default directory and
+launches \texttt{jules1.mod} file above
+\end{enumerate}
+
+To launch the programs, change Matlab's current directory to the directory
+where the files can be found (e.g., \texttt{c:\TEXTsymbol{\backslash}%
+aej\_spillovers}), and launch from the Matlab command prompt the file 
+\texttt{rideaej1}. Make sure Dynare 4 is correctly installed.
+
+Although we have performed estimation and robustness analysis and various
+tests using our own codes, we find it easier to share a \textquotedblleft
+mod\textquotedblright\ file since Dynare is by and large the standard
+language for solving, simulating and estimating a large class of dynamic
+stochastic general equilibrium models.
+
+The mod file lists all the equations of our model, as in Appendix B of our
+paper. The user can select one of two options inside the mod file. Setting
+the option \texttt{DO\_IRF=1} (line 120 of the \texttt{mod} file) plots the
+impulse responses of our estimated model to all shocks. Setting the option 
+\texttt{DO\_ESTIMATION=1} (line 121)\ runs the estimation.
+
+The files above were written and tested for \texttt{Dynare 4.0.4} and 
+\texttt{Matlab 7.6.0} using a PC running Windows XP.
+
+\end{document}
