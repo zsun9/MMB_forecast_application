@@ -3,7 +3,8 @@ By constructing the model that accounts for the joint behavior of labor and good
 
 Summary of model:
 Extended medium-sized DSGE model endogenizing the labor force participation rate
-Shocks: 1. financial wedge 2. consumption wedge 3. technology shock 4. fiscal policy shock
+- Common shocks: 1. monetary policy 2. technology 3. investment-specific technology 
+- Model specific shocks: 1. financial wedge 2. consumption wedge 3. technology 4. fiscal policy 
 
 Specific estimation method:
 Estimate the model using a particular Bayesian strategy that minimizes the distance between the dynamic response to three shocks in the model and the analog objects in the data, which is obtained using an identified VAR for postwar quarterly US times series that include key labor market variables. The strategy is developed in Christiano, Trabandt, and Walentin (2010).
