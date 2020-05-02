@@ -8,7 +8,7 @@
 
 - Download the paper + online appendix + data files + programming files, and store them in the 'Reference' folder
 - Read through the paper and code, and create a *readme file* to record the following information: Short summary of the paper, Short summary of the model(s)
-- Highlight any other features of the model (e.g., when the estimation method is non-standard)
+- Highlight any other non-standard features of the paper or model
 
 ### Collect and transform the data
 
