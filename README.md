@@ -1,28 +1,57 @@
-## Model Implementation Guidance
+## Model Implementation Guide
 
-**Please report any issues and/or mistakes in the 'Issues' section above!**
+### Naming conventions
 
-**The addition of SPF data is not discussed yet!**
+- Models
 
-### Read the paper
+  Name a model by the initials of the last names of all the authors plus the paper publication date. For example, name the model from Smets and Wouters (2007) as *SW07*
 
-- Download the paper + online appendix + data files + programming files, and store them in the 'Reference' folder
+- Raw variables
+
+  Keep the original names of the raw variables unchanged
+  
+- Observables
+
+  An observed variable should be named as *ObservableName[_Type]_obs[_ModelName]*
+  
+  The names of all the observables should at least contains two parts: *ObservableName* and *_obs*. For example, name the Federal funds rate as *ffr_obs*.
+  
+  To differentiate observables that do not share the exact same definition but essentially represent the same concept, name each of them by including *[_Type]*. For example, it can be applied to the naming of most macroeconomic variables from the national accounts, since we usually need these series in both nominal and real terms.
+  
+  For example, name personal consumption expenditures (PCE) as follows:
+  - Nominal PCE: *pce_nom_obs*
+  - Nominal PCE deflated by the GDP deflator: *pce_rgd_obs*
+  - Nominal PCE deflated by its own implicit deflator: *pce_rim_obs*
+  Note: it makes no difference whether to name the real GDP as *gdp_rgd_obs* or *gdp_rim_obs*, but the former one is preferred.
+  
+  It is acceptable to name an observable that only appears in one model by including *[_ModelName]*. However, such a name should be avoided as much as possible, especially when this observable might appear in other models that will be implemented in the future.
+
+### Notes for data collection and transformation
+
+- Please be careful when selecting a variable on the ALFRED, because sometimes variables that have similar definitions do not have clear and distinguishable IDs.
+- In particular, pay attention to **whether this variable is in real or nominal terms**, and **whether it is seasonally adjusted or not**.
+- If the ALFRED contains the several variants of the same observable that are only different in updating frequencies, please **choose the one that is updated on the highest frequency**.
+- Many observables in our database are in net percentage terms, but in some models, observables are expressed in gross terms. Use the following formula to convert between them: **GrossTerms = EXP(NetPctTerms/100)**.
+
+### General steps
+
+#### Read paper
+
+- Download the paper + online appendix + data files + programming files, and save them to a new subfolder in the 'Reference' folder
 - Read through the paper and code, and create a *readme file* to record the following information:
-1. Short summary of the paper
-2. Short summary of the model(s)
-3. Common observables and unique observables
-4. Any other non-standard features of the paper or model
+  1. Short summary of the paper
+  2. Short summary of the model(s)
+  3. Common observables and unique observables
+  4. Any other non-standard features of the model
 
-### Collect and transform the data
+#### Collect and transform data
 
-- Create a spreadsheet named *'data_comparison_ModelName.xlsx'* to compare those observed variables constructed by the authors and those constructed by us
-- Please use the observables we construct as many as possible; Notice that some observables in the paper can be easily transformed to those observables we construct
-- For observables that are not included yet, first download the raw data series to the 'data/raw_variables' folder, then record the basic information of the raw series in *'raw_variable_description.csv'*, and record the basic information of the observables in *'observed_variable_description.xlsx'*
-- Update *'data_collection.ipynb'* and *'vintage_generation.ipynb'* or your own code to include the new data collection and transformation process
+- Create a spreadsheet named *'data_comparison_ModelName.xlsx'* to compare the data from the paper with the data you construct
+- It is recommenable to use the observables already included in our database rather than constructing a new observable, given that the new one will have the same definition as the old one.
+- For observables that are not included in our database yet: Download the corresponding raw variables, record the basic information of the raw variables and observables, and update the Python code to include the data transformation process
 
-### Estimation and forecast generation test
+#### Estimation and forecast generation test
 
-- Create an Excel file named *data_ModelName_VintageDate.xlsx* to include all the observed variables for a specific vintage
-- Revise the original dynare MOD-file, such as changing the name of the observables
-- Estimate the model and generate forecasts using the data file you created
-- If some issues cannot be resolved easily, report them in the 'Issues' section
+- Revise the dynare MOD-file, the steady-state file, and any auxillary file(s) if necessary
+- Check whether (1) the data for a specific vintage date can be obtained, (2) the model can be estimated, and (3) the forecasts can be generated without any problem
+- If everything runs smoothly, then store all the relevant files (excluding data files) in a new subfolder in the 'Models' folder
