@@ -4,27 +4,28 @@
 
 - Models
 
-  Name a model by the initials of the last names of all the authors plus the paper publication date. For example, name the model from Smets and Wouters (2007) as *SW07*
+  Name a model by the initials of the last names of all the authors plus the paper publication date. For example, we name the model from Smets and Wouters (2007) as *SW07*.
 
 - Raw variables
 
-  Keep the original names of the raw variables unchanged
+  Keep the original names of the raw variables unchanged.
   
 - Observables
 
-  An observed variable should be named as *ObservableName[_Type]_obs[_ModelName]*
+  An observed variable should be usually named as *ObservableName[_Type]_obs[_ModelName]*.
   
-  The names of all the observables should at least contains two parts: *ObservableName* and *_obs*. For example, name the Federal funds rate as *ffr_obs*.
+  At the minimum, the name of an observables should contain two parts: *ObservableName* and *_obs*. For example, we name the Federal funds rate as *ffr_obs*.
   
-  To differentiate observables that do not share the exact same definition but essentially represent the same concept, name each of them by including *[_Type]*. For example, it can be applied to the naming of most macroeconomic variables from the national accounts, since we usually need these series in both nominal and real terms.
+  For observables that essentially represent the same concept but do not share the exact same definition, name each of them by including a *[_Type]*. This is applied to the naming of most macroeconomic variables from the national accounts, since we usually need them in both nominal and real terms.
   
   For example, name personal consumption expenditures (PCE) as follows:
   - Nominal PCE: *pce_nom_obs*
-  - Nominal PCE deflated by the GDP deflator: *pce_rgd_obs*
-  - Nominal PCE deflated by its own implicit deflator: *pce_rim_obs*
-  Note: it makes no difference whether to name the real GDP as *gdp_rgd_obs* or *gdp_rim_obs*, but the former one is preferred.
+  - Nominal PCE deflated by the GDP deflator: *pce_rgd_obs* (*rgd = real, gdp deflator*)
+  - Nominal PCE deflated by its own implicit deflator: *pce_rid_obs* (*rid = real, implicit deflator*)
   
-  It is acceptable to name an observable that only appears in one model by including *[_ModelName]*. However, such a name should be avoided as much as possible, especially when this observable might appear in other models that will be implemented in the future.
+  Note: it makes no difference whether to name the real GDP as *gdp_rgd_obs* or *gdp_rid_obs*, but the former one is preferred.
+  
+  It is acceptable to name an observable that only appears in one model by including *[_ModelName]*. However, such a name should be avoided, especially when this observable might appear in other models that will be implemented in the future.
 
 ### Notes for data collection and transformation
 
