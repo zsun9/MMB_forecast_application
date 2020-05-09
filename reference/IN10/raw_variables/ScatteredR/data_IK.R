@@ -2,16 +2,9 @@
 # library(devtools)
 # devtools::install_github("sboysel/fredr")
 rm(list = ls())
+
 library(fredr)
-library(dplyr)
 fredr_set_key("52191461124b452b055bc68a63d07928")
-
-
-ref.vin.date <- as.Date("2007-04-01")
-afried.id <- "CES2000000008"
-
-tmp.vindates<- as.Date(fredr_series_vintagedates(series_id = afried.id)[[1]])
-
 #----------------------------------------------------------------------------------------
 # function search for closest vintage date
 clost_vin_search <- function(tmpdataset.vindates , tmpdate ){
@@ -19,6 +12,7 @@ clost_vin_search <- function(tmpdataset.vindates , tmpdate ){
     tmpdate <- as.Date(tmpdate)
     trundates<-tmpdataset.vindates[tmpdataset.vindates <= tmpdate]
     the.date <- trundates[which(abs(trundates-tmpdate) == min(abs(trundates - tmpdate)))]
+    
   } else {
     the.date <- as.Date(tmpdataset.vindates[1])
   }
@@ -42,30 +36,46 @@ ss_demean <- function(dataset123, ss){
 #----------------------------------------------------------------------------------------
 # First difference function while preserving the dataset
 first_diff<- function(dataset){
-  dataset<-as.data.frame(dataset #%>% group_by(series_id) 
-                         %>% mutate_at(vars(value), list(~ .x - lag(.x))))
+  library(dplyr)
+  dataset<-as.data.frame(dataset %>% group_by(series_id) %>% mutate_at(vars(value), list(~ .x - lag(.x))))
   return(dataset)
 }
 #----------------------------------------------------------------------------------------
+ref.vin.date <- as.Date("2007-04-01")
+#Data series PNFIC1
+# from excel, vindate = 20031125 +2007
+library("readxl")
+# xls files
+PNFIC1.data <- as.data.frame(read_excel("PNFIC1_Self_create.xlsx"))
+PNFIC1.data$date <- as.Date(PNFIC1.data$date)
+# tmp.vindates<- as.Date(fredr_series_vintagedates(series_id = "PNFIC1")[[1]])
+# closest_date <- clost_vin_search(tmp.vindates, ref.vin.date )
+# PNFIC1.data <- as.data.frame(fredr_series_observations(series_id = "PNFIC1", frequency = "q", vintage_dates = closest_date))
+# PNFIC1.data$date <- as.Date(PNFIC1.data$date)
 
-
+# data series CNP16OV
+tmp.vindates<- as.Date(fredr_series_vintagedates(series_id = "CNP16OV")[[1]])
 closest_date <- clost_vin_search(tmp.vindates, ref.vin.date )
+CNP16OV.data <- as.data.frame(fredr_series_observations(series_id = "CNP16OV", frequency = "q", vintage_dates = closest_date))
+CNP16OV.data$date <- as.Date(CNP16OV.data$date)
 
-series.data <- as.data.frame(fredr_series_observations(series_id = afried.id, frequency = "q", vintage_dates = closest_date))
-series.data$date <- as.Date(series.data$date)
 
-Data1<- series.data[,-2]
+
 DATE1 <- as.Date("1965-01-01")
 DATE2 <- as.Date("2006-10-01")
 
-Data1 <- betweendates(DATE1,DATE2,Data1)
+PNFIC1.data <- betweendates(DATE1,DATE2,PNFIC1.data)
+CNP16OV.data <- betweendates(DATE1,DATE2,CNP16OV.data)
 
-Data1$value = log(Data1$value)
+Data1<- CNP16OV.data[,-2]
 
-Data1<-first_diff(Data1)
+Data1$value<- PNFIC1.data$value/CNP16OV.data$value
 
-Data1 <- vector_demean(Data1)
+Data1$value<- log(Data1$value)
 
+log.ref.Data1<- Data1$value[1]
+
+Data1$value<- Data1$value-log.ref.Data1
 
 library(writexl)
 write_xlsx(x = Data1, path = "Data1.xlsx", col_names = TRUE)

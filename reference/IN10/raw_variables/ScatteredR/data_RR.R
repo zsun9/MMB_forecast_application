@@ -4,10 +4,9 @@
 rm(list = ls())
 library(fredr)
 fredr_set_key("52191461124b452b055bc68a63d07928")
-library(dplyr)
 
 ref.vin.date <- as.Date("2007-04-01")
-afried.id <- "IPDNBS"
+afried.id <- "TB3MS"
 
 tmp.vindates<- as.Date(fredr_series_vintagedates(series_id = afried.id)[[1]])
 
@@ -41,6 +40,7 @@ ss_demean <- function(dataset123, ss){
 #----------------------------------------------------------------------------------------
 # First difference function while preserving the dataset
 first_diff<- function(dataset){
+  library(dplyr)
   dataset<-as.data.frame(dataset %>% group_by(series_id) %>% mutate_at(vars(value), list(~ .x - lag(.x))))
   return(dataset)
 }
@@ -57,12 +57,15 @@ DATE2 <- as.Date("2006-10-01")
 
 Data1 <- betweendates(DATE1,DATE2,series.data)
 
-Data1$value = log(Data1$value)
-
-Data1<-first_diff(Data1)
+Data1$value <- Data1$value/400
 
 Data1 <- vector_demean(Data1)
 
 
+
+
+
+#PCESVC96.vintagedates[[1]][2]
+#as.Date(df$Date, "%m/%d/%Y %H:%M:%S")
 library(writexl)
 write_xlsx(x = Data1, path = "Data1.xlsx", col_names = TRUE)
