@@ -1,4 +1,4 @@
-def data_update(alfred=True, rtdsm=True, spf=True, greenbook=True, specific_variables=[]):
+def data_update(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_variables=[]):
 
     import requests, time, zipfile, io
     timeout = 10
@@ -13,33 +13,33 @@ def data_update(alfred=True, rtdsm=True, spf=True, greenbook=True, specific_vari
         rtdsm_url = 'https://www.philadelphiafed.org/-/media/research-and-data/real-time-center/real-time-data/data-files/files/xlsx/'
         rtdsm_names = [
 
-            # # quarterly observation, monthly vintage
-            # 'routputmvqd', # Real GDP
-            # 'rconmvqd', # Real consumption: total
-            # 'rconndmvqd', # Real consumption: non-durables
-            # 'rcondmvqd', # Real consumption: durables
-            # 'rconsmvqd', # Real consumption: services
-            # 'rinvbfmvqd', # Real investment: non-residential
-            # 'rinvresidmvqd', # Real investment: residential
-            # 'rinvchimvqd', # Real investment: change in private inventories
-            # 'rnxmvqd', # Real net exports
-            # 'rgmvqd', # Real govt cons & invest: total
-            # 'rgfmvqd', # Real govt cons & invest: federal
-            # 'rgslmvqd', # Real govt cons & invest: state and local
-            # 'pmvqd', # GDP deflator
+            # quarterly observation, monthly vintage
+            'routputmvqd', # Real GDP
+            'rconmvqd', # Real consumption: total
+            'rconndmvqd', # Real consumption: non-durables
+            'rcondmvqd', # Real consumption: durables
+            'rconsmvqd', # Real consumption: services
+            'rinvbfmvqd', # Real investment: non-residential
+            'rinvresidmvqd', # Real investment: residential
+            'rinvchimvqd', # Real investment: change in private inventories
+            'rnxmvqd', # Real net exports
+            'rgmvqd', # Real govt cons & invest: total
+            'rgfmvqd', # Real govt cons & invest: federal
+            'rgslmvqd', # Real govt cons & invest: state and local
+            'pmvqd', # GDP deflator
 
-            # # monthly observation, monthly vintage
-            # 'rconmmvmd', # Real consumption: total
-            # 'rconndmmvmd', # Real consumption: non-durables
-            # 'rcondmmvmd', # Real consumption: durables
-            # 'rconsmmvmd', # Real consumption: services
-            # 'pcpimvmd', # CPI
-            # 'popmvmd', # Civilian population 16+
-            # 'employmvmd', # Nonfarm payroll employment
-            # 'hmvmd', # Average weekly hours
+            # monthly observation, monthly vintage
+            'rconmmvmd', # Real consumption: total
+            'rconndmmvmd', # Real consumption: non-durables
+            'rcondmmvmd', # Real consumption: durables
+            'rconsmmvmd', # Real consumption: services
+            'pcpimvmd', # CPI
+            'popmvmd', # Civilian population 16+
+            'employmvmd', # Nonfarm payroll employment
+            'hmvmd', # Average weekly hours
 
-            # # monthly observation, quarterly vintage
-            # 'rucqvmd', # Unemployment rate
+            # monthly observation, quarterly vintage
+            'rucqvmd', # Unemployment rate
 
         ]
 
@@ -80,22 +80,22 @@ def data_update(alfred=True, rtdsm=True, spf=True, greenbook=True, specific_vari
 
             # all quarterly osbervation, individual forecasts
 
-            # 'individual_pgdp', # GDP deflator
-            # 'individual_unemp', # Unemployment rate
-            # 'individual_emp', # Nonfarm payroll employment
+            'individual_pgdp', # GDP deflator
+            'individual_unemp', # Unemployment rate
+            'individual_emp', # Nonfarm payroll employment
 
-            # 'individual_baabond', # Moody's BAA corporate bond yield
-            # 'individual_tbond', # 10 yr Treasury bond yield
+            'individual_baabond', # Moody's BAA corporate bond yield
+            'individual_tbond', # 10 yr Treasury bond yield
 
-            # 'individual_rgdp', # Real GDP
-            # 'individual_rconsum', # Real consumption
-            # 'individual_rnresin', # Real investment: non-residential
-            # 'individual_rresinv', # Real investment: residential
-            # 'individual_rcbi', # Real investment: change in private inventories
-            # 'individual_rfedgov', # Real govt cons & invest: federal
-            # 'individual_rslgov', # Real govt cons & invest: state and local
-            # 'individual_rexport', # Real net exports
-            # 'individual_cpi', # CPI
+            'individual_rgdp', # Real GDP
+            'individual_rconsum', # Real consumption
+            'individual_rnresin', # Real investment: non-residential
+            'individual_rresinv', # Real investment: residential
+            'individual_rcbi', # Real investment: change in private inventories
+            'individual_rfedgov', # Real govt cons & invest: federal
+            'individual_rslgov', # Real govt cons & invest: state and local
+            'individual_rexport', # Real net exports
+            'individual_cpi', # CPI
 
         ]
 
