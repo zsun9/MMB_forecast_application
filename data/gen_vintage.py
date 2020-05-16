@@ -299,22 +299,37 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
             # ΔLN((PCESV+PCND))*100
             dfTransform.loc[:, obs] = np.log((dfTransform[dictVC['PCND']].values+dfTransform[dictVC['PCESV']].values)/(dfTransform[dictVC['PCND']].shift().values+dfTransform[dictVC['PCESV']].shift().values))*100
 
-        elif obs == 'rc_obs':
-            # ΔLN(PCECC96/CNP16OV) - first value of ΔLN(PCECC96/CNP16OV) 
-            dfTransform.loc[:, obs] = np.log(dfTransform[dictVC['PCECC96']].values/dfTransform[dictVC['CNP16OV']].values) - np.log(dfTransform[dictVC['PCECC96']].values/dfTransform[dictVC['CNP16OV']].values)[0]
+        # elif obs == 'rc_obs':
+        #     # ΔLN(PCECC96/CNP16OV) - first value of ΔLN(PCECC96/CNP16OV) 
+        #     dfTransform.loc[:, obs] = np.log(dfTransform[dictVC['PCECC96']].values/dfTransform[dictVC['CNP16OV']].values) - np.log(dfTransform[dictVC['PCECC96']].values/dfTransform[dictVC['CNP16OV']].values)[0]
             
-        elif obs == 'pi_dm_obs':
-            # ΔLN(pi_dm_obs) - mean ΔLN(CPIAUCSL)
-            dfTransform.loc[:, obs] = np.log(dfTransform[dictVC['IPDNBS']].values- np.log(dfTransform[dictVC['IPDNBS']]).shift().values - np.nanmean(np.log(dfTransform[dictVC['IPDNBS']].values- np.log(dfTransform[dictVC['IPDNBS']]).shift().values)
-
+        # elif obs == 'pi_dm_obs':
+        #     # ΔLN(pi_dm_obs) - mean ΔLN(CPIAUCSL)
+        #     dfTransform.loc[:, obs] = np.log(dfTransform[dictVC['IPDNBS']].values- np.log(dfTransform[dictVC['IPDNBS']]).shift().values - np.nanmean(np.log(dfTransform[dictVC['IPDNBS']].values- np.log(dfTransform[dictVC['IPDNBS']]).shift().values)
 
         else:
             print(f'\n{obs} is not exported as an osbervable.\n')
     
     dfComplete = pd.merge(dfRaw, dfTransform[list(variables['observed'])], how='outer', left_index=True, right_index=True, sort=True)
+
+    # remove the first quarter, because it was only used for calculating growth
     if str(dfComplete.index[0]) == quarterStart:
         dfComplete = dfComplete.iloc[1:]
-    dfComplete.to_csv(f"data_{vintageDate.strftime('%Y%m%d')}.csv")
+
+    # if there are missing values in the last quarter and vintage date is no later than 120 days after the start of last quarter:
+    # then create data for four scenarios
+    with pd.ExcelWriter(f"data_{vintageDate.strftime('%Y%m%d')}.xlsx") as writer:
+        if np.sum(np.isnan(dfComplete.iloc[-1,:])) > 0 and vintageDate - dfComplete.index[-1].start_time < pd.Timedelta('120 days'):
+            dfComplete.index = [str(index) for index in dfComplete.index]
+            dfComplete.iloc[:-1,:].to_excel(writer, sheet_name='s1')
+            dfComplete.to_excel(writer, sheet_name='s3')
+            print('Generated data with different scenarios.')
+        else:
+            dfComplete.index = [str(index) for index in dfComplete.index]
+            dfComplete.to_excel(writer)
+            print('Generated data with only scenario.')
+
+    return None
 
     return None
 
