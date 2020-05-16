@@ -118,7 +118,7 @@ STDERR_AZ	=	0.01711	;
 //% Set DO_IRFS=1 to plot impulse responses
 //% Set DO_ESTIMATION=1 to do estimation
 DO_IRFS        = 1 ; 
-DO_ESTIMATION  = 0 ; 
+DO_ESTIMATION  = 1 ; 
 
 
 //%------------------------------------------------------------

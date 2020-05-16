@@ -665,7 +665,7 @@ STDERR_AS	=	0.00034*100	;
 STDERR_AT	=	0.0252	;
 STDERR_AZ	=	0.01711	;
 DO_IRFS        = 1 ; 
-DO_ESTIMATION  = 0 ; 
+DO_ESTIMATION  = 1 ; 
 steady;
 %
 % SHOCKS instructions

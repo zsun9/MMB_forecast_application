@@ -29,7 +29,6 @@ ss_demean <- function(dataset123, ss){
 #----------------------------------------------------------------------------------------
 # First difference function while preserving the dataset
 first_diff<- function(dataset){
-  library(dplyr)
   dataset<-as.data.frame(dataset #%>% group_by(series_id)
                          %>% mutate_at(vars(value), list(~ .x - lag(.x))))
   return(dataset)
