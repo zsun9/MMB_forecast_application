@@ -1,4 +1,4 @@
-def data_update(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_variables=[]):
+def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_variables=[]):
 
     import requests, time, zipfile, io
     timeout = 10
