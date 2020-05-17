@@ -7,11 +7,15 @@ spf_deadlines = [
     '2001-08-15',
     '2001-11-14',
     '2008-08-07',
+    '2020-02-11',
+    '2020-05-12',
 ]
 
 window = 100
 
 for dl in spf_deadlines:
+
+    print()
 
     quarterEnd = str(pd.to_datetime(dl).to_period('Q'))
     quarterStart = pd.to_datetime(dl).to_period('Q').end_time + pd.Timedelta('1 days')

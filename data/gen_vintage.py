@@ -147,7 +147,7 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
                 df['quarter'] = df.index.to_period('Q').values
                 df = df.groupby('quarter').mean().copy()
                 # df should span from obsStart to obsEnd, even some entries are missing
-                df = pd.merge(df, pd.DataFrame(index=obsRange.to_period('Q')), how='outer', left_index=True, right_index=True, sort=True)
+                df = pd.merge(df, pd.DataFrame(index=obsRange.to_period('Q')), how='right', left_index=True, right_index=True, sort=True)
                 return df, actualVintageDate
 
         else:
@@ -248,69 +248,70 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
             dictVC[column] = column
 
     # generate observed variables
+    dfT = dfTransform.copy()
     for obs in variables['observed']:
 
         if obs == 'gdp_rgd_obs':
             # ΔLN(GDPC1)*100
-            dfTransform.loc[:, obs] = np.log(dfTransform[dictVC['GDPC1']].values/dfTransform[dictVC['GDPC1']].shift().values)*100
+            dfT.loc[:, obs] = np.log(dfT[dictVC['GDPC1']].values/dfT[dictVC['GDPC1']].shift().values)*100
 
         elif obs == 'gdpdef_obs':
             # ΔLN(GDPCTPI)*100
-            dfTransform.loc[:, obs] = np.log(dfTransform[dictVC['GDPCTPI']].values/dfTransform[dictVC['GDPCTPI']].shift().values)*100
+            dfT.loc[:, obs] = np.log(dfT[dictVC['GDPCTPI']].values/dfT[dictVC['GDPCTPI']].shift().values)*100
 
         elif obs == 'ffr_obs':
             # DFF/4
-            dfTransform.loc[:, obs] = dfTransform[dictVC['DFF']]/4
+            dfT.loc[:, obs] = dfT[dictVC['DFF']]/4
 
         elif obs == 'ifi_rgd_obs':
             # ΔLN(FPI/GDPCTPI)*100
-            dfTransform.loc[:, obs] = np.log((dfTransform[dictVC['FPI']].values/dfTransform[dictVC['GDPCTPI']].values)/(dfTransform[dictVC['FPI']].shift().values/dfTransform[dictVC['GDPCTPI']].shift().values))*100
+            dfT.loc[:, obs] = np.log((dfT[dictVC['FPI']].values/dfT[dictVC['GDPCTPI']].values)/(dfT[dictVC['FPI']].shift().values/dfT[dictVC['GDPCTPI']].shift().values))*100
 
         elif obs == 'c_rgd_obs':
             # ΔLN(PCE/GDPCTPI)*100
-            dfTransform.loc[:, obs] = np.log((dfTransform[dictVC['PCE']].values/dfTransform[dictVC['GDPCTPI']].values)/(dfTransform[dictVC['PCE']].shift().values/dfTransform[dictVC['GDPCTPI']].shift().values))*100
+            dfT.loc[:, obs] = np.log((dfT[dictVC['PCE']].values/dfT[dictVC['GDPCTPI']].values)/(dfT[dictVC['PCE']].shift().values/dfT[dictVC['GDPCTPI']].shift().values))*100
 
         elif obs == 'wage_rgd_obs':
             # ΔLN(COMPNFB/GDPCTPI)*100
-            dfTransform.loc[:, obs] = np.log((dfTransform[dictVC['COMPNFB']].values/dfTransform[dictVC['GDPCTPI']].values)/(dfTransform[dictVC['COMPNFB']].shift().values/dfTransform[dictVC['GDPCTPI']].shift().values))*100
+            dfT.loc[:, obs] = np.log((dfT[dictVC['COMPNFB']].values/dfT[dictVC['GDPCTPI']].values)/(dfT[dictVC['COMPNFB']].shift().values/dfT[dictVC['GDPCTPI']].shift().values))*100
 
         elif obs == 'baag10_obs':
             # (DBAA-DGS10)/4
-            dfTransform.loc[:, obs] = (dfTransform[dictVC['DBAA']] - dfTransform[dictVC['DGS10']])/4
+            dfT.loc[:, obs] = (dfT[dictVC['DBAA']] - dfT[dictVC['DGS10']])/4
 
         elif obs == 'hours_dngs15_obs':
             # LN(AWHNONAG*CE16OV/100/(CNP16OV/3))*100
-            dfTransform.loc[:, obs] = np.log(dfTransform[dictVC['AWHNONAG']]*dfTransform[dictVC['CE16OV']]/100/(dfTransform[dictVC['CNP16OV']]/3))*100
+            dfT.loc[:, obs] = np.log(dfT[dictVC['AWHNONAG']]*dfT[dictVC['CE16OV']]/100/(dfT[dictVC['CNP16OV']]/3))*100
 
         elif obs == 'hours_sw07_obs':
             # Demeaned: LN(PRS85006023*(CE16OV/118753)/(CNP16OV/193024.333333333))*100
-            dfTransform.loc[:, obs] = np.log(dfTransform[dictVC['DBAA']]*(dfTransform[dictVC['DBAA']]/118753)/(dfTransform[dictVC['DBAA']]/193024.333333333))*100
-            dfTransform.loc[:, obs] = dfTransform.loc[:, obs] - dfTransform.loc[:, obs].mean()
+            dfT.loc[:, obs] = np.log(dfT[dictVC['PRS85006023']]*(dfT[dictVC['CE16OV']]/118753)/(dfT[dictVC['CNP16OV']]/193024.333333333))*100
+            dfT.loc[:, obs] = dfT.loc[:, obs] - dfT.loc[:, obs].mean()
 
         elif obs == 'gdp_q_AA16_obs':
             # ΔLN((GDPC1-NETEXC)/CE16OV)*100
-            dfTransform.loc[:, obs] = np.log(((dfTransform[dictVC['GDPC1']].values-dfTransform[dictVC['NETEXC']].values)/dfTransform[dictVC['CLF16OV']].values)/((dfTransform[dictVC['GDPC1']].shift().values-dfTransform[dictVC['NETEXC']].shift().values)/dfTransform[dictVC['CLF16OV']].shift().values))*100
+            dfT.loc[:, obs] = np.log(((dfT[dictVC['GDPC1']].values-dfT[dictVC['NETEXC']].values)/dfT[dictVC['CLF16OV']].values)/((dfT[dictVC['GDPC1']].shift().values-dfT[dictVC['NETEXC']].shift().values)/dfT[dictVC['CLF16OV']].shift().values))*100
         
         elif obs == 'i_q_AA16_obs':
             # ΔLN(GPDI+PCDG)*100
-            dfTransform.loc[:, obs] = np.log((dfTransform[dictVC['GPDI']].values+dfTransform[dictVC['PCDG']].values)/(dfTransform[dictVC['GPDI']].shift().values+dfTransform[dictVC['PCDG']].shift().values))*100
+            dfT.loc[:, obs] = np.log((dfT[dictVC['GPDI']].values+dfT[dictVC['PCDG']].values)/(dfT[dictVC['GPDI']].shift().values+dfT[dictVC['PCDG']].shift().values))*100
         
         elif obs == 'c_q_AA16_obs':
             # ΔLN((PCESV+PCND))*100
-            dfTransform.loc[:, obs] = np.log((dfTransform[dictVC['PCND']].values+dfTransform[dictVC['PCESV']].values)/(dfTransform[dictVC['PCND']].shift().values+dfTransform[dictVC['PCESV']].shift().values))*100
+            dfT.loc[:, obs] = np.log((dfT[dictVC['PCND']].values+dfT[dictVC['PCESV']].values)/(dfT[dictVC['PCND']].shift().values+dfT[dictVC['PCESV']].shift().values))*100
 
         # elif obs == 'rc_obs':
         #     # ΔLN(PCECC96/CNP16OV) - first value of ΔLN(PCECC96/CNP16OV) 
-        #     dfTransform.loc[:, obs] = np.log(dfTransform[dictVC['PCECC96']].values/dfTransform[dictVC['CNP16OV']].values) - np.log(dfTransform[dictVC['PCECC96']].values/dfTransform[dictVC['CNP16OV']].values)[0]
+        #     dfT.loc[:, obs] = np.log(dfT[dictVC['PCECC96']].values/dfT[dictVC['CNP16OV']].values) - np.log(dfT[dictVC['PCECC96']].values/dfT[dictVC['CNP16OV']].values)[0]
             
         # elif obs == 'pi_dm_obs':
         #     # ΔLN(pi_dm_obs) - mean ΔLN(CPIAUCSL)
-        #     dfTransform.loc[:, obs] = np.log(dfTransform[dictVC['IPDNBS']].values- np.log(dfTransform[dictVC['IPDNBS']]).shift().values - np.nanmean(np.log(dfTransform[dictVC['IPDNBS']].values- np.log(dfTransform[dictVC['IPDNBS']]).shift().values)
+        #     dfT.loc[:, obs] = np.log(dfT[dictVC['IPDNBS']].values- np.log(dfT[dictVC['IPDNBS']]).shift().values - np.nanmean(np.log(dfT[dictVC['IPDNBS']].values- np.log(dfT[dictVC['IPDNBS']]).shift().values)
 
         else:
             print(f'\n{obs} is not exported as an osbervable.\n')
     
-    dfComplete = pd.merge(dfRaw, dfTransform[list(variables['observed'])], how='outer', left_index=True, right_index=True, sort=True)
+    dfComplete = pd.merge(dfRaw, dfT[list(variables['observed'])], how='outer', left_index=True, right_index=True, sort=True)
 
     # remove the first quarter, because it was only used for calculating growth
     if str(dfComplete.index[0]) == quarterStart:
@@ -331,7 +332,5 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
 
     return None
 
-    return None
-
 if __name__ == '__main__':
-    pass
+    gen_vintage(vintageDate='2001-02-14', quarterStart='1980Q1', quarterEnd='2001Q1', observed=['hours_sw07_obs'])

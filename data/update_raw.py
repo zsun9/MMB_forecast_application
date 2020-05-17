@@ -1,7 +1,12 @@
 def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_variables=[]):
 
-    import requests, time, zipfile, io
+    import requests, time, zipfile, io, pathlib
     timeout = 10
+
+    pathRtdsm = pathlib.Path('raw/rtdsm')
+    pathSpf = pathlib.Path('raw/spf')
+    pathGreenbook = pathlib.Path('raw/greenbook')
+    assert pathRtdsm.exists() and pathSpf.exists() and pathGreenbook.exists(), 'Some paths not found.'
 
     # update ALFRED data
 
@@ -56,7 +61,7 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
                 page = requests.get(url, timeout=timeout)
 
                 if page.status_code == 200:
-                    with open('rtdsm/' + filename, 'wb') as f:
+                    with open(pathRtdsm / filename, 'wb') as f:
                         f.write(page.content)
                     print('complete')
                 else:
@@ -64,7 +69,7 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
                     time.sleep(10)
                     page = requests.get(url, timeout=timeout)
                     if page.status_code == 200:
-                        with open('rtdsm/' + filename, 'wb') as f:
+                        with open(pathRtdsm / filename, 'wb') as f:
                             f.write(page.content)
                         print('complete')
                     else:
@@ -112,7 +117,7 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
                 page = requests.get(url, timeout=timeout)
 
                 if page.status_code == 200:
-                    with open('spf/' + filename, 'wb') as f:
+                    with open(pathSpf / filename, 'wb') as f:
                         f.write(page.content)
                     print('complete')
                 else:
@@ -120,7 +125,7 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
                     time.sleep(10)
                     page = requests.get(url, timeout=timeout)
                     if page.status_code == 200:
-                        with open('spf/' + filename, 'wb') as f:
+                        with open(pathSpf / filename, 'wb') as f:
                             f.write(page.content)
                         print('complete')
                     else:
@@ -137,7 +142,7 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
 
         if page.status_code == 200:
             z = zipfile.ZipFile(io.BytesIO(page.content))
-            z.extractall(path='greenbook/')
+            z.extractall(path=pathGreenbook)
             print('complete')
         else:
             print('failed, try again ...', end=' ')
@@ -145,11 +150,11 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
             page = requests.get(url, timeout=timeout)
             if page.status_code == 200:
                 z = zipfile.ZipFile(io.BytesIO(page.content))
-                z.extractall(path='greenbook/')
+                z.extractall(path=pathGreenbook)
                 print('complete')
             else:
                 print('failed!')
 
 
 if __name__ == '__main__':
-    data_update()
+    update_raw(alfred=True, rtdsm=True, spf=True, greenbook=True)
