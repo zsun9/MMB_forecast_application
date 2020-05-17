@@ -19,22 +19,27 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
     import numpy as np
     import datetime as datetime
 
-    # set hyperparameters
     diffBound = 0.01 # max allowed difference (in %) between series with missing values and series to fill missing values
 
     # parse arguments
     vintageDate = pd.to_datetime(vintageDate)
     # move one quarter back at the start to generate growth data in the first quarter
-    if quarterStart[-1] == '1':
-        quarterStart = str(int(quarterStart[0:4])-1) + 'Q4'
-    else:
-        quarterStart = quarterStart[0:5] + str(int(quarterStart[-1])-1)
+    def back_one_quarter(stringQuarter):
+        if stringQuarter[-1] == '1':
+            return str(int(stringQuarter[0:4])-1) + 'Q4'
+        else:
+            return stringQuarter[0:5] + str(int(stringQuarter[-1])-1)
+    quarterStart = back_one_quarter(quarterStart)
+
     obsStart = pd.to_datetime(quarterStart).to_period('Q').start_time
     obsEnd = pd.to_datetime(quarterEnd).to_period('Q').end_time
-    obsRange = pd.date_range(start=quarterStart, end=quarterEnd, freq='Q').to_period('Q').start_time
+    obsRange = pd.date_range(start=quarterStart, end=quarterEnd, freq='QS').to_period('Q').start_time
+
+    if obsStart > obsEnd:
+        return None
 
     if vintageDate < obsEnd:
-        print('Vintage date < Last observation date, so Last observation date = Vintage date.')
+        print('Vintage date < End date of last observation quarter, so Last observation date = Vintage date.')
         obsEnd = vintageDate
 
     variables = {'raw': set(raw), 'transform': set([]), 'observed': set(observed), }
@@ -82,14 +87,29 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
 
         if source in {'alfred', 'rtdsm'}:
 
+            # convert index to datetime format
+            if source == 'alfred':
+                df.index = pd.to_datetime(df.index)
+            else:
+                if 'Q' in df.index[0]:
+                    df.index = pd.to_datetime([index.replace(':', '-') for index in df.index])
+                else:
+                    df.index = pd.to_datetime(df.index, format='%Y:%m')
+
+            # select observation period and convert data from any frequency to quarterly
+            obsPeriod = df.index.map(lambda x: obsStart <= x <= obsEnd)
+            df = df[obsPeriod].copy()
+            df['quarter'] = df.index.to_period('Q').values
+            df = df.groupby('quarter').mean().copy()
+            df = pd.merge(df, pd.DataFrame(index=obsRange.to_period('Q')), how='right', left_index=True, right_index=True)
+            if np.sum(np.sum(~np.isnan(df))) == 0:
+                return None, None
+
+            # select vintage date
             vintageCol = ''
 
             if source == 'alfred':
 
-                # convert index to datetime format
-                df.index = pd.to_datetime(df.index)
-
-                # select vintage date
                 # for data in daily frequency, choose the only vintage
                 if infoRaw[infoRaw['id']==var]['frequency_short'].values[0] == 'D':
                     vintageCol = df.columns.values[-1]
@@ -105,12 +125,6 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
                             break
 
             else:
-
-                # convert index to datetime format
-                if 'Q' in df.index[0]:
-                    df.index = pd.to_datetime([index.replace(':', '-') for index in df.index])
-                else:
-                    df.index = pd.to_datetime(df.index, format='%Y:%m')
 
                 # select vintage date
                 for column in df.columns.values:
@@ -132,26 +146,29 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
                     else:
                         break
 
-            # select observation period
-            obsPeriod = df.index.map(lambda x: obsStart <= x <= obsEnd)
+            # if vintage column found and is not all NaN, then return it
+            if vintageCol != '':
 
-            # combine desired observation period and vintage date
-            df = df[obsPeriod].copy()
-            df = df.loc[:, df.columns.map(lambda x: x == vintageCol)].copy()
+                if np.sum(~np.isnan(df[vintageCol].values)) == 0:
+                    return None, None
+                else:
+                    return df.loc[:, df.columns.map(lambda x: x == vintageCol)], actualVintageDate
 
-            # check whether desired data are generated
-            if df.shape[0]*df.shape[1] == 0 or np.sum(~np.isnan(df[vintageCol].values)) == 0:
-                return None, None
+            # else: if first column is not all NaN, then return it
             else:
-                # take average over the quarter
-                df['quarter'] = df.index.to_period('Q').values
-                df = df.groupby('quarter').mean().copy()
-                # df should span from obsStart to obsEnd, even some entries are missing
-                df = pd.merge(df, pd.DataFrame(index=obsRange.to_period('Q')), how='right', left_index=True, right_index=True, sort=True)
-                return df, actualVintageDate
+
+                if np.sum(~np.isnan(df.iloc[:,0].values)) == 0:
+                    return None, None
+                else:
+                    print(f'Warning: Exact vintage date for {var} not found, will use its value in the earliest possible vintage date!')
+                    df = df.iloc[:,0].copy()
+                    # if variable updated quarterly, then remove the last obs
+                    if infoRaw[infoRaw['id']==var]['frequency_short'].values[0] == 'Q':
+                        df.iloc[-1] = float('nan')
+                    return df, vintage
 
         else:
-            raise Exception(f'Cannot retreive desired data from {source}.')
+            raise Exception(f'Cannot retreive desired data from source {source}.')
 
     # generate data for raw variables
     def gen_raw_variables(variablesInput):
@@ -328,9 +345,10 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
         else:
             dfComplete.index = [str(index) for index in dfComplete.index]
             dfComplete.to_excel(writer)
-            print('Generated data with only scenario.')
+            print('Generated data with the only scenario.')
 
     return None
 
 if __name__ == '__main__':
-    gen_vintage(vintageDate='2001-02-14', quarterStart='1980Q1', quarterEnd='2001Q1', observed=['hours_sw07_obs'])
+    gen_vintage(vintageDate='2008-08-07', quarterStart='2001Q1', quarterEnd='2008Q3', observed=['hours_sw07_obs'], showRawTransform=True)
+    pass

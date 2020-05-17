@@ -15,7 +15,7 @@ window = 100
 
 for dl in spf_deadlines:
 
-    print()
+    print(f'\n\nNow collecting data for {dl} vintage date')
 
     quarterEnd = str(pd.to_datetime(dl).to_period('Q'))
     quarterStart = pd.to_datetime(dl).to_period('Q').end_time + pd.Timedelta('1 days')
