@@ -336,7 +336,8 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
 
     # if there are missing values in the last quarter and vintage date is no later than 120 days after the start of last quarter:
     # then create data for four scenarios
-    with pd.ExcelWriter(f"data_{vintageDate.strftime('%Y%m%d')}.xlsx") as writer:
+    pathExcelFile = f"data_{vintageDate.strftime('%Y%m%d')}.xlsx"
+    with pd.ExcelWriter(pathExcelFile) as writer:
         if np.sum(np.isnan(dfComplete.iloc[-1,:])) > 0 and vintageDate - dfComplete.index[-1].start_time < pd.Timedelta('120 days'):
             dfComplete.index = [str(index) for index in dfComplete.index]
             dfComplete.iloc[:-1,:].to_excel(writer, sheet_name='s1')
@@ -350,5 +351,4 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
     return None
 
 if __name__ == '__main__':
-    gen_vintage(vintageDate='2008-08-07', quarterStart='2001Q1', quarterEnd='2008Q3', observed=['hours_sw07_obs'], showRawTransform=True)
     pass

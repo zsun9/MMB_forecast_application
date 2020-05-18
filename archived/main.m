@@ -13,7 +13,7 @@ basics.BVARchainslength = 10000;
 basics.forecasthorizon = 100;
 basics.numchains = 1;
 basics.burnin = 0.3;
-basics.acceptance =  0.3;
+basics.scalingfactor =  0.3;
 basics.presample = 4;
 
 % estimation and forecasting specifications
@@ -101,7 +101,7 @@ for i = 1:length(basics.subfolders_models) % loop through all the model folders,
                 options_.forecast = basics.forecasthorizon;
                 options_.mh_nblck = basics.numchains;
                 options_.mh_drop = basics.burnin;
-                options_.mh_jscale = basics.acceptance;
+                options_.mh_jscale = basics.scalingfactor;
 
                 % set up constant hyper-parameters
                 options_.nograph = 1;
