@@ -34,7 +34,7 @@ var cH              //Consumption
     xiH             // Investment-specific shock
     fH              // Financial shock
     yHf kHf iHf rHf r_kHf nHf cHf  qHf hHf c_eHf         // flexible-price variables
-    gdp_rgd_obs gdpdef_obs ffr_obs ipi_rgd_obs baag10_obs  
+    gdp_rgd_obs gdpdef_obs ffr_obs ifi_rgd_obs baag10_obs  
     outputgap
 ;
 
@@ -250,14 +250,14 @@ outputgap = yH-yHf;
 // measurement equations
 
 gdp_rgd_obs=yH-yH(-1)+ytrend;
-ipi_rgd_obs=iH-iH(-1)+ytrend;  //ipi_rgd_obs=iH-iH(-1)+itrend;
+ifi_rgd_obs=iH-iH(-1)+ytrend;  //ifi_rgd_obs=iH-iH(-1)+itrend;
 gdpdef_obs = piH + pi_bar; 
 ffr_obs = r_nH + rn_bar;
 baag10_obs = premiumH + s_bar;
 
 end;
 
-varobs gdp_rgd_obs ipi_rgd_obs gdpdef_obs ffr_obs baag10_obs;
+varobs gdp_rgd_obs ifi_rgd_obs gdpdef_obs ffr_obs baag10_obs;
 
 estimated_params;
 // PARAM NAME, INITVAL, LB, UB, PRIOR_SHAPE, PRIOR_P1, PRIOR_P2, PRIOR_P3, PRIOR_P4, JSCALE
@@ -320,5 +320,5 @@ end;
 
 //estimation(datafile='us20084s.xls',xls_range=B1:F105,mh_replic=0,first_obs=1,mh_nblocks = 1,mode_compute=4, forecast=10, presample=4,lik_init=1, smoother) ffr_obs, gdpdef_obs, gdp_rgd_obs outputgap;
 // estimation(datafile='us20091.xls',xls_range=B1:J178,mh_replic=50000,first_obs=1,mh_nblocks = 2, mh_drop=0.1, mh_jscale=0.4, mode_compute=4, forecast=30, mode_check) ffr_obs, gdpdef_obs, gdp_rgd_obs;
-//shock_decomposition(parameter_set=posterior_mode) gdp_rgd_obs gdpdef_obs ffr_obs ipi_rgd_obs baag10_obs;
+//shock_decomposition(parameter_set=posterior_mode) gdp_rgd_obs gdpdef_obs ffr_obs ifi_rgd_obs baag10_obs;
 //stoch_simul (irf = 0, ar=20);
