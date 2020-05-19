@@ -20,8 +20,8 @@ p.models = []; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07"
 p.executor = "Your name";
 
 % hyper-parameters
-p.chainLen = 1e2;
-p.subDraws = 1e1;
+p.chainLen = 1000000;
+p.subDraws = 100000;
 p.forecastHorizon = 40;
 p.chainNum = 1;
 p.burnin = 0.3;
