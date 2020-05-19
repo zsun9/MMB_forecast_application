@@ -21,7 +21,7 @@ p.executor = "Your name";
 
 % hyper-parameters
 p.chainLen = 1000000;
-p.subDraws = 100000;
+p.subDraws = 5000;
 p.forecastHorizon = 40;
 p.chainNum = 1;
 p.burnin = 0.3;

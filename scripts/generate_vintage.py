@@ -1,8 +1,3 @@
-import pathlib, os
-import pandas as pd
-import numpy as np
-import datetime as datetime
-
 def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observed = [], showRawTransform=False, pathExcel = None):
 
     '''
@@ -18,6 +13,11 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     5. observed (list, default=[]): observed variables to be generated, must appear in 'observed_variable_description'
     6. showRawTransform (boolean, default=False): show raw series that are used to construct observables
     '''
+
+    import pathlib, os
+    import pandas as pd
+    import numpy as np
+    import datetime as datetime
 
     diffBound = 0.01 # max allowed difference (in %) between series with missing values and series to fill missing values
 
