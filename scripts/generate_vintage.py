@@ -44,7 +44,6 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
     variables = {'raw': set(raw), 'transform': set([]), 'observed': set(observed), }
 
-
     # set data locations
     pathData = pathlib.Path('../data')
     pathAlfred = pathlib.Path( pathData / 'raw' / 'alfred')
@@ -176,7 +175,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     # generate data for raw variables
     def gen_raw_variables(variablesInput):
 
-        dfOutput = pd.DataFrame({})
+        dfOutput, dfOutputSPF = pd.DataFrame({}), pd.DataFrame({})
 
         index = -1
 
@@ -204,13 +203,8 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                         index += 1
                         toMerge = True
 
-                        # if the last obs is missing
-
-                        # if only the last obs is missing
-                        # if the second to last obs is also missing
-
-                        # is obs other than last or second to last are missing
-                        if np.sum(np.isnan(dfToMerge.iloc[:-2].values)) > 0 and variable in infoFillHistory['alfred'].values:
+                        # if values other than last or second to last are missing
+                        if variable in infoFillHistory['alfred'].values and np.sum(np.isnan(dfToMerge.iloc[:-2].values)) > 0:
 
                             row = infoFillHistory[infoFillHistory['alfred']==variable]
 
@@ -246,6 +240,33 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                                     dfToMerge = pd.merge(dfToMerge, dfToFill, how='outer', left_index=True, right_index=True, sort=True)
                                     dfToMerge.to_csv(f'diff_{variable}_{fillVar}.csv')
                                     print(f'\nMissing values of {variable} not filled: Diff between series to be filled and series to fill > {diffBound:.2%}, will print two series.\n')
+
+                        # if variable has SPF nowcasts and its last and/or second to last values are missing
+                        if variable in infoFillNowcast['alfred'].values:
+
+                            # if last value already exists, then only fill nowcast if quarter(vintageDate) = obsEnd
+                            if np.sum(np.isnan(dfToMerge.iloc[-1].values)) == 0:
+                                if vintageDate.to_period('Q').end_time == obsEnd:
+                                    # fill with current quarter SPF (if exists)
+                                    pass
+                            
+                            # if last values does not exists, then does not matter whether quarter(vintageDate) is obsEnd or not
+                            else:
+
+                                # if second to last value does not exist
+                                if np.sum(np.isnan(dfToMerge.iloc[-1].values)) == 0:
+                                    # fill with last quarter SPF (nowcast and 1 step ahead forecast)
+                                    pass
+                                
+                                # if only last value does not exists
+                                else:
+                                    # check whether vintage date >= or < SPF release date on obsEnd quarter
+
+                                    # if vintage date < SPF release date, fill with last quarter SPF (1 step ahead forecast)
+
+                                    # if vintage date >= SPF release date, fill with current quarter SPF (nowcast)
+                                    pass
+
                     break
 
             if toMerge == True:
@@ -254,10 +275,10 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 else:
                     dfOutput = pd.merge(dfOutput, dfToMerge, how='outer', left_index=True, right_index=True, sort=True)
         
-        return dfOutput
+        return dfOutput, dfOutputSPF
 
-    dfRaw = gen_raw_variables(variables['raw'])
-    dfTransform = gen_raw_variables(variables['transform'])
+    dfRaw, _ = gen_raw_variables(variables['raw'])
+    dfTransform, _ = gen_raw_variables(variables['transform'])
 
     # correspondence: variable name : column name (e.g., 'GDPC1':'GDPC1_20010101')
     dictVC = dict()
@@ -322,6 +343,8 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     pathExcelFile = f"data_{vintageDate.strftime('%Y%m%d')}.xlsx"
     if pathExcel is not None:
         pathExcelFile = pathExcel / pathExcelFile
+    else:
+        pathExcelFile = pathData / pathExcelFile
     with pd.ExcelWriter(pathExcelFile) as writer:
         if np.sum(np.isnan(dfComplete.iloc[-1,:])) > 0 and vintageDate - dfComplete.index[-1].start_time < pd.Timedelta('120 days'):
             dfComplete.index = [str(index) for index in dfComplete.index]
@@ -336,4 +359,5 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     return None
 
 if __name__ == '__main__':
+    main(vintageDate='2008-07-01', quarterStart='2000Q1', quarterEnd='2008Q3', raw=['GDPC1'], observed=['gdp_rgd_obs'])
     pass

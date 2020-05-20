@@ -102,6 +102,8 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
             'individual_rexport', # Real net exports
             'individual_cpi', # CPI
 
+            'meanLevel', # Mean level for all variables
+
         ]
 
         for name in spf_names:
