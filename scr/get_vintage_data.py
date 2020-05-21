@@ -23,9 +23,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     import datetime as datetime
 
     diffBound = 0.01 # max allowed difference (in %) between series with missing values and series to fill missing values
-    specificRules = {
-        # ('2008-08-07', 'COMPNFB', '2008Q3'): 181.676,
-    }
+    # specificRules = {
+    #     ('2008-08-07', 'COMPNFB', '2008Q3'): 181.676,
+    # }
 
     # parse arguments
     vintageDate = pd.to_datetime(vintageDate)
@@ -75,7 +75,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
     if len(variables['observed']) > 0:
 
-        setRaw = {fileAlfred.stem for fileAlfred in pathAlfred.glob('*.*')}
+        setRaw = set(file.stem for file in pathAlfred.glob('*.*')).union(set(file.stem for file in pathOthers.glob('*.*')))
 
         for _, row in infoObs.iterrows():
             if row['id'] in variables['observed']:
@@ -98,10 +98,10 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
         # return a tuple: (df, actualVintageDate), or (None, None)
 
-        if source in {'alfred', 'rtdsm'}:
+        if source in {'alfred/others', 'rtdsm'}:
 
             # convert index to datetime format
-            if source == 'alfred':
+            if source == 'alfred/others':
                 df.index = pd.to_datetime(df.index)
             else:
                 if 'Q' in df.index[0]:
@@ -121,7 +121,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
             # select vintage date
             vintageCol = ''
 
-            if source == 'alfred':
+            if source == 'alfred/others':
 
                 # for data in daily frequency, choose the only vintage
                 if infoRaw[infoRaw['id']==var]['frequency_short'].values[0] == 'D':
@@ -194,15 +194,19 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
             toMerge = False
 
-            # find data in raw/alfred
-            for fileAlfred in set(pathAlfred.glob('*.*')):
+            # find data in raw/alfred or raw/others
+            for file in set(pathAlfred.glob('*.*')).union(set(pathOthers.glob('*.*'))):
 
-                if fileAlfred.stem == variable:
+                if file.stem == variable:
 
                     # retreive desired data
+                    try:
+                        dfTemp = pd.read_csv(file, index_col=0)
+                    except:
+                        dfTemp = pd.read_excel(file, index_col=0)
                     dfToMerge, actualVintageDateAlfred = desired_data(
-                        source='alfred', var=variable, 
-                        df=pd.read_csv(fileAlfred, index_col=0), 
+                        source='alfred/others', var=variable, 
+                        df=dfTemp, 
                         vintage=vintageDate
                     )
 
@@ -215,8 +219,8 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                         toMerge = True
 
                         # fill data under specific rules
-                        if (vintageDate.strftime('%Y-%m-%d'), variable, quarterEnd.upper()) in specificRules.keys():
-                            dfToMerge.iloc[-1] = specificRules[(vintageDate.strftime('%Y-%m-%d'), variable, quarterEnd.upper())]
+                        # if (vintageDate.strftime('%Y-%m-%d'), variable, quarterEnd.upper()) in specificRules.keys():
+                        #     dfToMerge.iloc[-1] = specificRules[(vintageDate.strftime('%Y-%m-%d'), variable, quarterEnd.upper())]
 
                         # if values other than last or second to last are missing
                         if variable in infoFillHistory['alfred'].values and np.sum(np.isnan(dfToMerge.iloc[:-2].values)) > 0:
@@ -271,7 +275,14 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                                 if np.sum(np.sum(~np.isnan(row))) == 0:
                                     print(f'SPF value of {variable} not filled: no SPF value for the last quarter.')
                                 else:
-                                    diff = np.abs(row[variableNowcast+'1'].values[0]/dfToMerge.iloc[-2,0] - 1)
+                                    # for most variables, one just needs to find the corresponding value in SPF
+                                    # but for CPIAUCSL, the corresponding CPI is annualized growth in %, needs to be changed to non-annualized level
+                                    if variable != 'CPIAUCSL':
+                                        diff = np.abs(row[variableNowcast+'1'].values[0]/dfToMerge.iloc[-2,0] - 1)
+                                    else:
+                                        impliedCPILevel = (row[variableNowcast+'1'].values[0]/400 + 1)*dfToMerge.iloc[-3,0]
+                                        diff = np.abs(impliedCPILevel/dfToMerge.iloc[-2,0] - 1)
+                                    
                                     if diff <= diffBound:
                                         dfToMergeSpf.iloc[-1,0] = row[variableNowcast+'2'].values[0]
                                     else:
@@ -311,11 +322,11 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
             if obs == 'gdp_rgd_obs':
                 # ΔLN(GDPC1)*100
-                df.loc[:, obs] = np.log(df[d['GDPC1']].values/df[d['GDPC1']].shift().values)*100
+                df.loc[:, obs] = np.log(df[d['GDPC1']]/df[d['GDPC1']].shift())*100
 
             elif obs == 'gdpdef_obs':
                 # ΔLN(GDPCTPI)*100
-                df.loc[:, obs] = np.log(df[d['GDPCTPI']].values/df[d['GDPCTPI']].shift().values)*100
+                df.loc[:, obs] = np.log(df[d['GDPCTPI']]/df[d['GDPCTPI']].shift())*100
 
             elif obs == 'ffr_obs':
                 # DFF/4
@@ -323,15 +334,15 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
             elif obs == 'ifi_rgd_obs':
                 # ΔLN(FPI/GDPCTPI)*100
-                df.loc[:, obs] = np.log((df[d['FPI']].values/df[d['GDPCTPI']].values)/(df[d['FPI']].shift().values/df[d['GDPCTPI']].shift().values))*100
+                df.loc[:, obs] = np.log((df[d['FPI']]/df[d['GDPCTPI']])/(df[d['FPI']].shift()/df[d['GDPCTPI']].shift()))*100
 
             elif obs == 'c_rgd_obs':
                 # ΔLN(PCE/GDPCTPI)*100
-                df.loc[:, obs] = np.log((df[d['PCE']].values/df[d['GDPCTPI']].values)/(df[d['PCE']].shift().values/df[d['GDPCTPI']].shift().values))*100
+                df.loc[:, obs] = np.log((df[d['PCE']]/df[d['GDPCTPI']])/(df[d['PCE']].shift()/df[d['GDPCTPI']].shift()))*100
 
             elif obs == 'wage_rgd_obs':
                 # ΔLN(COMPNFB/GDPCTPI)*100
-                df.loc[:, obs] = np.log((df[d['COMPNFB']].values/df[d['GDPCTPI']].values)/(df[d['COMPNFB']].shift().values/df[d['GDPCTPI']].shift().values))*100
+                df.loc[:, obs] = np.log((df[d['COMPNFB']]/df[d['GDPCTPI']])/(df[d['COMPNFB']].shift()/df[d['GDPCTPI']].shift()))*100
 
             elif obs == 'baag10_obs':
                 # (DBAA-DGS10)/4
@@ -345,6 +356,22 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 # Demeaned: LN(PRS85006023*(CE16OV/118753)/(CNP16OV/193024.333333333))*100
                 df.loc[:, obs] = np.log(df[d['PRS85006023']]*(df[d['CE16OV']]/118753)/(df[d['CNP16OV']]/193024.333333333))*100
                 df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs].mean()
+
+            elif obs == 'blt_obs':
+                # BLT
+                df.loc[:, obs] = df[d['BLT']]
+
+            elif obs == 'unr_obs':
+                # UNRATE
+                df.loc[:, obs] = df[d['UNRATE']]
+
+            elif obs == 'gdpl_rgd_obs':
+                # LN(GDPC1)*100
+                df.loc[:, obs] = np.log(df[d['GDPC1']])*100
+
+            elif obs == 'cpi_obs':
+                # LN(CPIAUCSL)*100
+                df.loc[:, obs] = np.log(df[d['CPIAUCSL']])*100
 
             else:
                 print(f'{obs} is not exported as an osbervable.')
@@ -410,9 +437,6 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                     if np.isnan(dfS4.iloc[-1, index]) and ~np.isnan(dfS2.iloc[-1, index]):
                         dfS4.iloc[-1, index] = dfS2.iloc[-1, index]
 
-            if 1==1:
-                pass
-
             # write to Excel
             if writeS4:
                 dfS1.to_excel(writer, sheet_name='s1')
@@ -446,11 +470,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
 if __name__ == '__main__':
     main(
-
-        vintageDate='2008-08-07', quarterStart=str('1980Q1'), quarterEnd=str('2008Q3'),
+        vintageDate='2008-08-07', quarterStart=str('1983Q3'), quarterEnd=str('2008Q3'),
         observed=[
-            'gdp_rgd_obs', 'gdpdef_obs', 'ffr_obs', 'ifi_rgd_obs', 'c_rgd_obs', 
-            'wage_rgd_obs', 'baag10_obs', 'hours_dngs15_obs', 'hours_sw07_obs',
+            'cpi_obs', 'ffr_obs', 'blt_obs', 'unr_obs', 'gdpl_rgd_obs', 
             ]
 
         )
