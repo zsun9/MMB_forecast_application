@@ -48,7 +48,7 @@
 #### Collect and transform data
 
 - Create a spreadsheet named *'data_comparison_ModelName.xlsx'* to compare the data from the paper with the data you construct
-- It is recommenable to use the observables already included in our database rather than constructing a new observable, given that the new one will have the same definition as the old one.
+- It is highly recommended to use the observables already included in our database rather than constructing a new one, given that the new one will have the same (or very similar) definition as the old one.
 - For observables that are not included in our database yet: Download the corresponding raw variables, record the basic information of the raw variables and observables, and update the Python code to include the data transformation process
 
 #### Estimation and forecast generation test
