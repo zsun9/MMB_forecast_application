@@ -8,7 +8,7 @@
 
 - Raw variables
 
-  Keep the original names of the raw variables unchanged.
+  If possible, keep the original names of the raw variables unchanged. Always use capital letters to define raw variables
   
 - Observables
 
