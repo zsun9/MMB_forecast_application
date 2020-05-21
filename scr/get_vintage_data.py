@@ -1,4 +1,4 @@
-def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observed = [], showRawTransform=False, pathExcel = None):
+def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observed = [], showRawTransform=False, pathExcel = None, onlyS3 = False):
 
     '''
     Generate vintage data
@@ -11,7 +11,10 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
     4. raw (list, default=[]): raw variables to be generated, must appear in 'raw_variable_description'
     5. observed (list, default=[]): observed variables to be generated, must appear in 'observed_variable_description'
-    6. showRawTransform (boolean, default=False): show raw series that are used to construct observables
+    6. showRawTransform (boolean, default=False): if True, show raw series that are used to construct observables
+
+    7. pathExcel (string, default=None): file path to store the data, if None, save to 'data' file
+    8. onlyS3 (boolean, default=False): if True, only generate data under the third scenario
     '''
 
     import pathlib, os
@@ -20,6 +23,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     import datetime as datetime
 
     diffBound = 0.01 # max allowed difference (in %) between series with missing values and series to fill missing values
+    specificRules = {
+        # ('2008-08-07', 'COMPNFB', '2008Q3'): 181.676,
+    }
 
     # parse arguments
     vintageDate = pd.to_datetime(vintageDate)
@@ -45,19 +51,24 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     variables = {'raw': set(raw), 'transform': set([]), 'observed': set(observed), }
 
     # set data locations
+    print(os.getcwd())
     pathData = pathlib.Path('../data')
     pathAlfred = pathlib.Path( pathData / 'raw' / 'alfred')
     pathRtdsm = pathlib.Path( pathData / 'raw' / 'rtdsm')
     pathSpf = pathlib.Path( pathData / 'raw' / 'spf')
     pathOthers = pathlib.Path( pathData / 'raw' / 'others')
     assert pathData.exists() and pathAlfred.exists() and pathRtdsm.exists() and pathSpf.exists() and pathOthers.exists()
-    os.chdir(pathData)
+    
 
     # load data information
+    os.chdir(pathData)
     infoObs = pd.read_excel('observed_variable_description.xlsx', encoding='utf-8')
     infoRaw = pd.read_csv('raw_variable_description.csv', encoding='utf-8')
     infoFillNowcast = pd.read_excel('fill_nowcast.xlsx', encoding='utf-8')
     infoFillHistory = pd.read_excel('fill_history.xlsx', encoding='utf-8')
+    infoSpf = pd.read_csv('spf_dates.csv', encoding='utf-8', index_col=0)
+
+    infoSpf['deadlines'] = pd.to_datetime(infoSpf['deadlines'])
 
     # find raw variables that construct observed variables and store their names in 'transform'
     dictRawTransform = dict()
@@ -175,7 +186,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     # generate data for raw variables
     def gen_raw_variables(variablesInput):
 
-        dfOutput, dfOutputSPF = pd.DataFrame({}), pd.DataFrame({})
+        dfOutput, dfOutputSpf = pd.DataFrame({}), pd.DataFrame({})
 
         index = -1
 
@@ -197,11 +208,15 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
                     # proceed if dfToMerge is not None
                     if dfToMerge is None:
-                        print(f'\nFor raw variable {variable}, cannot find value between {quarterStart} and {quarterEnd} at vintage date {vintageDate}.\n')
+                        print(f'For raw variable {variable}, cannot find value between {quarterStart} and {quarterEnd} at vintage date {vintageDate}.')
                     else:
-                        # print(f"\nRaw variable {variable} retreived, actual vintage date is {actualVintageDateAlfred.strftime('%Y-%m-%d')}\n")
+                        # print(f"Raw variable {variable} retreived, actual vintage date is {actualVintageDateAlfred.strftime('%Y-%m-%d')}")
                         index += 1
                         toMerge = True
+
+                        # fill data under specific rules
+                        if (vintageDate.strftime('%Y-%m-%d'), variable, quarterEnd.upper()) in specificRules.keys():
+                            dfToMerge.iloc[-1] = specificRules[(vintageDate.strftime('%Y-%m-%d'), variable, quarterEnd.upper())]
 
                         # if values other than last or second to last are missing
                         if variable in infoFillHistory['alfred'].values and np.sum(np.isnan(dfToMerge.iloc[:-2].values)) > 0:
@@ -224,7 +239,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                             )
 
                             if dfToFill is None:
-                                print(f'\nMissing values of {variable} not filled: No corresponding data.\n')
+                                print(f'Missing values of {variable} not filled: No corresponding data.')
                             else:
                                 dfNotFilled = dfToMerge.copy()
                                 diff = np.max(np.abs(dfToFill.iloc[:-1,0]/dfToMerge.iloc[:-1,0]-1)) # don't compare the last entry
@@ -235,50 +250,51 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                                                 dfToMerge.iloc[index, 0] = dfToFill.iloc[index, 0]
                                             except:
                                                 pass
-                                    print(f'\nMissing values of {variable} filled by using {fillVar} from {fillSource}.\n')
+                                    print(f'Missing values of {variable} filled by using {fillVar} from {fillSource}.')
                                 else:
                                     dfToMerge = pd.merge(dfToMerge, dfToFill, how='outer', left_index=True, right_index=True, sort=True)
                                     dfToMerge.to_csv(f'diff_{variable}_{fillVar}.csv')
-                                    print(f'\nMissing values of {variable} not filled: Diff between series to be filled and series to fill > {diffBound:.2%}, will print two series.\n')
+                                    print(f'Missing values of {variable} not filled: Diff between series to be filled and series to fill > {diffBound:.2%}, will print two series.')
 
-                        # if variable has SPF nowcasts and its last and/or second to last values are missing
+                        # create a df to store SPF data
+                        dfToMergeSpf = dfToMerge.copy()
+                        dfToMergeSpf.iloc[-1] = float('nan')
                         if variable in infoFillNowcast['alfred'].values:
-
-                            # if last value already exists, then only fill nowcast if quarter(vintageDate) = obsEnd
-                            if np.sum(np.isnan(dfToMerge.iloc[-1].values)) == 0:
-                                if vintageDate.to_period('Q').end_time == obsEnd:
-                                    # fill with current quarter SPF (if exists)
-                                    pass
                             
-                            # if last values does not exists, then does not matter whether quarter(vintageDate) is obsEnd or not
-                            else:
-
-                                # if second to last value does not exist
-                                if np.sum(np.isnan(dfToMerge.iloc[-1].values)) == 0:
-                                    # fill with last quarter SPF (nowcast and 1 step ahead forecast)
-                                    pass
+                            # **for now, only consider SPF values when (1) vintageDate at SPF deadline (2) quarter vintageDate = quarter obsEnd
+                            if np.sum(infoSpf['deadlines'] == vintageDate) == 1 and obsEnd.to_period('Q') == vintageDate.to_period('Q'):
                                 
-                                # if only last value does not exists
+                                variableNowcast = infoFillNowcast[infoFillNowcast['alfred']==variable]['fillVar'].values[0]
+                                dataSpf = pd.read_excel(pathSpf / 'meanLevel.xlsx', sheet_name=variableNowcast, encoding='utf-8')
+
+                                row = dataSpf[dataSpf.apply(lambda x: x['YEAR'] == vintageDate.year and x['QUARTER'] == vintageDate.quarter, axis=1)]
+                                if np.sum(np.sum(~np.isnan(row))) == 0:
+                                    print(f'SPF value of {variable} not filled: no SPF value for the last quarter.')
                                 else:
-                                    # check whether vintage date >= or < SPF release date on obsEnd quarter
-
-                                    # if vintage date < SPF release date, fill with last quarter SPF (1 step ahead forecast)
-
-                                    # if vintage date >= SPF release date, fill with current quarter SPF (nowcast)
-                                    pass
+                                    diff = np.abs(row[variableNowcast+'1'].values[0]/dfToMerge.iloc[-2,0] - 1)
+                                    if diff <= diffBound:
+                                        dfToMergeSpf.iloc[-1,0] = row[variableNowcast+'2'].values[0]
+                                    else:
+                                        print(f'SPF values of {variable} not filled: Diff between second to last quarter actual value in ALFRED and SPF > {diffBound:.2%}')
+                                        print(f"Variable: {variable}, Second to last quarter: {str(dfToMerge.index[-2])}, ALFRED value: {dfToMerge.iloc[-2,0]}, SPF value: {row[variableNowcast+'1'].values[0]}")
+                            
+                            else:
+                                print(f'SPF value of {variable} not filled: vintageDate is not a SPF deadline.')
 
                     break
 
             if toMerge == True:
                 if index == 0:
                     dfOutput = dfToMerge.copy()
+                    dfOutputSpf = dfToMergeSpf.copy()
                 else:
                     dfOutput = pd.merge(dfOutput, dfToMerge, how='outer', left_index=True, right_index=True, sort=True)
+                    dfOutputSpf = pd.merge(dfOutputSpf, dfToMergeSpf, how='outer', left_index=True, right_index=True, sort=True)
         
-        return dfOutput, dfOutputSPF
+        return dfOutput, dfOutputSpf
 
-    dfRaw, _ = gen_raw_variables(variables['raw'])
-    dfTransform, _ = gen_raw_variables(variables['transform'])
+    dfRaw, dfRawSpf = gen_raw_variables(variables['raw'])
+    dfTransform, dfTransformSpf = gen_raw_variables(variables['transform'])
 
     # correspondence: variable name : column name (e.g., 'GDPC1':'GDPC1_20010101')
     dictVC = dict()
@@ -288,55 +304,70 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
         else:
             dictVC[column] = column
 
-    # generate observed variables
-    dfT = dfTransform.copy()
-    for obs in variables['observed']:
+    # generate observed variables: define function
+    def construct_observables(df, d):
 
-        if obs == 'gdp_rgd_obs':
-            # ΔLN(GDPC1)*100
-            dfT.loc[:, obs] = np.log(dfT[dictVC['GDPC1']].values/dfT[dictVC['GDPC1']].shift().values)*100
+        for obs in variables['observed']:
 
-        elif obs == 'gdpdef_obs':
-            # ΔLN(GDPCTPI)*100
-            dfT.loc[:, obs] = np.log(dfT[dictVC['GDPCTPI']].values/dfT[dictVC['GDPCTPI']].shift().values)*100
+            if obs == 'gdp_rgd_obs':
+                # ΔLN(GDPC1)*100
+                df.loc[:, obs] = np.log(df[d['GDPC1']].values/df[d['GDPC1']].shift().values)*100
 
-        elif obs == 'ffr_obs':
-            # DFF/4
-            dfT.loc[:, obs] = dfT[dictVC['DFF']]/4
+            elif obs == 'gdpdef_obs':
+                # ΔLN(GDPCTPI)*100
+                df.loc[:, obs] = np.log(df[d['GDPCTPI']].values/df[d['GDPCTPI']].shift().values)*100
 
-        elif obs == 'ifi_rgd_obs':
-            # ΔLN(FPI/GDPCTPI)*100
-            dfT.loc[:, obs] = np.log((dfT[dictVC['FPI']].values/dfT[dictVC['GDPCTPI']].values)/(dfT[dictVC['FPI']].shift().values/dfT[dictVC['GDPCTPI']].shift().values))*100
+            elif obs == 'ffr_obs':
+                # DFF/4
+                df.loc[:, obs] = df[d['DFF']]/4
 
-        elif obs == 'c_rgd_obs':
-            # ΔLN(PCE/GDPCTPI)*100
-            dfT.loc[:, obs] = np.log((dfT[dictVC['PCE']].values/dfT[dictVC['GDPCTPI']].values)/(dfT[dictVC['PCE']].shift().values/dfT[dictVC['GDPCTPI']].shift().values))*100
+            elif obs == 'ifi_rgd_obs':
+                # ΔLN(FPI/GDPCTPI)*100
+                df.loc[:, obs] = np.log((df[d['FPI']].values/df[d['GDPCTPI']].values)/(df[d['FPI']].shift().values/df[d['GDPCTPI']].shift().values))*100
 
-        elif obs == 'wage_rgd_obs':
-            # ΔLN(COMPNFB/GDPCTPI)*100
-            dfT.loc[:, obs] = np.log((dfT[dictVC['COMPNFB']].values/dfT[dictVC['GDPCTPI']].values)/(dfT[dictVC['COMPNFB']].shift().values/dfT[dictVC['GDPCTPI']].shift().values))*100
+            elif obs == 'c_rgd_obs':
+                # ΔLN(PCE/GDPCTPI)*100
+                df.loc[:, obs] = np.log((df[d['PCE']].values/df[d['GDPCTPI']].values)/(df[d['PCE']].shift().values/df[d['GDPCTPI']].shift().values))*100
 
-        elif obs == 'baag10_obs':
-            # (DBAA-DGS10)/4
-            dfT.loc[:, obs] = (dfT[dictVC['DBAA']] - dfT[dictVC['DGS10']])/4
+            elif obs == 'wage_rgd_obs':
+                # ΔLN(COMPNFB/GDPCTPI)*100
+                df.loc[:, obs] = np.log((df[d['COMPNFB']].values/df[d['GDPCTPI']].values)/(df[d['COMPNFB']].shift().values/df[d['GDPCTPI']].shift().values))*100
 
-        elif obs == 'hours_dngs15_obs':
-            # LN(AWHNONAG*CE16OV/100/(CNP16OV/3))*100
-            dfT.loc[:, obs] = np.log(dfT[dictVC['AWHNONAG']]*dfT[dictVC['CE16OV']]/100/(dfT[dictVC['CNP16OV']]/3))*100
+            elif obs == 'baag10_obs':
+                # (DBAA-DGS10)/4
+                df.loc[:, obs] = (df[d['DBAA']] - df[d['DGS10']])/4
 
-        elif obs == 'hours_sw07_obs':
-            # Demeaned: LN(PRS85006023*(CE16OV/118753)/(CNP16OV/193024.333333333))*100
-            dfT.loc[:, obs] = np.log(dfT[dictVC['PRS85006023']]*(dfT[dictVC['CE16OV']]/118753)/(dfT[dictVC['CNP16OV']]/193024.333333333))*100
-            dfT.loc[:, obs] = dfT.loc[:, obs] - dfT.loc[:, obs].mean()
+            elif obs == 'hours_dngs15_obs':
+                # LN(AWHNONAG*CE16OV/100/(CNP16OV/3))*100
+                df.loc[:, obs] = np.log(df[d['AWHNONAG']]*df[d['CE16OV']]/100/(df[d['CNP16OV']]/3))*100
 
-        else:
-            print(f'\n{obs} is not exported as an osbervable.\n')
+            elif obs == 'hours_sw07_obs':
+                # Demeaned: LN(PRS85006023*(CE16OV/118753)/(CNP16OV/193024.333333333))*100
+                df.loc[:, obs] = np.log(df[d['PRS85006023']]*(df[d['CE16OV']]/118753)/(df[d['CNP16OV']]/193024.333333333))*100
+                df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs].mean()
+
+            else:
+                print(f'{obs} is not exported as an osbervable.')
+
+        return df
     
-    dfComplete = pd.merge(dfRaw, dfT[list(variables['observed'])], how='outer', left_index=True, right_index=True, sort=True)
+    # generate observed variables: construct obs
+    dfTransform = construct_observables(dfTransform, dictVC)
+    dfTransformSpf = construct_observables(dfTransformSpf, dictVC)
+
+    dfComplete = pd.merge(dfRaw, dfTransform[list(variables['observed'])], how='outer', left_index=True, right_index=True, sort=True)
+    dfCompleteSpf = pd.merge(dfRawSpf, dfTransformSpf[list(variables['observed'])], how='outer', left_index=True, right_index=True, sort=True)
+
+    if 1==1:
+        pass
 
     # remove the first quarter, because it was only used for calculating growth
     if str(dfComplete.index[0]) == quarterStart:
         dfComplete = dfComplete.iloc[1:]
+        dfCompleteSpf = dfCompleteSpf.iloc[1:]
+
+    dfComplete.index = [str(index) for index in dfComplete.index]
+    dfCompleteSpf.index = [str(index) for index in dfCompleteSpf.index]
 
     # if there are missing values in the last quarter and vintage date is no later than 120 days after the start of last quarter:
     # then create data for four scenarios
@@ -345,19 +376,81 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
         pathExcelFile = pathExcel / pathExcelFile
     else:
         pathExcelFile = pathData / pathExcelFile
+
     with pd.ExcelWriter(pathExcelFile) as writer:
-        if np.sum(np.isnan(dfComplete.iloc[-1,:])) > 0 and vintageDate - dfComplete.index[-1].start_time < pd.Timedelta('120 days'):
-            dfComplete.index = [str(index) for index in dfComplete.index]
-            dfComplete.iloc[:-1,:].to_excel(writer, sheet_name='s1')
-            dfComplete.to_excel(writer, sheet_name='s3')
-            print('Generated data with different scenarios.')
-        else:
-            dfComplete.index = [str(index) for index in dfComplete.index]
+
+        # **for now, only consider scenarios when quarter(vintageDate) == obsEnd
+        if obsEnd.to_period('Q') != vintageDate.to_period('Q') or onlyS3 == True:
+
             dfComplete.to_excel(writer)
-            print('Generated data with the only scenario.')
+            print('Generated data with one scenario.')
+
+        else:
+            assert np.sum(np.sum(dfComplete.iloc[:-1,:].fillna(-999) != dfCompleteSpf.iloc[:-1,:].fillna(-999))) == 0, '1 to n-1 rows of dfComplete and dfCompleteSpf not the same!'
+            writeS2, writeS3, writeS4 = False, False, False
+
+            # as long as there are some observables have last quarter value, we should consider S3
+            if np.sum(~np.isnan(dfComplete.iloc[-1])):
+                writeS3 = True
+                dfS3 = dfComplete
+                dfS1 = dfComplete.iloc[:-1,:]
+
+            # as long as there are some SPF nowcast included, we should consider S2
+            if np.sum(~np.isnan(dfCompleteSpf.iloc[-1])):
+                writeS2 = True
+                dfS2 = dfCompleteSpf
+                dfS1 = dfCompleteSpf.iloc[:-1,:]
+
+            # as long as both S2 and S3 exists, we should consider S4
+            if writeS2 and writeS3:
+                writeS4 = True
+                # dfS4 should be based on dfS3, only fill with SPF nowcast if value is missing
+                dfS4 = dfS3.copy()
+                for index, column in enumerate(dfS4.columns.values):
+                    if np.isnan(dfS4.iloc[-1, index]) and ~np.isnan(dfS2.iloc[-1, index]):
+                        dfS4.iloc[-1, index] = dfS2.iloc[-1, index]
+
+            if 1==1:
+                pass
+
+            # write to Excel
+            if writeS4:
+                dfS1.to_excel(writer, sheet_name='s1')
+                dfS2.to_excel(writer, sheet_name='s2')
+                dfS3.to_excel(writer, sheet_name='s3')
+                dfS4.to_excel(writer, sheet_name='s4')
+                print('Generated data with scenarios 1, 2, 3, and 4.')
+            elif writeS3:
+                dfS1.to_excel(writer, sheet_name='s1')
+                dfS3.to_excel(writer, sheet_name='s3')
+                print('Generated data with scenarios 1 and 3.')
+            elif writeS2:
+                dfS1.to_excel(writer, sheet_name='s1')
+                dfS2.to_excel(writer, sheet_name='s2')
+                print('Generated data with scenarios 1 and 2.')
+            else:
+                dfComplete.to_excel(writer)
+                print('Generated data with one scenario.')
+
+        # if np.sum(np.isnan(dfComplete.iloc[-1,:])) > 0 and vintageDate - dfComplete.index[-1].start_time < pd.Timedelta('120 days'):
+        #     dfComplete.index = [str(index) for index in dfComplete.index]
+        #     dfComplete.iloc[:-1,:].to_excel(writer, sheet_name='s1')
+        #     dfComplete.to_excel(writer, sheet_name='s3')
+        #     print('Generated data with different scenarios.')
+        # else:
+        #     dfComplete.index = [str(index) for index in dfComplete.index]
+        #     dfComplete.to_excel(writer)
+        #     print('Generated data with the only scenario.')
 
     return None
 
 if __name__ == '__main__':
-    main(vintageDate='2008-07-01', quarterStart='2000Q1', quarterEnd='2008Q3', raw=['GDPC1'], observed=['gdp_rgd_obs'])
-    pass
+    main(
+
+        vintageDate='2008-08-07', quarterStart=str('1980Q1'), quarterEnd=str('2008Q3'),
+        observed=[
+            'gdp_rgd_obs', 'gdpdef_obs', 'ffr_obs', 'ifi_rgd_obs', 'c_rgd_obs', 
+            'wage_rgd_obs', 'baag10_obs', 'hours_dngs15_obs', 'hours_sw07_obs',
+            ]
+
+        )
