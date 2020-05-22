@@ -373,6 +373,30 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 # LN(CPIAUCSL)*100
                 df.loc[:, obs] = np.log(df[d['CPIAUCSL']])*100
 
+            elif obs == 'cnds_nom_obs':
+                # ΔLN(PCEND+PCES)*100
+                df.loc[:, obs] = np.log((df[d['PCEND']]+df[d['PCES']])/(df[d['PCEND']].shift()+df[d['PCES']].shift()))*100
+
+            elif obs == 'cd_nom_obs':
+                # ΔLN(PCEDG)*100
+                df.loc[:, obs] = np.log(df[d['PCEDG']]/df[d['PCEDG']].shift())*100
+
+            elif obs == 'ir_nom_obs':
+                # ΔLN(PRFI)*100
+                df.loc[:, obs] = np.log(df[d['PRFI']]/df[d['PRFI']].shift())*100
+
+            elif obs == 'inr_nom_obs':
+                # ΔLN(PNFI)*100
+                df.loc[:, obs] = np.log(df[d['PNFI']]/df[d['PNFI']].shift())*100
+
+            elif obs == 'cnds_def_obs':
+                # ΔLN((PCEND+PCES)/(PCENDC96+PCESC96))*100
+                df.loc[:, obs] = np.log(((df[d['PCEND']]+df[d['PCES']])/(df[d['PCENDC96']]+df[d['PCESC96']]))/((df[d['PCEND']].shift()+df[d['PCES']].shift())/(df[d['PCENDC96']].shift()+df[d['PCESC96']].shift())))*100
+
+            elif obs == 'cd_def_obs':
+                # ΔLN(DDURRD3Q086SBEA)*100
+                df.loc[:, obs] = np.log((df[d['PCEDG']]/df[d['PCEDGC96']])/(df[d['PCEDG']].shift()/df[d['PCEDGC96']].shift()))*100
+
             else:
                 print(f'{obs} is not exported as an osbervable.')
 
@@ -470,9 +494,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
 if __name__ == '__main__':
     main(
-        vintageDate='2008-08-07', quarterStart=str('1983Q3'), quarterEnd=str('2008Q3'),
+        vintageDate='2008-08-07', quarterStart=str('1964Q1'), quarterEnd=str('2008Q3'),
         observed=[
-            'cpi_obs', 'ffr_obs', 'blt_obs', 'unr_obs', 'gdpl_rgd_obs', 
+            'gdp_rgd_obs', 'gdpdef_obs', 'ffr_obs', 'wage_rgd_obs',  'cnds_nom_obs', 'cd_nom_obs', 'ir_nom_obs', 'inr_nom_obs', 'cnds_def_obs', 'cd_def_obs',
             ]
 
         )
