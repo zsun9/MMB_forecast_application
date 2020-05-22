@@ -355,7 +355,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
             elif obs == 'hours_sw07_obs':
                 # Demeaned: LN(PRS85006023*(CE16OV/118753)/(CNP16OV/193024.333333333))*100
                 df.loc[:, obs] = np.log(df[d['PRS85006023']]*(df[d['CE16OV']]/118753)/(df[d['CNP16OV']]/193024.333333333))*100
-                df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs].mean()
+                df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs][:-1].mean()
 
             elif obs == 'blt_obs':
                 # BLT
@@ -397,6 +397,11 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 # ΔLN(DDURRD3Q086SBEA)*100
                 df.loc[:, obs] = np.log((df[d['PCEDG']]/df[d['PCEDGC96']])/(df[d['PCEDG']].shift()/df[d['PCEDGC96']].shift()))*100
 
+            elif obs == 'hours_frbedo08_obs':
+                # Divided by mean: AWHNONAG*CE16OV/CNP16OV
+                df.loc[:, obs] = df[d['AWHNONAG']]*df[d['CE16OV']]/df[d['CNP16OV']]
+                df.loc[:, obs] = df.loc[:, obs] / df.loc[:, obs][:-1].mean()
+
             else:
                 print(f'{obs} is not exported as an osbervable.')
 
@@ -408,9 +413,6 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
     dfComplete = pd.merge(dfRaw, dfTransform[list(variables['observed'])], how='outer', left_index=True, right_index=True, sort=True)
     dfCompleteSpf = pd.merge(dfRawSpf, dfTransformSpf[list(variables['observed'])], how='outer', left_index=True, right_index=True, sort=True)
-
-    if 1==1:
-        pass
 
     # remove the first quarter, because it was only used for calculating growth
     if str(dfComplete.index[0]) == quarterStart:
@@ -494,9 +496,14 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
 if __name__ == '__main__':
     main(
-        vintageDate='2008-08-07', quarterStart=str('1964Q1'), quarterEnd=str('2008Q3'),
-        observed=[
-            'gdp_rgd_obs', 'gdpdef_obs', 'ffr_obs', 'wage_rgd_obs',  'cnds_nom_obs', 'cd_nom_obs', 'ir_nom_obs', 'inr_nom_obs', 'cnds_def_obs', 'cd_def_obs',
-            ]
+        vintageDate='2020-05-12', quarterStart=str('1981Q3'), quarterEnd=str('2020Q2'),
+        raw=[
+            'GDPCTPI', 'PRFI', 'PNFI',
+        ]
+        # observed=[
+            # 'gdp_rgd_obs', 'gdpdef_obs', 'ffr_obs', 'wage_rgd_obs',  'cnds_nom_obs', 'cd_nom_obs', 
+            # 'ir_nom_obs', 'inr_nom_obs', 'cnds_def_obs', 'cd_def_obs', 
+            #'hours_sw07_obs', 'hours_frbedo08_obs',
+        #     ]
 
         )
