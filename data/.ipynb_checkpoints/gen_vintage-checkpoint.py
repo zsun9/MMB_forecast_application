@@ -318,18 +318,25 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
             dfT.loc[:, obs] = np.log((dfT[dictVC['PCND']].values+dfT[dictVC['PCESV']].values)/(dfT[dictVC['PCND']].shift().values+dfT[dictVC['PCESV']].shift().values))*100
 
         elif obs == 'rc_obs':
-            # ΔLN(PCECC96/CNP16OV) - first value of ΔLN(PCECC96/CNP16OV) 
-            dfT.loc[:, obs] = np.log(dfT[dictVC['PCEC96']].values/dfT[dictVC['CNP16OV']].values) - np.log(dfT[dictVC['PCECC96']].values/dfT[dictVC['CNP16OV']].values)[0]
+            # LN(PCEC96/CNP16OV) - first value of LN(PCEC96/CNP16OV) 
+            dfT.loc[:, obs] = np.log(dfT[dictVC['PCEC96']].values/dfT[dictVC['CNP16OV']].values) - np.log(dfT[dictVC['PCEC96']].values/dfT[dictVC['CNP16OV']].values)[0]
             
         elif obs == 'pi_dm_obs':
-           # ΔLN(pi_dm_obs) - mean ΔLN(CPIAUCSL)
+           # ΔLN(DTB3) - mean ΔLN(DTB3)
             dfT.loc[:, obs] = np.log(dfT[dictVC['DTB3']].values- np.log(dfT[dictVC['DTB3']]).shift().values - np.nanmean(np.log(dfT[dictVC['DTB3']].values- np.log(dfT[dictVC['DTB3']]).shift().values)
 
+                                                                                                         elif obs == 'rri_obs':
+            # LN(PRFIC1/CNP160V) - first value of LN(PRFIC1/CNP16OV) 
+            dfT.loc[:, obs] = np.log(dfT[dictVC['PRFIC1']].values/dfT[dictVC['CNP160V']].values) - np.log(dfT[dictVC['PRFIC1']].values/dfT[dictVC['CNP16OV']].values)[0]
+                                                                                                                         
+        elif obs == 'rbi_obs':
+            # LN(PNFIC1/CNP160V) - first value of LN(PNFIC1/CNP16OV) 
+            dfT.loc[:, obs] = np.log(dfT[dictVC['PNFIC1']].values/dfT[dictVC['CNP160V']].values) - np.log(dfT[dictVC['PNFIC1']].values/dfT[dictVC['CNP16OV']].values)[0]                                                                                                                                                                                                                                  
         elif obs == 'hwc_pd_obs':
             # LN((PAYEMS-USCONS)*AWHMAN/CNP16OV) - mean(LN((PAYEMS-USCONS)*AWHMAN/CNP16OV))
             dfT.loc[:, obs] = np.log((dfT[dictVC['PAYEMS']].values-dfT[dictVC['USCONS']].values)*dfT[dictVC['AWHMAN']].values/dfT[dictVC['CNP16OV']].values) - np.nanmean(np.log((dfT[dictVC['PAYEMS']].values - dfT[dictVC['USCONS']].values)*dfT[dictVC['AWHMAN']].values/dfT[dictVC['CNP16OV']].values))                                 
                                                                                                                          
-                                                                                                                                   elif obs == 'hwr_pd_obs':
+                                                                                   elif obs == 'hwr_pd_obs':
             # LN(USCONS*CES2000000007/CNP16OV) - mean(LN(USCONS*CES2000000007/CNP16OV))
             dfT.loc[:, obs] = np.log(dfT[dictVC['USCONS']].values*dfT[dictVC['CES2000000007']].values/dfT[dictVC['CNP16OV']].values) - np.nanmean(np.log(dfT[dictVC['USCONS']].values*dfT[dictVC['CES2000000007']].values/dfT[dictVC['CNP16OV']].values))                                                                                                                         
         elif obs == 'i_nom_obs':
@@ -340,7 +347,7 @@ def gen_vintage(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], 
             dfT.loc[:, obs] = np.log(dfT[dictVC['CES2000000008']].values- np.log(dfT[dictVC['CES2000000008']]).shift().values - np.nanmean(np.log(dfT[dictVC['CES2000000008']].values- np.log(dfT[dictVC['CES2000000008']]).shift().values)  
                                                                                                                          
           
-                                                                                                                                    elif obs == 'c_winf_obs':
+                                                                                 elif obs == 'c_winf_obs':
            # ΔLN(AHETPI) - mean（ ΔLN(AHETPI)）
             dfT.loc[:, obs] = np.log(dfT[dictVC['AHETPI']].values- np.log(dfT[dictVC['AHETPI']]).shift().values - np.nanmean(np.log(dfT[dictVC['AHETPI']].values- np.log(dfT[dictVC['AHETPI']]).shift().values)      
                                                                                                                                            
