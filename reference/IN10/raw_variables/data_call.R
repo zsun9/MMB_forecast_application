@@ -79,10 +79,10 @@ library("readxl")
 # xls files
 # PRFIC1.data <- as.data.frame(read_excel("PRFIC1_Self_create.xlsx", sheet = "data"))
 # PRFIC1.data$date <- as.Date(PRFIC1.data$date)
-tmp.vindates<- as.Date(fredr_series_vintagedates(series_id = "PNFIC1")[[1]])
+tmp.vindates<- as.Date(fredr_series_vintagedates(series_id = "PRFIC1")[[1]])
 closest_date <- clost_vin_search(tmp.vindates, ref.vin.date )
-PNFIC1.data <- as.data.frame(fredr_series_observations(series_id = "PNFIC1", frequency = "q", vintage_dates = closest_date))
-PNFIC1.data$date <- as.Date(PNFIC1.data$date)
+PRFIC1.data <- as.data.frame(fredr_series_observations(series_id = "PRFIC1", frequency = "q", vintage_dates = closest_date))
+PRFIC1.data$date <- as.Date(PRFIC1.data$date)
 
 # data series CNP16OV
 tmp.vindates<- as.Date(fredr_series_vintagedates(series_id = "CNP16OV")[[1]])
