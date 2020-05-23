@@ -98,10 +98,10 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
         # return a tuple: (df, actualVintageDate), or (None, None)
 
-        if source in {'alfred/others', 'rtdsm'}:
+        if source in {'alfred', 'others', 'rtdsm'}:
 
             # convert index to datetime format
-            if source == 'alfred/others':
+            if source in {'alfred', 'others'}:
                 df.index = pd.to_datetime(df.index)
             else:
                 if 'Q' in df.index[0]:
@@ -121,7 +121,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
             # select vintage date
             vintageCol = ''
 
-            if source == 'alfred/others':
+            if source in {'alfred', 'others'}:
 
                 # for data in daily frequency, choose the only vintage
                 if infoRaw[infoRaw['id']==var]['frequency_short'].values[0] == 'D':
@@ -205,7 +205,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                     except:
                         dfTemp = pd.read_excel(file, index_col=0)
                     dfToMerge, actualVintageDateAlfred = desired_data(
-                        source='alfred/others', var=variable, 
+                        source='alfred', var=variable, 
                         df=dfTemp, 
                         vintage=vintageDate
                     )
@@ -494,16 +494,15 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
     return None
 
+
 if __name__ == '__main__':
     main(
-        vintageDate='2020-05-12', quarterStart=str('1981Q3'), quarterEnd=str('2020Q2'),
-        raw=[
-            'GDPCTPI', 'PRFI', 'PNFI',
-        ]
-        # observed=[
-            # 'gdp_rgd_obs', 'gdpdef_obs', 'ffr_obs', 'wage_rgd_obs',  'cnds_nom_obs', 'cd_nom_obs', 
-            # 'ir_nom_obs', 'inr_nom_obs', 'cnds_def_obs', 'cd_def_obs', 
-            #'hours_sw07_obs', 'hours_frbedo08_obs',
-        #     ]
+        vintageDate='2008-11-10', quarterStart='1964Q1', quarterEnd='2008Q4',
+        # raw=[
+        #     'GDPCTPI', 'PRFI', 'PNFI',
+        # ]
+        observed=[
+            'gdp_rgd_obs',	'hours_dngs15_obs',	'ifi_rgd_obs',	'gdpdef_obs',	'baag10_obs',	'wage_rgd_obs',	'ffr_obs',	'c_rgd_obs',
+            ],
 
         )
