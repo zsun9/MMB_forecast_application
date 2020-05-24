@@ -51,14 +51,12 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     variables = {'raw': set(raw), 'transform': set([]), 'observed': set(observed), }
 
     # set data locations
-    print(os.getcwd())
     pathData = pathlib.Path('../data')
     pathAlfred = pathlib.Path( pathData / 'raw' / 'alfred')
     pathRtdsm = pathlib.Path( pathData / 'raw' / 'rtdsm')
     pathSpf = pathlib.Path( pathData / 'raw' / 'spf')
     pathOthers = pathlib.Path( pathData / 'raw' / 'others')
     assert pathData.exists() and pathAlfred.exists() and pathRtdsm.exists() and pathSpf.exists() and pathOthers.exists()
-    
 
     # load data information
     os.chdir(pathData)
@@ -82,7 +80,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
                 setRawTransform = set()
                 for rawVar in setRaw:
-                    if rawVar in row['construction']:
+                    if rawVar in row['construction'].replace('100', ' ').replace('*', ' ').replace('Δ', ' ').replace('LN', ' ').replace('(', ' ').replace(')', ' ').replace('/', ' ').replace('-', ' ').replace('+', ' ').replace('mean', ' ').split(' '):
 
                         setRawTransform.update({rawVar})
                         variables['transform'].update({rawVar})
@@ -414,6 +412,10 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     dfComplete = pd.merge(dfRaw, dfTransform[list(variables['observed'])], how='outer', left_index=True, right_index=True, sort=True)
     dfCompleteSpf = pd.merge(dfRawSpf, dfTransformSpf[list(variables['observed'])], how='outer', left_index=True, right_index=True, sort=True)
 
+    if dfComplete.shape == (0, 0):
+        print('No data is generated.')
+        return None
+
     # remove the first quarter, because it was only used for calculating growth
     if str(dfComplete.index[0]) == quarterStart:
         dfComplete = dfComplete.iloc[1:]
@@ -498,11 +500,11 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 if __name__ == '__main__':
     main(
         vintageDate='2008-11-10', quarterStart='1964Q1', quarterEnd='2008Q4',
-        # raw=[
-        #     'GDPCTPI', 'PRFI', 'PNFI',
-        # ]
+        raw=[
+            # 'GDPC1',
+        ],
         observed=[
-            'gdp_rgd_obs',	'hours_dngs15_obs',	'ifi_rgd_obs',	'gdpdef_obs',	'baag10_obs',	'wage_rgd_obs',	'ffr_obs',	'c_rgd_obs',
+            # 'gdp_rgd_obs',
             ],
 
         )
