@@ -10,7 +10,8 @@
 
         <script>
             'use strict';
-
+            
+            // build up form
             async function getDataInfo() {
                 const res = await fetch('results.json');
                 const data = await res.json();
@@ -40,21 +41,12 @@
                 addVintage.html(addItems('vintage', 'radio'));
                 addScenario.html(addItems('scenario', 'radio'));
 
-                return data;
+                return await data;
             }
 
-            getDataInfo();
+            const completeData = getDataInfo();
 
-            // $(document).ready(function () {
-            //     $('form').addEventListener('submit', 'console.log(1);');
-            // })
-
-            // async function getSelection() {
-            //     let selection = await $('form');
-            //     selection.addEventListener('submit', 'console.log(1);');
-            // }
-
-            getSelection();
+            // retreive selection
             $(document).ready(function () {
                 $('form').submit( function(event) {
                 event.preventDefault();
@@ -72,16 +64,83 @@
                         selectedModel.push(item.value);
                     }
                 }
-                console.log(selection);
                 $('#showSelection').html(`<p>Forecasts from ${selectedModel} on ${selectedVintage} in scenario ${selectedScenario} will be shown. </p>`);
+                plotChart(completeData);
                 })
             })
-            
-            // $('#selectForm').onsubmit = async function submitForm() {
-            //     this.preventDefault();
-            //     console.log(1);
-            // }
 
+            // plot chart
+            async function plotChart(completeData) {
+                console.log(completeData);
+                let data = await completeData[1];
+                console.log(data);
+                let data2 = await completeData[2];
+                let year = parseInt(data.vintage.substring(0,4));
+                let quarter = Math.floor(parseInt(data.vintage.substring(6,8)) / 4) + 1;
+                console.log(quarter);
+                let xlabels = new Array(data.forecast.gdp.length);
+                if (quarter == 1) {
+                    quarter = 4;
+                    year -= 1;
+                } else {
+                    quarter -= 1;
+                }
+                for (let i = 0; i < xlabels.length; i++) {
+                    xlabels[i] = year + 'Q' + quarter;
+                    if (quarter == 4) {
+                        quarter = 1;
+                        year += 1;
+                    } else {
+                        quarter += 1;
+                    }
+                    
+                }
+
+                let ctx = document.getElementById('forecastChart').getContext('2d');
+                let chart = new Chart(ctx, {
+                    type: 'line',
+
+                    data: {
+                        labels: xlabels.slice(0, 6),
+                        datasets: [
+                        {
+                            fill: false,
+                            label: data.model,
+                            backgroundColor: 'red',
+                            borderColor: 'red',
+                            data: data.forecast.gdp,
+                        },
+                        {
+                            fill: false,
+                            label: data2.model,
+                            backgroundColor: 'blue',
+                            borderColor: 'blue',
+                            data: data2.forecast.gdp,
+                        },
+                    ]
+                    },
+
+                    options: {
+                        tooltips: {
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+
+                                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += Math.round(tooltipItem.yLabel * 1000) / 1000;
+                                    return label;
+                                    
+                                }
+                            }
+                        }
+                    },
+
+                }
+                );
+            }
 
         </script>
 
@@ -111,6 +170,8 @@
 
         <div id='showSelection'>
         </div>
+
+        <canvas id='showChart'></canvas>
 
     </body>
 
