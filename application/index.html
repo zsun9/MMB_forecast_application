@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+
+    <head>
+        <meta charset='utf-8'>
+        <title></title>
+        <meta name='description' content=''>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+        <script>
+            'use strict';
+
+            async function getDataInfo() {
+                const res = await fetch('results.json');
+                const data = await res.json();
+
+                function addItems (selectType, buttonType) {
+
+                    let typeSet = new Set();
+
+                    for (let item of data['dsge']) {
+                        typeSet.add(item[selectType]);
+                    }
+
+                    let addString = '';
+
+                    for (let item of typeSet) {
+                        addString += `<input type='${buttonType}' id='select${item}' name='${selectType}' value='${item}'>\n<label for='select${item}'>${item}</label>\n`;
+                    }
+
+                    return addString;
+                }
+
+                let adddsgeModel = $('#selectModel');
+                let addVintage = $('#selectVintage');
+                let addScenario = $('#selectScenario');
+
+                adddsgeModel.html(addItems('model', 'checkbox'));
+                addVintage.html(addItems('vintage', 'radio'));
+                addScenario.html(addItems('scenario', 'radio'));
+
+                return data;
+            }
+
+            getDataInfo();
+
+            // $(document).ready(function () {
+            //     $('form').addEventListener('submit', 'console.log(1);');
+            // })
+
+            // async function getSelection() {
+            //     let selection = await $('form');
+            //     selection.addEventListener('submit', 'console.log(1);');
+            // }
+
+            getSelection();
+            $(document).ready(function () {
+                $('form').submit( function(event) {
+                event.preventDefault();
+                const selection = $(this).serializeArray();
+                $(this)[0].reset();
+                let selectedModel = [];
+                let selectedVintage = '';
+                let selectedScenario = '';
+                for (let item of selection) {
+                    if (item.name == 'vintage') {
+                        selectedVintage = item.value;
+                    } else if (item.name == 'scenario') {
+                        selectedScenario = item.value;
+                    } else {
+                        selectedModel.push(item.value);
+                    }
+                }
+                console.log(selection);
+                $('#showSelection').html(`<p>Forecasts from ${selectedModel} on ${selectedVintage} in scenario ${selectedScenario} will be shown. </p>`);
+                })
+            })
+            
+            // $('#selectForm').onsubmit = async function submitForm() {
+            //     this.preventDefault();
+            //     console.log(1);
+            // }
+
+
+        </script>
+
+
+
+    </head>
+
+    <body>
+        <form id='selectForm'>
+            <fieldset>
+                <legend>Select the model(s)</legend>
+                <ul id='selectModel'>
+                </ul>
+            </fieldset>
+            <fieldset>
+                <legend>Select the vintage date</legend>
+                <ul id='selectVintage'>
+                </ul>
+            </fieldset>
+            <fieldset>
+                <legend>Select scenarios</legend>
+                <ul id='selectScenario'>
+                </ul>
+            </fieldset>
+            <input type='submit'>
+        </form>
+
+        <div id='showSelection'>
+        </div>
+
+    </body>
+
+</html>

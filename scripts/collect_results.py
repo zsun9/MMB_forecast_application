@@ -2,7 +2,7 @@ import json, pathlib
 
 paths = {
     'estimations': pathlib.Path('../estimations'),
-    'data': pathlib.Path('../data/'),
+    'application': pathlib.Path('../application'),
     'spf': pathlib.Path('../data/raw/spf'),
 }
 for path in paths.values():
@@ -21,5 +21,5 @@ for file in paths['estimations'].rglob('*.json'):
     #     inst['forecast']['gdp'][i] = f'{value: .10f}'
     results['dsge'].append(inst)
 
-with open(paths['data'] / 'results.json', 'w') as file:
+with open(paths['application'] / 'results.json', 'w') as file:
     json.dump(results, file, indent=2, sort_keys=True)
