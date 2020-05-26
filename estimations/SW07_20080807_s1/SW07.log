@@ -1,0 +1,308 @@
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+WARNING: in the 'steady_state_model' block, variable 'ewma' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'epinfma' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'zcapf' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'rkf' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'kf' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'pkf' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'cf' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'invef' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'yf' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'labf' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'wf' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'rrf' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'mc' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'zcap' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'rk' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'k' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'pk' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'c' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'inve' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'y' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'lab' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'pinf' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'w' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'r' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'a' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'b' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'g' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'qs' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'ms' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'spinf' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'sw' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'kpf' is not assigned a value
+WARNING: in the 'steady_state_model' block, variable 'kp' is not assigned a value
+Found 40 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+ - order 2
+Processing outputs ...
+done
+Preprocessing completed.
+ model derivatives:
+ - order 1
+ - order 2
+Processing outputs ...
+done
+Preprocessing completed.
+
+[Warning: Some of the parameters have no value (ccs, cinvs, crdpi) when using
+initial_estimation_checks. If these parameters are not initialized in a steadystate file
+or a steady_state_model-block, Dynare may not be able to solve the model...] 
+Initial value of the log posterior (or likelihood): -674.9135
+
+==========================================================
+   Change in the posterior covariance matrix = 3.9999.
+   Change in the posterior mean = 1.0625.
+   Mode improvement = 259.0741
+   New value of jscale = 0.0051193
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.61863.
+   Change in the posterior mean = 1.0647.
+   Mode improvement = 51.9925
+   New value of jscale = 0.44517
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.47366.
+   Change in the posterior mean = 0.80576.
+   Mode improvement = 9.6204
+   New value of jscale = 0.30041
+==========================================================
+
+Optimal value of the scale parameter = 0.30041
+
+
+Final value of minus the log posterior (or likelihood):354.226456 
+
+MODE CHECK
+
+Fval obtained by the minimization routine (minus the posterior/likelihood)): 354.226456
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+        prior mean     mode    s.d. prior pstdev
+
+crhoa       0.500   0.9173  0.0219 beta  0.2000 
+crhob       0.500   0.8833  0.0396 beta  0.2000 
+crhog       0.500   0.9626  0.0171 beta  0.2000 
+crhoqs      0.500   0.6747  0.0715 beta  0.2000 
+crhoms      0.500   0.2253  0.0745 beta  0.2000 
+crhopinf    0.500   0.8212  0.0918 beta  0.2000 
+crhow       0.500   0.9367  0.0166 beta  0.2000 
+cmap        0.500   0.7423  0.1363 beta  0.2000 
+cmaw        0.500   0.7511  0.0831 beta  0.2000 
+csadjcost   4.000   5.6904  1.1036 norm  1.5000 
+csigma      1.500   0.8889  0.0975 norm  0.3750 
+chabb       0.700   0.5457  0.0476 beta  0.1000 
+cprobw      0.500   0.7072  0.0482 beta  0.1000 
+csigl       2.000   2.8261  0.4932 norm  0.7500 
+cprobp      0.500   0.9271  0.0150 beta  0.1000 
+cindw       0.500   0.3364  0.0909 beta  0.1500 
+cindp       0.500   0.1981  0.0744 beta  0.1500 
+czcap       0.500   0.5990  0.0935 beta  0.1500 
+cfc         1.250   1.4471  0.0626 norm  0.1250 
+crpi        1.500   1.6893  0.1768 norm  0.2500 
+crr         0.750   0.8527  0.0214 beta  0.1000 
+cry         0.125   0.1390  0.0353 norm  0.0500 
+crdy        0.125   0.1684  0.0272 norm  0.0500 
+constepinf   0.625   0.6082  0.0630 gamm  0.1000 
+constebeta   0.250   0.1177  0.0495 gamm  0.1000 
+constelab   0.000   1.1371  0.7399 norm  2.0000 
+ctrend      0.400   0.7481  0.0289 norm  0.1000 
+cgy         0.500   0.3478  0.1035 norm  0.2500 
+calfa       0.300   0.1687  0.0204 norm  0.0500 
+
+standard deviation of shocks
+        prior mean     mode    s.d. prior pstdev
+
+ea          0.100   0.3562  0.0278 invg  2.0000 
+eb          0.100   0.0737  0.0117 invg  2.0000 
+eg          0.100   0.3837  0.0299 invg  2.0000 
+eqs         0.100   0.3328  0.0536 invg  2.0000 
+em          0.100   0.1122  0.0109 invg  2.0000 
+epinf       0.100   0.1166  0.0153 invg  2.0000 
+ew          0.100   0.2325  0.0329 invg  2.0000 
+
+
+Log data density [Laplace approximation] is -437.206113.
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in SW07/metropolis\SW07_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 4 per block.
+Estimation::mcmc: Total number of generated files: 4.
+Estimation::mcmc: Total number of iterations: 1000000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 27.0746%
+Estimation::mcmc: Total number of MH draws per chain: 1000000.
+Estimation::mcmc: Total number of generated MH files: 4.
+Estimation::mcmc: I'll use mh-files 1 to 4.
+Estimation::mcmc: In MH-file number 1 I'll start at line 300001.
+Estimation::mcmc: Finally I keep 700000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter        Block 1
+SE_ea            263.986
+SE_eb            278.090
+SE_eg            187.982
+SE_eqs           264.144
+SE_em            244.433
+SE_epinf         600.540
+SE_ew            435.568
+crhoa            478.129
+crhob            434.375
+crhog            357.558
+crhoqs           273.369
+crhoms           327.202
+crhopinf         595.455
+crhow            491.879
+cmap             501.225
+cmaw             509.882
+csadjcost        246.453
+csigma           315.846
+chabb            352.750
+cprobw           564.281
+csigl            326.325
+cprobp           731.850
+cindw            463.771
+cindp            398.260
+czcap            329.957
+cfc              442.489
+crpi             463.037
+crr              366.632
+cry              585.551
+crdy             252.058
+constepinf       298.372
+constebeta       244.671
+constelab        491.381
+ctrend           597.078
+cgy              222.472
+calfa            297.011
+
+
+Geweke (1992) Convergence Tests, based on means of draws 300000 to 440000 vs 650000 to 1000000.
+p-values are for Chi2-test for equality of means.
+Parameter          Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_ea                   0.367            0.030            0.000            0.108            0.170            0.250
+SE_eb                   0.076            0.012            0.000            0.760            0.765            0.784
+SE_eg                   0.393            0.029            0.000            0.798            0.798            0.811
+SE_eqs                  0.336            0.054            0.000            0.000            0.000            0.001
+SE_em                   0.120            0.011            0.000            0.060            0.099            0.153
+SE_epinf                0.112            0.027            0.000            0.001            0.013            0.043
+SE_ew                   0.238            0.042            0.000            0.036            0.104            0.189
+crhoa                   0.930            0.031            0.000            0.009            0.028            0.057
+crhob                   0.853            0.054            0.000            0.006            0.025            0.058
+crhog                   0.956            0.020            0.000            0.135            0.227            0.304
+crhoqs                  0.685            0.077            0.000            0.001            0.001            0.002
+crhoms                  0.258            0.082            0.000            0.206            0.255            0.316
+crhopinf                0.822            0.137            0.000            0.006            0.024            0.050
+crhow                   0.933            0.029            0.000            0.014            0.044            0.093
+cmap                    0.677            0.165            0.000            0.264            0.358            0.443
+cmaw                    0.642            0.133            0.000            0.049            0.062            0.086
+csadjcost               5.945            1.137            0.199            0.956            0.956            0.957
+csigma                  0.901            0.113            0.000            0.116            0.134            0.162
+chabb                   0.564            0.061            0.000            0.003            0.012            0.027
+cprobw                  0.664            0.085            0.000            0.011            0.043            0.090
+csigl                   2.676            0.566            0.000            0.172            0.223            0.294
+cprobp                  0.868            0.088            0.000            0.005            0.032            0.079
+cindw                   0.395            0.145            0.000            0.489            0.530            0.581
+cindp                   0.235            0.094            0.426            0.978            0.979            0.980
+czcap                   0.622            0.106            0.000            0.456            0.482            0.487
+cfc                     1.484            0.094            0.000            0.052            0.096            0.124
+crpi                    1.784            0.246            0.000            0.000            0.000            0.000
+crr                     0.848            0.026            0.000            0.015            0.047            0.092
+cry                     0.106            0.059            0.000            0.002            0.014            0.040
+crdy                    0.176            0.028            0.000            0.698            0.697            0.692
+constepinf              0.618            0.075            0.000            0.567            0.563            0.579
+constebeta              0.135            0.053            0.000            0.281            0.281            0.289
+constelab               0.718            1.161            0.000            0.065            0.084            0.094
+ctrend                  0.707            0.061            0.000            0.003            0.018            0.049
+cgy                     0.331            0.105            0.000            0.026            0.043            0.061
+calfa                   0.170            0.022            0.000            0.037            0.068            0.114
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -429.906923.
+
+parameters
+            prior mean   post. mean        90% HPD interval    prior       pstdev
+
+crhoa            0.500       0.9302      0.8845      0.9805   beta        0.2000
+crhob            0.500       0.8517      0.7683      0.9375   beta        0.2000
+crhog            0.500       0.9562      0.9275      0.9886   beta        0.2000
+crhoqs           0.500       0.6853      0.5619      0.8141   beta        0.2000
+crhoms           0.500       0.2617      0.1251      0.3981   beta        0.2000
+crhopinf         0.500       0.8237      0.6312      0.9981   beta        0.2000
+crhow            0.500       0.9341      0.8963      0.9774   beta        0.2000
+cmap             0.500       0.6802      0.4286      0.9521   beta        0.2000
+cmaw             0.500       0.6374      0.4272      0.8453   beta        0.2000
+csadjcost        4.000       5.9090      4.0304      7.7498   norm        1.5000
+csigma           1.500       0.8986      0.7141      1.0815   norm        0.3750
+chabb            0.700       0.5671      0.4695      0.6715   beta        0.1000
+cprobw           0.500       0.6599      0.5070      0.8003   beta        0.1000
+csigl            2.000       2.6809      1.7273      3.5818   norm        0.7500
+cprobp           0.500       0.8645      0.7054      0.9500   beta        0.1000
+cindw            0.500       0.4019      0.1597      0.6394   beta        0.1500
+cindp            0.500       0.2365      0.0856      0.3849   beta        0.1500
+czcap            0.500       0.6201      0.4479      0.8021   beta        0.1500
+cfc              1.250       1.4829      1.3247      1.6320   norm        0.1250
+crpi             1.500       1.7803      1.3681      2.1827   norm        0.2500
+crr              0.750       0.8477      0.8046      0.8910   beta        0.1000
+cry              0.125       0.1056      0.0010      0.1770   norm        0.0500
+crdy             0.125       0.1753      0.1297      0.2207   norm        0.0500
+constepinf        0.625       0.6143      0.4934      0.7327   gamm        0.1000
+constebeta        0.250       0.1348      0.0524      0.2172   gamm        0.1000
+constelab        0.000       0.7256     -1.1333      2.5893   norm        2.0000
+ctrend           0.400       0.7074      0.6152      0.7917   norm        0.1000
+cgy              0.500       0.3319      0.1606      0.5062   norm        0.2500
+calfa            0.300       0.1701      0.1337      0.2046   norm        0.0500
+
+standard deviation of shocks
+            prior mean   post. mean        90% HPD interval    prior       pstdev
+
+ea               0.100       0.3672      0.3171      0.4143   invg        2.0000
+eb               0.100       0.0766      0.0559      0.0968   invg        2.0000
+eg               0.100       0.3934      0.3446      0.4397   invg        2.0000
+eqs              0.100       0.3363      0.2458      0.4214   invg        2.0000
+em               0.100       0.1199      0.1023      0.1366   invg        2.0000
+epinf            0.100       0.1131      0.0615      0.1563   invg        2.0000
+ew               0.100       0.2393      0.1698      0.3085   invg        2.0000
+Estimation::mcmc: Posterior (dsge) IRFs...
+Estimation::mcmc: Posterior IRFs, done!
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 6h55m35s
+Note: 33 warning(s) encountered in the preprocessor
+Note: warning(s) encountered in MATLAB/Octave code
