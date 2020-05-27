@@ -400,6 +400,31 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 df.loc[:, obs] = df[d['AWHNONAG']]*df[d['CE16OV']]/df[d['CNP16OV']]
                 df.loc[:, obs] = df.loc[:, obs] / df.loc[:, obs][:-1].mean()
 
+            elif obs == 'gdpnoexp_obs':
+                # demean: ΔLN((GDP-NETEXP)/GDPCTPI)*100
+                df.loc[:, obs] = np.log(((df[d['GDP']]-df[d['NETEXP']])/df[d['GDPCTPI']])/((df[d['GDP']].shift()-df[d['NETEXP']].shift())/df[d['GDPCTPI']].shift()))*100 
+                df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs][:-1].mean()
+            
+            elif obs == 'i_A16_obs':
+                # demean: ΔLN(GPDI+PCDG)*100
+                df.loc[:, obs] = np.log((df[d['GPDI']]+df[d['PCDG']])/(df[d['GPDI']].shift()+df[d['PCDG']].shift()))*100
+                df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs][:-1].mean()
+
+            elif obs == 'hours_A16_obs':
+                # (demean: LN(TOTLQ*100/CLF16OV))*100
+                df.loc[:, obs] = np.log(((df[d['TOTLQ']])*100/df[d['CLF16OV']])/((df[d['TOTLQ']].shift()*100)/df[d['CLF16OV']].shift()))
+                df.loc[:, obs] = (df.loc[:, obs] - df.loc[:, obs][:-1].mean())*100
+                
+            
+            elif obs == 'fgs_obs':
+                # LN(FGS)
+                df.loc[:, obs] = df[d['FGS']]
+
+            elif obs == 'wage_rgd_demean_obs':
+                # demean:ΔLN(COMPNFB/GDPCTPI)*100
+                df.loc[:, obs] = np.log((df[d['COMPNFB']]/df[d['GDPCTPI']])/(df[d['COMPNFB']].shift()/df[d['GDPCTPI']].shift()))*100
+                df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs][:-1].mean()
+            
             else:
                 print(f'{obs} is not exported as an osbervable.')
 
@@ -499,12 +524,11 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
 if __name__ == '__main__':
     main(
-        vintageDate='2008-11-10', quarterStart='1964Q1', quarterEnd='2008Q4',
+        vintageDate='2015-10-16', quarterStart='1989Q1', quarterEnd='2008Q2',
         raw=[
-            # 'GDPC1',
+            'TOTLQ',
         ],
         observed=[
-            # 'gdp_rgd_obs',
-            ],
+             'cnds_nom_obs',    ],
 
         )
