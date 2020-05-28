@@ -425,6 +425,11 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 df.loc[:, obs] = np.log((df[d['COMPNFB']]/df[d['GDPCTPI']])/(df[d['COMPNFB']].shift()/df[d['GDPCTPI']].shift()))*100
                 df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs][:-1].mean()
             
+            elif obs == 'cnds_nom_demean_obs':
+                # demean:ΔLN(PCEND+PCES)*100
+                df.loc[:, obs] = np.log((df[d['PCEND']]+df[d['PCES']])/(df[d['PCEND']].shift()+df[d['PCES']].shift()))*100
+                df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs][:-1].mean()
+            
             else:
                 print(f'{obs} is not exported as an osbervable.')
 
@@ -526,9 +531,10 @@ if __name__ == '__main__':
     main(
         vintageDate='2015-10-16', quarterStart='1989Q1', quarterEnd='2008Q2',
         raw=[
-            'TOTLQ',
+            
         ],
         observed=[
-             'cnds_nom_obs',    ],
+             'gdpnoexp_obs','i_A16_obs','hours_A16_obs','wage_rgd_demean_obs','gdpdef_obs','ffr_obs',
+             'baag10_obs','cnds_nom_demean_obs'],
 
         )
