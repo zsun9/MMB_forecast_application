@@ -14,7 +14,7 @@ pietar_us_ss = get_param_by_name('pietar_us_ss');
 %data;
 unr_obs=6.525;
 blt_obs=-8.87;
-cpil_obs=498.924140140858;
+cpi_obs=498.924140140858;
 gdpl_rgd_obs=895.093472647606;
 ffr_obs=3.21406593406593/4;
 
@@ -30,7 +30,7 @@ gdpl_rgd_obs    = gdpl_rgd_obs(1);
 gdpl_rgd_obs_BAR = gdpl_rgd_obs(1);
 ffr_obs      = rr_us_bar_ss/4+pietar_us_ss/4;
 G_US  = growth_us_ss;
-cpil_obs    = cpil_obs(1);
+cpi_obs    = cpi_obs(1);
 E4_PIE_US4 = pietar_us_ss;
 E1_Y_US    = 0;
 E1_PIE_US = pietar_us_ss;
@@ -62,7 +62,7 @@ gdpl_rgd_obs
 gdpl_rgd_obs_BAR 
 ffr_obs 
 G_US 
-cpil_obs 
+cpi_obs 
 E4_PIE_US4 
 E1_Y_US 
 E1_PIE_US 
