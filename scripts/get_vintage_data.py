@@ -418,7 +418,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
             
             elif obs == 'fgs_obs':
                 # LN(FGS)
-                df.loc[:, obs] = df[d['FGS']]
+                df.loc[:, obs] =np.log(df[d['FGS']])
 
             elif obs == 'wage_rgd_demean_obs':
                 # demean:ΔLN(COMPNFB/GDPCTPI)*100
@@ -529,12 +529,14 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
 if __name__ == '__main__':
     main(
-        vintageDate='2015-10-16', quarterStart='1989Q1', quarterEnd='2008Q2',
-        raw=[
+        vintageDate='2000-10-16', quarterStart='1990Q1', quarterEnd='2000Q1',
+         vintageDate='2000-12-16', quarterStart='1990Q1', quarterEnd='2000Q2',
+          vintageDate='2001-2-16', quarterStart='1990Q1', quarterEnd='2000Q3',
+        raw=['FGS'
             
         ],
-        observed=[
-             'gdpnoexp_obs','i_A16_obs','hours_A16_obs','wage_rgd_demean_obs','gdpdef_obs','ffr_obs',
-             'baag10_obs','cnds_nom_demean_obs'],
+       # observed=[
+        #     'gdpnoexp_obs','i_A16_obs','hours_A16_obs','wage_rgd_demean_obs','gdpdef_obs','ffr_obs',
+         #    'baag10_obs','cnds_nom_demean_obs','fgs_obs'],
 
         )
