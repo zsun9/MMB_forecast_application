@@ -367,7 +367,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 # LN(GDPC1)*100
                 df.loc[:, obs] = np.log(df[d['GDPC1']])*100
 
-            elif obs == 'cpi_obs':
+            elif obs == 'cpil_obs':
                 # LN(CPIAUCSL)*100
                 df.loc[:, obs] = np.log(df[d['CPIAUCSL']])*100
 
