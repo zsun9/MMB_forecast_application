@@ -14,9 +14,9 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2001-02-14", "2001-05-12", "2001-08-15", "2001-11-14", "2020-02-11", "2020-05-12"]; %
+p.vintages = ["2001-02-14", "2001-05-12", "2001-08-15", "2001-11-14", "2020-02-11", "2020-05-12","2020-05-12"]; %
 p.scenarios = ["s1", "s3"];
-p.models = []; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07"
+p.models = ["QPM08"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07"
 p.executor = "Your name";
 
 % hyper-parameters
@@ -29,6 +29,7 @@ p.scalingParam =  0.3;
 p.presample = 4;
 p.nobs = 100;
 p.mode_compute_order = [4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
+p.endColumn = "N";
 
 % locate main folders (stored as char type)
 p.path.root = convertCharsToStrings(pwd);
@@ -115,7 +116,7 @@ for model = p.models
                 end
                 
                 % build up the estimation command
-                t.xlsRange = "B1:" + "J" + string(p.nobs + (scenario ~= "s1"));
+                t.xlsRange = "B1:" + p.endColumn + string(p.nobs + (scenario ~= "s1"));
                 t.script.estimation = "\nestimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, " + ...
                     sprintf("datafile=%s, ", "data_" + strrep(vintage, "-", "")) + ...
                     sprintf("xls_sheet=%s, ", scenario) + ...
