@@ -454,6 +454,15 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     dfComplete.index = [str(index) for index in dfComplete.index]
     dfCompleteSpf.index = [str(index) for index in dfCompleteSpf.index]
 
+    # remove some observables' current quarter value
+    observableNoCurrentQuaterValue = {'hours_dngs15_obs', 'hours_sw07_obs'}
+    if obsEnd.to_period('Q') == vintageDate.to_period('Q'):
+        for observable in observableNoCurrentQuaterValue:
+            if observable in dfComplete.columns:
+                dfComplete.iloc[-1, dfComplete.columns.get_loc(observable)] = float('nan')
+            if observable in dfCompleteSpf.columns:
+                dfCompleteSpf.iloc[-1, dfCompleteSpf.columns.get_loc(observable)] = float('nan')
+
     # if there are missing values in the last quarter and vintage date is no later than 120 days after the start of last quarter:
     # then create data for four scenarios
     pathExcelFile = f"data_{vintageDate.strftime('%Y%m%d')}.xlsx"
@@ -530,8 +539,6 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 if __name__ == '__main__':
     main(
         vintageDate='2000-10-16', quarterStart='1990Q1', quarterEnd='2000Q1',
-         vintageDate='2000-12-16', quarterStart='1990Q1', quarterEnd='2000Q2',
-          vintageDate='2001-2-16', quarterStart='1990Q1', quarterEnd='2000Q3',
         raw=['FGS'
             
         ],
