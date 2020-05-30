@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+    <head>
+        <meta charset='utf-8'>
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <title>Forecast comparison</title>
+        <meta name='description' content='The page displays forecasts from estimated structiral and time-series models.'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css' integrity='sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk' crossorigin='anonymous'>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+    </head>
+    <body>
+        <canvas id='forecastChart'></canvas>
+        <script>
+
+            async function getData(jsonFile) {
+                let response = await fetch(jsonFile);
+                let data = await response.json();
+
+                console.log(data);
+                return data;
+            }
+
+            async function plotChart() {
+                let data = await getData('DNGS15.json');
+                let data2 = await getData('WW11.json');
+                let year = parseInt(data.vintage.substring(0,4));
+                let quarter = Math.floor(parseInt(data.vintage.substring(6,8)) / 4) + 1;
+                console.log(quarter);
+                let xlabels = new Array(data.forecast.gdp.length);
+                if (quarter == 1) {
+                    quarter = 4;
+                    year -= 1;
+                } else {
+                    quarter -= 1;
+                }
+                for (let i = 0; i < xlabels.length; i++) {
+                    xlabels[i] = year + 'Q' + quarter;
+                    if (quarter == 4) {
+                        quarter = 1;
+                        year += 1;
+                    } else {
+                        quarter += 1;
+                    }
+                    
+                }
+
+                let ctx = document.getElementById('forecastChart').getContext('2d');
+                let chart = new Chart(ctx, {
+                    type: 'line',
+
+                    data: {
+                        labels: xlabels.slice(0, 6),
+                        datasets: [
+                        {
+                            fill: false,
+                            label: data.model,
+                            backgroundColor: 'red',
+                            borderColor: 'red',
+                            data: data.forecast.gdp,
+                        },
+                        {
+                            fill: false,
+                            label: data2.model,
+                            backgroundColor: 'blue',
+                            borderColor: 'blue',
+                            data: data2.forecast.gdp,
+                        },
+                    ]
+                    },
+
+                    options: {
+                        tooltips: {
+                            callbacks: {
+                                label: function(tooltipItem, data) {
+
+                                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    label += Math.round(tooltipItem.yLabel * 1000) / 1000;
+                                    return label;
+                                    
+                                }
+                            }
+                        }
+                    },
+
+                }
+                );
+            }
+
+
+            plotChart();
+
+
+
+        </script>
+
+    </body>
+</html>
