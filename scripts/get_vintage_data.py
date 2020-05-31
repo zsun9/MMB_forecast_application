@@ -430,6 +430,54 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 df.loc[:, obs] = np.log((df[d['PCEND']]+df[d['PCES']])/(df[d['PCEND']].shift()+df[d['PCES']].shift()))*100
                 df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs][:-1].mean()
             
+            
+            elif obs == 'rc_obs': #
+            # LN(PCEC96/CNP16OV) - first value of LN(PCEC96/CNP16OV)  # note: equivalant of the second value of the vector here as extra previous period value is drawn
+                df.loc[:, obs] = np.log(df[d['PCEC96']].values/df[d['CNP16OV']].values) - np.log(df[d['PCEC96']].values/df[d['CNP16OV']].values)[1]
+
+            
+            elif obs == 'pi_dm_obs':
+           # ΔLN(TB3MS) - mean ΔLN(TB3MS)
+                df.loc[:, obs] = np.log(df[d['TB3MS']].values)- np.log(df[d['TB3MS']].shift().values) - np.nanmean(np.log(df[d['TB3MS']].values)- np.log(df[d['TB3MS']].shift().values))
+                
+            elif obs == 'rri_obs':   #problem
+            # LN(PRFIC1/CNP160V) - first value of LN(PRFIC1/CNP16OV)   # note: equivalant to 2nd value
+                df.loc[:, obs] = np.log(df[d['PRFIC1']].values/df[d['CNP16OV']].values) - np.log(df[d['PRFIC1']].values/df[d['CNP16OV']].values)[1]
+                                                                                                                         
+            elif obs == 'rbi_obs':  #problem
+            # LN(PNFIC1/CNP160V) - first value of LN(PNFIC1/CNP16OV)  # note: equivalant to 2nd value
+                df.loc[:, obs] = np.log(df[d['PNFIC1']].values/df[d['CNP16OV']].values) - np.log(df[d['PNFIC1']].values/df[d['CNP16OV']].values)[1]                                                                                                                                                                                                                                  
+          
+            elif obs == 'hwc_pd_obs':
+            # LN((PAYEMS-USCONS)*AWHMAN/CNP16OV) - mean(LN((PAYEMS-USCONS)*AWHMAN/CNP16OV))
+                df.loc[:, obs] = np.log((df[d['PAYEMS']].values-df[d['USCONS']].values)*df[d['AWHMAN']].values/df[d['CNP16OV']].values) - np.nanmean(np.log((df[d['PAYEMS']].values - df[d['USCONS']].values)*df[d['AWHMAN']].values/df[d['CNP16OV']].values))                                 
+                                                                                                                         
+            elif obs == 'hwr_pd_obs':
+            # LN(USCONS*CES2000000007/CNP16OV) - mean(LN(USCONS*CES2000000007/CNP16OV))
+                df.loc[:, obs] = np.log(df[d['USCONS']].values*df[d['CES2000000007']].values/df[d['CNP16OV']].values) - np.nanmean(np.log(df[d['USCONS']].values*df[d['CES2000000007']].values/df[d['CNP16OV']].values))                                                                                                                         
+# =============================================================================
+#             elif obs == 'hp_r_obs':
+#                 df.loc[:, obs] = df[d['CBHPI']].values
+# =============================================================================
+        
+            elif obs == 'i_nom_obs':
+           # TB3MS/400 - mean (TB3MS/400)
+                df.loc[:, obs] = df[d['TB3MS']].values/400 - np.nanmean(df[d['TB3MS']].values/400)       
+
+            elif obs == 'c_winf_obs':
+           # ΔLN(AHETPI) - mean(ΔLN(AHETPI))
+                df.loc[:, obs] = np.log(df[d['AHETPI']].values)- np.log(df[d['AHETPI']].shift().values) - np.nanmean(np.log(df[d['AHETPI']].values- np.log(df[d['AHETPI']]).shift().values))      
+                                                                                                
+        
+# =============================================================================
+#             elif obs == 'h_winf_obs':
+#            # ΔLN(CES2000000008) - mean(ΔLN(CES2000000008))
+#                df.loc[:, obs] = np.log(df[d['CES2000000008']].values)- np.log(df[d['CES2000000008']].shift().values) - np.nanmean(np.log(df[d['CES2000000008']].values)- np.log(df[d['CES2000000008']].shift().values))  
+# =============================================================================
+                                                                                                                         
+          
+            
+            
             else:
                 print(f'{obs} is not exported as an osbervable.')
 

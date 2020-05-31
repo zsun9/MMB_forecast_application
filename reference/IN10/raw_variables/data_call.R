@@ -227,7 +227,7 @@ datalist[["Data_NH"]] <- Data1
 #Data series CBHPI
 # from excel
 # xls files
-CBHPI.data <- as.data.frame(read_excel("CBHPI.xlsx",sheet = "mimicdata"))
+CBHPI.data <- as.data.frame(read_excel("CBHPI.xlsx",sheet = "data_sheet_reshape"))
 CBHPI.data <- betweendates(1965,2006,CBHPI.data)
 CBHPI.data <- CBHPI.data[,-1]
 #CBHPI.data$date <- as.Date(CBHPI.data$date)
