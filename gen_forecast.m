@@ -14,7 +14,7 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2001-02-14", "2001-05-12", "2001-08-15", "2001-11-14", "2020-02-11", "2020-05-12","2020-05-12"]; %
+p.vintages = ["2001-02-14", "2001-05-12", "2001-08-15", "2001-11-14", "2020-02-11", "2020-05-12"]; %
 p.scenarios = ["s1", "s3"];
 p.models = []; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07"
 p.executor = "Your name";

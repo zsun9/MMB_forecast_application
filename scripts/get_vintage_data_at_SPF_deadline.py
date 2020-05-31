@@ -14,7 +14,7 @@ for deadline in infoSpf['deadlines']:
             observed=[
                 'gdp_rgd_obs', 'gdpdef_obs', 'ffr_obs', 'ifi_rgd_obs', 'c_rgd_obs', 
                 'wage_rgd_obs', 'baag10_obs', 'hours_dngs15_obs', 'hours_sw07_obs',
-                'gdpl_rgd_obs',
+                'gdpl_rgd_obs', 'unr_obs', 'cpil_obs', 'blt_obs',
                 ]
 
             )

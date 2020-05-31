@@ -222,3 +222,6 @@ stderr 1.8201+pietar_us_ss;
 end;
 
 // stoch_simul (order=1,irf = 20, ar=100) ffr_obs PIE_US Y_US gdpl_rgd_obs;
+
+estimation(datafile=data_20080807, mh_replic=4000, smoother, mh_jscale=0.3, mh_nblocks=2, sub_draws=1000, forecast=50, presample=4, mode_compute=0, mode_file=QPM_US_mode) gdp_rgd_obs;
+

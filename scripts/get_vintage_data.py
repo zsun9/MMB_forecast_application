@@ -367,7 +367,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 # LN(GDPC1)*100
                 df.loc[:, obs] = np.log(df[d['GDPC1']])*100
 
-            elif obs == 'cpi_obs':
+            elif obs == 'cpil_obs':
                 # LN(CPIAUCSL)*100
                 df.loc[:, obs] = np.log(df[d['CPIAUCSL']])*100
 
@@ -418,11 +418,16 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
             
             elif obs == 'fgs_obs':
                 # LN(FGS)
-                df.loc[:, obs] = df[d['FGS']]
+                df.loc[:, obs] =np.log(df[d['FGS']])
 
             elif obs == 'wage_rgd_demean_obs':
                 # demean:ΔLN(COMPNFB/GDPCTPI)*100
                 df.loc[:, obs] = np.log((df[d['COMPNFB']]/df[d['GDPCTPI']])/(df[d['COMPNFB']].shift()/df[d['GDPCTPI']].shift()))*100
+                df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs][:-1].mean()
+            
+            elif obs == 'cnds_nom_demean_obs':
+                # demean:ΔLN(PCEND+PCES)*100
+                df.loc[:, obs] = np.log((df[d['PCEND']]+df[d['PCES']])/(df[d['PCEND']].shift()+df[d['PCES']].shift()))*100
                 df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs][:-1].mean()
             
             else:
@@ -448,6 +453,15 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
     dfComplete.index = [str(index) for index in dfComplete.index]
     dfCompleteSpf.index = [str(index) for index in dfCompleteSpf.index]
+
+    # remove some observables' current quarter value
+    observableNoCurrentQuaterValue = {'hours_dngs15_obs', 'hours_sw07_obs'}
+    if obsEnd.to_period('Q') == vintageDate.to_period('Q'):
+        for observable in observableNoCurrentQuaterValue:
+            if observable in dfComplete.columns:
+                dfComplete.iloc[-1, dfComplete.columns.get_loc(observable)] = float('nan')
+            if observable in dfCompleteSpf.columns:
+                dfCompleteSpf.iloc[-1, dfCompleteSpf.columns.get_loc(observable)] = float('nan')
 
     # if there are missing values in the last quarter and vintage date is no later than 120 days after the start of last quarter:
     # then create data for four scenarios
@@ -524,11 +538,12 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
 if __name__ == '__main__':
     main(
-        vintageDate='2015-10-16', quarterStart='1989Q1', quarterEnd='2008Q2',
-        raw=[
-            'TOTLQ',
+        vintageDate='2000-10-16', quarterStart='1990Q1', quarterEnd='2000Q1',
+        raw=['FGS'
+            
         ],
-        observed=[
-             'cnds_nom_obs',    ],
+       # observed=[
+        #     'gdpnoexp_obs','i_A16_obs','hours_A16_obs','wage_rgd_demean_obs','gdpdef_obs','ffr_obs',
+         #    'baag10_obs','cnds_nom_demean_obs','fgs_obs'],
 
         )
