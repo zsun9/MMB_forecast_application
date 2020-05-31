@@ -437,8 +437,8 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
             
             elif obs == 'pi_dm_obs':
-           # ΔLN(TB3MS) - mean ΔLN(TB3MS)
-                df.loc[:, obs] = np.log(df[d['TB3MS']].values)- np.log(df[d['TB3MS']].shift().values) - np.nanmean(np.log(df[d['TB3MS']].values)- np.log(df[d['TB3MS']].shift().values))
+           # ΔLN(IPDNBS) - mean ΔLN(IPDNBS)
+                df.loc[:, obs] = np.log(df[d['IPDNBS']].values)- np.log(df[d['IPDNBS']].shift().values) - np.nanmean(np.log(df[d['IPDNBS']].values)- np.log(df[d['IPDNBS']].shift().values))
                 
             elif obs == 'rri_obs':   #problem
             # LN(PRFIC1/CNP160V) - first value of LN(PRFIC1/CNP16OV)   # note: equivalant to 2nd value
@@ -464,7 +464,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
            # TB3MS/400 - mean (TB3MS/400)
                 df.loc[:, obs] = df[d['TB3MS']].values/400 - np.nanmean(df[d['TB3MS']].values/400)       
 
-            elif obs == 'c_winf_obs':
+            elif obs == 'c_winf_obs':  # problem with data
            # ΔLN(AHETPI) - mean(ΔLN(AHETPI))
                 df.loc[:, obs] = np.log(df[d['AHETPI']].values)- np.log(df[d['AHETPI']].shift().values) - np.nanmean(np.log(df[d['AHETPI']].values- np.log(df[d['AHETPI']]).shift().values))      
                                                                                                 
