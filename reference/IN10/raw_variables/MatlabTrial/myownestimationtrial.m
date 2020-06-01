@@ -7,23 +7,23 @@ p.vintages = ["2001-02-14"] %, "2001-05-12", "2001-08-15", "2001-11-14", "2020-0
 p.scenarios = ["s1"]%, "s3"];
 p.models = []; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07"
 p.executor = "Your name";
-originalornot = 0;
+originalornot = 1;
 
-% hyper-parameters
-p.chainLen = 1000000;
-p.subDraws = 5000;
-p.forecastHorizon = 40;
-p.chainNum = 1;
-p.burnin = 0.3;
-p.scalingParam =  0.3;
-p.presample = 4;
-p.nobs = 100;
-p.mode_compute_order = [4];%[4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
+% % hyper-parameters
+% p.chainLen = 1000000;
+% p.subDraws = 5000;
+% p.forecastHorizon = 40;
+% p.chainNum = 1;
+% p.burnin = 0.3;
+% p.scalingParam =  0.3;
+% p.presample = 4;
+% p.nobs = 100;
+% p.mode_compute_order = [4];%[4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
 
-%% estimatin
+%% estimation
 
-vintage = p.vintages;
-scenario = p.scenarios;
+% vintage = p.vintages;
+% scenario = p.scenarios;
 
 t.name.modfile = "jules1KLtry.mod";
 t.script.modfile = fileread(t.name.modfile);

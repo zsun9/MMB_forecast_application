@@ -444,7 +444,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
             # LN(PRFIC1/CNP160V) - first value of LN(PRFIC1/CNP16OV)   # note: equivalant to 2nd value
                 df.loc[:, obs] = np.log(df[d['PRFIC1']].values/df[d['CNP16OV']].values) - np.log(df[d['PRFIC1']].values/df[d['CNP16OV']].values)[1]
                                                                                                                          
-            elif obs == 'rbi_obs':  #problem
+            elif obs == 'rbi_obs':  
             # LN(PNFIC1/CNP160V) - first value of LN(PNFIC1/CNP16OV)  # note: equivalant to 2nd value
                 df.loc[:, obs] = np.log(df[d['PNFIC1']].values/df[d['CNP16OV']].values) - np.log(df[d['PNFIC1']].values/df[d['CNP16OV']].values)[1]                                                                                                                                                                                                                                  
           
@@ -469,11 +469,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 df.loc[:, obs] = np.log(df[d['AHETPI']].values)- np.log(df[d['AHETPI']].shift().values) - np.nanmean(np.log(df[d['AHETPI']].values- np.log(df[d['AHETPI']]).shift().values))      
                                                                                                 
         
-# =============================================================================
-#             elif obs == 'h_winf_obs':
-#            # ΔLN(CES2000000008) - mean(ΔLN(CES2000000008))
-#                df.loc[:, obs] = np.log(df[d['CES2000000008']].values)- np.log(df[d['CES2000000008']].shift().values) - np.nanmean(np.log(df[d['CES2000000008']].values)- np.log(df[d['CES2000000008']].shift().values))  
-# =============================================================================
+            elif obs == 'h_winf_obs':
+           # ΔLN(CES2000000008) - mean(ΔLN(CES2000000008))
+               df.loc[:, obs] = np.log(df[d['CES2000000008']].values) #- np.log(df[d['CES2000000008']].shift().values) - np.nanmean(np.log(df[d['CES2000000008']].values)- np.log(df[d['CES2000000008']].shift().values))  
                                                                                                                          
           
             
