@@ -431,7 +431,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs][:-1].mean()
             
             
-            elif obs == 'rc_obs': #
+            elif obs == 'rc_obs': 
             # LN(PCEC96/CNP16OV) - first value of LN(PCEC96/CNP16OV)  # note: equivalant of the second value of the vector here as extra previous period value is drawn
                 df.loc[:, obs] = np.log(df[d['PCEC96']].values/df[d['CNP16OV']].values) - np.log(df[d['PCEC96']].values/df[d['CNP16OV']].values)[1]
 
@@ -440,7 +440,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
            # ΔLN(IPDNBS) - mean ΔLN(IPDNBS)
                 df.loc[:, obs] = np.log(df[d['IPDNBS']].values)- np.log(df[d['IPDNBS']].shift().values) - np.nanmean(np.log(df[d['IPDNBS']].values)- np.log(df[d['IPDNBS']].shift().values))
                 
-            elif obs == 'rri_obs':   #problem
+            elif obs == 'rri_obs':   
             # LN(PRFIC1/CNP160V) - first value of LN(PRFIC1/CNP16OV)   # note: equivalant to 2nd value
                 df.loc[:, obs] = np.log(df[d['PRFIC1']].values/df[d['CNP16OV']].values) - np.log(df[d['PRFIC1']].values/df[d['CNP16OV']].values)[1]
                                                                                                                          
@@ -455,6 +455,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
             elif obs == 'hwr_pd_obs':
             # LN(USCONS*CES2000000007/CNP16OV) - mean(LN(USCONS*CES2000000007/CNP16OV))
                 df.loc[:, obs] = np.log(df[d['USCONS']].values*df[d['CES2000000007']].values/df[d['CNP16OV']].values) - np.nanmean(np.log(df[d['USCONS']].values*df[d['CES2000000007']].values/df[d['CNP16OV']].values))                                                                                                                         
+          
 # =============================================================================
 #             elif obs == 'hp_r_obs':
 #                 df.loc[:, obs] = df[d['CBHPI']].values
@@ -469,9 +470,11 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 df.loc[:, obs] = np.log(df[d['AHETPI']].values)- np.log(df[d['AHETPI']].shift().values) - np.nanmean(np.log(df[d['AHETPI']].values- np.log(df[d['AHETPI']]).shift().values))      
                                                                                                 
         
-            elif obs == 'h_winf_obs':
-           # ΔLN(CES2000000008) - mean(ΔLN(CES2000000008))
-               df.loc[:, obs] = np.log(df[d['CES2000000008']].values) #- np.log(df[d['CES2000000008']].shift().values) - np.nanmean(np.log(df[d['CES2000000008']].values)- np.log(df[d['CES2000000008']].shift().values))  
+# =============================================================================
+#             elif obs == 'h_winf_obs':
+#            # ΔLN(CES2000000008) - mean(ΔLN(CES2000000008))
+#                df.loc[:, obs] = np.log(df[d['CES2000000008']].values) #- np.log(df[d['CES2000000008']].shift().values) - np.nanmean(np.log(df[d['CES2000000008']].values)- np.log(df[d['CES2000000008']].shift().values))  
+# =============================================================================
                                                                                                                          
           
             

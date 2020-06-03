@@ -3,11 +3,11 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2001-02-14"] %, "2001-05-12", "2001-08-15", "2001-11-14", "2020-02-11", "2020-05-12"]; %
-p.scenarios = ["s1"]%, "s3"];
-p.models = []; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07"
-p.executor = "Your name";
-originalornot = 1;
+% p.vintages = ["2001-02-14"] %, "2001-05-12", "2001-08-15", "2001-11-14", "2020-02-11", "2020-05-12"]; %
+% p.scenarios = ["s1"]%, "s3"];
+% p.models = []; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07"
+% p.executor = "Your name";
+originalornot = 0;
 
 % % hyper-parameters
 % p.chainLen = 1000000;
@@ -47,7 +47,7 @@ if originalornot == 1
                         " \ndata_CC data_IK data_IH zata_GDP data_QQ data_RR;" + ...
                          "\nend;"
 else
-      t.script.estimation = "\nestimation(datafile='maunal_data_trial.xlsx', " + ...
+      t.script.estimation = "\nestimation(datafile='data_20070521.xlsx', " + ...
                         " bayesian_irf,irf=20," + ...              
                         " conf_sig=0.95," + ... 
                         " smoother," + ...
@@ -73,6 +73,6 @@ t.output.forecast = [oo_.MeanForecast.Mean.zata_GDP(1:end-1)'];
 t.output.forecast = t.output.forecast * 4;
 
 JSONOutput = jsonencode(t.output);
-JSONFile = fopen("modelmodfile.json",'w');
+JSONFile = fopen('modelmodfile.json','w');
 fwrite(JSONFile, JSONOutput, 'char');
 fclose(JSONFile);
