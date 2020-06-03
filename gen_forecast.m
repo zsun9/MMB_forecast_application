@@ -1,6 +1,6 @@
 % The file is used for estimating models and generating forecasts
 % Two structs: p - high-level parameters, t - temporary parameters in a loop
-% Last updated: Zexi Sun, 2020-05-18
+% Last updated: Zexi Sun, 2020-06-02
 
 %% settings
 
@@ -14,10 +14,12 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2001-02-14", "2001-05-12", "2001-08-15", "2001-11-14", "2020-02-11", "2020-05-12"]; %
-p.scenarios = ["s1", "s3"];
-p.models = []; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07"
+p.vintages = ["2001-02-14"]; %
+p.scenarios = ["s2"];
+p.models = ["FRBEDO08"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08"
 p.executor = "Your name";
+
+p.ExcelColumnUntil = "U";
 
 % hyper-parameters
 p.chainLen = 1000000;
@@ -69,10 +71,11 @@ for model = p.models
                     warning('Enter C to keep existing files and continue.');
                     warning('Enter N to keep existing files and skip this estimation.');
                     t.choice = "";
-                    while ~ismember(t.choice, ["y", "c", "n"])
+                    while ~ismember(lower(t.choice), ["y", "c", "n"])
                         beep;
                         t.choice = input('', 's');
                     end
+                    t = lower(t);
                     
                     switch t.choice
                         case "y"
@@ -115,7 +118,7 @@ for model = p.models
                 end
                 
                 % build up the estimation command
-                t.xlsRange = "B1:" + "J" + string(p.nobs + (scenario ~= "s1"));
+                t.xlsRange = "B1:" + p.ExcelColumnUntil + string(p.nobs + (scenario ~= "s1"));
                 t.script.estimation = "\nestimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, " + ...
                     sprintf("datafile=%s, ", "data_" + strrep(vintage, "-", "")) + ...
                     sprintf("xls_sheet=%s, ", scenario) + ...

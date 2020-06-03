@@ -243,16 +243,25 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                             if dfToFill is None:
                                 print(f'Missing values of {variable} not filled: No corresponding data.')
                             else:
-                                dfNotFilled = dfToMerge.copy()
-                                diff = np.max(np.abs(dfToFill.iloc[:-1,0]/dfToMerge.iloc[:-1,0]-1)) # don't compare the last entry
-                                if diff <= diffBound:
+                                # dfNotFilled = dfToMerge.copy()
+                                diff = np.sum(np.abs(dfToFill.iloc[:-1,0]/dfToMerge.iloc[:-1,0]-1) > diffBound) # don't compare the last entry
+                                if diff < 1:
                                     for index, (_, row) in enumerate(dfToMerge.iterrows()):
                                         if np.isnan(row.values[0]):
                                             try:
                                                 dfToMerge.iloc[index, 0] = dfToFill.iloc[index, 0]
                                             except:
                                                 pass
-                                    print(f'Missing values of {variable} filled by using {fillVar} from {fillSource}.')
+                                    print(f'Missing values of {variable} filled by {fillVar} from {fillSource}.')
+                                elif diff == 1 and np.argmax(np.abs(dfToFill.iloc[:-1,0]/dfToMerge.iloc[:-1,0]-1)) == dfToFill.iloc[:-1,0].shape[0] - 1:
+                                    lastDiff = np.max(np.abs(dfToFill.iloc[:-1,0]/dfToMerge.iloc[:-1,0]-1))
+                                    for index, (_, row) in enumerate(dfToMerge.iterrows()):
+                                        if np.isnan(row.values[0]):
+                                            try:
+                                                dfToMerge.iloc[index, 0] = dfToFill.iloc[index, 0]
+                                            except:
+                                                pass
+                                    print(f'Missing values of {variable} filled by {fillVar} from {fillSource}, even though the diff between the last entry is {lastDiff:.2%} > {diffBound:.2%}.')
                                 else:
                                     dfToMerge = pd.merge(dfToMerge, dfToFill, how='outer', left_index=True, right_index=True, sort=True)
                                     dfToMerge.to_csv(f'diff_{variable}_{fillVar}.csv')
@@ -282,7 +291,11 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                                         diff = np.abs(impliedCPILevel/dfToMerge.iloc[-2,0] - 1)
                                     
                                     if diff <= diffBound:
-                                        dfToMergeSpf.iloc[-1,0] = row[variableNowcast+'2'].values[0]
+                                        if variable != 'CPIAUCSL':
+                                            dfToMergeSpf.iloc[-1,0] = row[variableNowcast+'2'].values[0]
+                                        else:
+                                            dfToMergeSpf.iloc[-1,0] = (row[variableNowcast+'2'].values[0]/400 + 1)*dfToMerge.iloc[-2,0]
+                                        print(f'SPF value of {variable} filled by {variableNowcast}.')
                                     else:
                                         print(f'SPF values of {variable} not filled: Diff between second to last quarter actual value in ALFRED and SPF > {diffBound:.2%}')
                                         print(f"Variable: {variable}, Second to last quarter: {str(dfToMerge.index[-2])}, ALFRED value: {dfToMerge.iloc[-2,0]}, SPF value: {row[variableNowcast+'1'].values[0]}")
@@ -382,10 +395,12 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
             elif obs == 'ir_nom_obs':
                 # ΔLN(PRFI)*100
                 df.loc[:, obs] = np.log(df[d['PRFI']]/df[d['PRFI']].shift())*100
+                df.iloc[-1, -1] = np.log(df[d['PRFIC1']].values[-1]*df[d['GDPCTPI']].values[-1]/df[d['PRFIC1']].values[-2]/df[d['GDPCTPI']].values[-2])*100
 
             elif obs == 'inr_nom_obs':
                 # ΔLN(PNFI)*100
                 df.loc[:, obs] = np.log(df[d['PNFI']]/df[d['PNFI']].shift())*100
+                df.iloc[-1, -1] = np.log(df[d['PNFIC1']].values[-1]*df[d['GDPCTPI']].values[-1]/df[d['PNFIC1']].values[-2]/df[d['GDPCTPI']].values[-2])*100
 
             elif obs == 'cnds_def_obs':
                 # ΔLN((PCEND+PCES)/(PCENDC96+PCESC96))*100
@@ -504,7 +519,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     dfCompleteSpf.index = [str(index) for index in dfCompleteSpf.index]
 
     # remove some observables' current quarter value
-    observableNoCurrentQuaterValue = {'hours_dngs15_obs', 'hours_sw07_obs'}
+    observableNoCurrentQuaterValue = {'hours_dngs15_obs', 'hours_sw07_obs', 'hours_frbedo08_obs'}
     if obsEnd.to_period('Q') == vintageDate.to_period('Q'):
         for observable in observableNoCurrentQuaterValue:
             if observable in dfComplete.columns:
@@ -587,12 +602,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
 if __name__ == '__main__':
     main(
-        vintageDate='2000-10-16', quarterStart='1990Q1', quarterEnd='2000Q1',
-        raw=['FGS'
-            
-        ],
-       # observed=[
-        #     'gdpnoexp_obs','i_A16_obs','hours_A16_obs','wage_rgd_demean_obs','gdpdef_obs','ffr_obs',
-         #    'baag10_obs','cnds_nom_demean_obs','fgs_obs'],
+        vintageDate='2020-05-12', quarterStart='1980Q1', quarterEnd='2020Q2',
+        observed=[
+                'hours_frbedo08_obs', 'cnds_nom_obs', 'cd_nom_obs', 'ir_nom_obs', 'inr_nom_obs', 'cnds_def_obs', 'cd_def_obs',
+           ],
 
         )
