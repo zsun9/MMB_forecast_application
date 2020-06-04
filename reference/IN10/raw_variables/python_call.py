@@ -10,7 +10,7 @@ import os
 os.chdir('C:\\Users\\jaspe\\Documents\\GitHub\\MMB_forecast_application\\scripts')
 from get_vintage_data import main
 main(vintageDate = '2007-05-21', quarterStart = '1965Q1', quarterEnd = '2006Q4', raw = [], observed = ['h_winf_obs'], showRawTransform=False, pathExcel = None, onlyS3 = False)
-main(vintageDate = '2007-05-21', quarterStart = '1965Q1', quarterEnd = '2006Q4', raw = ['CES2000000008'], observed = [], showRawTransform=False, pathExcel = None, onlyS3 = False)
+main(vintageDate = '2007-05-21', quarterStart = '1965Q1', quarterEnd = '2006Q4', raw = ['CBHPI'], observed = [], showRawTransform=False, pathExcel = None, onlyS3 = False)
 
 main(vintageDate = '2007-05-21', quarterStart = '1965Q1', quarterEnd = '2006Q4', raw = [], observed = ['rc_obs', 'pi_dm_obs','rri_obs','rbi_obs','hwc_pd_obs', 'hwr_pd_obs', 'i_nom_obs', 'c_winf_obs'], showRawTransform=False, pathExcel = None, onlyS3 = False)
 

@@ -323,6 +323,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
     # correspondence: variable name : column name (e.g., 'GDPC1':'GDPC1_20010101')
     dictVC = dict()
+    
     for column in dfTransform.columns.values:
         if column[-8:].isdigit():
             dictVC[column[:-9]] = column
@@ -486,10 +487,8 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
             # LN(USCONS*CES2000000007/CNP16OV) - mean(LN(USCONS*CES2000000007/CNP16OV))
                 df.loc[:, obs] = np.log(df[d['USCONS']].values*df[d['CES2000000007']].values/df[d['CNP16OV']].values) - np.nanmean(np.log(df[d['USCONS']].values*df[d['CES2000000007']].values/df[d['CNP16OV']].values))                                                                                                                         
           
-# =============================================================================
-#             elif obs == 'hp_r_obs':
-#                 df.loc[:, obs] = df[d['CBHPI']].values
-# =============================================================================
+            elif obs == 'hp_r_obs':
+                df.loc[:, obs] = df[d['CBHPI']].values
         
             elif obs == 'i_nom_obs':
            # TB3MS/400 - mean (TB3MS/400)
@@ -499,11 +498,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
            # ΔLN(AHETPI) - mean(ΔLN(AHETPI))
                 df.loc[:, obs] = np.log(df[d['AHETPI']].values) -  np.log(df[d['AHETPI']].shift().values) - np.nanmean(np.log(df[d['AHETPI']].values) -  np.log(df[d['AHETPI']].shift().values))     
                                                                                                 
-# =============================================================================
-#             elif obs == 'h_winf_obs':
-#            # ΔLN(CES2000000008) - mean(ΔLN(CES2000000008))
-#                 df.loc[:, obs] = np.log(df[d['CES2000000008']].values) -  np.log(df[d['CES2000000008']].shift().values) - np.nanmean(np.log(df[d['CES2000000008']].values) -  np.log(df[d['CES2000000008']].shift().values))     
-# =============================================================================
+            elif obs == 'h_winf_obs':
+           # ΔLN(CES2000000008) - mean(ΔLN(CES2000000008))
+                df.loc[:, obs] = np.log(df[d['CES2000000008']].values) -  np.log(df[d['CES2000000008']].shift().values) - np.nanmean(np.log(df[d['CES2000000008']].values) -  np.log(df[d['CES2000000008']].shift().values))     
                                                                                                                          
           
             
@@ -616,13 +613,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 if __name__ == '__main__':
 
     main(
-        vintageDate='2008-11-10', quarterStart='1984Q1', quarterEnd='2008Q4',
+        vintageDate='2007-05-21', quarterStart='1965Q1', quarterEnd='2006Q4',
         observed=[
-            'gdp_rgd_obs', 'gdpdef_obs', 'ffr_obs', 'ifi_rgd_obs', 'c_rgd_obs', 
-            'wage_rgd_obs', 'baag10_obs', 'hours_dngs15_obs', 'hours_sw07_obs',
-            'gdpl_rgd_obs', 'unr_obs', 'cpil_obs', 'blt_obs',
-            'hours_frbedo08_obs', 'cnds_nom_obs', 'cd_nom_obs', 'ir_nom_obs', 'inr_nom_obs', 'cnds_def_obs', 'cd_def_obs',
-            'bbb1yffr_obs', 'credit_nom_obs', 'hours_kr15_obs',
+'hp_r_obs','gdpl_rgd_obs'
            ],
 
         )
