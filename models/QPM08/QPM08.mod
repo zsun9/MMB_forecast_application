@@ -3,7 +3,7 @@
 
 var RR_US RR_US_BAR
     unr_obs unr_obs_GAP unr_obs_BAR
-    PIE_US PIE_US4 Y_US gdpl_rgd_obs gdpl_rgd_obs_BAR ffr_obs G_US cpi_obs
+    PIE_US PIE_US4 Y_US gdpl_rgd_obs gdpl_rgd_obs_BAR ffr_obs G_US cpil_obs
     E4_PIE_US4 E1_Y_US E1_PIE_US 
     UNR_G_US GROWTH_US GROWTH4_US GROWTH4_US_BAR
     blt_obs blt_obs_BAR
@@ -93,7 +93,7 @@ ffr_obs*4 = gamma_us1*ffr_obs(-1)*4 +
 
 RR_US = ffr_obs*4 - PIE_US(+1);
 
-cpi_obs = cpi_obs(-1) + PIE_US/4;
+cpil_obs = cpil_obs(-1) + PIE_US/4;
 
 RR_US_BAR = rho_us*rr_us_bar_ss + (1-rho_us)*RR_US_BAR(-1) + RES_RR_US_BAR;
 
@@ -139,7 +139,7 @@ var RES_Y_US,RES_G_US=(.1*0.25*0.1);
 var RES_gdpl_rgd_obs_BAR,RES_PIE_US=(.1*0.05*0.7);
 end;
 
-unit_root_vars unr_obs_BAR unr_obs cpi_obs gdpl_rgd_obs gdpl_rgd_obs_BAR blt_obs blt_obs_BAR;
+unit_root_vars unr_obs_BAR unr_obs cpil_obs gdpl_rgd_obs gdpl_rgd_obs_BAR blt_obs blt_obs_BAR;
 
 steady;
 
@@ -203,11 +203,11 @@ corr RES_gdpl_rgd_obs_BAR,RES_PIE_US, beta_pdf, 0.05, 0.02;
 
 end;
 
-varobs unr_obs ffr_obs cpi_obs gdpl_rgd_obs blt_obs;
+varobs unr_obs ffr_obs cpil_obs gdpl_rgd_obs blt_obs;
 
 observation_trends;
 gdpl_rgd_obs (growth_us_ss/4);
-cpi_obs (pietar_us_ss/4);
+cpil_obs (pietar_us_ss/4);
 end;
 
 //estimation(datafile=data,xls_sheet=data,xls_range=V1:Z69,nobs=56,mh_replic=1000,smoother,mh_jscale=0.25,mh_nblocks=1,filter_step_ahead=[1:12],forecast=12,conf_sig=0.9,presample=4) Y_US;
@@ -222,6 +222,3 @@ stderr 1.8201+pietar_us_ss;
 end;
 
 // stoch_simul (order=1,irf = 20, ar=100) ffr_obs PIE_US Y_US gdpl_rgd_obs;
-
-estimation(datafile=data_20080807, mh_replic=4000, smoother, mh_jscale=0.3, mh_nblocks=2, sub_draws=1000, forecast=50, presample=4, mode_compute=0, mode_file=QPM_US_mode) gdp_rgd_obs;
-
