@@ -492,7 +492,8 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 df.loc[:, obs] = np.log(df[d['USCONS']].values*df[d['CES2000000007']].values/df[d['CNP16OV']].values) - np.nanmean(np.log(df[d['USCONS']].values*df[d['CES2000000007']].values/df[d['CNP16OV']].values))                                                                                                                         
           
             elif obs == 'hp_r_obs':
-                df.loc[:, obs] = df[d['CBHPI']].values
+            # LN(CBHPI/IPDNBS) - first observation of LN(CBHPI/IPDNBS)
+                df.loc[:, obs] = np.log(df[d['CBHPI']].values/df[d['IPDNBS']].values) - np.log(df[d['CBHPI']].values/df[d['IPDNBS']].values)[1]  
         
             elif obs == 'i_nom_obs':
            # TB3MS/400 - mean (TB3MS/400)
