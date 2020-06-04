@@ -173,6 +173,10 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 else:
                     print(f'Warning: Exact vintage date for {var} not found, will use its value in the earliest possible vintage date!')
                     df = df.iloc[:,0].copy()
+                    try:
+                        df = df.to_frame()
+                    except:
+                        pass
                     # if variable updated quarterly, then remove the last obs
                     if infoRaw[infoRaw['id']==var]['frequency_short'].values[0] == 'Q':
                         df.iloc[-1] = float('nan')
@@ -615,7 +619,7 @@ if __name__ == '__main__':
     main(
         vintageDate='2007-05-21', quarterStart='1965Q1', quarterEnd='2006Q4',
         observed=[
-'hp_r_obs','gdpl_rgd_obs'
+            'h_winf_obs'
            ],
 
         )
