@@ -9,8 +9,8 @@ Computing dynamic model derivatives:
 Processing outputs ...
 done
 Preprocessing completed.
-[Warning: Some of the parameters have no value (RHO_AM) when using steady. If these parameters are not initialized in a
-steadystate file or a steady_state_model-block, Dynare may not be able to solve the model...] 
+[Warning: Some of the parameters have no value (RHO_AM) when using steady. If these parameters are not
+initialized in a steadystate file or a steady_state_model-block, Dynare may not be able to solve the model...] 
 
 STEADY-STATE RESULTS:
 
@@ -64,8 +64,8 @@ Y        		 0.930807
 zata_GDP 		 -2.64022e-10
 zkc      		 4.15756e-11
 zkh      		 1.00569e-11
-[Warning: Some of the parameters have no value (RHO_AM) when using stoch_simul. If these parameters are not initialized in a
-steadystate file or a steady_state_model-block, Dynare may not be able to solve the model...] 
+[Warning: Some of the parameters have no value (RHO_AM) when using stoch_simul. If these parameters are not
+initialized in a steadystate file or a steady_state_model-block, Dynare may not be able to solve the model...] 
 
 MODEL SUMMARY
 
@@ -164,39 +164,281 @@ data_IH     0.9629  0.9287  0.8979  0.8707  0.8470
 data_QQ     0.9956  0.9909  0.9861  0.9815  0.9772
 zata_GDP    0.9588  0.9026  0.8433  0.7870  0.7364
 data_RR     0.9628  0.9266  0.8925  0.8609  0.8320
-[Warning: Some of the parameters have no value (RHO_AM) when using initial_estimation_checks. If these parameters are not
-initialized in a steadystate file or a steady_state_model-block, Dynare may not be able to solve the model...] 
+[Warning: Some of the parameters have no value (RHO_AM) when using initial_estimation_checks. If these
+parameters are not initialized in a steadystate file or a steady_state_model-block, Dynare may not be able to
+solve the model...] 
 Initial value of the log posterior (or likelihood): 5036.8501
-{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('waitbar', 'C:\Program Files\MATLAB\R2020a\toolbox\matlab\uitools\waitbar.m', 103)" style="font-weight:bold">waitbar</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020a\toolbox\matlab\uitools\waitbar.m',103,0)">line 103</a>)
-The second argument must be a message character vector or a handle to an existing waitbar.
 
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dyn_waitbar', 'C:\dynare\4.5.7\matlab\dyn_waitbar.m', 66)" style="font-weight:bold">dyn_waitbar</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dyn_waitbar.m',66,0)">line 66</a>)
-            waitbar(prctdone,varargin{:});
+==========================================================
+   Change in the posterior covariance matrix = 6.1938.
+   Change in the posterior mean = 0.76315.
+   Mode improvement = 0
+   New value of jscale = 0.0052625
+==========================================================
 
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gmhmaxlik_core', 'C:\dynare\4.5.7\matlab\optimization\gmhmaxlik_core.m', 122)" style="font-weight:bold">gmhmaxlik_core</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\optimization\gmhmaxlik_core.m',122,0)">line 122</a>)
-        dyn_waitbar(prtfrc,hh,sprintf('Acceptance ratio [during last 500]: %f [%f]',isux/j,jsux/jj));
+==========================================================
+   Change in the posterior covariance matrix = 1.5118.
+   Change in the posterior mean = 2.573.
+   Mode improvement = 0.15084
+   New value of jscale = 0.47287
+==========================================================
 
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gmhmaxlik', 'C:\dynare\4.5.7\matlab\optimization\gmhmaxlik.m', 100)" style="font-weight:bold">gmhmaxlik</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\optimization\gmhmaxlik.m',100,0)">line 100</a>)
-    [PostMode, PostVariance, Scale, PostMean] = gmhmaxlik_core(fun, OldPostMode, bounds, gmhmaxlikOptions, Scale, flag,
-    MeanPar, OldPostVariance, varargin{:});
+==========================================================
+   Change in the posterior covariance matrix = 2.7896.
+   Change in the posterior mean = 2.1647.
+   Mode improvement = 3.3478
+   New value of jscale = 0.30303
+==========================================================
 
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_minimize_objective', 'C:\dynare\4.5.7\matlab\optimization\dynare_minimize_objective.m', 254)" style="font-weight:bold">dynare_minimize_objective</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\optimization\dynare_minimize_objective.m',254,0)">line 254</a>)
-    [opt_par_values, hessian_mat, Scale, fval] = gmhmaxlik(objective_function, start_par_value, ...
+Optimal value of the scale parameter = 0.30303
 
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\4.5.7\matlab\dynare_estimation_1.m', 220)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation_1.m',220,0)">line 220</a>)
-    [xparam1, fval, exitflag, hh, options_, Scale, new_rat_hess_info] =
-    dynare_minimize_objective(objective_function,xparam1,options_.mode_compute,options_,[bounds.lb
-    bounds.ub],bayestopt_.name,bayestopt_,hh,dataset_,dataset_info,options_,M_,estim_params_,bayestopt_,bounds,oo_);
 
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\4.5.7\matlab\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation.m',105,0)">line 105</a>)
-    dynare_estimation_1(var_list,dname);
+Final value of minus the log posterior (or likelihood):-5040.348786 
 
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('modelmodfile', 'C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\reference\IN10\raw_variables\MatlabTrial\modelmodfile.m', 628)" style="font-weight:bold">modelmodfile</a> (<a href="matlab: opentoline('C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\reference\IN10\raw_variables\MatlabTrial\modelmodfile.m',628,0)">line 628</a>)
-oo_recursive_=dynare_estimation(var_list_);
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+      prior mean     mode    s.d. prior pstdev
 
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\4.5.7\matlab\dynare.m', 235)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare.m',235,0)">line 235</a>)
-evalin('base',fname) ;
+ALPHA     0.650   0.7966  0.0315 beta  0.0500 
+EC        0.500   0.3026  0.0336 beta  0.0750 
+EC1       0.500   0.6052  0.0549 beta  0.0750 
+ETA       0.500   0.4930  0.0895 gamm  0.1000 
+ETA1      0.500   0.4860  0.0904 gamm  0.1000 
+FIKC     10.000  15.1857  1.4945 gamm  2.5000 
+FIKH     10.000  10.6106  1.8154 gamm  2.5000 
+LAGP      0.500   0.6996  0.0838 beta  0.2000 
+LAGWC     0.500   0.0623  0.0349 beta  0.2000 
+LAGWH     0.500   0.3839  0.1094 beta  0.2000 
+NU       -1.000  -0.7535  0.0956 norm  0.1000 
+NU1      -1.000  -0.9818  0.0866 norm  0.1000 
+RHO_AC    0.800   0.9447  0.0123 beta  0.1000 
+RHO_AH    0.800   0.9977  0.0018 beta  0.0900 
+RHO_AJ    0.800   0.9580  0.0124 beta  0.1000 
+RHO_AK    0.800   0.9242  0.0154 beta  0.1000 
+RHO_AT    0.800   0.9342  0.0248 beta  0.1000 
+RHO_AZ    0.800   0.9702  0.0116 beta  0.1000 
+TAYLOR_P   1.500   1.3892  0.0578 norm  0.1000 
+TAYLOR_R   0.750   0.5950  0.0339 beta  0.1000 
+TAYLOR_Y   0.000   0.4715  0.0501 norm  0.1000 
+TETA      0.667   0.8319  0.0199 beta  0.0500 
+TETAWC    0.667   0.8087  0.0219 beta  0.0500 
+TETAWH    0.667   0.9220  0.0098 beta  0.0500 
+TREND_AC   0.005   0.0032  0.0001 norm  0.0100 
+TREND_AH   0.005   0.0009  0.0008 norm  0.0100 
+TREND_AK   0.005   0.0027  0.0002 norm  0.0100 
+ZETAKC    0.500   0.7729  0.0656 beta  0.2000 
 
-Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('myownestimationtrial', 'C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\reference\IN10\raw_variables\MatlabTrial\myownestimationtrial.m', 70)" style="font-weight:bold">myownestimationtrial</a> (<a href="matlab: opentoline('C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\reference\IN10\raw_variables\MatlabTrial\myownestimationtrial.m',70,0)">line 70</a>)
-dynare(convertStringsToChars("modelmodfile.mod"))
-} 
+standard deviation of shocks
+      prior mean     mode    s.d. prior pstdev
+
+eps_c     0.001   0.0102  0.0006 invg  0.0100 
+eps_e     0.001   0.0032  0.0003 invg  0.0100 
+eps_h     0.001   0.0202  0.0012 invg  0.0100 
+eps_j     0.001   0.0428  0.0090 invg  0.0100 
+eps_k     0.001   0.0112  0.0012 invg  0.0100 
+eps_p     0.001   0.0046  0.0004 invg  0.0100 
+eps_s     0.100   0.0310  0.0039 invg  1.0000 
+eps_t     0.001   0.0235  0.0059 invg  0.0100 
+eps_z     0.001   0.0160  0.0031 invg  0.0100 
+
+standard deviation of measurement errors
+      prior mean     mode    s.d. prior pstdev
+
+data_NH   0.001   0.1215  0.0063 invg  0.0100 
+data_WH   0.001   0.0069  0.0004 invg  0.0100 
+
+
+Log data density [Laplace approximation] is 4891.347125.
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Old mh-files successfully erased!
+Estimation::mcmc: Old metropolis.log file successfully erased!
+Estimation::mcmc: Creation of a new metropolis.log file.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in modelmodfile/metropolis\modelmodfile_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 1 per block.
+Estimation::mcmc: Total number of generated files: 1.
+Estimation::mcmc: Total number of iterations: 5000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 33.48%
+Estimation::mcmc: Total number of MH draws per chain: 5000.
+Estimation::mcmc: Total number of generated MH files: 1.
+Estimation::mcmc: I'll use mh-files 1 to 1.
+Estimation::mcmc: In MH-file number 1 I'll start at line 2501.
+Estimation::mcmc: Finally I keep 2500 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter             Block 1
+SE_eps_c              152.801
+SE_eps_e               24.069
+SE_eps_h               24.565
+SE_eps_j              111.996
+SE_eps_k               38.600
+SE_eps_p              114.235
+SE_eps_s               88.727
+SE_eps_t               94.033
+SE_eps_z               40.249
+SE_EOBS_data_NH        83.995
+SE_EOBS_data_WH       139.581
+ALPHA                  36.661
+EC                     62.354
+EC1                   197.741
+ETA                   232.227
+ETA1                  209.280
+FIKC                   68.202
+FIKH                   92.026
+LAGP                  100.974
+LAGWC                 153.186
+LAGWH                 157.460
+NU                    321.131
+NU1                   365.067
+RHO_AC                 39.628
+RHO_AH                 65.002
+RHO_AJ                111.460
+RHO_AK                 54.556
+RHO_AT                 38.058
+RHO_AZ                102.383
+TAYLOR_P              168.807
+TAYLOR_R              177.935
+TAYLOR_Y               68.132
+TETA                  151.571
+TETAWC                 68.430
+TETAWH                210.753
+TREND_AC              303.230
+TREND_AH              177.549
+TREND_AK              217.290
+ZETAKC                 90.270
+
+
+Geweke (1992) Convergence Tests, based on means of draws 2500 to 3000 vs 3750 to 5000.
+p-values are for Chi2-test for equality of means.
+Parameter               Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eps_c                     0.010            0.001            0.000            0.011            0.058            0.127
+SE_eps_e                     0.003            0.000            0.564            0.897            0.911            0.911
+SE_eps_h                     0.021            0.001            0.002            0.577            0.660            0.699
+SE_eps_j                     0.047            0.009            0.000            0.151            0.264            0.324
+SE_eps_k                     0.011            0.001            0.000            0.380            0.485            0.532
+SE_eps_p                     0.005            0.000            0.000            0.119            0.220            0.309
+SE_eps_s                     0.033            0.007            0.000            0.202            0.336            0.428
+SE_eps_t                     0.026            0.005            0.000            0.001            0.007            0.015
+SE_eps_z                     0.016            0.004            0.180            0.795            0.834            0.851
+SE_EOBS_data_NH              0.122            0.007            0.000            0.145            0.225            0.251
+SE_EOBS_data_WH              0.007            0.000            0.000            0.055            0.142            0.228
+ALPHA                        0.796            0.027            0.000            0.416            0.508            0.559
+EC                           0.320            0.036            0.000            0.256            0.385            0.477
+EC1                          0.598            0.056            0.000            0.000            0.001            0.005
+ETA                          0.547            0.102            0.000            0.000            0.006            0.024
+ETA1                         0.486            0.089            0.000            0.000            0.000            0.000
+FIKC                        15.363            1.331            0.000            0.051            0.113            0.135
+FIKH                        11.083            2.054            0.111            0.731            0.781            0.811
+LAGP                         0.687            0.075            0.000            0.003            0.027            0.080
+LAGWC                        0.093            0.040            0.000            0.000            0.000            0.000
+LAGWH                        0.396            0.110            0.000            0.167            0.300            0.400
+NU                          -0.703            0.127            0.000            0.000            0.000            0.000
+NU1                         -0.922            0.112            0.000            0.000            0.000            0.000
+RHO_AC                       0.943            0.011            0.000            0.397            0.494            0.553
+RHO_AH                       0.997            0.001            0.233            0.799            0.837            0.856
+RHO_AJ                       0.955            0.012            0.000            0.020            0.063            0.092
+RHO_AK                       0.918            0.015            0.000            0.098            0.198            0.267
+RHO_AT                       0.925            0.021            0.000            0.021            0.069            0.112
+RHO_AZ                       0.960            0.017            0.000            0.000            0.003            0.018
+TAYLOR_P                     1.421            0.083            0.000            0.014            0.063            0.133
+TAYLOR_R                     0.598            0.036            0.000            0.021            0.074            0.134
+TAYLOR_Y                     0.490            0.055            0.000            0.022            0.083            0.165
+TETA                         0.834            0.018            0.000            0.000            0.000            0.001
+TETAWC                       0.814            0.019            0.460            0.883            0.906            0.917
+TETAWH                       0.917            0.013            0.000            0.000            0.000            0.000
+TREND_AC                     0.003            0.000            0.000            0.000            0.000            0.000
+TREND_AH                     0.001            0.001            0.000            0.000            0.000            0.000
+TREND_AK                     0.003            0.000            0.000            0.000            0.000            0.000
+ZETAKC                       0.763            0.065            0.000            0.020            0.073            0.136
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is 4866.270938.
+
+parameters
+          prior mean   post. mean        90% HPD interval    prior       pstdev
+
+ALPHA          0.650       0.8040      0.7642      0.8451   beta        0.0500
+EC             0.500       0.3297      0.2723      0.3979   beta        0.0750
+EC1            0.500       0.6015      0.5254      0.6869   beta        0.0750
+ETA            0.500       0.5645      0.3905      0.7049   gamm        0.1000
+ETA1           0.500       0.5168      0.3713      0.6668   gamm        0.1000
+FIKC          10.000      14.8332     12.9560     16.4954   gamm        2.5000
+FIKH          10.000      10.5205      8.0841     12.6326   gamm        2.5000
+LAGP           0.500       0.6849      0.5602      0.8556   beta        0.2000
+LAGWC          0.500       0.0865      0.0373      0.1464   beta        0.2000
+LAGWH          0.500       0.4173      0.2257      0.6073   beta        0.2000
+NU            -1.000      -0.7009     -0.9191     -0.4483   norm        0.1000
+NU1           -1.000      -0.9007     -1.1043     -0.6890   norm        0.1000
+RHO_AC         0.800       0.9427      0.9284      0.9619   beta        0.1000
+RHO_AH         0.800       0.9971      0.9954      0.9995   beta        0.0900
+RHO_AJ         0.800       0.9551      0.9301      0.9736   beta        0.1000
+RHO_AK         0.800       0.9158      0.8914      0.9376   beta        0.1000
+RHO_AT         0.800       0.9244      0.8899      0.9621   beta        0.1000
+RHO_AZ         0.800       0.9505      0.9241      0.9794   beta        0.1000
+TAYLOR_P        1.500       1.4465      1.3342      1.5751   norm        0.1000
+TAYLOR_R        0.750       0.6047      0.5635      0.6577   beta        0.1000
+TAYLOR_Y        0.000       0.5059      0.4187      0.5828   norm        0.1000
+TETA           0.667       0.8304      0.8021      0.8574   beta        0.0500
+TETAWC         0.667       0.8148      0.7874      0.8510   beta        0.0500
+TETAWH         0.667       0.9143      0.8864      0.9332   beta        0.0500
+TREND_AC        0.005       0.0032      0.0031      0.0034   norm        0.0100
+TREND_AH        0.005       0.0009     -0.0002      0.0024   norm        0.0100
+TREND_AK        0.005       0.0027      0.0025      0.0030   norm        0.0100
+ZETAKC         0.500       0.7622      0.6271      0.8785   beta        0.2000
+
+standard deviation of shocks
+          prior mean   post. mean        90% HPD interval    prior       pstdev
+
+eps_c          0.001       0.0102      0.0089      0.0114   invg        0.0100
+eps_e          0.001       0.0032      0.0029      0.0036   invg        0.0100
+eps_h          0.001       0.0206      0.0189      0.0226   invg        0.0100
+eps_j          0.001       0.0467      0.0327      0.0664   invg        0.0100
+eps_k          0.001       0.0111      0.0098      0.0125   invg        0.0100
+eps_p          0.001       0.0047      0.0041      0.0053   invg        0.0100
+eps_s          0.100       0.0331      0.0252      0.0427   invg        1.0000
+eps_t          0.001       0.0274      0.0210      0.0350   invg        0.0100
+eps_z          0.001       0.0148      0.0112      0.0197   invg        0.0100
+
+standard deviation of measurement errors
+          prior mean   post. mean        90% HPD interval    prior       pstdev
+
+data_NH        0.001       0.1208      0.1094      0.1306   invg        0.0100
+data_WH        0.001       0.0072      0.0065      0.0081   invg        0.0100
+Estimation::mcmc: Posterior (dsge) IRFs...
+Estimation::mcmc: Posterior IRFs, done!
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Smoothed measurement errors
+Estimation::mcmc: Smoothed measurement errors, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Estimation::mcmc: Forecasted variables (point) with ME
+Estimation::mcmc: Forecasted variables (point) with ME, done!
+Total computing time : 1h20m40s
+Note: warning(s) encountered in MATLAB/Octave code
