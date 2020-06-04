@@ -14,12 +14,12 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2001-02-14"]; %
+p.vintages = ["2008-11-10"]; %
 p.scenarios = ["s2"];
-p.models = ["FRBEDO08"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08"
+p.models = ["KR15_FF"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "Your name";
 
-p.ExcelColumnUntil = "U";
+p.ExcelColumnUntil = "X";
 
 % hyper-parameters
 p.chainLen = 1000000;
@@ -44,6 +44,13 @@ assert(isfolder(p.path.root) && isfolder(p.path.models) && isfolder(p.path.estim
 % p.table.variable_names = {'model','vintageDate','scenario','nobs','ndraws', 'forecasts'};
 
 %% DSGE estimation
+
+p.dynareVersion = convertCharsToStrings(dynare_version);
+if p.dynareVersion ~= "4.5.7"
+    warning(sprintf("You are about to estimate models using Dynare %s.", p.dynareVersion));
+    warning("Please make sure this is the version you need!");
+    pause(5);
+end
 
 clear t;
 for model = p.models
@@ -119,6 +126,11 @@ for model = p.models
                 
                 % build up the estimation command
                 t.xlsRange = "B1:" + p.ExcelColumnUntil + string(p.nobs + (scenario ~= "s1"));
+                if p.dynareVersion == "4.2.4"
+                    p.optionString.subDraws = "";
+                else
+                    p.optionString.subDraws = sprintf("sub_draws=%s, ", string(p.subDraws));
+                end
                 t.script.estimation = "\nestimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, " + ...
                     sprintf("datafile=%s, ", "data_" + strrep(vintage, "-", "")) + ...
                     sprintf("xls_sheet=%s, ", scenario) + ...
@@ -128,7 +140,7 @@ for model = p.models
                     sprintf("mh_nblocks=%s, ", string(p.chainNum)) + ...
                     sprintf("mh_jscale=%s, ", string(p.scalingParam)) + ...
                     sprintf("mh_drop=%s, ", string(p.burnin)) + ...
-                    sprintf("sub_draws=%s, ", string(p.subDraws)) + ...
+                    p.optionString.subDraws + ...
                     sprintf("forecast=%s, ", string(p.forecastHorizon)) + ...
                     sprintf("mode_compute=%s", string(p.mode_compute_order(1))) + ...
                     ") gdp_rgd_obs;";
@@ -209,6 +221,8 @@ for model = p.models
                 t.output.executor = p.executor;
                 t.output.timeElapsed = tEnd;
                 t.output.timeStamp = datestr(datetime('now'));
+                t.output.dynareVersion = p.dynareVersion;
+                t.output.matlabVersion = convertCharsToStrings(version);
                 
                 % write to JSON file
                 JSONOutput = jsonencode(t.output);

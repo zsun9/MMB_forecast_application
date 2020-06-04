@@ -176,6 +176,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                     # if variable updated quarterly, then remove the last obs
                     if infoRaw[infoRaw['id']==var]['frequency_short'].values[0] == 'Q':
                         df.iloc[-1] = float('nan')
+                    # for some variables, even remove the last two obs
+                    if var in {'BOGZ1FL144104005Q'}:
+                        df.iloc[-2] = float('nan')
                     return df, vintage
 
         else:
@@ -415,6 +418,18 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 df.loc[:, obs] = df[d['AWHNONAG']]*df[d['CE16OV']]/df[d['CNP16OV']]
                 df.loc[:, obs] = df.loc[:, obs] / df.loc[:, obs][:-1].mean()
 
+            elif obs == 'bbb1yffr_obs':
+                # (C0091Y-DFF)/4
+                df.loc[:, obs] = (df[d['C0091Y']] - df[d['DFF']])/4
+
+            elif obs == 'credit_nom_obs':
+                # ΔLN(BOGZ1FL144104005Q)*100
+                df.loc[:, obs] = np.log(df[d['BOGZ1FL144104005Q']]/df[d['BOGZ1FL144104005Q']].shift())*100
+
+            elif obs == 'hours_kr15_obs':
+                # LN(12*PRS85006023*CE16OV/CNP16OV)*100
+                df.loc[:, obs] = np.log(12*df[d['PRS85006023']]*df[d['CE16OV']]/df[d['CNP16OV']])*100
+
             elif obs == 'gdpnoexp_obs':
                 # demean: ΔLN((GDP-NETEXP)/GDPCTPI)*100
                 df.loc[:, obs] = np.log(((df[d['GDP']]-df[d['NETEXP']])/df[d['GDPCTPI']])/((df[d['GDP']].shift()-df[d['NETEXP']].shift())/df[d['GDPCTPI']].shift()))*100 
@@ -519,7 +534,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     dfCompleteSpf.index = [str(index) for index in dfCompleteSpf.index]
 
     # remove some observables' current quarter value
-    observableNoCurrentQuaterValue = {'hours_dngs15_obs', 'hours_sw07_obs', 'hours_frbedo08_obs'}
+    observableNoCurrentQuaterValue = {'hours_dngs15_obs', 'hours_sw07_obs', 'hours_frbedo08_obs', 'hours_kr15_obs'}
     if obsEnd.to_period('Q') == vintageDate.to_period('Q'):
         for observable in observableNoCurrentQuaterValue:
             if observable in dfComplete.columns:
@@ -570,21 +585,21 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
             # write to Excel
             if writeS4:
-                dfS1.to_excel(writer, sheet_name='s1')
-                dfS2.to_excel(writer, sheet_name='s2')
-                dfS3.to_excel(writer, sheet_name='s3')
-                dfS4.to_excel(writer, sheet_name='s4')
+                dfS1.sort_index(axis=1).to_excel(writer, sheet_name='s1')
+                dfS2.sort_index(axis=1).to_excel(writer, sheet_name='s2')
+                dfS3.sort_index(axis=1).to_excel(writer, sheet_name='s3')
+                dfS4.sort_index(axis=1).to_excel(writer, sheet_name='s4')
                 print('Generated data with scenarios 1, 2, 3, and 4.')
             elif writeS3:
-                dfS1.to_excel(writer, sheet_name='s1')
-                dfS3.to_excel(writer, sheet_name='s3')
+                dfS1.sort_index(axis=1).to_excel(writer, sheet_name='s1')
+                dfS3.sort_index(axis=1).to_excel(writer, sheet_name='s3')
                 print('Generated data with scenarios 1 and 3.')
             elif writeS2:
-                dfS1.to_excel(writer, sheet_name='s1')
-                dfS2.to_excel(writer, sheet_name='s2')
+                dfS1.sort_index(axis=1).to_excel(writer, sheet_name='s1')
+                dfS2.sort_index(axis=1).to_excel(writer, sheet_name='s2')
                 print('Generated data with scenarios 1 and 2.')
             else:
-                dfComplete.to_excel(writer)
+                dfComplete.sort_index(axis=1).to_excel(writer)
                 print('Generated data with one scenario.')
 
         # if np.sum(np.isnan(dfComplete.iloc[-1,:])) > 0 and vintageDate - dfComplete.index[-1].start_time < pd.Timedelta('120 days'):
@@ -599,12 +614,16 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
     return None
 
-
 if __name__ == '__main__':
+
     main(
-        vintageDate='2020-05-12', quarterStart='1980Q1', quarterEnd='2020Q2',
+        vintageDate='2008-11-10', quarterStart='1984Q1', quarterEnd='2008Q4',
         observed=[
-                'hours_frbedo08_obs', 'cnds_nom_obs', 'cd_nom_obs', 'ir_nom_obs', 'inr_nom_obs', 'cnds_def_obs', 'cd_def_obs',
+            'gdp_rgd_obs', 'gdpdef_obs', 'ffr_obs', 'ifi_rgd_obs', 'c_rgd_obs', 
+            'wage_rgd_obs', 'baag10_obs', 'hours_dngs15_obs', 'hours_sw07_obs',
+            'gdpl_rgd_obs', 'unr_obs', 'cpil_obs', 'blt_obs',
+            'hours_frbedo08_obs', 'cnds_nom_obs', 'cd_nom_obs', 'ir_nom_obs', 'inr_nom_obs', 'cnds_def_obs', 'cd_def_obs',
+            'bbb1yffr_obs', 'credit_nom_obs', 'hours_kr15_obs',
            ],
 
         )
