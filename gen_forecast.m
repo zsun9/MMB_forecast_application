@@ -16,7 +16,7 @@ close all; fclose all; clear; clc;
 % Please use double quotes here!
 p.vintages = ["2008-11-10"]; %
 p.scenarios = ["s2"];
-p.models = ["KR15_FF"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.models = ["QPM08"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "Your name";
 
 p.ExcelColumnUntil = "X";
@@ -125,6 +125,7 @@ for model = p.models
                 end
                 
                 % build up the estimation command
+                t.dataFile = "data_" + strrep(vintage, "-", "");
                 t.xlsRange = "B1:" + p.ExcelColumnUntil + string(p.nobs + (scenario ~= "s1"));
                 if p.dynareVersion == "4.2.4"
                     p.optionString.subDraws = "";
@@ -132,7 +133,7 @@ for model = p.models
                     p.optionString.subDraws = sprintf("sub_draws=%s, ", string(p.subDraws));
                 end
                 t.script.estimation = "\nestimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, " + ...
-                    sprintf("datafile=%s, ", "data_" + strrep(vintage, "-", "")) + ...
+                    sprintf("datafile=%s, ", t.dataFile) + ...
                     sprintf("xls_sheet=%s, ", scenario) + ...
                     sprintf("xls_range=%s, ", t.xlsRange) + ...
                     sprintf("presample=%s, ", string(p.presample)) + ...
@@ -145,8 +146,21 @@ for model = p.models
                     sprintf("mode_compute=%s", string(p.mode_compute_order(1))) + ...
                     ") gdp_rgd_obs;";
                 
-                % loop through different mode compute routines
                 cd(t.path.working);
+                
+                % save means of observables
+                t.data.table = readtable(t.dataFile + ".xlsx", 'Sheet', scenario);
+                t.data.name = t.data.table.Properties.VariableNames;
+                t.data.mean = nanmean(t.data.table{:,2:end},1);
+                t.script.obsMean = "";
+                for i = 1:length(t.data.mean)
+                    t.script.obsMean = t.script.obsMean + sprintf("%s = %.10f;\n", t.data.name{i+1}, t.data.mean(i));
+                end
+                obsMeanFile = fopen('obsMean.m', 'w');
+                fprintf(obsMeanFile, t.script.obsMean);
+                fclose(obsMeanFile);
+                
+                % loop through different mode compute routines
                 t.name.modefile = model + "_mode.mat";
                 if exist(t.name.modefile, 'file')
                     fprintf('Mode file exists, and the ML estimation will be skipped.\n');
