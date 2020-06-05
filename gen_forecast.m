@@ -154,7 +154,7 @@ for model = p.models
                 t.data.mean = nanmean(t.data.table{:,2:end},1);
                 t.script.obsMean = "";
                 for i = 1:length(t.data.mean)
-                    t.script.obsMean = t.script.obsMean + sprintf("%s = %.10f;\n", t.data.name{i+1}, t.data.mean(i));
+                    t.script.obsMean = t.script.obsMean + sprintf("%s_mean = %.10f;\n", t.data.name{i+1}, t.data.mean(i));
                 end
                 obsMeanFile = fopen('obsMean.m', 'w');
                 fprintf(obsMeanFile, t.script.obsMean);

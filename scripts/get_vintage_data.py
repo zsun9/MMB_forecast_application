@@ -435,6 +435,35 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 # LN(12*PRS85006023*CE16OV/CNP16OV)*100
                 df.loc[:, obs] = np.log(12*df[d['PRS85006023']]*df[d['CE16OV']]/df[d['CNP16OV']])*100
 
+            elif obs == 'g10ffr_obs':
+                # (DGS10-DFF)/4
+                df.loc[:, obs] = (df[d['DGS10']] - df[d['DFF']])/4
+
+            elif obs == 'networth_rgd_obs':
+                # ΔLN(WILL5000IND/GDPCTPI)*100
+                df.loc[:, obs] = np.log((df[d['WILL5000IND']]/df[d['GDPCTPI']])/(df[d['WILL5000IND']].shift()/df[d['GDPCTPI']].shift()))*100
+
+            elif obs == 'hours_cmr14_obs':
+                # LN(HOANBS/CNP16OV)
+                df.loc[:, obs] = np.log(df[d['HOANBS']]/(df[d['CNP16OV']]))*100
+
+            elif obs == 'credit_rgd_obs':
+                # ΔLN(BOGZ1FL144104005Q/GDPCTPI)*100
+                df.loc[:, obs] = np.log((df[d['BOGZ1FL144104005Q']]/df[d['GDPCTPI']])/(df[d['BOGZ1FL144104005Q']].shift()/df[d['GDPCTPI']].shift()))*100
+
+            elif obs == 'cnds_rim_obs':
+                # ΔLN(PCESC96+PCENDC96)*100
+                df.loc[:, obs] = np.log((df[d['PCESC96']]+df[d['PCENDC96']])/(df[d['PCESC96']].shift()+df[d['PCENDC96']].shift()))*100
+            
+            elif obs == 'igid_rim_obs':
+                # ΔLN(PCEDGC96+GPDIC1)*100
+                df.loc[:, obs] = np.log((df[d['PCEDGC96']]+df[d['GPDIC1']])/(df[d['PCEDGC96']].shift()+df[d['GPDIC1']].shift()))*100
+
+            elif obs == 'igiddef_rgd_obs':
+                # ΔLN(((GPDI+PCEDG)/(GPDIC1+PCEDGC96))/GDPCTPI)*100
+                df.loc[:, obs] = np.log(((df[d['GPDI']]+df[d['PCEDG']])/(df[d['GPDIC1']]+df[d['PCEDGC96']])/df[d['GDPCTPI']])/((df[d['GPDI']].shift()+df[d['PCEDG']].shift())/(df[d['GPDIC1']].shift()+df[d['PCEDGC96']].shift())/df[d['GDPCTPI']].shift()))*100
+
+
             elif obs == 'gdpnoexp_obs':
                 # demean: ΔLN((GDP-NETEXP)/GDPCTPI)*100
                 df.loc[:, obs] = np.log(((df[d['GDP']]-df[d['NETEXP']])/df[d['GDPCTPI']])/((df[d['GDP']].shift()-df[d['NETEXP']].shift())/df[d['GDPCTPI']].shift()))*100 
