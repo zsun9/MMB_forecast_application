@@ -1,13 +1,17 @@
-raw: Folder that stores raw observables from the ALFRED, RTDSM, Greenbook, and other sources
+This folder contains all the data needed for the project.
 
-data_collection.ipynb: IPYNB program for downloading raw variables
+raw: include raw observables from the ALFRED, RTDSM, Greenbook, and other sources
 
-vintage_gen.py: Python file for generating vintage data
+vintage_data: include observables constructed from specific vintage dates
 
-data_update.py: Python code for updating data
+raw_variable_description.csv: show description of raw variables
 
-raw_variable_description: Description of raw variables (*automatically generated*)
+observed_variable_description.xlsx: show description of observed variables
 
-observed_variable_description.xlsx: Description of observed variables
+fill_nowcast.xlsx: match the IDs of raw variables with the IDs of their corresponding SPF counterparts
 
-id_correspond.xlsx: Specify same variables that have different IDs in different databases
+fill_history.xlsx: match the IDs of raw variables that have missing values with the IDs of corresponding variables that are used to fill those missing values
+
+actualGDP.csv: store the actual GDP growth series with which the forecasts are compared
+
+spf_dates: store the deadline and release dates for the SPF

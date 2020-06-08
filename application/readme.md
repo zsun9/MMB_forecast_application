@@ -1,0 +1,1 @@
+This folder contains files for building up the online application. To run the application locally, please use Node.js or other JavaScript runtimes.

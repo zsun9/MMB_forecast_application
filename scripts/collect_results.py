@@ -1,19 +1,29 @@
 import json, pathlib
+import pandas as pd
 
 paths = {
     'estimations': pathlib.Path('../estimations'),
     'application': pathlib.Path('../application'),
-    'spf': pathlib.Path('../data/raw/spf'),
+    'data': pathlib.Path('../data'),
 }
 for path in paths.values():
     assert path.exists()
 
 results = {
     'dsge': [],
-    'timeseries': [],
+    'bvar': [],
     'actual': [],
-    'external': [],
+    'others': [],
 }
+
+actualGDP = pd.read_csv(paths['data'] / 'actualGDP.csv', encoding='utf-8', index_col=0)
+for i, index in enumerate(actualGDP.index):
+    try:
+        series = actualGDP.iloc[i: i+40+1, :].values.reshape(1, -1).tolist()[0]
+    except:
+        series = actualGDP.iloc[i:, :].values.reshape(1, -1).tolist()[0]
+
+    results['actual'].append({'actual': {'gdp': series}, 'vintageQuarter': index})
 
 for file in paths['estimations'].rglob('*.json'):
     inst = json.loads(file.read_text())

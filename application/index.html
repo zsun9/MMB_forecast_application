@@ -69,9 +69,9 @@
       
     </div>
 
-    
-
-    <div class='container' id='charts'></div>
+    <div class='container'>
+      <div class='row' id='charts'></div>
+    </div>
 
     <script src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
@@ -193,7 +193,7 @@
 
           let yearStart = parseInt(selectedVintage.substring(0, 4));
           let quarterStart = Math.floor(parseInt(selectedVintage.substring(5,7)) / 3) + 1;
-          console.log(quarterStart);
+          let vintageQuarter = yearStart + 'Q' + quarterStart;
           if (quarterStart == 1) {
             quarterStart = 4;
             yearStart -= 1;
@@ -220,11 +220,24 @@
               charts.removeChild(charts.firstChild);
             }
 
+            var actualSeries = new Array;
+            for (let i = 0; i < data['actual'].length; i++) {
+              if (data['actual'][i].vintageQuarter == vintageQuarter) {
+                actualSeries = data['actual'][i].actual.gdp;
+                break;
+              }
+            }
+
+            let loopedOnce = false;
             for (let scenario of selectedScenario) {
 
+              let divCol = document.createElement('div');
+              divCol.classList.add(`col-${12/selectedScenario.length}`);
+              divCol.classList.add(`chart-container`);
               let canvas = document.createElement('canvas');
               canvas.classList.add('forecastChart');
-              charts.appendChild(canvas);
+              divCol.appendChild(canvas);
+              charts.appendChild(divCol);
 
               let ctx = canvas.getContext('2d');
 
@@ -234,20 +247,32 @@
                 for (let i = 0; i < data['dsge'].length; i++) {
                   if (data['dsge'][i].model == model && data['dsge'][i].vintage == selectedVintage && data['dsge'][i].scenario == scenario) {
                     gdpData = data['dsge'][i].forecast.gdp;
+                    var gdpLastQuarter = gdpData[0];
                     break;
                   }
                 }
 
-                datasets.push(
-                  {
+                datasets.push({
                     fill: false,
                     label: model,
                     data: gdpData,
                     backgroundColor: modelColors[model],
                     borderColor: modelColors[model],
-                  }
-                )
+                  });
               }
+
+              if (loopedOnce == false) {
+                loopedOnce = true;
+                actualSeries.unshift(gdpLastQuarter);
+              }
+
+              datasets.push({
+                fill: false,
+                label: 'Actual',
+                data: actualSeries,
+                backgroundColor: modelColors['Actual'],
+                borderColor: modelColors['Actual'],
+              });
 
               let chart = new Chart(ctx, {
                   type: 'line',
@@ -258,25 +283,28 @@
                   },
 
                   options: {
-                      tooltips: {
-                          callbacks: {
-                              label: function(tooltipItem, data) {
 
-                                  var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                    title: {
+                      display: true,
+                      text: `${scenarioStrings[scenario]}`,
+                    },
 
-                                  if (label) {
-                                      label += ': ';
-                                  }
-                                  label += Math.round(tooltipItem.yLabel * 1000) / 1000;
-                                  console.log(label);
-                                  return label;
-
-                              }
+                    tooltips: {
+                      callbacks: {
+                        label: function(tooltipItem, data) {
+                          var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                          if (label) {
+                            label += ': ';
                           }
-                      },
-                      legend: {
-                        display: false
+                          label += Math.round(tooltipItem.yLabel * 1000) / 1000;
+                          return label;
+                        }
                       }
+                    },
+                    
+                    legend: {
+                      display: false
+                    }
                   },
 
               });
