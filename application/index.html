@@ -1,178 +1,298 @@
 <!DOCTYPE html>
+<html lang='en'>
 
-    <head>
-        <meta charset='utf-8'>
-        <title></title>
-        <meta name='description' content=''>
-        <meta name='viewport' content='width=device-width, initial-scale=1'>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <title>Macroeconomic forecasting platform</title>
+    <meta name='description' content='Macroeconomic forecasting platform'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
+    <link rel='stylesheet' href='./css/stylesheet.css'>
+  </head>
 
-        <script>
-            'use strict';
-            
-            // build up form
-            async function getDataInfo() {
-                const res = await fetch('results.json');
-                const data = await res.json();
+  <body data-spy='scroll' data-target='#navbar-example'>
 
-                function addItems (selectType, buttonType) {
+    <div class='container'>
+      <h1 class='page-header'>Application</h1>
+      <p class='lead'>Specify vintage date, forecast sources, and data scenarios to plot forecast charts.</p>
 
-                    let typeSet = new Set();
+      <form id='selectForm'>
 
-                    for (let item of data['dsge']) {
-                        typeSet.add(item[selectType]);
-                    }
+        <fieldset class='form-group'>
+          <div class='row'>
+            <div class='col-2'>
+              <legend class='col-form-label pt-0'>Vintage date</legend>
+            </div>
+            <div class='col-10' id='selectVintage'>
+            </div>
+          </div>
+        </fieldset>
 
-                    let addString = '';
+        <fieldset class='form-group'>
+          <div class='row'>
+            <div class='col-2'>
+              <legend class='col-form-label pt-0'>Model</legend>
+              <div class='w-100'></div>
+              <p><a href='' id='modelAll'>All</a> <a href='' id='modelClear'>Clear</a></p>
+            </div>
+            <div class='col-10 row'>
+              <div class='col-3'>By types</div>
+              <div class='col-9' id='selectModelType'></div>
+              <div class='w-100'></div>
+              <div class='col-3'>By models</div>
+              <div class='col-9' id='selectModel'></div>
+            </div>
+          </div>
+        </fieldset>
 
-                    for (let item of typeSet) {
-                        addString += `<input type='${buttonType}' id='select${item}' name='${selectType}' value='${item}'>\n<label for='select${item}'>${item}</label>\n`;
-                    }
+        <fieldset class='form-group'>
+          <div class='row'>
+            <div class='col-2'>
+              <legend class='col-form-label pt-0'>Scenario</legend>
+              <div class='w-100'></div>
+              <p><a href='' id='scenarioAll'>All</a> <a href='' id='scenarioClear'>Clear</a></p>
+            </div>
+            <div class='col-10' id='selectScenario'>
+            </div>
+          </div>
+        </fieldset>
 
-                    return addString;
-                }
-
-                let adddsgeModel = $('#selectModel');
-                let addVintage = $('#selectVintage');
-                let addScenario = $('#selectScenario');
-
-                adddsgeModel.html(addItems('model', 'checkbox'));
-                addVintage.html(addItems('vintage', 'radio'));
-                addScenario.html(addItems('scenario', 'radio'));
-
-                return await data;
-            }
-
-            const completeData = getDataInfo();
-
-            // retreive selection
-            $(document).ready(function () {
-                $('form').submit( function(event) {
-                event.preventDefault();
-                const selection = $(this).serializeArray();
-                $(this)[0].reset();
-                let selectedModel = [];
-                let selectedVintage = '';
-                let selectedScenario = '';
-                for (let item of selection) {
-                    if (item.name == 'vintage') {
-                        selectedVintage = item.value;
-                    } else if (item.name == 'scenario') {
-                        selectedScenario = item.value;
-                    } else {
-                        selectedModel.push(item.value);
-                    }
-                }
-                $('#showSelection').html(`<p>Forecasts from ${selectedModel} on ${selectedVintage} in scenario ${selectedScenario} will be shown. </p>`);
-                plotChart(completeData);
-                })
-            })
-
-            // plot chart
-            async function plotChart(completeData) {
-                console.log(completeData);
-                let data = await completeData[1];
-                console.log(data);
-                let data2 = await completeData[2];
-                let year = parseInt(data.vintage.substring(0,4));
-                let quarter = Math.floor(parseInt(data.vintage.substring(6,8)) / 4) + 1;
-                console.log(quarter);
-                let xlabels = new Array(data.forecast.gdp.length);
-                if (quarter == 1) {
-                    quarter = 4;
-                    year -= 1;
-                } else {
-                    quarter -= 1;
-                }
-                for (let i = 0; i < xlabels.length; i++) {
-                    xlabels[i] = year + 'Q' + quarter;
-                    if (quarter == 4) {
-                        quarter = 1;
-                        year += 1;
-                    } else {
-                        quarter += 1;
-                    }
-                    
-                }
-
-                let ctx = document.getElementById('forecastChart').getContext('2d');
-                let chart = new Chart(ctx, {
-                    type: 'line',
-
-                    data: {
-                        labels: xlabels.slice(0, 6),
-                        datasets: [
-                        {
-                            fill: false,
-                            label: data.model,
-                            backgroundColor: 'red',
-                            borderColor: 'red',
-                            data: data.forecast.gdp,
-                        },
-                        {
-                            fill: false,
-                            label: data2.model,
-                            backgroundColor: 'blue',
-                            borderColor: 'blue',
-                            data: data2.forecast.gdp,
-                        },
-                    ]
-                    },
-
-                    options: {
-                        tooltips: {
-                            callbacks: {
-                                label: function(tooltipItem, data) {
-
-                                    var label = data.datasets[tooltipItem.datasetIndex].label || '';
-
-                                    if (label) {
-                                        label += ': ';
-                                    }
-                                    label += Math.round(tooltipItem.yLabel * 1000) / 1000;
-                                    return label;
-                                    
-                                }
-                            }
-                        }
-                    },
-
-                }
-                );
-            }
-
-        </script>
-
-
-
-    </head>
-
-    <body>
-        <form id='selectForm'>
-            <fieldset>
-                <legend>Select the model(s)</legend>
-                <ul id='selectModel'>
-                </ul>
-            </fieldset>
-            <fieldset>
-                <legend>Select the vintage date</legend>
-                <ul id='selectVintage'>
-                </ul>
-            </fieldset>
-            <fieldset>
-                <legend>Select scenarios</legend>
-                <ul id='selectScenario'>
-                </ul>
-            </fieldset>
-            <input type='submit'>
-        </form>
-
-        <div id='showSelection'>
+        <div class='row justify-content-center'>
+          <button type='submit' class='btn btn-primary'>Compare</button>
         </div>
 
-        <canvas id='showChart'></canvas>
+      </form>
 
-    </body>
+      <!-- <div id='showSelection'></div> -->
+
+      <p class="legend"></p>
+      
+    </div>
+
+    
+
+    <div class='container' id='charts'></div>
+
+    <script src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>
+    <script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
+
+    <script>
+      'use strict';
+
+      const modelColors = {
+        // Always appear
+        'Actual': 'Black',
+        'Mean SPF': 'Green',
+        'Individual SPF': 'GhostWhite',
+        // Selective
+        'DS04': 'Red',
+        'WW11': 'Fuchsia',
+        'SW07': 'DodgerBlue',
+        'NKBGG': 'Cyan',
+        'DNGS15': 'Orange',
+      };
+
+      const modelTypes = [
+        'Pre-crisis', 'Post-crisis'
+      ];
+
+      const scenarioStrings = {
+        's1': 'Balanced panel (1)',
+        's2': 'Conditioning on SPF nowcast (2)',
+        's3': 'Conditioning on current-quarter observations (3)',
+        's4': 'Full conditioning (4)',
+      };
+
+      fetch('results.json').then(response => response.json()).then(data => {
+
+        function addItems(selectType, buttonType) {
+
+          let typeSet = new Set;
+
+          for (let item of data['dsge']) {
+            typeSet.add(item[selectType]);
+          }
+
+          let typeArray = Array.from(typeSet);
+          typeArray.sort();
+
+          let addString = '';
+
+          for (let item of typeArray) {
+            addString += `<div class='form-check form-check-inline'>\n<input class='form-check-input' type='${buttonType}' id='select${item}' name='${selectType}' value='${item}'>\n<label class='form-check-label' for='select${item}' id='select${item}label'>${item}</label>\n</div>\n`;
+
+            if (selectType == 'scenario') {
+              addString = addString.replace(`id='select${item}label'>${item}`, `id='select${item}label'>${scenarioStrings[item]}`)
+            }
+          }
+
+          return addString;
+        }
+
+        let addModelType = document.getElementById('selectModelType');
+        let addString = '';
+        for (let item of modelTypes) {
+          addString += `<div class='form-check form-check-inline'>\n<input class='form-check-input' type='checkbox' id='select${item}' value='${item}'>\n<label class='form-check-label' for='select${item}' id='select${item}label'>${item}</label>\n</div>\n`;
+        }
+        addModelType.innerHTML = addString;
+
+
+        let adddsgeModel = document.getElementById('selectModel');
+        let addVintage = document.getElementById('selectVintage');
+        let addScenario = document.getElementById('selectScenario');
+
+        adddsgeModel.innerHTML = addItems('model', 'checkbox');
+        addVintage.innerHTML = addItems('vintage', 'radio');
+        addScenario.innerHTML = addItems('scenario', 'checkbox');
+
+        document.getElementById('selects1')
+
+      });
+
+      // switch selection
+      document.getElementById('modelAll').addEventListener('click', function (event) {
+        event.preventDefault();
+        document.querySelectorAll("input[name='model']").forEach(item => item.checked = true);
+      });
+
+      document.getElementById('modelClear').addEventListener('click', function (event) {
+        event.preventDefault();
+        document.querySelectorAll("input[name='model']").forEach(item => item.checked = false);
+      });
+
+      document.getElementById('scenarioAll').addEventListener('click', function (event) {
+        event.preventDefault();
+        document.querySelectorAll("input[name='scenario']").forEach(item => item.checked = true);
+      });
+
+      document.getElementById('scenarioClear').addEventListener('click', function (event) {
+        event.preventDefault();
+        document.querySelectorAll("input[name='scenario']").forEach(item => item.checked = false);
+      });
+
+      // get selection
+      document.getElementById('selectForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const selection = $(this).serializeArray();
+        $(this)[0].reset();
+        let selectedVintage = new String, selectedModel = new Array, selectedScenario = new Array;
+        for (let item of selection) {
+          if (item.name == 'vintage') {
+            selectedVintage = item.value;
+          } else if (item.name == 'scenario') {
+            selectedScenario.push(item.value);
+          } else {
+            selectedModel.push(item.value);
+          }
+        }
+
+          $('#showSelection').html(`<p>Forecasts from ${selectedModel} on ${selectedVintage} in scenario ${selectedScenario} will be shown. </p>`);
+
+          let yearStart = parseInt(selectedVintage.substring(0, 4));
+          let quarterStart = Math.floor(parseInt(selectedVintage.substring(5,7)) / 3) + 1;
+          console.log(quarterStart);
+          if (quarterStart == 1) {
+            quarterStart = 4;
+            yearStart -= 1;
+          } else {
+            quarterStart -= 1;
+          }
+
+          let xlabels = new Array(40);
+          let quarter = quarterStart, year = yearStart;
+          for (let i = 0; i < xlabels.length; i++) {
+            xlabels[i] = year + 'Q' + quarter;
+            if (quarter == 4) {
+              quarter = 1;
+              year += 1;
+            } else {
+              quarter += 1;
+            }
+          }
+
+          fetch('results.json').then(response => response.json()).then(data => {
+
+            let charts = document.getElementById('charts');
+            while (charts.firstChild) {
+              charts.removeChild(charts.firstChild);
+            }
+
+            for (let scenario of selectedScenario) {
+
+              let canvas = document.createElement('canvas');
+              canvas.classList.add('forecastChart');
+              charts.appendChild(canvas);
+
+              let ctx = canvas.getContext('2d');
+
+              let datasets = new Array;
+              for (let model of selectedModel) {
+                var gdpData = [];
+                for (let i = 0; i < data['dsge'].length; i++) {
+                  if (data['dsge'][i].model == model && data['dsge'][i].vintage == selectedVintage && data['dsge'][i].scenario == scenario) {
+                    gdpData = data['dsge'][i].forecast.gdp;
+                    break;
+                  }
+                }
+
+                datasets.push(
+                  {
+                    fill: false,
+                    label: model,
+                    data: gdpData,
+                    backgroundColor: modelColors[model],
+                    borderColor: modelColors[model],
+                  }
+                )
+              }
+
+              let chart = new Chart(ctx, {
+                  type: 'line',
+
+                  data: {
+                      labels: xlabels.slice(0, 6),
+                      datasets: datasets,
+                  },
+
+                  options: {
+                      tooltips: {
+                          callbacks: {
+                              label: function(tooltipItem, data) {
+
+                                  var label = data.datasets[tooltipItem.datasetIndex].label || '';
+
+                                  if (label) {
+                                      label += ': ';
+                                  }
+                                  label += Math.round(tooltipItem.yLabel * 1000) / 1000;
+                                  console.log(label);
+                                  return label;
+
+                              }
+                          }
+                      },
+                      legend: {
+                        display: false
+                      }
+                  },
+
+              });
+
+              document.querySelector('.legend').innerHTML = chart.generateLegend();
+
+
+
+            }
+
+          });
+
+      });
+
+    </script>
+
+  </body>
 
 </html>
