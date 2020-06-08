@@ -9,7 +9,6 @@ var RR_US RR_US_BAR
     blt_obs blt_obs_BAR
     E E2
     GROWTH_US_BAR RR_US_GAP blt_obs_GAP
-    gdp_rgd_obs
 
 ;
 
@@ -110,9 +109,6 @@ E4_PIE_US4 = PIE_US4(+4);
 E1_PIE_US = PIE_US(+1);
 E1_Y_US = Y_US(+1);
 E2 = theta*(0.04*(E(-1)+E(-9))+0.08*(E(-2)+E(-8))+0.12*(E(-3)+E(-7))+0.16*(E(-4)+E(-6))+0.2*E(-5));
-
-
-gdp_rgd_obs = gdpl_rgd_obs - gdpl_rgd_obs(-1);
 
 end;
 

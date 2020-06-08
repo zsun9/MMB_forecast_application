@@ -14,8 +14,8 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2008-11-10"]; %
-p.scenarios = ["s2"];
+p.vintages = ["2001-02-14"]; %
+p.scenarios = ["s1"];
 p.models = ["QPM08"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "Your name";
 
@@ -146,6 +146,10 @@ for model = p.models
                     sprintf("mode_compute=%s", string(p.mode_compute_order(1))) + ...
                     ") gdp_rgd_obs;";
                 
+                if model == "QPM08"
+                    t.script.estimation = strrep(t.script.estimation, ") gdp_rgd_obs;", ") gdpl_rgd_obs;");
+                end
+                
                 cd(t.path.working);
                 
                 % save means of observables
@@ -213,11 +217,20 @@ for model = p.models
                 end
                 
                 % save GDP forecasts (start from the last in-sample obs)
-                if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
-                    t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end)'];
-                else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
-                    t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end-1)'];
+                if model == "QPM08"
+                    if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
+                        t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end)']);
+                    else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
+                        t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-2:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end-1)']);
+                    end
+                else
+                    if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
+                        t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end)'];
+                    else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
+                        t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end-1)'];
+                    end
                 end
+                
                 assert(length(t.output.forecast.gdp) == p.forecastHorizon + 1);
                 
                 % from quarter-on-quarter to year-on-year growth

@@ -45,7 +45,6 @@ E2=0;
 GROWTH_US_BAR = growth_us_ss;
 RR_US_GAP = 0;
 blt_obs_GAP = 0;
-gdp_rgd_obs = 0;
 
 check = 0;
 
@@ -77,5 +76,4 @@ E2
 GROWTH_US_BAR
 RR_US_GAP
 blt_obs_GAP
-gdp_rgd_obs
     ];
