@@ -172,7 +172,7 @@ for model = p.models
                     t.mode_compute = 0;
                     t.script.estimation = strrep(t.script.estimation, ...
                         sprintf("mode_compute=%s", string(p.mode_compute_order(1))), ...
-                        sprintf("mode_compute=%s, mode_file=%s", str(t.mode_compute), strrep(t.name.modefile, ".mat", "")));
+                        sprintf("mode_compute=%s, mode_file=%s", string(t.mode_compute), strrep(t.name.modefile, ".mat", "")));
                     
                     DynareFile = fopen(t.name.modfile,'w');
                     fprintf(DynareFile, t.script.modfile + t.script.estimation);
