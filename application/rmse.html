@@ -7,6 +7,7 @@
     <title>Macroeconomic forecasting platform</title>
     <meta name='description' content='Macroeconomic forecasting platform'>
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
     <link rel='stylesheet' href='./css/stylesheet.css'>
   </head>
 
@@ -128,14 +129,14 @@
 
     <hr>
 
-    <div class='container-fluid'>
-      <div class='row' id='tables'></div>
+    <div class='container'>
+      <div id='table'></div>
     </div>
 
     <script src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>
-    <script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
 
     <script>
       'use strict';
@@ -151,7 +152,7 @@
 
         function addItems(selectType, buttonType) {
 
-          let typeSet = new Set;
+          let typeSet = new Set();
 
           for (let item of data['dsge']) {
             typeSet.add(item[selectType]);
@@ -216,71 +217,86 @@
           }
         }
 
-        let selectedVintageQuarter = [];
-        for (let vintage of selectedVintage) {
-          let yearStart = parseInt(vintage.substring(0, 4));
-          let quarterStart = Math.floor(parseInt(vintage.substring(5,7)) / 3) + 1;
-          selectedVintageQuarter.push(yearStart + 'Q' + quarterStart);
-        }
+        // let selectedVintageQuarter = [];
+        // for (let vintage of selectedVintage) {
+        //   let yearStart = parseInt(vintage.substring(0, 4));
+        //   let quarterStart = Math.floor(parseInt(vintage.substring(5,7)) / 3) + 1;
+        //   selectedVintageQuarter.push(yearStart + 'Q' + quarterStart);
+        // }
 
         fetch('results.json').then(response => response.json()).then(data => {
 
-          // let actualSeriesObj = new Object;
-          // let foundindex = -1
-          // for (let vintageQuarter of selectedVintageQuarter) {
-          //   for (let i = foundindex + 1; i < data['actual'].length; i++) {
-          //     if (data['actual'][i].vintageQuarter == vintageQuarter) {
-          //       if (data['actual'][i].actual.gdp.length >= 5) {
-          //         actualSeriesObj[vintageQuarter] = data['actual'][i].actual.gdp.slice(0, 5);
-          //         foundindex = i;
-          //         break;
-          //       } else {
-          //         let warningInsufficientObs = document.createElement('p');
-          //         warningInsufficientObs.innerHTML = `Insufficient (<5) actual values for ${vintageQuarter}, so any vintage date in this quarter will not be considered.`;
-          //         document.getElementById('warning').appendChild(warningShowDescription);
-          //       }
-          //     }
-          //   }
-          // }
+          let rmseMap = new Map();
+          for (let item of data['error']) {
+            let model = item['model'], scenario = item['scenario'], squaredError = item['squaredError'], vintage = item['vintage'];
 
-          let loopedOnce = false;
-          for (let scenario of selectedScenario) {
-
-            let datasets = [];
-            for (let model of selectedModel) {
-              var gdpData = [];
-              for (let i = 0; i < data['dsge'].length; i++) {
-                if (data['dsge'][i].model == model && data['dsge'][i].vintage == selectedVintage && data['dsge'][i].scenario == scenario) {
-                  gdpData = data['dsge'][i].forecast.gdp;
-                  var gdpLastQuarter = gdpData[0];
-                  break;
+            if ((selectedModel.includes(model)) && (selectedVintage.includes(vintage))) {
+              let modelScenario = model + ':' + scenario;
+              if (rmseMap.has(modelScenario)) {
+                let existingArray = rmseMap.get(modelScenario);
+                for (let i = 0; i < squaredError.length; i++) {
+                  squaredError[i] += existingArray[1][i];
                 }
+                rmseMap.set(modelScenario, [existingArray[0] + 1, squaredError]);
+              } else {
+                rmseMap.set(modelScenario, [1, squaredError]);
               }
-
-              datasets.push({
-                  fill: false,
-                  label: model,
-                  data: gdpData,
-                  backgroundColor: modelColors[model],
-                  borderColor: modelColors[model],
-                });
             }
+          }
 
-            if (loopedOnce == false) {
-              loopedOnce = true;
-              actualSeries.unshift(gdpLastQuarter);
-            }
-
-            datasets.push({
-              fill: false,
-              label: 'Actual',
-              data: actualSeries,
-              backgroundColor: modelColors['Actual'],
-              borderColor: modelColors['Actual'],
+          let rmseArray = [];
+          for (let entry of rmseMap) {
+            let modelScenario = entry[0].split(':');
+            let rmse = entry[1][1].map(function (item) { return Math.sqrt(item/entry[1][0]).toFixed(2); });
+            rmseArray.push({
+              'model': modelScenario[0],
+              'scenario': modelScenario[1],
+              'nowcast': rmse[0],
+              '1-step': rmse[1],
+              '2-step': rmse[2],
+              '3-step': rmse[3],
+              '4-step': rmse[4],
             });
-            
+          }
 
-            }
+          console.log(JSON.stringify(rmseArray));
+
+          $('#table').bootstrapTable({
+            'data': rmseArray,
+            'search': false,
+            'columns': [{
+              field: 'model',
+              title: 'Model',
+              sortable: true,
+            }, {
+              field: 'scenario',
+              title: 'Scenario',
+              sortable: true,
+            }, {
+              field: 'nowcast',
+              title: 'Nowcast',
+              sortable: true,
+            }, {
+              field: '1-step',
+              title: '1-step',
+              sortable: true,
+            }, {
+              field: '2-step',
+              title: '2-step',
+              sortable: true,
+            }, {
+              field: '3-step',
+              title: '3-step',
+              sortable: true,
+            }, {
+              filed: '4-step',
+              title: '4-step',
+              sortable: true,
+            }]
+
+          });
+
+          
 
           });
 

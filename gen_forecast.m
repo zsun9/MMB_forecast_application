@@ -1,6 +1,6 @@
 % The file is used for estimating models and generating forecasts
 % Two structs: p - high-level parameters, t - temporary parameters in a loop
-% Last updated: Zexi Sun, 2020-06-02
+% Last updated: Zexi Sun, 2020-06-10
 
 %% settings
 
@@ -16,17 +16,18 @@ close all; fclose all; clear; clc;
 % Please use double quotes here!
 p.vintages = ["2001-08-15"]; %
 p.scenarios = ["s2"];
-p.models = ["SW07"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.models = ["GLP3v"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "HAANH";
 
 p.ExcelColumnUntil = "X";
 
 % hyper-parameters
 p.chainLen = 1000000;
+p.chainLenBVAR = 10000;
 p.subDraws = 5000;
 p.forecastHorizon = 40;
 p.chainNum = 1;
-p.burnin = 0.3;
+p.burnIn = 0.3;
 p.scalingParam =  0.3;
 p.presample = 4;
 p.nobs = 100;
@@ -35,13 +36,20 @@ p.mode_compute_order = [4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
 % locate main folders (stored as char type)
 p.path.root = convertCharsToStrings(pwd);
 p.path.models = p.path.root + "\\models";
+p.path.glp_algorithm = p.path.models + "\\GLP_algorithm";
 p.path.estimations = p.path.root + "\\estimations";
 p.path.vintage_data = p.path.root + "\\data\\vintage_data";
-assert(isfolder(p.path.root) && isfolder(p.path.models) && isfolder(p.path.estimations) && isfolder(p.path.vintage_data));
+assert(isfolder(p.path.root) && isfolder(p.path.models) && isfolder(p.path.glp_algorithm) && isfolder(p.path.estimations) && isfolder(p.path.vintage_data));
 
-% save results to these arrays
-% p.table.model = []; p.table.vintageDate = []; p.table.scenario = []; p.table.nobs = []; p.table.ndraws = []; p.table.forecasts = [];
-% p.table.variable_names = {'model','vintageDate','scenario','nobs','ndraws', 'forecasts'};
+% observables in the Bayesian VAR estimation
+p.obs.GLP3v = ["gdp_rgd_obs", "gdpdef_obs", "ffr_obs"];
+p.obs.GLP5v = horzcat(p.obs.GLP3v, ["ifi_rgd_obs", "baag10_obs"]);
+p.obs.GLP8v = horzcat(p.obs.GLP5v, ["c_rgd_obs", "wage_rgd_obs", "hours_dngs15_obs"]);
+
+% specify observables that are in first differences in BVAR
+p.pos.GLP3v = '[1, 2]';
+p.pos.GLP5v = '[1, 2, 4]';
+p.pos.GLP8v = '[1, 2, 4, 6, 7]';
 
 %% DSGE estimation
 
@@ -54,6 +62,10 @@ end
 
 clear t;
 for model = p.models
+    
+    if contains(model, "GLP")
+        continue
+    end
     
     t.path.model = p.path.models + "\\" + model;
     if isfolder(t.path.model)
@@ -99,7 +111,7 @@ for model = p.models
                     copyfile(t.path.model, t.path.working);
                 end
                 
-                % retreive varobs and data by calling Python scripts
+                % retreive Dynare scripts and varobs
                 cd(t.path.working);
                 t.script.modfile = fileread(t.name.modfile);
                 t.script.modfile = strrep(t.script.modfile, '%', '%%');
@@ -114,7 +126,7 @@ for model = p.models
 %                     t.varobs = strsplit(t.varobs);
 %                 end
 
-                % directly copy data to the folder
+                % copy data to the folder
                 cd(p.path.root);
                 t.name.datafile = "data_" + strrep(vintage, "-", "") + ".xlsx";
                 t.path.data = p.path.vintage_data + "\\" + t.name.datafile;
@@ -140,7 +152,7 @@ for model = p.models
                     sprintf("mh_replic=%s, ", string(p.chainLen)) + ...
                     sprintf("mh_nblocks=%s, ", string(p.chainNum)) + ...
                     sprintf("mh_jscale=%s, ", string(p.scalingParam)) + ...
-                    sprintf("mh_drop=%s, ", string(p.burnin)) + ...
+                    sprintf("mh_drop=%s, ", string(p.burnIn)) + ...
                     p.optionString.subDraws + ...
                     sprintf("forecast=%s, ", string(p.forecastHorizon)) + ...
                     sprintf("mode_compute=%s", string(p.mode_compute_order(1))) + ...
@@ -153,7 +165,7 @@ for model = p.models
                 cd(t.path.working);
                 
                 % save means of observables
-                t.data.table = readtable(t.dataFile + ".xlsx", 'Sheet', scenario);
+                t.data.table = readtable(t.path.data, 'Sheet', scenario);
                 t.data.name = t.data.table.Properties.VariableNames;
                 t.data.mean = nanmean(t.data.table{:,2:end},1);
                 t.script.obsMean = "";
@@ -267,6 +279,108 @@ for model = p.models
         
     else
         fprintf('Model %s does not exist, will be skipped.\n', model);
+    end
+    
+end
+
+%% GLP estimation
+
+for model = p.models
+    
+    if ~contains(model, "GLP")
+        continue
+    end
+    
+    for vintage = p.vintages
+        for scenario = p.scenarios
+            
+            clc;
+            
+            tStart = tic;
+            
+            % create folder and copy model files
+            cd(p.path.root);
+            t.name.workingpath = model + "_" + strrep(vintage, "-", "") + "_" + scenario;
+            t.path.working = p.path.estimations + "\\" + t.name.workingpath;
+
+            if isfolder(t.path.working)
+                warning('Folder %s already exists!', t.name.workingpath)
+                warning('Enter Y to delete existing files and continue.');
+                warning('Enter C to keep existing files and continue.');
+                warning('Enter N to keep existing files and skip this estimation.');
+                t.choice = "";
+                while ~ismember(lower(t.choice), ["y", "c", "n"])
+                    beep;
+                    t.choice = input('', 's');
+                end
+                t = lower(t);
+
+                switch t.choice
+                    case "y"
+                        rmdir(t.path.working, 's');
+                        mkdir(t.path.working);
+                    case "n"
+                        continue;
+                end
+
+            else
+                warning('Folder %s does not exist, will be created.', t.name.workingpath);
+                mkdir(t.path.working);
+            end
+            
+            % copy data to the folder
+            cd(p.path.root);
+            t.name.datafile = "data_" + strrep(vintage, "-", "") + ".xlsx";
+            t.path.data = p.path.vintage_data + "\\" + t.name.datafile;
+            if isfile(t.path.data)
+                copyfile(t.path.data, t.path.working);
+            else
+                fprinf('Data file %s not found, and the estimation will be skipped.\n', t.name.datafile);
+            end
+            
+            % load data to Matlab
+            data = readtable(t.path.data, 'Sheet', scenario);
+            data = table2array(data(:, eval(sprintf("p.obs.%s", model))));
+            data = data/100*4;
+            
+            % Bayesian VAR estimation
+            cd(p.path.glp_algorithm);
+            if scenario == "s1" % in Scenario 1 directly use the algorithm in GLP
+                
+                res = bvarGLP(data, p.presample, ...
+                    'mcmc',1, 'MCMCconst',1, 'Ndraws',p.chainLenBVAR, 'Ndrawsdiscard', floor(p.burnIn*p.chainLenBVAR), ...
+                    'hz',p.forecastHorizon, 'MCMCfcast',1, ...
+                    'pos',eval(sprintf("p.pos.%s", model)));
+                
+            else % in other scenarios, use the algorithm from Matyas Farkas
+                
+                res = bvarGLP(data(1:end-1,:), p.presample, ...
+                    'mcmc',1, 'MCMCconst',1, 'Ndraws',p.chainLenBVAR, 'Ndrawsdiscard', floor(p.burnIn*p.chainLenBVAR), ...
+                    'hz',p.forecastHorizon, 'MCMCfcast',1, ...
+                    'pos',eval(sprintf("p.pos.%s", model)));
+                
+                for i = 1:p.chainLenBVAR/2 % loop through draws 
+
+                    if i == 100*floor(.01*i)
+                        disp(['Now running the conditioning on ',num2str(i),'th mcmc iteration (out of ',num2str(p.chainLenBVAR/2),')'])
+                    end
+
+                    temp=squeeze(res.mcmc.beta(:,:,i));
+                    Gamma=[temp(2:end,:);temp(1,:)];
+                    Su=squeeze(res.mcmc.sigma(:,:,i));
+                    datakf = [data; NaN(p.forecastHorizon-1,size(data,2))];
+                    [~, datacf(:,:,i)] = conforekf_glp(datakf,Gamma,Su,p.forecastHorizon-1,size(datakf,1)-1,1);  % conditinoal forecasts
+                    res.mcmc.Dforecast(:,:,i)= datacf(end-p.forecastHorizon+1:end,:,i);
+                    
+                end
+            end
+            
+            % get GDP forecasts
+            t.output.forecast.gdp = mean(res.mcmc.Dforecast(:,1,:),3)*100;
+            
+            clearvars -except model vintage scenario p
+            
+        end
     end
     
 end
