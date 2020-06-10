@@ -37,15 +37,15 @@
     </nav>
 
     <div class='container'>
-      <h1 class='page-header'>RMSE table</h1>
-      <p class='lead'>To create RMSE tables, specify vintage date and forecast sources</p>
+      <h1 class='page-header'>Forecast chart</h1>
+      <p class='lead'>To create forecast charts, specify vintage date, forecast sources, and data scenarios</p>
 
       <form id='selectForm'>
 
         <fieldset class='form-group big-group'>
           <div class='row'>
             <div class='col'>
-              <legend class='col-form-label pt-0'>Vintage date  <a href='' id='vintageAll'>All</a><a href='' id='vintageClear'>Clear</a></legend>
+              <legend class='col-form-label pt-0'>Vintage date</legend>
             </div>
             <div class='w-100'></div>
             <div class='col' id='selectVintage'></div>
@@ -116,6 +116,16 @@
           </fieldset>
         </fieldset>
 
+        <fieldset class='form-group big-group'>
+          <div class='row'>
+            <div class='col'>
+              <legend class='col-form-label pt-0'>Data scenario <a href='' id='scenarioAll'>All</a> <a href='' id='scenarioClear'>Clear</a></legend>
+            </div>
+            <div class='w-100'></div>
+            <div class='col' id='selectScenario'></div>
+          </div>
+        </fieldset>
+
         <div class='row justify-content-center'>
           <button type='submit' class='btn btn-primary'>Compare</button>
         </div>
@@ -129,7 +139,8 @@
     <hr>
 
     <div class='container-fluid'>
-      <div class='row' id='tables'></div>
+      <div class='row' id='charts'></div>
+      <p class="legend" style='text-align: center;'></p>
     </div>
 
     <script src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous'></script>
@@ -139,6 +150,21 @@
 
     <script>
       'use strict';
+
+      const modelColors = {
+        // Always appear
+        'Actual': 'Black',
+        'Mean SPF': 'Green',
+        'Individual SPF': 'GhostWhite',
+        // Selective
+        'DS04': 'Red',
+        'WW11': 'Fuchsia',
+        'SW07': 'DodgerBlue',
+        'NKBGG': 'Cyan',
+        'DNGS15': 'Orange',
+        'FRBEDO08': 'LawnGreen',
+        'QPM08': 'DarkMagenta',
+      };
 
       const scenarioStrings = {
         's1': 'Balanced panel',
@@ -169,23 +195,24 @@
               newString = newString.replace(`id='select${item}label'>${item}`, `id='select${item}label'>${scenarioStrings[item]}`)
             }
 
-            // (only for RMSE) actual data in 2020 in not available yet
-            if (item.includes('2020')) {
-              newString = newString.replace('<input', '<input disabled');
-            }
-
             addString += newString;
           }
 
           return addString;
         }
-        
-        document.getElementById('selectVintage').innerHTML = addItems('vintage', 'checkbox');
+
+        document.getElementById('selectVintage').innerHTML = addItems('vintage', 'radio');
         document.getElementById('selectModel').innerHTML = addItems('model', 'checkbox');
+        document.getElementById('selectScenario').innerHTML = addItems('scenario', 'checkbox');
 
       });
 
-      for (let part of ['model', 'TSModel', 'external', 'vintage']) {
+      // switch selection
+      // $('#filterModel button').click(function() {
+      //   $(this).removeClass('btn-outline-primary').addClass('btn-primary').siblings().removeClass('btn-primary').addClass('btn-outline-primary');
+      // });
+
+      for (let part of ['model', 'TSModel', 'external', 'scenario']) {
         for (let status of ['All', 'Clear']) {
           let checkedStatus = (status == 'All') ? true : false;
           document.getElementById(`${part}${status}`).addEventListener('click', function (event) {
@@ -216,35 +243,58 @@
           }
         }
 
-        let selectedVintageQuarter = [];
-        for (let vintage of selectedVintage) {
-          let yearStart = parseInt(vintage.substring(0, 4));
-          let quarterStart = Math.floor(parseInt(vintage.substring(5,7)) / 3) + 1;
-          selectedVintageQuarter.push(yearStart + 'Q' + quarterStart);
+        // let warningShowDescription = document.createElement('p');
+        // warningShowDescription.innerHTML = `Forecasts from ${selectedModel} on ${selectedVintage} in scenario ${selectedScenario} will be shown.`;
+        // document.getElementById('warning').appendChild(warningShowDescription);
+
+        let yearStart = parseInt(selectedVintage[0].substring(0, 4));
+        let quarterStart = Math.floor(parseInt(selectedVintage[0].substring(5,7)) / 3) + 1;
+        let vintageQuarter = yearStart + 'Q' + quarterStart;
+
+        if (quarterStart == 1) {
+          quarterStart = 4;
+          yearStart -= 1;
+        } else {
+          quarterStart -= 1;
+        }
+        let xlabels = new Array(40);
+        let quarter = quarterStart, year = yearStart;
+        for (let i = 0; i < xlabels.length; i++) {
+          xlabels[i] = year.toString().substring(2) + 'Q' + quarter;
+          if (quarter == 4) {
+            quarter = 1;
+            year += 1;
+          } else {
+            quarter += 1;
+          }
         }
 
         fetch('results.json').then(response => response.json()).then(data => {
 
-          // let actualSeriesObj = new Object;
-          // let foundindex = -1
-          // for (let vintageQuarter of selectedVintageQuarter) {
-          //   for (let i = foundindex + 1; i < data['actual'].length; i++) {
-          //     if (data['actual'][i].vintageQuarter == vintageQuarter) {
-          //       if (data['actual'][i].actual.gdp.length >= 5) {
-          //         actualSeriesObj[vintageQuarter] = data['actual'][i].actual.gdp.slice(0, 5);
-          //         foundindex = i;
-          //         break;
-          //       } else {
-          //         let warningInsufficientObs = document.createElement('p');
-          //         warningInsufficientObs.innerHTML = `Insufficient (<5) actual values for ${vintageQuarter}, so any vintage date in this quarter will not be considered.`;
-          //         document.getElementById('warning').appendChild(warningShowDescription);
-          //       }
-          //     }
-          //   }
-          // }
+          let charts = document.getElementById('charts');
+          while (charts.firstChild) {
+            charts.removeChild(charts.firstChild);
+          }
+
+          var actualSeries = [];
+          for (let i = 0; i < data['actual'].length; i++) {
+            if (data['actual'][i].vintageQuarter == vintageQuarter) {
+              actualSeries = data['actual'][i].actual.gdp;
+              break;
+            }
+          }
 
           let loopedOnce = false;
           for (let scenario of selectedScenario) {
+
+            let divCol = document.createElement('div');
+            divCol.classList.add(`col-${12/selectedScenario.length}`);
+            let canvas = document.createElement('canvas');
+            canvas.classList.add('forecastChart');
+            divCol.appendChild(canvas);
+            charts.appendChild(divCol);
+
+            let ctx = canvas.getContext('2d');
 
             let datasets = [];
             for (let model of selectedModel) {
@@ -279,6 +329,57 @@
               borderColor: modelColors['Actual'],
             });
             
+            Chart.defaults.global.defaultFontFamily = 'Source Sans Pro';
+            Chart.defaults.global.defaultFontSize = 14;
+            let chart = new Chart(ctx, {
+                type: 'line',
+
+                data: {
+                    labels: xlabels.slice(0, 6),
+                    datasets: datasets,
+                },
+
+                options: {
+
+                  aspectRatio: 1,
+
+                  title: {
+                    display: true,
+                    text: `${scenarioStrings[scenario]}`,
+                  },
+
+                  tooltips: {
+                    callbacks: {
+                      label: function(tooltipItem, data) {
+                        var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                        if (label) {
+                          label += ': ';
+                        }
+                        label += Math.round(tooltipItem.yLabel * 1000) / 1000;
+                        return label;
+                      }
+                    }
+                  },
+                  
+                  legend: {
+                    display: false,
+                  },
+
+                  scales: {
+                    yAxes: [{
+                      ticks: {
+                        suggestedMin: -8,
+                        suggestedMax: 6,
+                      }
+                    }]
+                  }
+                },
+
+            });
+
+            document.querySelector('.legend').innerHTML = chart.generateLegend();
+
+
 
             }
 
