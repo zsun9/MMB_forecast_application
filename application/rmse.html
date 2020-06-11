@@ -21,55 +21,288 @@
   
       <div class='collapse navbar-collapse' id='navbarsExampleDefault'>
       <ul class='navbar-nav mr-auto'>
-          <li class='nav-item'>
-            <a class='nav-link' href='./index.html'>Home</a>
-          </li>
-          <li class='nav-item'>
-            <a class='nav-link' href='./charts.html'>Forecast chart</a>
-          </li>
-          <li class='nav-item'>
-            <a class='nav-link' href='./rmse.html'>RMSE table</a>
-          </li>
-          <li class='nav-item'>
-            <a class='nav-link' href='./observed.html'>Observed variable</a>
-          </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='./index.html'>Home</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='./forecast.html'>Forecast chart</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='./rmse.html'>RMSE table</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='./observable.html'>Observed variable</a>
+        </li>
       </ul>
       </div>
     </nav>
 
     <div class='container'>
       <h1 class='page-header'>RMSE table</h1>
-      <p class='lead'>To create a RMSE table, choose the forecast sources and vintage dates</p>
+      <p class='lead'>To create RMSE tables, specify vintage date and forecast sources</p>
+
+      <form id='selectForm'>
+
+        <fieldset class='form-group big-group'>
+          <div class='row'>
+            <div class='col'>
+              <legend class='col-form-label pt-0'>Vintage date  <a href='' id='vintageAll'>All</a><a href='' id='vintageClear'>Clear</a></legend>
+            </div>
+            <div class='w-100'></div>
+            <div class='col' id='selectVintage'></div>
+          </div>
+        </fieldset>
+
+        <fieldset class='form-group big-group'>
+          <div class='row'>
+            <div class='col'>
+              <legend class='col-form-label pt-0'>Forecast source</legend>
+            </div>
+          </div>
+
+          <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>Macroeconomic models <a href='' id='modelAll'>All</a><a href='' id='modelClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+  
+              <!-- <div class='col row'>
+                <div class='col-2 pt-0'>Filters</div>
+                <div class='col-10'>
+                  <div class='btn-group btn-group-sm' role='group' id='filterModel'>
+                    <button type='button' class='btn btn-outline-primary' style='font-size: 0.8em;'>Pre-crisis</button>
+                    <button type='button' class='btn btn-primary' style='font-size: 0.8em;'>All</button>
+                    <button type='button' class='btn btn-outline-primary' style='font-size: 0.8em;'>Post-crisis</button>
+                  </div>
+                </div>
+              </div>
+              <div class='w-100'></div> -->
+  
+              <div class='col' id='selectModel'></div>
+            </div>
+          </fieldset>
+  
+          <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>Time-series models <a href='' id='TSModelAll'>All</a><a href='' id='TSModelClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+              <div class='col' id='selectTSModel'></div>
+            </div>
+          </fieldset>
+  
+          <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>External projections <a href='' id='externalAll'>All</a><a href='' id='externalClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+              <div class='col' id='selectExternal'>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input' type='checkbox' id='selectSPFMean' name='external' value='SPFMean' disabled>
+                  <label class='form-check-label' for='selectSPFMean' id='selectSPFMeanlabel'>from the Survey of Professional Forecasters - Mean level</label>
+                </div>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input' type='checkbox' id='selectSPFAll' name='external' value='SPFAll' disabled>
+                  <label class='form-check-label' for='selectSPFAll' id='selectSPFAlllabel' >from the Survey of Professional Forecasters - Individual</label>
+                </div>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input' type='checkbox' id='selectFRB' name='external' value='FRB' disabled>
+                  <label class='form-check-label' for='selectFRB' id='selectFRB'>from the Federal Reserve Board of Governors</label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <div class='row justify-content-center'>
+          <button type='submit' class='btn btn-primary'>Compare</button>
+        </div>
+
+      </form>
+
+      <div id='warning' style='color:red'></div>
+      
     </div>
 
-    <div class="container">
-      <table data-toggle="table">
-        <thead>
-          <tr>
-            <th>Item ID</th>
-            <th>Item Name</th>
-            <th>Item Price</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Item 1</td>
-            <td>$1</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Item 2</td>
-            <td>$2</td>
-          </tr>
-        </tbody>
-      </table>
+    <hr>
+
+    <div class='container'>
+      <div id='table'></div>
     </div>
 
     <script src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>
     <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+
+    <script>
+      'use strict';
+
+      const scenarioStrings = {
+        's1': 'Balanced panel',
+        's2': 'Conditioning on SPF nowcast',
+        's3': 'Conditioning on current-quarter observations',
+        's4': 'Full conditioning',
+      };
+
+      fetch('results.json').then(response => response.json()).then(data => {
+
+        function addItems(selectType, buttonType) {
+
+          let typeSet = new Set();
+
+          for (let item of data['dsge']) {
+            typeSet.add(item[selectType]);
+          }
+
+          let typeArray = Array.from(typeSet);
+          typeArray.sort();
+
+          let addString = '';
+
+          for (let item of typeArray) {
+             let newString = `<div class='form-check form-check-inline'>\n<input class='form-check-input' type='${buttonType}' id='select${item}' name='${selectType}' value='${item}'>\n<label class='form-check-label' for='select${item}' id='select${item}label'>${item}</label>\n</div>\n`;
+
+            if (selectType == 'scenario') {
+              newString = newString.replace(`id='select${item}label'>${item}`, `id='select${item}label'>${scenarioStrings[item]}`)
+            }
+
+            // (only for RMSE) actual data in 2020 in not available yet
+            if (item.includes('2020')) {
+              newString = newString.replace('<input', '<input disabled');
+            }
+
+            addString += newString;
+          }
+
+          return addString;
+        }
+        
+        document.getElementById('selectVintage').innerHTML = addItems('vintage', 'checkbox');
+        document.getElementById('selectModel').innerHTML = addItems('model', 'checkbox');
+
+      });
+
+      for (let part of ['model', 'TSModel', 'external', 'vintage']) {
+        for (let status of ['All', 'Clear']) {
+          let checkedStatus = (status == 'All') ? true : false;
+          document.getElementById(`${part}${status}`).addEventListener('click', function (event) {
+            event.preventDefault();
+            document.querySelectorAll(`input[name=${part}]`).forEach(function (item) {
+              if (!(item.disabled)) {
+                item.checked = checkedStatus;
+              }
+            });
+          });
+        }
+      }
+
+      // get selection
+      document.getElementById('selectForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const selection = $(this).serializeArray();
+        $(this)[0].reset();
+        let selectedVintage = [], selectedModel = [], selectedScenario = [];
+        for (let item of selection) {
+          if (item.name == 'vintage') {
+            selectedVintage.push(item.value);
+          } else if (item.name == 'scenario') {
+            selectedScenario.push(item.value);
+          } else {
+            selectedModel.push(item.value);
+          }
+        }
+
+        // let selectedVintageQuarter = [];
+        // for (let vintage of selectedVintage) {
+        //   let yearStart = parseInt(vintage.substring(0, 4));
+        //   let quarterStart = Math.floor(parseInt(vintage.substring(5,7)) / 3) + 1;
+        //   selectedVintageQuarter.push(yearStart + 'Q' + quarterStart);
+        // }
+
+        fetch('results.json').then(response => response.json()).then(data => {
+
+          let rmseMap = new Map();
+          for (let item of data['error']) {
+            let model = item['model'], scenario = item['scenario'], squaredError = item['squaredError'], vintage = item['vintage'];
+
+            if ((selectedModel.includes(model)) && (selectedVintage.includes(vintage))) {
+              let modelScenario = model + ':' + scenario;
+              if (rmseMap.has(modelScenario)) {
+                let existingArray = rmseMap.get(modelScenario);
+                for (let i = 0; i < squaredError.length; i++) {
+                  squaredError[i] += existingArray[1][i];
+                }
+                rmseMap.set(modelScenario, [existingArray[0] + 1, squaredError]);
+              } else {
+                rmseMap.set(modelScenario, [1, squaredError]);
+              }
+            }
+          }
+
+          let rmseArray = [];
+          for (let entry of rmseMap) {
+            let modelScenario = entry[0].split(':');
+            let rmse = entry[1][1].map(function (item) { return Math.sqrt(item/entry[1][0]).toFixed(2); });
+            rmseArray.push({
+              'model': modelScenario[0],
+              'scenario': modelScenario[1],
+              'nowcast': rmse[0],
+              '1-step': rmse[1],
+              '2-step': rmse[2],
+              '3-step': rmse[3],
+              '4-step': rmse[4],
+            });
+          }
+
+          console.log(JSON.stringify(rmseArray));
+
+          $('#table').bootstrapTable({
+            'data': rmseArray,
+            'search': false,
+            'columns': [{
+              field: 'model',
+              title: 'Model',
+              sortable: true,
+            }, {
+              field: 'scenario',
+              title: 'Scenario',
+              sortable: true,
+            }, {
+              field: 'nowcast',
+              title: 'Nowcast',
+              sortable: true,
+            }, {
+              field: '1-step',
+              title: '1-step',
+              sortable: true,
+            }, {
+              field: '2-step',
+              title: '2-step',
+              sortable: true,
+            }, {
+              field: '3-step',
+              title: '3-step',
+              sortable: true,
+            }, {
+              filed: '4-step',
+              title: '4-step',
+              sortable: true,
+            }]
+
+          });
+
+          
+
+          });
+
+      });
+
+    </script>
 
   </body>
 

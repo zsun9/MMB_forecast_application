@@ -108,7 +108,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                     df.index = pd.to_datetime(df.index, format='%Y:%m')
 
             # select observation period and convert data from any frequency to quarterly
-            obsPeriod = df.index.map(lambda x: obsStart <= x <= obsEnd)
+            obsPeriod = df.index.map(lambda x: obsStart <= x)
+            df = df[obsPeriod].copy()
+            obsPeriod = df.index.map(lambda x: x <= obsEnd)
             df = df[obsPeriod].copy()
             df['quarter'] = df.index.to_period('Q').values
             df = df.groupby('quarter').mean().copy()
@@ -564,7 +566,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     dfCompleteSpf.index = [str(index) for index in dfCompleteSpf.index]
 
     # remove some observables' current quarter value
-    observableNoCurrentQuaterValue = {'hours_dngs15_obs', 'hours_sw07_obs', 'hours_frbedo08_obs', 'hours_kr15_obs'}
+    observableNoCurrentQuaterValue = {'hours_sw07_obs', 'hours_frbedo08_obs', 'hours_kr15_obs', 'unr_obs'}
     if obsEnd.to_period('Q') == vintageDate.to_period('Q'):
         for observable in observableNoCurrentQuaterValue:
             if observable in dfComplete.columns:
@@ -649,7 +651,7 @@ if __name__ == '__main__':
     main(
         vintageDate='2007-05-21', quarterStart='1965Q1', quarterEnd='2006Q4',
         observed=[
-            'h_winf_obs'
+            'gdp_rgd_obs'
            ],
 
         )
