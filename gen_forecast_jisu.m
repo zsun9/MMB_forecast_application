@@ -14,10 +14,10 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2001-02-14", "2001-05-12", "2001-08-15", "2001-11-14", "2008-08-07", "2008-11-10", "2009-02-10", "2009-05-12", "2020-02-11", "2020-05-12"]; %
-p.scenarios = ["s1", "s2", "s3", "s4"];
-p.models = ["FRBEDO08"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08"
-p.executor = "Jisu Jeun";
+p.vintages = ["2001-11-14"]; %
+p.scenarios = ["s2"];
+p.models = ["SW07"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08"
+p.executor = "HAANH";
 
 p.ExcelColumnUntil = "U";
 

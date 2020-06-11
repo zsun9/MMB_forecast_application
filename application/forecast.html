@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <title>Macroeconomic forecasting platform</title>
+    <meta name='description' content='Macroeconomic forecasting platform'>
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
+    <link rel='stylesheet' href='./css/stylesheet.css'>
+  </head>
+
+  <body data-spy='scroll' data-target='#navbar-example'>
+
+    <nav id='navbar-example' class='navbar navbar-expand-md navbar-dark bg-dark fixed-top'>
+      <a class='navbar-brand' href='index.html'>Online Forecasting Platform</a>
+      <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation'>
+      <span class='navbar-toggler-icon'></span>
+      </button>
+  
+      <div class='collapse navbar-collapse' id='navbarsExampleDefault'>
+      <ul class='navbar-nav mr-auto'>
+        <li class='nav-item'>
+          <a class='nav-link' href='./index.html'>Home</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='./forecast.html'>Forecast chart</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='./rmse.html'>RMSE table</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='./observable.html'>Observed variable</a>
+        </li>
+      </ul>
+      </div>
+    </nav>
+
+    <div class='container'>
+      <h1 class='page-header'>Forecast chart</h1>
+      <p class='lead'>To create forecast charts, specify vintage date, forecast sources, and data scenarios</p>
+
+      <form id='selectForm'>
+
+        <fieldset class='form-group big-group'>
+          <div class='row'>
+            <div class='col'>
+              <legend class='col-form-label pt-0'>Vintage date</legend>
+            </div>
+            <div class='w-100'></div>
+            <div class='col' id='selectVintage'></div>
+          </div>
+        </fieldset>
+
+        <fieldset class='form-group big-group'>
+          <div class='row'>
+            <div class='col'>
+              <legend class='col-form-label pt-0'>Forecast source</legend>
+            </div>
+          </div>
+
+          <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>Macroeconomic models <a href='' id='modelAll'>All</a><a href='' id='modelClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+  
+              <!-- <div class='col row'>
+                <div class='col-2 pt-0'>Filters</div>
+                <div class='col-10'>
+                  <div class='btn-group btn-group-sm' role='group' id='filterModel'>
+                    <button type='button' class='btn btn-outline-primary' style='font-size: 0.8em;'>Pre-crisis</button>
+                    <button type='button' class='btn btn-primary' style='font-size: 0.8em;'>All</button>
+                    <button type='button' class='btn btn-outline-primary' style='font-size: 0.8em;'>Post-crisis</button>
+                  </div>
+                </div>
+              </div>
+              <div class='w-100'></div> -->
+  
+              <div class='col' id='selectModel'></div>
+            </div>
+          </fieldset>
+  
+          <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>Time-series models <a href='' id='TSModelAll'>All</a><a href='' id='TSModelClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+              <div class='col' id='selectTSModel'></div>
+            </div>
+          </fieldset>
+  
+          <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>External projections <a href='' id='externalAll'>All</a><a href='' id='externalClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+              <div class='col' id='selectExternal'>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input' type='checkbox' id='selectSPFMean' name='external' value='SPFMean' disabled>
+                  <label class='form-check-label' for='selectSPFMean' id='selectSPFMeanlabel'>from the Survey of Professional Forecasters - Mean level</label>
+                </div>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input' type='checkbox' id='selectSPFAll' name='external' value='SPFAll' disabled>
+                  <label class='form-check-label' for='selectSPFAll' id='selectSPFAlllabel' >from the Survey of Professional Forecasters - Individual</label>
+                </div>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input' type='checkbox' id='selectFRB' name='external' value='FRB' disabled>
+                  <label class='form-check-label' for='selectFRB' id='selectFRB'>from the Federal Reserve Board of Governors</label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <fieldset class='form-group big-group'>
+          <div class='row'>
+            <div class='col'>
+              <legend class='col-form-label pt-0'>Data scenario <a href='' id='scenarioAll'>All</a> <a href='' id='scenarioClear'>Clear</a></legend>
+            </div>
+            <div class='w-100'></div>
+            <div class='col' id='selectScenario'></div>
+          </div>
+        </fieldset>
+
+        <div class='row justify-content-center'>
+          <button type='submit' class='btn btn-primary'>Compare</button>
+        </div>
+
+      </form>
+
+      <div id='warning' style='color:red'></div>
+      
+    </div>
+
+    <hr>
+
+    <div class='container-fluid'>
+      <div class='row' id='charts'></div>
+      <p class="legend" style='text-align: center;'></p>
+    </div>
+
+    <script src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
+    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>
+
+    <script src="../node_modules/chart.js/dist/Chart.bundle.js"></script>
+    <script src="../node_modules/chartjs-plugin-annotation/chartjs-plugin-annotation.js"></script>
+    <script src="../node_modules/chart.js/samples/utils.js"></script>
+
+    <script>
+      'use strict';
+
+      const modelColors = {
+        // Always appear
+        'Actual': 'Black',
+        'Mean SPF': 'Green',
+        'Individual SPF': 'GhostWhite',
+        // Selective
+        'DS04': 'Red',
+        'WW11': 'Fuchsia',
+        'SW07': 'DodgerBlue',
+        'NKBGG': 'Cyan',
+        'DNGS15': 'Orange',
+        'FRBEDO08': 'LawnGreen',
+        'QPM08': 'DarkMagenta',
+      };
+
+      const scenarioStrings = {
+        's1': 'Balanced panel',
+        's2': 'Conditioning on SPF nowcast',
+        's3': 'Conditioning on current-quarter observations',
+        's4': 'Full conditioning',
+      };
+
+      fetch('results.json').then(response => response.json()).then(data => {
+
+        function addItems(selectType, buttonType) {
+
+          let typeSet = new Set();
+
+          for (let item of data['dsge']) {
+            typeSet.add(item[selectType]);
+          }
+
+          let typeArray = Array.from(typeSet);
+          typeArray.sort();
+
+          let addString = '';
+
+          for (let item of typeArray) {
+             let newString = `<div class='form-check form-check-inline'>\n<input class='form-check-input' type='${buttonType}' id='select${item}' name='${selectType}' value='${item}'>\n<label class='form-check-label' for='select${item}' id='select${item}label'>${item}</label>\n</div>\n`;
+
+            if (selectType == 'scenario') {
+              newString = newString.replace(`id='select${item}label'>${item}`, `id='select${item}label'>${scenarioStrings[item]}`)
+            }
+
+            addString += newString;
+          }
+
+          return addString;
+        }
+
+        document.getElementById('selectVintage').innerHTML = addItems('vintage', 'radio');
+        document.getElementById('selectModel').innerHTML = addItems('model', 'checkbox');
+        document.getElementById('selectScenario').innerHTML = addItems('scenario', 'checkbox');
+
+      });
+
+      // switch selection
+      // $('#filterModel button').click(function() {
+      //   $(this).removeClass('btn-outline-primary').addClass('btn-primary').siblings().removeClass('btn-primary').addClass('btn-outline-primary');
+      // });
+
+      for (let part of ['model', 'TSModel', 'external', 'scenario']) {
+        for (let status of ['All', 'Clear']) {
+          let checkedStatus = (status == 'All') ? true : false;
+          document.getElementById(`${part}${status}`).addEventListener('click', function (event) {
+            event.preventDefault();
+            document.querySelectorAll(`input[name=${part}]`).forEach(function (item) {
+              if (!(item.disabled)) {
+                item.checked = checkedStatus;
+              }
+            });
+          });
+        }
+      }
+
+      // get selection
+      document.getElementById('selectForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const selection = $(this).serializeArray();
+        $(this)[0].reset();
+        let selectedVintage = [], selectedModel = [], selectedScenario = [];
+        for (let item of selection) {
+          if (item.name == 'vintage') {
+            selectedVintage.push(item.value);
+          } else if (item.name == 'scenario') {
+            selectedScenario.push(item.value);
+          } else {
+            selectedModel.push(item.value);
+          }
+        }
+
+        // let warningShowDescription = document.createElement('p');
+        // warningShowDescription.innerHTML = `Forecasts from ${selectedModel} on ${selectedVintage} in scenario ${selectedScenario} will be shown.`;
+        // document.getElementById('warning').appendChild(warningShowDescription);
+
+        let yearStart = parseInt(selectedVintage[0].substring(0, 4));
+        let quarterStart = Math.floor(parseInt(selectedVintage[0].substring(5,7)) / 3) + 1;
+        let vintageQuarter = yearStart + 'Q' + quarterStart;
+
+        if (quarterStart == 1) {
+          quarterStart = 4;
+          yearStart -= 1;
+        } else {
+          quarterStart -= 1;
+        }
+        let xlabels = new Array(40);
+        let quarter = quarterStart, year = yearStart;
+        for (let i = 0; i < xlabels.length; i++) {
+          xlabels[i] = year.toString().substring(2) + 'Q' + quarter;
+          if (quarter == 4) {
+            quarter = 1;
+            year += 1;
+          } else {
+            quarter += 1;
+          }
+        }
+
+        fetch('results.json').then(response => response.json()).then(data => {
+
+          let charts = document.getElementById('charts');
+          while (charts.firstChild) {
+            charts.removeChild(charts.firstChild);
+          }
+
+          var actualSeries = [];
+          for (let i = 0; i < data['actual'].length; i++) {
+            if (data['actual'][i].vintageQuarter == vintageQuarter) {
+              actualSeries = data['actual'][i].actual.gdp;
+              break;
+            }
+          }
+
+          let loopedOnce = false;
+          for (let scenario of selectedScenario) {
+
+            let divCol = document.createElement('div');
+            divCol.classList.add(`col-${12/selectedScenario.length}`);
+            let canvas = document.createElement('canvas');
+            canvas.classList.add('forecastChart');
+            divCol.appendChild(canvas);
+            charts.appendChild(divCol);
+
+            let ctx = canvas.getContext('2d');
+
+            let datasets = [];
+            for (let model of selectedModel) {
+              var gdpData = [];
+              for (let i = 0; i < data['dsge'].length; i++) {
+                if (data['dsge'][i].model == model && data['dsge'][i].vintage == selectedVintage && data['dsge'][i].scenario == scenario) {
+                  gdpData = data['dsge'][i].forecast.gdp;
+                  var gdpLastQuarter = gdpData[0];
+                  break;
+                }
+              }
+
+              datasets.push({
+                  fill: false,
+                  label: model,
+                  data: gdpData,
+                  backgroundColor: modelColors[model],
+                  borderColor: modelColors[model],
+                  lineTension: 0,
+                });
+            }
+
+            if (loopedOnce == false) {
+              loopedOnce = true;
+              actualSeries.unshift(gdpLastQuarter);
+            }
+
+            datasets.push({
+              fill: false,
+              label: 'Actual',
+              data: actualSeries,
+              backgroundColor: modelColors['Actual'],
+              borderColor: modelColors['Actual'],
+              lineTension: 0,
+              pointRadius: 0,
+            });
+
+            Chart.defaults.global.defaultFontFamily = 'Source Sans Pro';
+            Chart.defaults.global.defaultFontSize = 16;
+            let chart = new Chart(ctx, {
+                type: 'line',
+                
+                data: {
+                    labels: xlabels.slice(0, 6),
+                    datasets: datasets,
+                },
+
+                options: {
+
+                  aspectRatio: 0.9,
+
+                  title: {
+                    display: true,
+                    text: `${scenarioStrings[scenario]}`,
+                  },
+
+                  tooltips: {
+                    callbacks: {
+                      label: function(tooltipItem, data) {
+                        var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                        if (label) {
+                          label += ': ';
+                        }
+                        label += Math.round(tooltipItem.yLabel * 1000) / 1000;
+                        return label;
+                      }
+                    }
+                  },
+                  
+                  legend: {
+                    display: false,
+                  },
+
+                  scales: {
+                    yAxes: [{
+                      ticks: {
+                        suggestedMin: -8,
+                        suggestedMax: 6,
+                      }
+                    }]
+                  },
+
+                  annotation: {
+                    annotations: [{
+                      type: 'box',
+                      drawTime: 'beforeDatasetsDraw',
+                      xScaleID: 'x-axis-0',
+                      xMin: "01Q2",
+                      xMax: "01Q4",
+                      borderColor: 'gainsboro',
+                      backgroundColor: 'gainsboro',
+                    }]
+                  }
+
+                },
+
+            });
+
+            document.querySelector('.legend').innerHTML = chart.generateLegend();
+
+
+
+            }
+
+          });
+
+      });
+
+    </script>
+
+  </body>
+
+</html>
