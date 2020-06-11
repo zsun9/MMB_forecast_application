@@ -14,16 +14,16 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2001-08-15"]; %
-p.scenarios = ["s2"];
-p.models = ["GLP3v"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
-p.executor = "HAANH";
+p.vintages = ["2008-11-10", "2009-02-10", "2009-05-12", "2020-02-11", "2020-05-12"]; %
+p.scenarios = ["s1", "s2", "s3", "s4"];
+p.models = ["GLP3v", "GLP5v"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.executor = "Zexi Sun";
 
 p.ExcelColumnUntil = "X";
 
 % hyper-parameters
 p.chainLen = 1000000;
-p.chainLenBVAR = 10000;
+p.chainLenBVAR = 1000000;
 p.subDraws = 5000;
 p.forecastHorizon = 40;
 p.chainNum = 1;
@@ -348,16 +348,18 @@ for model = p.models
             if scenario == "s1" % in Scenario 1 directly use the algorithm in GLP
                 
                 res = bvarGLP(data, p.presample, ...
-                    'mcmc',1, 'MCMCconst',1, 'Ndraws',p.chainLenBVAR, 'Ndrawsdiscard', floor(p.burnIn*p.chainLenBVAR), ...
+                    'mcmc',1, 'MCMCconst',1, 'Ndraws',p.chainLenBVAR, ...
                     'hz',p.forecastHorizon, 'MCMCfcast',1, ...
                     'pos',eval(sprintf("p.pos.%s", model)));
+                nobs = size(data, 1);
                 
             else % in other scenarios, use the algorithm from Matyas Farkas
                 
                 res = bvarGLP(data(1:end-1,:), p.presample, ...
-                    'mcmc',1, 'MCMCconst',1, 'Ndraws',p.chainLenBVAR, 'Ndrawsdiscard', floor(p.burnIn*p.chainLenBVAR), ...
+                    'mcmc',1, 'MCMCconst',1, 'Ndraws',p.chainLenBVAR, ...
                     'hz',p.forecastHorizon, 'MCMCfcast',1, ...
                     'pos',eval(sprintf("p.pos.%s", model)));
+                nobs = size(data, 1) - 1;
                 
                 for i = 1:p.chainLenBVAR/2 % loop through draws 
 
@@ -369,7 +371,7 @@ for model = p.models
                     Gamma=[temp(2:end,:);temp(1,:)];
                     Su=squeeze(res.mcmc.sigma(:,:,i));
                     datakf = [data; NaN(p.forecastHorizon-1,size(data,2))];
-                    [~, datacf(:,:,i)] = conforekf_glp(datakf,Gamma,Su,p.forecastHorizon-1,size(datakf,1)-1,1);  % conditinoal forecasts
+                    [~,datacf(:,:,i)] = conforekf_glp(datakf,Gamma,Su,p.presample,size(datakf,1)-1,1);  % conditinoal forecasts
                     res.mcmc.Dforecast(:,:,i)= datacf(end-p.forecastHorizon+1:end,:,i);
                     
                 end
@@ -378,8 +380,30 @@ for model = p.models
             % get GDP forecasts
             t.output.forecast.gdp = mean(res.mcmc.Dforecast(:,1,:),3)*100;
             
+            tEnd = toc(tStart);
+            % save other outputs
+            t.output.model = model;
+            t.output.vintage = vintage;
+            t.output.scenario = scenario;
+            t.output.nobs = nobs;
+            t.output.mhDraws = p.chainLenBVAR;
+            t.output.subDraws = p.chainLenBVAR/2;
+            t.output.executor = p.executor;
+            t.output.timeElapsed = tEnd;
+            t.output.timeStamp = datestr(datetime('now'));
+            t.output.matlabVersion = convertCharsToStrings(version);
+
+            % write to JSON file
+            cd(t.path.working);
+            JSONOutput = jsonencode(t.output);
+            JSONFile = fopen(model + ".json",'w');
+            fwrite(JSONFile, JSONOutput, 'char');
+            fclose(JSONFile);
+            
             clearvars -except model vintage scenario p
             
+            pause(5);
+            cd(p.path.root);
         end
     end
     

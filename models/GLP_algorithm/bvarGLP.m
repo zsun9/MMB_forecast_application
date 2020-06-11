@@ -579,3 +579,5 @@ if mcmc==1
     r.mcmc.ACCrate=mean(r.mcmc.lambda(2:end)~=r.mcmc.lambda(1:end-1));
      
 end
+
+function setpriors

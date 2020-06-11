@@ -146,7 +146,10 @@
     <script src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
     <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>
-    <script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
+
+    <script src="../node_modules/chart.js/dist/Chart.bundle.js"></script>
+    <script src="../node_modules/chartjs-plugin-annotation/chartjs-plugin-annotation.js"></script>
+    <script src="../node_modules/chart.js/samples/utils.js"></script>
 
     <script>
       'use strict';
@@ -313,6 +316,7 @@
                   data: gdpData,
                   backgroundColor: modelColors[model],
                   borderColor: modelColors[model],
+                  lineTension: 0,
                 });
             }
 
@@ -327,13 +331,15 @@
               data: actualSeries,
               backgroundColor: modelColors['Actual'],
               borderColor: modelColors['Actual'],
+              lineTension: 0,
+              pointRadius: 0,
             });
-            
+
             Chart.defaults.global.defaultFontFamily = 'Source Sans Pro';
-            Chart.defaults.global.defaultFontSize = 14;
+            Chart.defaults.global.defaultFontSize = 16;
             let chart = new Chart(ctx, {
                 type: 'line',
-
+                
                 data: {
                     labels: xlabels.slice(0, 6),
                     datasets: datasets,
@@ -341,7 +347,7 @@
 
                 options: {
 
-                  aspectRatio: 1,
+                  aspectRatio: 0.9,
 
                   title: {
                     display: true,
@@ -372,7 +378,20 @@
                         suggestedMax: 6,
                       }
                     }]
+                  },
+
+                  annotation: {
+                    annotations: [{
+                      type: 'box',
+                      drawTime: 'beforeDatasetsDraw',
+                      xScaleID: 'x-axis-0',
+                      xMin: "01Q2",
+                      xMax: "01Q4",
+                      borderColor: 'gainsboro',
+                      backgroundColor: 'gainsboro',
+                    }]
                   }
+
                 },
 
             });
