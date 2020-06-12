@@ -30,7 +30,7 @@ for (ind_0 in 1:length(dict.data)){
 
 
 # data reading algorithm
-data_list <- vector(mode = "list")
+data_list <- vector(mode = "list") 
 column_storage<- vector()
 actual_storage<- vector()
 long_column <- vector()
