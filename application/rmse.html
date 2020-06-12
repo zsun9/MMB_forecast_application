@@ -62,13 +62,6 @@
               <legend class='col-form-label pt-0'>Forecast source</legend>
             </div>
           </div>
-
-          <fieldset class='form-group big-group'>
-            <div class='row'>
-              <div class='col'>
-                <legend class='col-form-label pt-0'>Forecast source</legend>
-              </div>
-            </div>
   
             <fieldset class='form-group small-group'>
               <div class='row'>
@@ -138,8 +131,14 @@
     </div>
 
     <hr>
-
-    <div class='table-reponsive rmseTable'></div>
+    <div class='container'>
+      <div class='row'>
+        <div class='col'>
+          <div class='table-reponsive rmseTable'></div>
+        </div>
+      </div>
+      </div>
+    </div>
 
     <script src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
@@ -258,7 +257,7 @@
           let rmseArray = [];
           for (let entry of rmseMap) {
             let modelScenario = entry[0].split(':');
-            let rmse = entry[1][1].map(function (item) { return Math.sqrt(item/entry[1][0]).toFixed(2); });
+            let rmse = entry[1][1].map(function (item) { return Math.sqrt(item/entry[1][0]).toFixed(3); });
             rmseArray.push({
               'model': modelScenario[0],
               'scenario': modelScenario[1],
@@ -270,44 +269,31 @@
             });
           }
 
-          document.querySelector('.rmseTable').innerHTML = `<div id='table'></div>`;
+          document.querySelector('.rmseTable').innerHTML = `<table id='table'></table>`;
+          let table = document.getElementById('table');
+          table.setAttribute('data-toggle', 'table');
+          table.innerHTML = `
+          <thead>
+            <tr>
+              <th data-field='model' rowspan='2' data-valign='middle' data-sortable='true'>Model</th>
+              <th data-field='scenario' rowspan='2' data-valign='middle' data-sortable='true'>Scenario</th>
+              <th colspan='5'>Root mean squared error</th>
+            </tr>
+            <tr>
+              <th data-field='nowcast' data-sortable='true'>Nowcast</th>
+              <th data-field='1-step' data-sortable='true'>1-step</th>
+              <th data-field='2-step' data-sortable='true'>2-step</th>
+              <th data-field='3-step' data-sortable='true'>3-step</th>
+              <th data-field='4-step' data-sortable='true'>4-step</th>
+            </tr>
+          </thead>
+          `;
           $('#table').bootstrapTable({
             'data': rmseArray,
             'classes': 'table table-sm table-bordered table-hover',
             'theadClasses': 'thead-light',
-            'columns': [{
-              field: 'model',
-              title: 'Model',
-              sortable: true,
-            }, {
-              field: 'scenario',
-              title: 'Scenario',
-              sortable: true,
-            }, {
-              field: 'nowcast',
-              title: 'Nowcast',
-              sortable: true,
-            }, {
-              field: '1-step',
-              title: '1-step',
-              sortable: true,
-            }, {
-              field: '2-step',
-              title: '2-step',
-              sortable: true,
-            }, {
-              field: '3-step',
-              title: '3-step',
-              sortable: true,
-            }, {
-              field: '4-step',
-              title: '4-step',
-              sortable: true,
-            }]
-
+            'sortable': true,
           });
-
-          
 
           });
 
