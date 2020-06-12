@@ -25,13 +25,16 @@
           <a class='nav-link' href='./index.html'>Home</a>
         </li>
         <li class='nav-item'>
-          <a class='nav-link' href='./forecast.html'>Forecast chart</a>
+          <a class='nav-link' href='./forecast.html'>Forecast</a>
         </li>
         <li class='nav-item'>
-          <a class='nav-link' href='./rmse.html'>RMSE table</a>
+          <a class='nav-link' href='./rmse.html'>RMSE</a>
         </li>
         <li class='nav-item'>
-          <a class='nav-link' href='./observable.html'>Observed variable</a>
+          <a class='nav-link' href='./observable.html'>Observables</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='./about.html'>About</a>
         </li>
       </ul>
       </div>
@@ -39,7 +42,7 @@
 
     <div class='container'>
       <h1 class='page-header'>RMSE table</h1>
-      <p class='lead'>To create RMSE tables, specify vintage date and forecast sources</p>
+      <p class='lead'>To create RMSE tables, select the vintage date and forecast sources</p>
 
       <form id='selectForm'>
 
@@ -60,36 +63,43 @@
             </div>
           </div>
 
-          <fieldset class='form-group small-group'>
+          <fieldset class='form-group big-group'>
             <div class='row'>
               <div class='col'>
-                <legend class='col-form-label pt-0'>Macroeconomic models <a href='' id='modelAll'>All</a><a href='' id='modelClear'>Clear</a></legend>
+                <legend class='col-form-label pt-0'>Forecast source</legend>
               </div>
-              <div class='w-100'></div>
+            </div>
   
-              <!-- <div class='col row'>
-                <div class='col-2 pt-0'>Filters</div>
-                <div class='col-10'>
-                  <div class='btn-group btn-group-sm' role='group' id='filterModel'>
-                    <button type='button' class='btn btn-outline-primary' style='font-size: 0.8em;'>Pre-crisis</button>
-                    <button type='button' class='btn btn-primary' style='font-size: 0.8em;'>All</button>
-                    <button type='button' class='btn btn-outline-primary' style='font-size: 0.8em;'>Post-crisis</button>
+            <fieldset class='form-group small-group'>
+              <div class='row'>
+                <div class='col'>
+                  <legend class='col-form-label pt-0'>Macroeconomic models <a href='' id='dsgeAll'>All</a><a href='' id='dsgeClear'>Clear</a></legend>
+                </div>
+                <div class='w-100'></div>
+    
+                <!-- <div class='col row'>
+                  <div class='col-2 pt-0'>Filters</div>
+                  <div class='col-10'>
+                    <div class='btn-group btn-group-sm' role='group' id='filterModel'>
+                      <button type='button' class='btn btn-outline-primary' style='font-size: 0.8em;'>Pre-crisis</button>
+                      <button type='button' class='btn btn-primary' style='font-size: 0.8em;'>All</button>
+                      <button type='button' class='btn btn-outline-primary' style='font-size: 0.8em;'>Post-crisis</button>
+                    </div>
                   </div>
                 </div>
+                <div class='w-100'></div> -->
+    
+                <div class='col' id='selectDsge'></div>
               </div>
-              <div class='w-100'></div> -->
-  
-              <div class='col' id='selectModel'></div>
-            </div>
-          </fieldset>
+            </fieldset>
   
           <fieldset class='form-group small-group'>
             <div class='row'>
               <div class='col'>
-                <legend class='col-form-label pt-0'>Time-series models <a href='' id='TSModelAll'>All</a><a href='' id='TSModelClear'>Clear</a></legend>
+                <legend class='col-form-label pt-0'>Time-series models <a href='' id='tsAll'>All</a><a href='' id='tsClear'>Clear</a></legend>
               </div>
               <div class='w-100'></div>
-              <div class='col' id='selectTSModel'></div>
+              <div class='col' id='selectTs'></div>
             </div>
           </fieldset>
   
@@ -102,15 +112,15 @@
               <div class='col' id='selectExternal'>
                 <div class='form-check form-check-inline'>
                   <input class='form-check-input' type='checkbox' id='selectSPFMean' name='external' value='SPFMean' disabled>
-                  <label class='form-check-label' for='selectSPFMean' id='selectSPFMeanlabel'>from the Survey of Professional Forecasters - Mean level</label>
+                  <label class='form-check-label' for='selectSPFMean' id='selectSPFMeanlabel'>Survey of Professional Forecasters - Mean level</label>
                 </div>
                 <div class='form-check form-check-inline'>
                   <input class='form-check-input' type='checkbox' id='selectSPFAll' name='external' value='SPFAll' disabled>
-                  <label class='form-check-label' for='selectSPFAll' id='selectSPFAlllabel' >from the Survey of Professional Forecasters - Individual</label>
+                  <label class='form-check-label' for='selectSPFAll' id='selectSPFAlllabel' >Survey of Professional Forecasters - Individual</label>
                 </div>
                 <div class='form-check form-check-inline'>
                   <input class='form-check-input' type='checkbox' id='selectFRB' name='external' value='FRB' disabled>
-                  <label class='form-check-label' for='selectFRB' id='selectFRB'>from the Federal Reserve Board of Governors</label>
+                  <label class='form-check-label' for='selectFRB' id='selectFRB'>Greenbook from the Federal Reserve Board of Governors</label>
                 </div>
               </div>
             </div>
@@ -129,9 +139,7 @@
 
     <hr>
 
-    <div class='container'>
-      <div id='table'></div>
-    </div>
+    <div class='table-reponsive rmseTable'></div>
 
     <script src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
@@ -154,8 +162,16 @@
 
           let typeSet = new Set();
 
-          for (let item of data['dsge']) {
-            typeSet.add(item[selectType]);
+          if (selectType == 'ts') {
+            data['ts'].forEach(item => typeSet.add(item['model']));
+          } else if (selectType == 'dsge') {
+            data['dsge'].forEach(item => typeSet.add(item['model']));
+          } else if (selectType == 'external') {
+            data['external'].forEach(item => typeSet.add(item['model']));
+          } else {
+            data['ts'].forEach(item => typeSet.add(item[selectType]));
+            data['dsge'].forEach(item => typeSet.add(item[selectType]));
+            // data['external'].forEach(item => typeSet.add(item[selectType]));
           }
 
           let typeArray = Array.from(typeSet);
@@ -182,11 +198,13 @@
         }
         
         document.getElementById('selectVintage').innerHTML = addItems('vintage', 'checkbox');
-        document.getElementById('selectModel').innerHTML = addItems('model', 'checkbox');
+        document.getElementById('selectDsge').innerHTML = addItems('dsge', 'checkbox');
+        document.getElementById('selectTs').innerHTML = addItems('ts', 'checkbox');
+        document.getElementById('selectScenario').innerHTML = addItems('scenario', 'checkbox');
 
       });
 
-      for (let part of ['model', 'TSModel', 'external', 'vintage']) {
+      for (let part of ['dsge', 'ts', 'external', 'vintage']) {
         for (let status of ['All', 'Clear']) {
           let checkedStatus = (status == 'All') ? true : false;
           document.getElementById(`${part}${status}`).addEventListener('click', function (event) {
@@ -206,23 +224,16 @@
 
         const selection = $(this).serializeArray();
         $(this)[0].reset();
-        let selectedVintage = [], selectedModel = [], selectedScenario = [];
-        for (let item of selection) {
-          if (item.name == 'vintage') {
-            selectedVintage.push(item.value);
-          } else if (item.name == 'scenario') {
-            selectedScenario.push(item.value);
-          } else {
-            selectedModel.push(item.value);
-          }
+        let selected = {
+          'vintage': [],
+          'dsge': [],
+          'ts': [],
+          'scenario': [],
+          'external': [],
         }
-
-        // let selectedVintageQuarter = [];
-        // for (let vintage of selectedVintage) {
-        //   let yearStart = parseInt(vintage.substring(0, 4));
-        //   let quarterStart = Math.floor(parseInt(vintage.substring(5,7)) / 3) + 1;
-        //   selectedVintageQuarter.push(yearStart + 'Q' + quarterStart);
-        // }
+        for (let item of selection) {
+          selected[item.name].push(item.value);
+        }
 
         fetch('results.json').then(response => response.json()).then(data => {
 
@@ -230,7 +241,7 @@
           for (let item of data['error']) {
             let model = item['model'], scenario = item['scenario'], squaredError = item['squaredError'], vintage = item['vintage'];
 
-            if ((selectedModel.includes(model)) && (selectedVintage.includes(vintage))) {
+            if (((selected['dsge'].includes(model)) || (selected['ts'].includes(model)) || (selected['external'].includes(model))) && (selected['vintage'].includes(vintage))) {
               let modelScenario = model + ':' + scenario;
               if (rmseMap.has(modelScenario)) {
                 let existingArray = rmseMap.get(modelScenario);
@@ -259,11 +270,11 @@
             });
           }
 
-          console.log(JSON.stringify(rmseArray));
-
+          document.querySelector('.rmseTable').innerHTML = `<div id='table'></div>`;
           $('#table').bootstrapTable({
             'data': rmseArray,
-            'search': false,
+            'classes': 'table table-sm table-bordered table-hover',
+            'theadClasses': 'thead-light',
             'columns': [{
               field: 'model',
               title: 'Model',
@@ -289,7 +300,7 @@
               title: '3-step',
               sortable: true,
             }, {
-              filed: '4-step',
+              field: '4-step',
               title: '4-step',
               sortable: true,
             }]

@@ -1,21 +1,54 @@
 import json, pathlib
 import pandas as pd
 import numpy as np
+from json import encoder
+import simplejson
 
 paths = {
     'estimations': pathlib.Path('../estimations'),
     'application': pathlib.Path('../application'),
     'data': pathlib.Path('../data'),
+    'vintage_data': pathlib.Path('../data/vintage_data'),
 }
 for path in paths.values():
     assert path.exists()
 
+# obtain observed series
+observed = []
+
+for file in paths['vintage_data'].glob('*.xlsx'):
+    vintage = file.stem
+    vintage = vintage[5:9] + '-' + vintage[9:11] + '-' + vintage[11:]
+
+    dfDict = pd.read_excel(file, sheet_name=None, index_col=0)
+
+    for key, df in dfDict.items():
+        scenario = key
+        if scenario in {'s2', 's3'}:
+
+            for col in df.columns.values:
+                valueCol = df[col].tolist()
+                for i, v in enumerate(valueCol):
+                    if np.isnan(v):
+                        valueCol[i] = v
+                    else:
+                        valueCol[i] = round(v*100000)/100000
+
+                observed.append({
+                    'vintage': vintage,
+                    'scenario': scenario,
+                    'variable': col,
+                    'value': valueCol
+                })
+
+# obtain forecasts and forecast errors
 results = {
     'dsge': [],
-    'bvar': [],
+    'ts': [],
     'actual': [],
     'error': [],
 }
+
 
 actualForRMSE = {}
 jsonError = []
@@ -35,10 +68,14 @@ for i, index in enumerate(actualGDP.index):
 
     results['actual'].append({'actual': {'gdp': series}, 'vintageQuarter': index})
 
-# collect forecast results from the estimation fodler
+# collect forecast results from the estimation folder
+# calculate forecast errors
 for file in paths['estimations'].rglob('*.json'):
     inst = json.loads(file.read_text())
-    results['dsge'].append(inst)
+    if 'GLP' in inst['model']:
+        results['ts'].append(inst)
+    else:
+        results['dsge'].append(inst)
 
     forecastValues = inst['forecast']['gdp'][1:lengthRMSE+1]
     # if inst['scenario'] in {'s2', 's4'}:
@@ -79,7 +116,9 @@ results['error'] = jsonError
 #         'scenario': tupleModelScenario[1],
 #     })
 
-
-# generate RMSE results
+# save results
 with open(paths['application'] / 'results.json', 'w') as file:
-    json.dump(results, file, indent=2, sort_keys=True)
+    simplejson.dump(results, file, ignore_nan=True, indent=2, sort_keys=True)
+
+with open(paths['application'] / 'observed.json', 'w') as file:
+    simplejson.dump(observed, file, ignore_nan=True, indent=2, sort_keys=True)

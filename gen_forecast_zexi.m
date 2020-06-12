@@ -14,8 +14,8 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2008-08-07"]; %
-p.scenarios = ["s2"];
+p.vintages = ["2020-02-11", "2020-05-12"]; %
+p.scenarios = ["s1", "s2", "s3", "s4"];
 p.models = ["GLP3v"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "Zexi Sun";
 
@@ -23,7 +23,7 @@ p.ExcelColumnUntil = "X";
 
 % hyper-parameters
 p.chainLen = 1000000;
-p.chainLenBVAR = 1000;
+p.chainLenBVAR = 1000000;
 p.subDraws = 5000;
 p.forecastHorizon = 40;
 p.chainNum = 1;
@@ -378,6 +378,12 @@ for model = p.models
             end
             
             % get GDP forecasts
+            if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
+                t.output.forecast.gdp = [data(end, 1), mean(res.mcmc.Dforecast(:,1,:),3)']*100;
+            else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
+                t.output.forecast.gdp = [data(end-1, 1), mean(res.mcmc.Dforecast(:,1,:),3)']*100;
+            end
+            
             t.output.forecast.gdp = mean(res.mcmc.Dforecast(:,1,:),3)*100;
             
             tEnd = toc(tStart);
@@ -387,14 +393,14 @@ for model = p.models
             t.output.scenario = scenario;
             t.output.nobs = nobs;
             t.output.mhDraws = p.chainLenBVAR;
-            t.output.subDraws = p.subDraws;
+            t.output.subDraws = p.chainLenBVAR/2;
             t.output.executor = p.executor;
             t.output.timeElapsed = tEnd;
             t.output.timeStamp = datestr(datetime('now'));
-            t.output.dynareVersion = p.dynareVersion;
             t.output.matlabVersion = convertCharsToStrings(version);
 
             % write to JSON file
+            cd(t.path.working);
             JSONOutput = jsonencode(t.output);
             JSONFile = fopen(model + ".json",'w');
             fwrite(JSONFile, JSONOutput, 'char');
@@ -402,6 +408,8 @@ for model = p.models
             
             clearvars -except model vintage scenario p
             
+            pause(5);
+            cd(p.path.root);
         end
     end
     
