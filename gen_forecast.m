@@ -23,7 +23,7 @@ p.ExcelColumnUntil = "X";
 
 % hyper-parameters
 p.chainLen = 1000000;
-p.chainLenBVAR = 1000000;
+p.chainLenBVAR = 500000;
 p.subDraws = 5000;
 p.forecastHorizon = 40;
 p.chainNum = 1;
