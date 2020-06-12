@@ -14,7 +14,7 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2020-02-11", "2020-05-12"]; %
+p.vintages = ["2020-05-12", "2001-02-14"]; %
 p.scenarios = ["s1", "s2", "s3", "s4"];
 p.models = ["GLP3v"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "Zexi Sun";
@@ -383,8 +383,6 @@ for model = p.models
             else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
                 t.output.forecast.gdp = [data(end-1, 1), mean(res.mcmc.Dforecast(:,1,:),3)']*100;
             end
-            
-            t.output.forecast.gdp = mean(res.mcmc.Dforecast(:,1,:),3)*100;
             
             tEnd = toc(tStart);
             % save other outputs
