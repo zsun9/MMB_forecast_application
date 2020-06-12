@@ -183,7 +183,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                     if infoRaw[infoRaw['id']==var]['frequency_short'].values[0] == 'Q':
                         df.iloc[-1] = float('nan')
                     # for some variables, even remove the last two obs
-                    if var in {'BOGZ1FL144104005Q'}:
+                    if var in {'BOGZ1FL144104005Q', 'HMLBSHNO'}:
                         df.iloc[-2] = float('nan')
                     return df, vintage
 
@@ -433,6 +433,14 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 # ΔLN(BOGZ1FL144104005Q)*100
                 df.loc[:, obs] = np.log(df[d['BOGZ1FL144104005Q']]/df[d['BOGZ1FL144104005Q']].shift())*100
 
+            elif obs == 'mortffr_obs':
+                # (MORTRATE-DFF)/4
+                df.loc[:, obs] = (df[d['MORTRATE']] - df[d['DFF']])/4
+            
+            elif obs == 'mortgage_nom_obs':
+                # ΔLN(HMLBSHNO)*100
+                df.loc[:, obs] = np.log(df[d['HMLBSHNO']]/df[d['HMLBSHNO']].shift())*100
+
             elif obs == 'hours_kr15_obs':
                 # LN(12*PRS85006023*CE16OV/CNP16OV)*100
                 df.loc[:, obs] = np.log(12*df[d['PRS85006023']]*df[d['CE16OV']]/df[d['CNP16OV']])*100
@@ -566,7 +574,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     dfCompleteSpf.index = [str(index) for index in dfCompleteSpf.index]
 
     # remove some observables' current quarter value
-    observableNoCurrentQuaterValue = {'hours_sw07_obs', 'hours_frbedo08_obs', 'hours_kr15_obs', 'unr_obs'}
+    observableNoCurrentQuaterValue = {'hours_sw07_obs', 'hours_frbedo08_obs', 'hours_kr15_obs', 'hours_dngs15_obs', 'unr_obs'}
     if obsEnd.to_period('Q') == vintageDate.to_period('Q'):
         for observable in observableNoCurrentQuaterValue:
             if observable in dfComplete.columns:
@@ -649,9 +657,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 if __name__ == '__main__':
 
     main(
-        vintageDate='2007-05-21', quarterStart='1965Q1', quarterEnd='2006Q4',
+        vintageDate='2012-01-01', quarterStart='1970Q1', quarterEnd='2010Q4',
         observed=[
-            'gdp_rgd_obs'
+            'mortffr_obs', 'mortgage_nom_obs',
            ],
 
         )

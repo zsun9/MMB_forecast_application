@@ -14,7 +14,7 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2020-05-12", "2001-02-14"]; %
+p.vintages = ["2020-05-12", "2001-02-14", "2001-05-12", "2001-08-15", "2001-11-14"]; %
 p.scenarios = ["s1", "s2", "s3", "s4"];
 p.models = ["GLP3v"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "Zexi Sun";
@@ -23,7 +23,7 @@ p.ExcelColumnUntil = "X";
 
 % hyper-parameters
 p.chainLen = 1000000;
-p.chainLenBVAR = 1000000;
+p.chainLenBVAR = 500000;
 p.subDraws = 5000;
 p.forecastHorizon = 40;
 p.chainNum = 1;
@@ -190,8 +190,8 @@ for model = p.models
                     fprintf(DynareFile, t.script.modfile + t.script.estimation);
                     fclose(DynareFile);
                     
-                    % pause(5);
-                    % dynare(convertStringsToChars(t.name.modfile));
+                    pause(5);
+                    dynare(convertStringsToChars(t.name.modfile));
                 else
                     fprintf('Mode file not exists, and mode computation will be started.\n');
                     % else loop through all mode compute routines

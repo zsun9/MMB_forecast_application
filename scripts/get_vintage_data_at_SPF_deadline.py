@@ -18,6 +18,7 @@ for deadline in infoSpf['deadlines']:
                 'hours_sw07_obs', 'gdpl_rgd_obs', 'unr_obs', 'cpil_obs', 'blt_obs',
                 'hours_frbedo08_obs', 'cnds_nom_obs', 'cd_nom_obs', 'ir_nom_obs', 'inr_nom_obs', 'cnds_def_obs', 'cd_def_obs',
                 'bbb1yffr_obs', 'credit_nom_obs', 'hours_kr15_obs',
+                'mortffr_obs', 'mortgage_nom_obs',
                 ]
 
             )
