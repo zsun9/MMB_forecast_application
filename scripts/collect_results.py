@@ -9,37 +9,10 @@ paths = {
     'application': pathlib.Path('../application'),
     'data': pathlib.Path('../data'),
     'vintage_data': pathlib.Path('../data/vintage_data'),
+
 }
 for path in paths.values():
     assert path.exists()
-
-# obtain observed series
-observed = []
-
-for file in paths['vintage_data'].glob('*.xlsx'):
-    vintage = file.stem
-    vintage = vintage[5:9] + '-' + vintage[9:11] + '-' + vintage[11:]
-
-    dfDict = pd.read_excel(file, sheet_name=None, index_col=0)
-
-    for key, df in dfDict.items():
-        scenario = key
-        if scenario in {'s2', 's3'}:
-
-            for col in df.columns.values:
-                valueCol = df[col].tolist()
-                for i, v in enumerate(valueCol):
-                    if np.isnan(v):
-                        valueCol[i] = v
-                    else:
-                        valueCol[i] = round(v*100000)/100000
-
-                observed.append({
-                    'vintage': vintage,
-                    'scenario': scenario,
-                    'variable': col,
-                    'value': valueCol
-                })
 
 # obtain forecasts and forecast errors
 results = {
@@ -47,13 +20,16 @@ results = {
     'ts': [],
     'actual': [],
     'error': [],
+    'external': [],
 }
-
 
 actualForRMSE = {}
 jsonError = []
 jsonRMSE = []
 lengthRMSE = 5
+
+# collect SPF forecasts
+spf = pd.read_excel(paths['data'] / 'spf_values.xlsx')
 
 # collect actual GDP growth
 actualGDP = pd.read_csv(paths['data'] / 'actualGDP.csv', encoding='utf-8', index_col=0)
@@ -115,6 +91,34 @@ results['error'] = jsonError
 #         'model': tupleModelScenario[0],
 #         'scenario': tupleModelScenario[1],
 #     })
+
+# obtain observed series
+observed = []
+
+for file in paths['vintage_data'].glob('*.xlsx'):
+    vintage = file.stem
+    vintage = vintage[5:9] + '-' + vintage[9:11] + '-' + vintage[11:]
+
+    dfDict = pd.read_excel(file, sheet_name=None, index_col=0)
+
+    for key, df in dfDict.items():
+        scenario = key
+        if scenario in {'s2', 's3'}:
+
+            for col in df.columns.values:
+                valueCol = df[col].tolist()
+                for i, v in enumerate(valueCol):
+                    if np.isnan(v):
+                        valueCol[i] = v
+                    else:
+                        valueCol[i] = round(v*100000)/100000
+
+                observed.append({
+                    'vintage': vintage,
+                    'scenario': scenario,
+                    'variable': col,
+                    'value': valueCol
+                })
 
 # save results
 with open(paths['application'] / 'results.json', 'w') as file:
