@@ -142,8 +142,8 @@
     <hr>
 
     <div class='container-fluid'>
-      <div class='row' id='charts'></div>
       <p class="legend" style='text-align: center;'></p>
+      <div class='row' id='charts'></div>
     </div>
 
     <script src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous'></script>
@@ -308,6 +308,7 @@
 
             let divCol = document.createElement('div');
             divCol.classList.add(`col-sm-${12/selected['scenario'].length}`);
+            divCol.classList.add(`col-xs-${12/selected['scenario'].length}`);
             let canvas = document.createElement('canvas');
             divCol.appendChild(canvas);
             charts.appendChild(divCol);
@@ -363,8 +364,8 @@
                 xScaleID: 'x-axis-0',
                 xMin: quarter.substring(2),
                 xMax: quarterNext.substring(2),
-                borderColor: 'Linen',
-                backgroundColor: 'Linen',
+                borderColor: 'gainsboro',
+                backgroundColor: 'gainsboro',
               })
             }
 
@@ -405,9 +406,6 @@
                   legend: {display: false},
 
                   scales: {
-                    // ticks: [{
-                    //   fontSize: 10,
-                    // }],
                     yAxes: [{
                       ticks: {
                         suggestedMin: -8,
@@ -416,9 +414,7 @@
                     }]
                   },
 
-                  annotation: {
-                    annotations: recessionPeriods
-                  }
+                  annotation: {annotations: recessionPeriods}
 
                 },
 

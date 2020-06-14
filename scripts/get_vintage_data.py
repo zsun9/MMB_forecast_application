@@ -579,8 +579,6 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
         for observable in observableNoCurrentQuaterValue:
             if observable in dfComplete.columns:
                 dfComplete.iloc[-1, dfComplete.columns.get_loc(observable)] = float('nan')
-            if observable in dfCompleteSpf.columns:
-                dfCompleteSpf.iloc[-1, dfCompleteSpf.columns.get_loc(observable)] = float('nan')
 
     # if there are missing values in the last quarter and vintage date is no later than 120 days after the start of last quarter:
     # then create data for four scenarios

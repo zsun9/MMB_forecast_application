@@ -13,9 +13,11 @@ for deadline in infoSpf['deadlines']:
 
             vintageDate=deadline, quarterStart=str(quarterStart), quarterEnd=str(quarterEnd),
             observed=[
-                'gdp_rgd_obs', 'gdpdef_obs', 'ffr_obs', 'ifi_rgd_obs', 'c_rgd_obs', 
-                'wage_rgd_obs', 'baag10_obs', 'hours_dngs15_obs', 
-                'hours_sw07_obs', 'gdpl_rgd_obs', 'unr_obs', 'cpil_obs', 'blt_obs',
+                'ffr_obs', 
+                'gdp_rgd_obs', 'gdpdef_obs', 'ifi_rgd_obs', 'c_rgd_obs', 
+                'wage_rgd_obs', 'hours_sw07_obs',
+                'baag10_obs', 'hours_dngs15_obs', 
+                'gdpl_rgd_obs', 'unr_obs', 'cpil_obs', 'blt_obs',
                 'hours_frbedo08_obs', 'cnds_nom_obs', 'cd_nom_obs', 'ir_nom_obs', 'inr_nom_obs', 'cnds_def_obs', 'cd_def_obs',
                 'bbb1yffr_obs', 'credit_nom_obs', 'hours_kr15_obs',
                 'mortffr_obs', 'mortgage_nom_obs',
