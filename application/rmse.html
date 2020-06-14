@@ -6,8 +6,8 @@
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
     <title>Macroeconomic forecasting platform</title>
     <meta name='description' content='Macroeconomic forecasting platform'>
-    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' integrity='sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm' crossorigin='anonymous'>
-    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+    <link rel="stylesheet" href="./css/bootstrap-table.min.css">
+    <link rel='stylesheet' href='./css/bootstrap.min.css'>
     <link rel='stylesheet' href='./css/stylesheet.css'>
   </head>
 
@@ -31,7 +31,7 @@
           <a class='nav-link' href='./rmse.html'>RMSE</a>
         </li>
         <li class='nav-item'>
-          <a class='nav-link' href='./observable.html'>Observables</a>
+          <a class='nav-link' href='./variable.html'>Observables</a>
         </li>
         <li class='nav-item'>
           <a class='nav-link' href='./about.html'>About</a>
@@ -140,10 +140,10 @@
       </div>
     </div>
 
-    <script src='https://code.jquery.com/jquery-3.5.1.js' integrity='sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=' crossorigin='anonymous'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js' integrity='sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q' crossorigin='anonymous'></script>
-    <script src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js' integrity='sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl' crossorigin='anonymous'></script>
-    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+    <script src='./js/jquery.js'></script>
+    <script src='./js/popper.min.js'></script>
+    <script src='./js/bootstrap.min.js'></script>
+    <script src="./js/bootstrap-table.min.js"></script>
 
     <script>
       'use strict';
@@ -155,7 +155,7 @@
         's4': 'Full conditioning',
       };
 
-      fetch('results.json').then(response => response.json()).then(data => {
+      fetch('./src/results.json').then(response => response.json()).then(data => {
 
         function addItems(selectType, buttonType) {
 
@@ -199,7 +199,6 @@
         document.getElementById('selectVintage').innerHTML = addItems('vintage', 'checkbox');
         document.getElementById('selectDsge').innerHTML = addItems('dsge', 'checkbox');
         document.getElementById('selectTs').innerHTML = addItems('ts', 'checkbox');
-        document.getElementById('selectScenario').innerHTML = addItems('scenario', 'checkbox');
 
       });
 
@@ -234,7 +233,7 @@
           selected[item.name].push(item.value);
         }
 
-        fetch('results.json').then(response => response.json()).then(data => {
+        fetch('./src/results.json').then(response => response.json()).then(data => {
 
           let rmseMap = new Map();
           for (let item of data['error']) {

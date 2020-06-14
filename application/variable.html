@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <title>Macroeconomic forecasting platform</title>
+    <meta name='description' content='Macroeconomic forecasting platform'>
+    <link rel='stylesheet' href='./css/bootstrap.min.css'>
+    <link rel='stylesheet' href='./css/stylesheet.css'>
+  </head>
+
+  <body data-spy='scroll' data-target='#navbar-example'>
+
+    <nav id='navbar-example' class='navbar navbar-expand-md navbar-dark bg-dark fixed-top'>
+      <a class='navbar-brand' href='index.html'>Online Forecasting Platform</a>
+      <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation'>
+      <span class='navbar-toggler-icon'></span>
+      </button>
+  
+      <div class='collapse navbar-collapse' id='navbarsExampleDefault'>
+      <ul class='navbar-nav mr-auto'>
+        <li class='nav-item'>
+          <a class='nav-link' href='./index.html'>Home</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='./forecast.html'>Forecast</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='./rmse.html'>RMSE</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='./variable.html'>Observables</a>
+        </li>
+        <li class='nav-item'>
+          <a class='nav-link' href='./about.html'>About</a>
+        </li>
+      </ul>
+      </div>
+    </nav>
+
+    <div class='container'>
+      <h1 class='page-header'>Observed variables</h1>
+      <p class='lead'>To plot observed variables, choose their IDs along with vintage dates and data scenarios</p>
+    </div>
+
+    <div class='container'>
+      <form id='selectForm'>
+
+        <fieldset class='form-group'>
+          <div class='row align-items-center'>
+            <div class='col-sm-3'>
+              <label for='variable'>Variable</label>
+              <select name='variable' id='variable' class='form-control' required>
+              </select>
+            </div>
+
+            <div class='col-sm-3'>
+              <label for='vintage'>Vintage date</label>
+              <select name='vintage' id='vintage' class='form-control' required>
+              </select>
+            </div>
+
+            <div class='col-sm-3'>
+              <label for='scenario'>Data scenario</label>
+              <select name='scenario' id='scenario' class='form-control' required>
+              </select>
+            </div>
+
+            <div class='col-sm-3'>
+                <button type='submit' class='btn btn-primary'>Add series</button>
+            </div>
+          </div>
+        </fieldset>
+
+      </form>
+    </div>
+
+    <div class='container'>
+        <ul class='list-group list-group-flush' id='listShow'>
+        </ul>
+      <div class='w-100'></div>
+
+      <div class='row justify-content-center'>
+        <button type='button' class='btn btn-primary' id='plotButton'>Plot series</button>
+      </div>
+    </div>
+
+    <hr>
+
+    <div class='container-fluid'>
+      <div class='row'>
+        <div class='col' id='placeChart'>
+          <canvas id='observedChart'>
+          </canvas>
+        </div>
+      </div>
+    </div>
+
+    <script src='./js/jquery.js'></script>
+    <script src='./js/popper.min.js'></script>
+    <script src='./js/bootstrap.min.js'></script>
+    <script src="./js/Chart.bundle.js"></script>
+    <script src="./js/chartjs-plugin-annotation.js"></script>
+
+    <script>
+      'use strict';
+
+      const colorSet = ['red', 'blue', 'green', 'gold', 'cyan'];
+
+      const input = [
+        // {variable: 'baag10_obs', vintage: '2020-05-12', scenario: 's3'},
+        // {variable: 'bbb1yffr_obs', vintage: '2008-08-07', scenario: 's3'},
+        {variable: 'gdp_rgd_obs', vintage: '2008-11-10', scenario: 's3'},
+        {variable: 'gdp_rgd_obs', vintage: '2020-05-12', scenario: 's3'},
+        // {variable: 'blt_obs', vintage: '2001-02-14', scenario: 's1'},
+      ];
+
+      const scenarioLabel = {
+        's3': 'with current-quarter value',
+        's2': 'with SPF nowcast value',
+      };
+
+      const labelScenario = {
+        'with current-quarter value': 's3',
+        'with SPF nowcast value': 's2',
+      };
+
+      const nberRecessionQuarter = [
+        '1980Q1', '1980Q2', '1981Q3', '1981Q4', '1982Q1', '1982Q2', '1982Q3', '1990Q3', '1990Q4',
+        '2001Q1', '2001Q2', '2001Q3', '2008Q1', '2008Q2', '2008Q3', '2008Q4', '2009Q1', '2020Q1', '2020Q2',
+      ]
+
+      var listShow = document.getElementById('listShow');
+
+      fetch('./src/observed.json').then(response => response.json()).then(data => {
+
+        function addItemsObs(selectType) {
+
+          let typeSet = new Set();
+          data.forEach(item => typeSet.add(item[selectType]))
+
+          let typeArray = Array.from(typeSet);
+          typeArray.sort();
+
+          let addString = `<option value='' selected>Choose ...</option>`;
+
+          for (let item of typeArray) {
+            if (selectType == 'scenario') {
+              addString += `<option value=${item}>${scenarioLabel[item]}</option>\n`;
+            } else {
+              addString += `<option>${item}</option>\n`;
+            }
+          }
+
+          return addString;
+          }
+
+        for (let selectType of ['variable', 'vintage', 'scenario']) {
+          document.getElementById(selectType).innerHTML = addItemsObs(selectType);
+        }
+        
+      })
+
+      function removeParent(element) {
+        element.parentNode.parentNode.parentNode.remove();
+      }
+
+      document.getElementById('selectForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        
+        const selection = $(this).serializeArray();
+        let oneSelected = {};
+        for (let item of selection) {
+          oneSelected[item.name] = item.value;
+        }
+
+        listShow.innerHTML += `
+        <li class='list-group-item'>
+        <div class='row'>
+          <div class='row col-sm-11'>
+            <div class='col-sm-4'>${oneSelected['variable']}</div>
+            <div class='col-sm-4'>${oneSelected['vintage']}</div>
+            <div class='col-sm-4'>${scenarioLabel[oneSelected['scenario']]}</div>
+          </div>
+          <div class='col-sm-1'>
+            <button type='button' class='btn btn-outline-danger btn-sm' onclick='removeParent(this)'>Remove</button>
+          </div>
+        </div>
+        </li>
+        `;
+
+        for (let item of ['variable', 'vintage', 'scenario']) {
+          document.getElementById(item).value = '';
+        }
+
+      })
+
+      document.getElementById('plotButton').addEventListener('click', function (event) {
+        event.preventDefault();
+
+        document.getElementById('placeChart').innerHTML = `<canvas id='observedChart'></canvas>`;
+
+        let listSelected = [];
+        for (let item of document.querySelectorAll('li.list-group-item')) {
+          let stringList = item.innerText.split('\n');
+          listSelected.push({
+            'variable': stringList[0],
+            'vintage': stringList[1],
+            'scenario': labelScenario[stringList[2]],
+          })
+        }
+
+        fetch('./src/observed.json').then(response => response.json()).then(data => {
+          
+          let datasets = [];
+          let biggestNum = -999, smallestNum = 999;
+          var colorOrder = -1;
+          for (let item of listSelected) {
+            var observedData = [];
+            for (let i = 0; i < data.length; i++) {
+              if ((data[i].variable == item.variable) && (data[i].vintage == item.vintage) && (data[i].scenario == item.scenario)) {
+                observedData = data[i].value;
+                colorOrder += 1;
+                break;
+              }
+            }
+
+            let xlabels = new Array(observedData.length);
+
+            let yearStart = parseInt(item.vintage.substring(0, 4));
+            let quarterStart = Math.floor((parseInt(item.vintage.substring(5,7)) - 1) / 3) + 1;
+            let currentNumber = (yearStart - 2000)*4 + (quarterStart - 1);
+            for (let i = xlabels.length - 1; i > -1; i--) {
+              xlabels[i] = currentNumber;
+              observedData[i] = {x: currentNumber, y: observedData[i]};
+              biggestNum = Math.max(biggestNum, currentNumber);
+              smallestNum = Math.min(smallestNum, currentNumber);
+              currentNumber -= 1;
+              
+            }
+
+            datasets.push({
+              fill: false,
+              label: item.variable + ', ' + item.vintage + ', ' + scenarioLabel[item.scenario],
+              data: observedData,
+              backgroundColor: colorSet[colorOrder],
+              borderColor: colorSet[colorOrder],
+              showLine: true,
+            })
+          }
+
+          let xlabels = [];
+          for (let i = smallestNum; i <= biggestNum; i++) {
+            xlabels.push(i);
+          }
+
+          let recessionPeriods = [];
+          for (let quarter of nberRecessionQuarter) {
+            let y = parseInt(quarter.substring(0, 4));
+            let q = parseInt(quarter.substring(5, 6));
+            let yqNumber = (y - 2000)*4 + (q - 1);
+            if ((yqNumber >= smallestNum) && (yqNumber + 1 <= biggestNum)) {
+              recessionPeriods.push({
+                type: 'box',
+                drawTime: 'beforeDatasetsDraw',
+                xScaleID: 'x-axis-0',
+                xMin: yqNumber,
+                xMax: yqNumber+1,
+                borderColor: 'gainsboro',
+                backgroundColor: 'gainsboro',
+              })
+            }
+          }
+          console.log(recessionPeriods);
+
+          // let box = [{
+          //   type: 'box',
+          //   drawTime: 'beforeDatasetsDraw',
+          //   xScaleID: 'x-axis-0',
+          //   xMin: 1,
+          //   xMax: 3,
+          //   borderColor: 'gainsboro',
+          //   backgroundColor: 'gainsboro',
+          // }, {
+          //   type: 'box',
+          //   drawTime: 'beforeDatasetsDraw',
+          //   xScaleID: 'x-axis-0',
+          //   xMin: 11,
+          //   xMax: 13,
+          //   borderColor: 'gainsboro',
+          //   backgroundColor: 'gainsboro',
+          // }];
+
+          // box = recessionPeriods.slice(0,1);
+          // console.log(box);
+          // console.log(xlabels);
+
+          let ctx = document.getElementById('observedChart').getContext('2d');
+        
+          Chart.defaults.global.defaultFontFamily = 'Source Sans Pro';
+          Chart.defaults.global.defaultFontSize = 16;
+          Chart.defaults.global.elements.point.radius = 1.5;
+          Chart.defaults.global.elements.line.tension = 0;
+          let chart = new Chart(ctx, {
+            type: 'line',
+
+            data: {
+              labels: xlabels,
+              datasets: datasets,
+            },
+
+            options: {
+
+              scales: {
+                xAxes: [{
+                  ticks: {
+                    maxTicksLimit: 20,
+                    min: smallestNum,
+                    max: biggestNum,
+                    callback: function(value, index, values) {
+                      let quarter = Math.abs(value % 4 + 1);
+                      let year = (2000 + Math.floor(value / 4));
+                      let yearQuarter = year + 'Q' + quarter
+                      return yearQuarter.substring(2,);
+                      
+                    }
+                  }
+                }]
+              },
+
+              annotation: {annotations: recessionPeriods},
+
+            }
+          })
+
+        })
+
+
+
+      })
+      
+    </script>
+
+    
+
+  </body>
+
+</html>
