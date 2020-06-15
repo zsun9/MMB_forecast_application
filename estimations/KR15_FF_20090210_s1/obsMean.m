@@ -19,5 +19,7 @@ hours_sw07_obs_mean = 0.0342445879;
 ifi_rgd_obs_mean = 0.5170557788;
 inr_nom_obs_mean = 1.2057627281;
 ir_nom_obs_mean = 0.9191197172;
+mortffr_obs_mean = 0.7171291381;
+mortgage_nom_obs_mean = 2.2691689928;
 unr_obs_mean = 5.6744107744;
 wage_rgd_obs_mean = 0.3834850669;

@@ -261,4 +261,4 @@ varobs gdp_rgd_obs, c_rgd_obs, ifi_rgd_obs, hours_kr15_obs, wage_rgd_obs, gdpdef
 //parallel='c1';
 
 
-estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20090210, xls_sheet=s2, xls_range=B1:X101, presample=4, mh_replic=1000000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=6) gdp_rgd_obs;
+estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20090210, xls_sheet=s2, xls_range=B1:Z101, presample=4, mh_replic=1000000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=6) gdp_rgd_obs;
