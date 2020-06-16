@@ -133,7 +133,7 @@
 
       var listShow = document.getElementById('listShow');
 
-      fetch('./src/observed.json').then(response => response.json()).then(data => {
+      fetch('./src/variables.json').then(response => response.json()).then(data => {
 
         function addItemsObs(selectType) {
 
@@ -211,7 +211,7 @@
           })
         }
 
-        fetch('./src/observed.json').then(response => response.json()).then(data => {
+        fetch('./src/variables.json').then(response => response.json()).then(data => {
           
           let datasets = [];
           let biggestNum = -999, smallestNum = 999;
