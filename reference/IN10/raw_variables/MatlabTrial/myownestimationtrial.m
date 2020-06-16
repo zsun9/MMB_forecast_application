@@ -69,7 +69,8 @@ fclose(DynareFile);
 
 dynare(convertStringsToChars("modelmodfile.mod"))
 
-t.output.forecast = [oo_.MeanForecast.Mean.zata_GDP(1:end-1)'];
+t.output.forecast = diff([oo_.SmoothedVariables.Mean.zata_GDP(end-1:end)', oo_.MeanForecast.Mean.zata_GDP(1:end)']);
+%t.output.forecast = [oo_.MeanForecast.Mean.zata_GDP(1:end-1)'];
 t.output.forecast = t.output.forecast * 4;
 
 JSONOutput = jsonencode(t.output);
