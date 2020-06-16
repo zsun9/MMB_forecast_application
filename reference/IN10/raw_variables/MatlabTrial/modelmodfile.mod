@@ -510,6 +510,6 @@ end;
 //% 10,000 runs of Metropolis in 8 minutes
 
 
-estimation(nodisplay, datafile='data_20070521_adj.xlsx',  bayesian_irf,irf=20, conf_sig=0.95, smoother, mh_jscale=0.2, mode_compute=6, presample=4,  prior_trunc=1e-100, mh_replic=20000, mh_nblocks=1,  forecast=40,  lik_init=1) 
+estimation(nodisplay, datafile='data_20070521.xlsx',  bayesian_irf,irf=20, conf_sig=0.95, smoother, mh_jscale=0.2, mode_compute=6, presample=4,  prior_trunc=1e-100, mh_replic=20000, mh_nblocks=1,  forecast=40,  lik_init=1) 
 rc_obs rbi_obs rri_obs zata_GDP hp_r_obs i_nom_obs;
 end;
