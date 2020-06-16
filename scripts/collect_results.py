@@ -28,8 +28,21 @@ jsonError = []
 jsonRMSE = []
 lengthRMSE = 5
 
-# collect SPF forecasts
-spf = pd.read_excel(paths['data'] / 'spf_values.xlsx')
+# collect SPF/GB/Fair forecasts
+df_sgf = pd.read_excel(paths['data'] / 'gb_spf_fair.xlsx', encoding='utf-8')
+for index, row in df_sgf.iterrows():
+    if row['model'] == 'Fair':
+        results['dsge'].append({
+            'model': row['model'],
+            'vintageQuarter': row['vintage'],
+            'forecast': {'gdp': row.tolist()[2:]},
+        })
+    else:
+        results['external'].append({
+            'model': row['model'],
+            'vintageQuarter': row['vintage'],
+            'forecast': {'gdp': row.tolist()[2:]},
+        })
 
 # collect actual GDP growth
 actualGDP = pd.read_csv(paths['data'] / 'actualGDP.csv', encoding='utf-8', index_col=0)
@@ -111,7 +124,7 @@ for file in paths['vintage_data'].glob('*.xlsx'):
                     if np.isnan(v):
                         valueCol[i] = v
                     else:
-                        valueCol[i] = round(v*100000)/100000
+                        valueCol[i] = round(v*10000)/10000
 
                 observed.append({
                     'vintage': vintage,
@@ -121,8 +134,8 @@ for file in paths['vintage_data'].glob('*.xlsx'):
                 })
 
 # save results
-with open(paths['application'] / 'results.json', 'w') as file:
+with open(paths['application'] / 'src' / 'results.json', 'w') as file:
     simplejson.dump(results, file, ignore_nan=True, indent=2, sort_keys=True)
 
-with open(paths['application'] / 'observed.json', 'w') as file:
+with open(paths['application'] / 'src' /  'variables.json', 'w') as file:
     simplejson.dump(observed, file, ignore_nan=True, indent=2, sort_keys=True)

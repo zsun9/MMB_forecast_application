@@ -655,9 +655,8 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 if __name__ == '__main__':
 
     main(
-        vintageDate='2012-01-01', quarterStart='1970Q1', quarterEnd='2010Q4',
-        observed=[
-            'mortffr_obs', 'mortgage_nom_obs',
-           ],
+        vintageDate='2008-08-07', quarterStart='2000Q1', quarterEnd='2008Q3',
+        raw = ['GDPC1'],
+        observed = ['gdp_rgd_obs']
 
         )

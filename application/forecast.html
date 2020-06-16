@@ -51,7 +51,7 @@
               <legend class='col-form-label pt-0'>Vintage date</legend>
             </div>
             <div class='w-100'></div>
-            <div class='col' id='selectVintage'></div>
+            <div class='col' id='selectvintage'></div>
           </div>
         </fieldset>
 
@@ -65,7 +65,7 @@
           <fieldset class='form-group small-group'>
             <div class='row'>
               <div class='col'>
-                <legend class='col-form-label pt-0'>Macroeconomic models <a href='' id='dsgeAll'>All</a><a href='' id='dsgeClear'>Clear</a></legend>
+                <legend class='col-form-label pt-0'>Macroeconomic models<a href='' id='dsgeAll'>All</a><a href='' id='dsgeClear'>Clear</a></legend>
               </div>
               <div class='w-100'></div>
   
@@ -81,21 +81,31 @@
               </div>
               <div class='w-100'></div> -->
   
-              <div class='col' id='selectDsge'></div>
+              <div class='col' id='selectdsge'></div>
             </div>
           </fieldset>
   
           <fieldset class='form-group small-group'>
             <div class='row'>
               <div class='col'>
-                <legend class='col-form-label pt-0'>Time-series models <a href='' id='tsAll'>All</a><a href='' id='tsClear'>Clear</a></legend>
+                <legend class='col-form-label pt-0'>Time-series models<a href='' id='tsAll'>All</a><a href='' id='tsClear'>Clear</a></legend>
               </div>
               <div class='w-100'></div>
-              <div class='col' id='selectTs'></div>
+              <div class='col' id='selectts'></div>
+            </div>
+          </fieldset>
+
+          <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>External sources<a href='' id='externalAll'>All</a><a href='' id='externalClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+              <div class='col' id='selectexternal'></div>
             </div>
           </fieldset>
   
-          <fieldset class='form-group small-group'>
+          <!-- <fieldset class='form-group small-group'>
             <div class='row'>
               <div class='col'>
                 <legend class='col-form-label pt-0'>External projections <a href='' id='externalAll'>All</a><a href='' id='externalClear'>Clear</a></legend>
@@ -116,7 +126,7 @@
                 </div>
               </div>
             </div>
-          </fieldset>
+          </fieldset> -->
         </fieldset>
 
         <fieldset class='form-group big-group'>
@@ -125,12 +135,12 @@
               <legend class='col-form-label pt-0'>Data scenario <a href='' id='scenarioAll'>All</a> <a href='' id='scenarioClear'>Clear</a></legend>
             </div>
             <div class='w-100'></div>
-            <div class='col' id='selectScenario'></div>
+            <div class='col' id='selectscenario'></div>
           </div>
         </fieldset>
 
         <div class='row justify-content-center'>
-          <button type='submit' class='btn btn-primary'>Compare</button>
+          <button type='submit' class='btn btn-primary'>Plot charts</button>
         </div>
 
       </form>
@@ -152,36 +162,9 @@
     <script src="./js/Chart.bundle.js"></script>
     <script src="./js/chartjs-plugin-annotation.js"></script>
 
+    <script src="./js/consts.js"></script>
     <script>
       'use strict';
-
-      const modelColors = {
-        // Always appear
-        'Actual': 'Black',
-        'Mean SPF': 'Green',
-        'Individual SPF': 'GhostWhite',
-        // Selective
-        'DS04': 'Red',
-        'WW11': 'Fuchsia',
-        'SW07': 'DodgerBlue',
-        'NKBGG': 'Cyan',
-        'DNGS15': 'Orange',
-        'FRBEDO08': 'LawnGreen',
-        'QPM08': 'DarkMagenta',
-        'GLP3v': 'GreenYellow',
-      };
-
-      const scenarioStrings = {
-        's1': 'Balanced panel',
-        's2': 'Conditioning on SPF nowcast',
-        's3': 'Conditioning on current-quarter observations',
-        's4': 'Full conditioning',
-      };
-
-      const nberRecessionQuarter = [
-        '1980Q1', '1980Q2', '1981Q3', '1981Q4', '1982Q1', '1982Q2', '1982Q3', '1990Q3', '1990Q4',
-        '2001Q1', '2001Q2', '2001Q3', '2008Q1', '2008Q2', '2008Q3', '2008Q4', '2009Q1', '2020Q1', '2020Q2',
-      ]
 
       fetch('./src/results.json').then(response => response.json()).then(data => {
 
@@ -189,25 +172,26 @@
 
           let typeSet = new Set();
 
-          if (selectType == 'ts') {
-            data['ts'].forEach(item => typeSet.add(item['model']));
-          } else if (selectType == 'dsge') {
-            data['dsge'].forEach(item => typeSet.add(item['model']));
-          } else if (selectType == 'external') {
-            data['external'].forEach(item => typeSet.add(item['model']));
+          if (['dsge', 'ts', 'external'].includes(selectType)) {
+            data[selectType].forEach(item => typeSet.add(item['model']));
           } else {
             data['ts'].forEach(item => typeSet.add(item[selectType]));
             data['dsge'].forEach(item => typeSet.add(item[selectType]));
-            // data['external'].forEach(item => typeSet.add(item[selectType]));
+            data['external'].forEach(item => typeSet.add(item[selectType]));
           }
+          typeSet.delete(undefined);
 
           let typeArray = Array.from(typeSet);
           typeArray.sort();
 
+          // console.log(typeArray);
+
           let addString = '';
 
           for (let item of typeArray) {
-             let newString = `<div class='form-check form-check-inline'>\n<input class='form-check-input' type='${buttonType}' id='select${item}' name='${selectType}' value='${item}'>\n<label class='form-check-label' for='select${item}' id='select${item}label'>${item}</label>\n</div>\n`;
+             let newString = `
+             <div class='form-check form-check-inline'>\n<input class='form-check-input' type='${buttonType}' id='select${item}' name='${selectType}' value='${item}'>\n<label class='form-check-label' for='select${item}' id='select${item}label'>${item}</label>\n</div>\n
+             `;
 
             if (selectType == 'scenario') {
               newString = newString.replace(`id='select${item}label'>${item}`, `id='select${item}label'>${scenarioStrings[item]}`)
@@ -219,10 +203,13 @@
           return addString;
         }
 
-        document.getElementById('selectVintage').innerHTML = addItems('vintage', 'radio');
-        document.getElementById('selectDsge').innerHTML = addItems('dsge', 'checkbox');
-        document.getElementById('selectTs').innerHTML = addItems('ts', 'checkbox');
-        document.getElementById('selectScenario').innerHTML = addItems('scenario', 'checkbox');
+        for (let selectType of ['dsge', 'ts', 'external', 'vintage', 'scenario']) {
+          if (selectType == 'vintage') {
+            document.getElementById('select' + selectType).innerHTML = addItems(selectType, 'radio');
+          } else {
+            document.getElementById('select' + selectType).innerHTML = addItems(selectType, 'checkbox');
+          }
+        }
 
       });
 
@@ -257,6 +244,7 @@
           'ts': [],
           'scenario': [],
           'external': [],
+          'vintageQuarter': []
         }
         for (let item of selection) {
           selected[item.name].push(item.value);
@@ -269,6 +257,7 @@
         let yearStart = parseInt(selected['vintage'][0].substring(0, 4));
         let quarterStart = Math.floor((parseInt(selected['vintage'][0].substring(5,7)) - 1) / 3) + 1;
         let vintageQuarter = yearStart + 'Q' + quarterStart;
+        selected['vintageQuarter'].push(vintageQuarter);
 
         if (quarterStart == 1) {
           quarterStart = 4;
@@ -295,7 +284,8 @@
             charts.removeChild(charts.firstChild);
           }
 
-          var actualSeries = [];
+          // get actual GDP series
+          let actualSeries = [];
           for (let i = 0; i < data['actual'].length; i++) {
             if (data['actual'][i].vintageQuarter == vintageQuarter) {
               actualSeries = data['actual'][i].actual.gdp;
@@ -319,21 +309,58 @@
             for (let type of ['dsge', 'ts', 'external']) {
               for (let model of selected[type]) {
                 var gdpData = [];
+                var gdpLastQuarter = 0;
+                var alreadyHaveThisLabel = [];
                 for (let i = 0; i < data[type].length; i++) {
-                  if (data[type][i].model == model && data[type][i].vintage == selected['vintage'] && data[type][i].scenario == scenario) {
-                    gdpData = data[type][i].forecast.gdp;
-                    var gdpLastQuarter = gdpData[0];
-                    break;
+                  if (data[type][i].model == model) {
+                    if ((data[type][i].vintage == selected['vintage']) && (data[type][i].scenario == scenario)) {
+                      gdpData = data[type][i].forecast.gdp;
+                      gdpLastQuarter = gdpData[0];
+                      datasets.push({
+                        fill: false,
+                        label: model,
+                        data: gdpData,
+                        backgroundColor: modelColors[model],
+                        borderColor: modelColors[model],
+                      });
+                      break;
+                    } else if ((data[type][i].vintageQuarter == selected['vintageQuarter']) && data[type][i].scenario == undefined) {
+                      gdpData = data[type][i].forecast.gdp;
+                      gdpLastQuarter = gdpData[0];
+                      if (alreadyHaveThisLabel.includes(model)) {
+                        datasets.push({
+                          fill: false,
+                          data: gdpData,
+                          backgroundColor: modelColors[model],
+                          borderColor: modelColors[model],
+                        });
+                      } else {
+                        datasets.push({
+                          fill: false,
+                          label: model,
+                          data: gdpData,
+                          backgroundColor: modelColors[model],
+                          borderColor: modelColors[model],
+                        });
+                        alreadyHaveThisLabel.push(model);
+                      }
+                      
+                    }
+                  
+
+
+
+                    // if ((data[type][i].vintage == selected['vintage']) || (data[type][i].vintageQuarter == selected['vintageQuarter'])) {
+                    //   if ([scenario, undefined].includes(data[type][i].scenario)) {
+                    //     gdpData = data[type][i].forecast.gdp;
+                    //     var gdpLastQuarter = gdpData[0];
+                    //     break;
+                    //   }
+                    // }
                   }
                 }
 
-                datasets.push({
-                  fill: false,
-                  label: model,
-                  data: gdpData,
-                  backgroundColor: modelColors[model],
-                  borderColor: modelColors[model],
-                });
+
               } 
             }
 
@@ -346,9 +373,12 @@
               fill: false,
               label: 'Actual',
               data: actualSeries,
-              backgroundColor: modelColors['Actual'],
-              borderColor: modelColors['Actual'],
+              backgroundColor: 'black',
+              borderColor: 'black',
             });
+
+            console.log(datasets);
+            console.log(selected);
 
             let recessionPeriods = [];
             for (let quarter of nberRecessionQuarter) {
@@ -371,7 +401,7 @@
 
             Chart.defaults.global.defaultFontFamily = 'Source Sans Pro';
             Chart.defaults.global.defaultFontSize = 16;
-            Chart.defaults.global.elements.point.radius = 2.5;
+            Chart.defaults.global.elements.point.radius = 1;
             Chart.defaults.global.elements.line.tension = 0;
             let chart = new Chart(ctx, {
                 type: 'line',
