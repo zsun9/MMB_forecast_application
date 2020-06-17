@@ -2,42 +2,27 @@
 % CMR version, baseline, with credit and term spread
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Copyright (C) 2013 Benjamin K. Johannsen, Lawrence J. Christiano
-% 
-% This program is free software: you can redistribute it and/or modify
-% it under the terms of the GNU General Public License as published by
-% the Free Software Foundation, either version 3 of the License, or (at
-% your option) any later version.
-% 
-% This program is distributed in the hope that it will be useful, but
-% WITHOUT ANY WARRANTY; without even the implied warranty of
-% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-% General Public License for more details.
-% 
-% You should have received a copy of the GNU General Public License
-% along with this program.  If not, see http://www.gnu.org/licenses/.
 
-@# define financial_data = ["networth_rgd_obs", "credit_rgd_obs", "baag10_obs", "g10ffr_obs"]
-
-// @# include "../cmr_indicator_variables.mod"
+@# define financial_data = ["networth_obs", "credit_obs", "premium_obs", "Spread1_obs"]
 
 % The model sets some measurement error on net worth.  If net worth is not
 % included in the financial variables, it should not have measurement error,
 % and that measurement error should not be estimated.
  
-@#define net_worth_in_financial_data = ("networth_rgd_obs" in financial_data)
+@#define net_worth_in_financial_data = ("networth_obs" in financial_data)
 
 % The model estimates an autocorrelation and standard deviation term for
 % the term structure.  If the spread is not included in the data, then
 % the autocorrelation and standard deviation should not be estimated.
 
-@#define Spread1_in_financial_data = ("g10ffr_obs" in financial_data)
+@#define Spread1_in_financial_data = ("Spread1_obs" in financial_data)
 
 % When no financial data were included in the model, sig_corr_p is also not
 % estimated. So, we need an indicator to see if no financial data are
 % in the observable variables.
 
-@#define credit_in_financial_data = ("credit_rgd_obs" in financial_data)
-@#define premium_in_financial_data = ("baag10_obs" in financial_data)
+@#define credit_in_financial_data = ("credit_obs" in financial_data)
+@#define premium_in_financial_data = ("premium_obs" in financial_data)
 
 @#define some_financial_data = (Spread1_in_financial_data || credit_in_financial_data || premium_in_financial_data || net_worth_in_financial_data)
 
@@ -54,8 +39,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 0. Housekeeping, paths, and estimation decisions.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-// addpath('../dynare_code');
-// addpath('..');
+// addpath('dynare_code');
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % 1. Declaration of variables and parameters
@@ -64,9 +48,9 @@
 
 var 
 c
-cnds_rim_obs, 
+consumption_obs, 
 @#if cee == 0
-credit_rgd_obs,
+credit_obs,
 @# endif
 epsil, 
 Fp,
@@ -77,10 +61,10 @@ gamma,
 @# endif
 gdp_rgd_obs,
 h,
-hours_cmr14_obs, 
+hours_obs, 
 i,
-gdpdef_obs, 
-igid_rim_obs,
+inflation_obs, 
+investment_obs,
 kbar,
 lambdaf, 
 lambdaz,
@@ -88,21 +72,20 @@ muup,
 muzstar, 
 @# if cee == 0
 n,
-networth_rgd_obs,
 networth_obs,
 omegabar,
 @# endif
 phi,
 pi,
-igiddef_rgd_obs,
+pinvest_obs,
 pitarget,
 @# if cee == 0
-baag10_obs,
+premium_obs,
 @# endif
 pstar,
 q,
 Re, 
-ffr_obs,
+Re_obs,
 RealRe_obs,
 @# if cee == 0
 rL,
@@ -124,12 +107,12 @@ xi5,
 xi6, 
 xi7, 
 xi8, 
-g10ffr_obs,
+Spread1_obs,
 term,
 volEquity,
 @# endif
 u,
-wage_rgd_obs,
+wage_obs,
 wtilde,
 wstar, 
 zetac,
@@ -170,6 +153,20 @@ e_zetai;
 % Declare the parameters in the model.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 parameters
+
+cnds_rim_obs_mean,
+credit_rgd_obs_mean,
+gdp_rgd_obs_mean,
+hours_cmr14_obs_mean,
+gdpdef_obs_mean,
+igid_rim_obs_mean,
+networth_rgd_obs_mean,
+baag10_obs_mean,
+igiddef_rgd_obs_mean,
+ffr_obs_mean,
+g10ffr_obs_mean,
+wage_rgd_obs_mean,
+
 actil_p,
 adptil_p,
 adytil_p,
@@ -394,7 +391,6 @@ zetai_p           = 1;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // @# include "../cmr_model.mod"
 
-
 model;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Auxiliary expressions.  These simplify the equations without adding
@@ -602,27 +598,26 @@ model;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Observation equations
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-  exp((cnds_rim_obs - cnds_rim_obs_mean)/100) = c / c(-1) * muzstar / muzstar_p;
+  consumption_obs = c / c(-1) * muzstar / muzstar_p;
   @#if cee == 0
-  exp((credit_rgd_obs - credit_rgd_obs_mean)/100)      = (q * kbar - n) / (q(-1) * kbar(-1) - n(-1)) * muzstar / muzstar_p;
+  credit_obs      = (q * kbar - n) / (q(-1) * kbar(-1) - n(-1)) * muzstar / muzstar_p;
   @#endif
-  exp((gdp_rgd_obs - gdp_rgd_obs_mean)/100)         = (c + i / muup + g) / (c(-1) + i(-1) / muup(-1) + g(-1)) * muzstar / muzstar_p;
-  exp((hours_cmr14_obs - hours_cmr14_obs_mean)/100)       = h / h_ss;
-  exp((gdpdef_obs - gdpdef_obs_mean)/100)   =  pi / pi_p;
-  exp((igid_rim_obs - igid_rim_obs_mean)/100)  = i / i(-1) * muzstar / muzstar_p;
+  exp((gdp_rgd_obs - gdp_rgd_obs_mean)/100) = (c + i / muup + g) / (c(-1) + i(-1) / muup(-1) + g(-1)) * muzstar / muzstar_p;
+  hours_obs       = h / h_ss;
+  inflation_obs   =  pi / pi_p;
+  investment_obs  = i / i(-1) * muzstar / muzstar_p;
   @# if cee == 0
-  exp((networth_rgd_obs - networth_rgd_obs_mean)/100) = networth_obs;
   networth_obs    = n / n(-1) * muzstar / muzstar_p;
-  exp((baag10_obs - baag10_obs_mean)/100)     = exp((((G + omegabar * (1 - F)) - ((1 - mu_p) * G + omegabar * (1 - F))) * (1 + Rk) * q(-1) * kbar(-1) 
+  premium_obs     = exp((((G + omegabar * (1 - F)) - ((1 - mu_p) * G + omegabar * (1 - F))) * (1 + Rk) * q(-1) * kbar(-1) 
                     / (q(-1) * kbar(-1) - n(-1))) - mu_p * G_ss * (1 + Rk_ss) * kbar_ss / (kbar_ss - n_ss));
   @# endif
-  exp((igiddef_rgd_obs - igiddef_rgd_obs_mean)/100)     = muup(-1) / muup;
-  exp((ffr_obs-ffr_obs_mean)/100)          = exp(Re - Re_p);
+  pinvest_obs     = muup(-1) / muup;
+  Re_obs          = exp(Re - Re_p);
   RealRe_obs      = ((1 + Re) / pi(+1))/((1 + Re_p) / pi_p);
   @# if cee == 0
-  exp((g10ffr_obs - g10ffr_obs_mean)/100)     = 1 + RL - Re;  
+  Spread1_obs     = 1 + RL - Re;  
   @# endif
-  exp((wage_rgd_obs - wage_rgd_obs_mean)/100)        = wtilde / wtilde(-1) * muzstar / muzstar_p;
+  wage_obs        = wtilde / wtilde(-1) * muzstar / muzstar_p;
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -937,15 +932,13 @@ varobs
        @{fvar},
 @# endfor
 @# endif
-       gdpdef_obs, hours_cmr14_obs,  gdp_rgd_obs,
-       wage_rgd_obs, igid_rim_obs, cnds_rim_obs,  
-       ffr_obs, igiddef_rgd_obs;
+       inflation_obs, hours_obs,  gdp_rgd_obs,
+       wage_obs, investment_obs, consumption_obs,  
+       Re_obs, pinvest_obs;
 
 options_.weibull = 1;
 options_.plot_priors = 0;
 
-estimation(datafile = data_BAAoverTB, order = 1, smoother,
-           loglinear, presample = 16, 
-           mh_replic = 1000, mh_nblocks = 2, mh_jscale = 0.28, 
-           mode_compute = 4, nograph) volEquity;
-
+estimation(datafile = data_20110701, xls_range=A1:X103, order = 1, smoother, mh_replic = 10000, mh_nblocks = 1, mh_jscale = 0.28,  mode_compute = 4, forecast = 5, nograph) gdp_rgd_obs;
+// estimation(datafile = data_BAAoverTB, order = 1, smoother, presample = 16, mh_replic = 0, mh_nblocks = 2, mh_jscale = 0.28, mode_compute = 4, nograph) volEquity;
+//loglinear, mode_file = cmr_mode, mode_compute = 0, 

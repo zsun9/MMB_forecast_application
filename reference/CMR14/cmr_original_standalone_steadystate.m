@@ -16,7 +16,7 @@
 % 
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see http://www.gnu.org/licenses/.
-function [ys,check]=cmr_steadystate(ys,exe)
+function [ys,check]=cmr_original_standalone_steadystate(ys,exe)
 % compute s.s.
 global M_ options_
 check = 0;
@@ -92,19 +92,18 @@ if wtilde <0 | i <0 | kbar <0 | c<0 | uzc<0 | lambdaz<0
     error('fatal (steadystate) w or i or k or y or c or uzc<0')
 end
 RL = Re;
-networth_rgd_obs    = networth_rgd_obs_mean;
-networth_obs = 1;
-gdpdef_obs   = gdpdef_obs_mean;
-hours_cmr14_obs       = hours_cmr14_obs_mean;
-credit_rgd_obs      = credit_rgd_obs_mean;
-gdp_rgd_obs         = gdp_rgd_obs_mean;
-wage_rgd_obs        = wage_rgd_obs_mean;
-igid_rim_obs  = igid_rim_obs_mean;
-cnds_rim_obs = cnds_rim_obs_mean;
-baag10_obs     = baag10_obs_mean;
-g10ffr_obs     = g10ffr_obs_mean;
-ffr_obs          = ffr_obs_mean;
-igiddef_rgd_obs     = igiddef_rgd_obs_mean;
+networth_obs    = 1;
+inflation_obs   = 1;
+hours_obs       = 1;
+credit_obs      = 1;
+gdp_obs         = 1;
+wage_obs        = 1;
+investment_obs  = 1;
+consumption_obs = 1;
+premium_obs     = 1;
+Spread1_obs     = 1;
+Re_obs          = 1;
+pinvest_obs     = 1;
 RealRe_obs      = 1;
 
 G          = (normcdf((log(omegabar) + sigma^2 / 2) / sigma - sigma));

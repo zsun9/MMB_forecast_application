@@ -374,7 +374,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 df.loc[:, obs] = np.log(df[d['AWHNONAG']]*df[d['CE16OV']]/100/(df[d['CNP16OV']]/3))*100
 
             elif obs == 'hours_sw07_obs':
-                # Demeaned: LN(PRS85006023*(CE16OV/118753)/(CNP16OV/193024.333333333))*100
+                # Subtracted by mean: LN(PRS85006023*(CE16OV/118753)/(CNP16OV/193024.333333333))*100
                 df.loc[:, obs] = np.log(df[d['PRS85006023']]*(df[d['CE16OV']]/118753)/(df[d['CNP16OV']]/193024.333333333))*100
                 df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs][:-1].mean()
 
@@ -429,6 +429,10 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 # (C0091Y-DFF)/4
                 df.loc[:, obs] = (df[d['C0091Y']] - df[d['DFF']])/4
 
+            elif obs == 'hp_nom_obs':
+                # ΔLN(CBHPI)*100
+                df.loc[:, obs] = np.log(df[d['CBHPI']]/df[d['CBHPI']].shift())*100
+
             elif obs == 'credit_nom_obs':
                 # ΔLN(BOGZ1FL144104005Q)*100
                 df.loc[:, obs] = np.log(df[d['BOGZ1FL144104005Q']]/df[d['BOGZ1FL144104005Q']].shift())*100
@@ -453,6 +457,12 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 # ΔLN(WILL5000IND/GDPCTPI)*100
                 df.loc[:, obs] = np.log((df[d['WILL5000IND']]/df[d['GDPCTPI']])/(df[d['WILL5000IND']].shift()/df[d['GDPCTPI']].shift()))*100
 
+            elif obs == 'networth_rgd_cmr14_obs':
+                # Subtract by mean and then take exponential: ΔLN(WILL5000IND/GDPCTPI)*100
+                df.loc[:, obs] = np.log((df[d['WILL5000IND']]/df[d['GDPCTPI']])/(df[d['WILL5000IND']].shift()/df[d['GDPCTPI']].shift()))*100
+                df.loc[:, obs] = df.loc[:, obs] - df.loc[:, obs][:-1].mean()
+                df.loc[:, obs] = np.exp(df.loc[:, obs]/100)
+                
             elif obs == 'hours_cmr14_obs':
                 # LN(HOANBS/CNP16OV)
                 df.loc[:, obs] = np.log(df[d['HOANBS']]/(df[d['CNP16OV']]))*100
@@ -472,6 +482,14 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
             elif obs == 'igiddef_rgd_obs':
                 # ΔLN(((GPDI+PCEDG)/(GPDIC1+PCEDGC96))/GDPCTPI)*100
                 df.loc[:, obs] = np.log(((df[d['GPDI']]+df[d['PCEDG']])/(df[d['GPDIC1']]+df[d['PCEDGC96']])/df[d['GDPCTPI']])/((df[d['GPDI']].shift()+df[d['PCEDG']].shift())/(df[d['GPDIC1']].shift()+df[d['PCEDGC96']].shift())/df[d['GDPCTPI']].shift()))*100
+
+
+
+
+
+
+
+
 
 
             elif obs == 'gdpnoexp_obs':
@@ -574,7 +592,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     dfCompleteSpf.index = [str(index) for index in dfCompleteSpf.index]
 
     # remove some observables' current quarter value
-    observableNoCurrentQuaterValue = {'hours_sw07_obs', 'hours_frbedo08_obs', 'hours_kr15_obs', 'hours_dngs15_obs', 'unr_obs'}
+    observableNoCurrentQuaterValue = {'hours_sw07_obs', 'hours_frbedo08_obs', 'hours_kr15_obs', 'hours_dngs15_obs', 'unr_obs', 'hours_cmr14_obs'}
     if obsEnd.to_period('Q') == vintageDate.to_period('Q'):
         for observable in observableNoCurrentQuaterValue:
             if observable in dfComplete.columns:
@@ -655,8 +673,10 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 if __name__ == '__main__':
 
     main(
-        vintageDate='2008-08-07', quarterStart='2000Q1', quarterEnd='2008Q3',
-        raw = ['GDPC1'],
-        observed = ['gdp_rgd_obs']
+        vintageDate='2008-11-10', quarterStart='1984Q1', quarterEnd='2008Q4',
+        observed = [
+            'gdp_rgd_obs', 'c_rgd_obs', 'inr_nom_obs', 'hours_kr15_obs', 'wage_rgd_obs', 'gdpdef_obs', 
+            'ffr_obs', 'ir_nom_obs', 'mortgage_nom_obs', 'hp_nom_obs', 'mortffr_obs'
+            ]
 
         )
