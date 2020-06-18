@@ -4,40 +4,15 @@
   <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
-    <title>Macroeconomic forecasting platform</title>
-    <meta name='description' content='Macroeconomic forecasting platform'>
+    <title>MMB forecasting application</title>
+    <meta name='description' content='MMB forecasting application'>
     <link rel='stylesheet' href='./css/bootstrap.min.css'>
     <link rel='stylesheet' href='./css/stylesheet.css'>
   </head>
 
   <body data-spy='scroll' data-target='#navbar-example'>
 
-    <nav id='navbar-example' class='navbar navbar-expand-md navbar-dark bg-dark fixed-top'>
-      <a class='navbar-brand' href='index.html'>Online Forecasting Platform</a>
-      <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation'>
-      <span class='navbar-toggler-icon'></span>
-      </button>
-  
-      <div class='collapse navbar-collapse' id='navbarsExampleDefault'>
-      <ul class='navbar-nav mr-auto'>
-        <li class='nav-item'>
-          <a class='nav-link' href='./index.html'>Home</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='./forecast.html'>Forecast</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='./rmse.html'>RMSE</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='./variable.html'>Observables</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='./about.html'>About</a>
-        </li>
-      </ul>
-      </div>
-    </nav>
+    <div id='navbar_placeholder'></div>
 
     <div class='container'>
       <h1 class='page-header'>Observed variables</h1>
@@ -103,33 +78,11 @@
     <script src="./js/Chart.bundle.js"></script>
     <script src="./js/chartjs-plugin-annotation.js"></script>
 
+    <script src="./js/constants.js"></script>
     <script>
       'use strict';
 
-      const colorSet = ['red', 'blue', 'green', 'gold', 'cyan'];
-
-      const input = [
-        // {variable: 'baag10_obs', vintage: '2020-05-12', scenario: 's3'},
-        // {variable: 'bbb1yffr_obs', vintage: '2008-08-07', scenario: 's3'},
-        {variable: 'gdp_rgd_obs', vintage: '2008-11-10', scenario: 's3'},
-        {variable: 'gdp_rgd_obs', vintage: '2020-05-12', scenario: 's3'},
-        // {variable: 'blt_obs', vintage: '2001-02-14', scenario: 's1'},
-      ];
-
-      const scenarioLabel = {
-        's3': 'with current-quarter value',
-        's2': 'with SPF nowcast value',
-      };
-
-      const labelScenario = {
-        'with current-quarter value': 's3',
-        'with SPF nowcast value': 's2',
-      };
-
-      const nberRecessionQuarter = [
-        '1980Q1', '1980Q2', '1981Q3', '1981Q4', '1982Q1', '1982Q2', '1982Q3', '1990Q3', '1990Q4',
-        '2001Q1', '2001Q2', '2001Q3', '2008Q1', '2008Q2', '2008Q3', '2008Q4', '2009Q1', '2020Q1', '2020Q2',
-      ]
+      $('#navbar_placeholder').load('./common/navbar.html');
 
       var listShow = document.getElementById('listShow');
 
@@ -244,8 +197,8 @@
               fill: false,
               label: item.variable + ', ' + item.vintage + ', ' + scenarioLabel[item.scenario],
               data: observedData,
-              backgroundColor: colorSet[colorOrder],
-              borderColor: colorSet[colorOrder],
+              backgroundColor: colorSetVariables[colorOrder],
+              borderColor: colorSetVariables[colorOrder],
               showLine: true,
             })
           }
@@ -273,28 +226,6 @@
             }
           }
           console.log(recessionPeriods);
-
-          // let box = [{
-          //   type: 'box',
-          //   drawTime: 'beforeDatasetsDraw',
-          //   xScaleID: 'x-axis-0',
-          //   xMin: 1,
-          //   xMax: 3,
-          //   borderColor: 'gainsboro',
-          //   backgroundColor: 'gainsboro',
-          // }, {
-          //   type: 'box',
-          //   drawTime: 'beforeDatasetsDraw',
-          //   xScaleID: 'x-axis-0',
-          //   xMin: 11,
-          //   xMax: 13,
-          //   borderColor: 'gainsboro',
-          //   backgroundColor: 'gainsboro',
-          // }];
-
-          // box = recessionPeriods.slice(0,1);
-          // console.log(box);
-          // console.log(xlabels);
 
           let ctx = document.getElementById('observedChart').getContext('2d');
         

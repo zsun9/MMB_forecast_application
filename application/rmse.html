@@ -4,8 +4,8 @@
   <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
-    <title>Macroeconomic forecasting platform</title>
-    <meta name='description' content='Macroeconomic forecasting platform'>
+    <title>MMB forecasting application</title>
+    <meta name='description' content='MMB forecasting application'>
     <link rel="stylesheet" href="./css/bootstrap-table.min.css">
     <link rel='stylesheet' href='./css/bootstrap.min.css'>
     <link rel='stylesheet' href='./css/stylesheet.css'>
@@ -13,32 +13,7 @@
 
   <body data-spy='scroll' data-target='#navbar-example'>
 
-    <nav id='navbar-example' class='navbar navbar-expand-md navbar-dark bg-dark fixed-top'>
-      <a class='navbar-brand' href='index.html'>Online Forecasting Platform</a>
-      <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation'>
-      <span class='navbar-toggler-icon'></span>
-      </button>
-  
-      <div class='collapse navbar-collapse' id='navbarsExampleDefault'>
-      <ul class='navbar-nav mr-auto'>
-        <li class='nav-item'>
-          <a class='nav-link' href='./index.html'>Home</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='./forecast.html'>Forecast</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='./rmse.html'>RMSE</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='./variable.html'>Observables</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='./about.html'>About</a>
-        </li>
-      </ul>
-      </div>
-    </nav>
+    <div id='navbar_placeholder'></div>
 
     <div class='container'>
       <h1 class='page-header'>RMSE table</h1>
@@ -52,7 +27,7 @@
               <legend class='col-form-label pt-0'>Vintage date  <a href='' id='vintageAll'>All</a><a href='' id='vintageClear'>Clear</a></legend>
             </div>
             <div class='w-100'></div>
-            <div class='col' id='selectVintage'></div>
+            <div class='col' id='selectvintage'></div>
           </div>
         </fieldset>
 
@@ -69,20 +44,7 @@
                   <legend class='col-form-label pt-0'>Macroeconomic models <a href='' id='dsgeAll'>All</a><a href='' id='dsgeClear'>Clear</a></legend>
                 </div>
                 <div class='w-100'></div>
-    
-                <!-- <div class='col row'>
-                  <div class='col-2 pt-0'>Filters</div>
-                  <div class='col-10'>
-                    <div class='btn-group btn-group-sm' role='group' id='filterModel'>
-                      <button type='button' class='btn btn-outline-primary' style='font-size: 0.8em;'>Pre-crisis</button>
-                      <button type='button' class='btn btn-primary' style='font-size: 0.8em;'>All</button>
-                      <button type='button' class='btn btn-outline-primary' style='font-size: 0.8em;'>Post-crisis</button>
-                    </div>
-                  </div>
-                </div>
-                <div class='w-100'></div> -->
-    
-                <div class='col' id='selectDsge'></div>
+                <div class='col' id='selectdsge'></div>
               </div>
             </fieldset>
   
@@ -92,7 +54,7 @@
                 <legend class='col-form-label pt-0'>Time-series models <a href='' id='tsAll'>All</a><a href='' id='tsClear'>Clear</a></legend>
               </div>
               <div class='w-100'></div>
-              <div class='col' id='selectTs'></div>
+              <div class='col' id='selectts'></div>
             </div>
           </fieldset>
   
@@ -102,26 +64,14 @@
                 <legend class='col-form-label pt-0'>External projections <a href='' id='externalAll'>All</a><a href='' id='externalClear'>Clear</a></legend>
               </div>
               <div class='w-100'></div>
-              <div class='col' id='selectExternal'>
-                <div class='form-check form-check-inline'>
-                  <input class='form-check-input' type='checkbox' id='selectSPFMean' name='external' value='SPFMean' disabled>
-                  <label class='form-check-label' for='selectSPFMean' id='selectSPFMeanlabel'>Survey of Professional Forecasters - Mean level</label>
-                </div>
-                <div class='form-check form-check-inline'>
-                  <input class='form-check-input' type='checkbox' id='selectSPFAll' name='external' value='SPFAll' disabled>
-                  <label class='form-check-label' for='selectSPFAll' id='selectSPFAlllabel' >Survey of Professional Forecasters - Individual</label>
-                </div>
-                <div class='form-check form-check-inline'>
-                  <input class='form-check-input' type='checkbox' id='selectFRB' name='external' value='FRB' disabled>
-                  <label class='form-check-label' for='selectFRB' id='selectFRB'>Greenbook from the Federal Reserve Board of Governors</label>
-                </div>
+              <div class='col' id='selectexternal'></div>
               </div>
             </div>
           </fieldset>
         </fieldset>
 
         <div class='row justify-content-center'>
-          <button type='submit' class='btn btn-primary'>Compare</button>
+          <button type='submit' class='btn btn-primary'>Compare RMSE</button>
         </div>
 
       </form>
@@ -145,15 +95,11 @@
     <script src='./js/bootstrap.min.js'></script>
     <script src="./js/bootstrap-table.min.js"></script>
 
+    <script src="./js/constants.js"></script>
     <script>
       'use strict';
 
-      const scenarioStrings = {
-        's1': 'Balanced panel',
-        's2': 'Conditioning on SPF nowcast',
-        's3': 'Conditioning on current-quarter observations',
-        's4': 'Full conditioning',
-      };
+      $('#navbar_placeholder').load('./common/navbar.html');
 
       fetch('./src/results.json').then(response => response.json()).then(data => {
 
@@ -161,17 +107,14 @@
 
           let typeSet = new Set();
 
-          if (selectType == 'ts') {
-            data['ts'].forEach(item => typeSet.add(item['model']));
-          } else if (selectType == 'dsge') {
-            data['dsge'].forEach(item => typeSet.add(item['model']));
-          } else if (selectType == 'external') {
-            data['external'].forEach(item => typeSet.add(item['model']));
+          if (['dsge', 'ts', 'external'].includes(selectType)) {
+            data[selectType].forEach(item => typeSet.add(item['model']));
           } else {
             data['ts'].forEach(item => typeSet.add(item[selectType]));
             data['dsge'].forEach(item => typeSet.add(item[selectType]));
-            // data['external'].forEach(item => typeSet.add(item[selectType]));
+            data['external'].forEach(item => typeSet.add(item[selectType]));
           }
+          typeSet.delete(undefined);
 
           let typeArray = Array.from(typeSet);
           typeArray.sort();
@@ -186,7 +129,8 @@
             }
 
             // (only for RMSE) actual data in 2020 in not available yet
-            if (item.includes('2020')) {
+            // do not show RMSE of external sources yet
+            if ((item.includes('2020')) || (item.includes('SPF'))) {
               newString = newString.replace('<input', '<input disabled');
             }
 
@@ -195,10 +139,10 @@
 
           return addString;
         }
-        
-        document.getElementById('selectVintage').innerHTML = addItems('vintage', 'checkbox');
-        document.getElementById('selectDsge').innerHTML = addItems('dsge', 'checkbox');
-        document.getElementById('selectTs').innerHTML = addItems('ts', 'checkbox');
+
+        for (let selectType of ['dsge', 'ts', 'external', 'vintage']) {
+          document.getElementById('select' + selectType).innerHTML = addItems(selectType, 'checkbox');
+        }
 
       });
 
@@ -228,6 +172,7 @@
           'ts': [],
           'scenario': [],
           'external': [],
+          'vintageQuarter': [],
         }
         for (let item of selection) {
           selected[item.name].push(item.value);
@@ -257,10 +202,11 @@
           for (let entry of rmseMap) {
             let modelScenario = entry[0].split(':');
             let rmse = entry[1][1].map(function (item) { return Math.sqrt(item/entry[1][0]).toFixed(3); });
+            let nowcast = (['s2', 's4'].includes(modelScenario[1])) ? 'N/A' : rmse[0];
             rmseArray.push({
               'model': modelScenario[0],
               'scenario': modelScenario[1],
-              'nowcast': rmse[0],
+              'nowcast': nowcast,
               '1-step': rmse[1],
               '2-step': rmse[2],
               '3-step': rmse[3],

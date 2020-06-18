@@ -4,40 +4,15 @@
   <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
-    <title>Macroeconomic forecasting platform</title>
-    <meta name='description' content='Macroeconomic forecasting platform'>
+    <title>MMB forecasting application</title>
+    <meta name='description' content='MMB forecasting application'>
     <link rel='stylesheet' href='./css/bootstrap.min.css'>
     <link rel='stylesheet' href='./css/stylesheet.css'>
   </head>
 
   <body data-spy='scroll' data-target='#navbar-example'>
 
-    <nav id='navbar-example' class='navbar navbar-expand-md navbar-dark bg-dark fixed-top'>
-      <a class='navbar-brand' href='index.html'>Online Forecasting Platform</a>
-      <button class='navbar-toggler' type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation'>
-      <span class='navbar-toggler-icon'></span>
-      </button>
-  
-      <div class='collapse navbar-collapse' id='navbarsExampleDefault'>
-      <ul class='navbar-nav mr-auto'>
-        <li class='nav-item'>
-          <a class='nav-link' href='./index.html'>Home</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='./forecast.html'>Forecast</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='./rmse.html'>RMSE</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='./variable.html'>Observables</a>
-        </li>
-        <li class='nav-item'>
-          <a class='nav-link' href='./about.html'>About</a>
-        </li>
-      </ul>
-      </div>
-    </nav>
+    <div id='navbar_placeholder'></div>
 
     <div class='container'>
       <h1 class='page-header'>Forecast chart</h1>
@@ -162,9 +137,11 @@
     <script src="./js/Chart.bundle.js"></script>
     <script src="./js/chartjs-plugin-annotation.js"></script>
 
-    <script src="./js/consts.js"></script>
+    <script src="./js/constants.js"></script>
     <script>
       'use strict';
+
+      $('#navbar_placeholder').load('./common/navbar.html');
 
       fetch('./src/results.json').then(response => response.json()).then(data => {
 
@@ -183,8 +160,6 @@
 
           let typeArray = Array.from(typeSet);
           typeArray.sort();
-
-          // console.log(typeArray);
 
           let addString = '';
 
@@ -244,7 +219,7 @@
           'ts': [],
           'scenario': [],
           'external': [],
-          'vintageQuarter': []
+          'vintageQuarter': [],
         }
         for (let item of selection) {
           selected[item.name].push(item.value);
@@ -306,10 +281,10 @@
             let ctx = canvas.getContext('2d');
 
             let datasets = [];
+            var gdpLastQuarter = 0;
             for (let type of ['dsge', 'ts', 'external']) {
               for (let model of selected[type]) {
                 var gdpData = [];
-                var gdpLastQuarter = 0;
                 var alreadyHaveThisLabel = [];
                 for (let i = 0; i < data[type].length; i++) {
                   if (data[type][i].model == model) {
@@ -322,17 +297,20 @@
                         data: gdpData,
                         backgroundColor: modelColors[model],
                         borderColor: modelColors[model],
+                        pointRadius: 2.5,
                       });
                       break;
-                    } else if ((data[type][i].vintageQuarter == selected['vintageQuarter']) && data[type][i].scenario == undefined) {
+                    } else if ((data[type][i].vintageQuarter == selected['vintageQuarter']) && (data[type][i].scenario == undefined)) {
                       gdpData = data[type][i].forecast.gdp;
                       gdpLastQuarter = gdpData[0];
                       if (alreadyHaveThisLabel.includes(model)) {
                         datasets.push({
                           fill: false,
+                          label: 'hide',
                           data: gdpData,
                           backgroundColor: modelColors[model],
                           borderColor: modelColors[model],
+                          pointRadius: 0,
                         });
                       } else {
                         datasets.push({
@@ -341,6 +319,7 @@
                           data: gdpData,
                           backgroundColor: modelColors[model],
                           borderColor: modelColors[model],
+                          pointRadius: 0,
                         });
                         alreadyHaveThisLabel.push(model);
                       }
@@ -376,9 +355,6 @@
               backgroundColor: 'black',
               borderColor: 'black',
             });
-
-            console.log(datasets);
-            console.log(selected);
 
             let recessionPeriods = [];
             for (let quarter of nberRecessionQuarter) {
@@ -420,6 +396,14 @@
                     text: `${scenarioStrings[scenario]}`,
                   },
 
+                  // legend: {
+                  //   labels: {
+                  //     filter: function(item, data) {
+                  //       return !(item.text.includes('hide'));
+                  //     }
+                  //   }
+                  // },
+
                   tooltips: {
                     callbacks: {
                       label: function(tooltipItem, data) {
@@ -451,6 +435,13 @@
             });
 
             document.querySelector('.legend').innerHTML = chart.generateLegend();
+            let lis = document.querySelectorAll('li');
+            for (let item of lis) {
+              if (item.innerText == 'hide') {
+                item.remove();
+              }
+            }
+
 
 
 
