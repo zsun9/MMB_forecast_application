@@ -14,23 +14,23 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2020-05-12", "2001-02-14", "2001-05-12", "2001-08-15", "2001-11-14"]; %
-p.scenarios = ["s1", "s2", "s3", "s4"];
-p.models = ["GLP3v"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.vintages = ["2008-11-10"]; %
+p.scenarios = ["s3"];
+p.models = ["DS04"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "Zexi Sun";
 
-p.ExcelColumnUntil = "X";
+p.ExcelColumnUntil = "Z";
 
 % hyper-parameters
-p.chainLen = 1000000;
+p.chainLen = 500000;
 p.chainLenBVAR = 500000;
 p.subDraws = 5000;
-p.forecastHorizon = 40;
+p.forecastHorizon = 100;
 p.chainNum = 1;
-p.burnIn = 0.3;
+p.burnIn = 0.4;
 p.scalingParam =  0.3;
 p.presample = 4;
-p.nobs = 100;
+p.window = [1964, 1];
 p.mode_compute_order = [4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
 
 % locate main folders (stored as char type)
@@ -73,6 +73,13 @@ for model = p.models
         for vintage = p.vintages
             for scenario = p.scenarios
                 
+                if length(p.window) == 2
+                    t.year = str2num(extractBetween(vintage, 1, 4));
+                    t.quarter = ceil(str2num(extractBetween(vintage, 6, 7))/3);
+                    t.difference = (t.year - p.window(1))*4 + (t.quarter - p.window(2));
+                end
+                t.xlsEnd = t.difference + 1 + (scenario ~= "s1");
+                
                 clc;
                 
                 t.name.modfile = model + ".mod";
@@ -81,7 +88,7 @@ for model = p.models
                 
                 % create folder and copy model files
                 cd(p.path.root);
-                t.name.workingpath = model + "_" + strrep(vintage, "-", "") + "_" + scenario;
+                t.name.workingpath = model + "_" + strrep(vintage, "-", "") + "_" + scenario + "_ew64q1";
                 t.path.working = p.path.estimations + "\\" + t.name.workingpath;
                 
                 if isfolder(t.path.working)
@@ -128,17 +135,17 @@ for model = p.models
 
                 % copy data to the folder
                 cd(p.path.root);
-                t.name.datafile = "data_" + strrep(vintage, "-", "") + ".xlsx";
+                t.name.datafile = "data_" + strrep(vintage, "-", "") + "_ew64q1.xlsx";
                 t.path.data = p.path.vintage_data + "\\" + t.name.datafile;
                 if isfile(t.path.data)
                     copyfile(t.path.data, t.path.working);
                 else
-                    fprinf('Data file %s not found, and the estimation will be skipped.\n', t.name.datafile);
+                    fprintf('Data file %s not found, and the estimation will be skipped.\n', t.name.datafile);
                 end
                 
                 % build up the estimation command
-                t.dataFile = "data_" + strrep(vintage, "-", "");
-                t.xlsRange = "B1:" + p.ExcelColumnUntil + string(p.nobs + (scenario ~= "s1"));
+                t.dataFile = "data_" + strrep(vintage, "-", "") + "_ew64q1";
+                t.xlsRange = "B1:" + p.ExcelColumnUntil + string(t.xlsEnd);
                 if p.dynareVersion == "4.2.4"
                     p.optionString.subDraws = "";
                 else
@@ -262,6 +269,7 @@ for model = p.models
                 t.output.timeStamp = datestr(datetime('now'));
                 t.output.dynareVersion = p.dynareVersion;
                 t.output.matlabVersion = convertCharsToStrings(version);
+                t.output.window = "1964Q1";
                 
                 % write to JSON file
                 JSONOutput = jsonencode(t.output);
@@ -279,136 +287,6 @@ for model = p.models
         
     else
         fprintf('Model %s does not exist, will be skipped.\n', model);
-    end
-    
-end
-
-%% GLP estimation
-
-for model = p.models
-    
-    if ~contains(model, "GLP")
-        continue
-    end
-    
-    for vintage = p.vintages
-        for scenario = p.scenarios
-            
-            clc;
-            
-            tStart = tic;
-            
-            % create folder and copy model files
-            cd(p.path.root);
-            t.name.workingpath = model + "_" + strrep(vintage, "-", "") + "_" + scenario;
-            t.path.working = p.path.estimations + "\\" + t.name.workingpath;
-
-            if isfolder(t.path.working)
-                warning('Folder %s already exists!', t.name.workingpath)
-                warning('Enter Y to delete existing files and continue.');
-                warning('Enter C to keep existing files and continue.');
-                warning('Enter N to keep existing files and skip this estimation.');
-                t.choice = "";
-                while ~ismember(lower(t.choice), ["y", "c", "n"])
-                    beep;
-                    t.choice = input('', 's');
-                end
-                t = lower(t);
-
-                switch t.choice
-                    case "y"
-                        rmdir(t.path.working, 's');
-                        mkdir(t.path.working);
-                    case "n"
-                        continue;
-                end
-
-            else
-                warning('Folder %s does not exist, will be created.', t.name.workingpath);
-                mkdir(t.path.working);
-            end
-            
-            % copy data to the folder
-            cd(p.path.root);
-            t.name.datafile = "data_" + strrep(vintage, "-", "") + ".xlsx";
-            t.path.data = p.path.vintage_data + "\\" + t.name.datafile;
-            if isfile(t.path.data)
-                copyfile(t.path.data, t.path.working);
-            else
-                fprinf('Data file %s not found, and the estimation will be skipped.\n', t.name.datafile);
-            end
-            
-            % load data to Matlab
-            data = readtable(t.path.data, 'Sheet', scenario);
-            data = table2array(data(:, eval(sprintf("p.obs.%s", model))));
-            data = data/100*4;
-            
-            % Bayesian VAR estimation
-            cd(p.path.glp_algorithm);
-            if scenario == "s1" % in Scenario 1 directly use the algorithm in GLP
-                
-                res = bvarGLP(data, p.presample, ...
-                    'mcmc',1, 'MCMCconst',1, 'Ndraws',p.chainLenBVAR, ...
-                    'hz',p.forecastHorizon, 'MCMCfcast',1, ...
-                    'pos',eval(sprintf("p.pos.%s", model)));
-                nobs = size(data, 1);
-                
-            else % in other scenarios, use the algorithm from Matyas Farkas
-                
-                res = bvarGLP(data(1:end-1,:), p.presample, ...
-                    'mcmc',1, 'MCMCconst',1, 'Ndraws',p.chainLenBVAR, ...
-                    'hz',p.forecastHorizon, 'MCMCfcast',1, ...
-                    'pos',eval(sprintf("p.pos.%s", model)));
-                nobs = size(data, 1) - 1;
-                
-                for i = 1:p.chainLenBVAR/2 % loop through draws 
-
-                    if i == 100*floor(.01*i)
-                        disp(['Now running the conditioning on ',num2str(i),'th mcmc iteration (out of ',num2str(p.chainLenBVAR/2),')'])
-                    end
-
-                    temp=squeeze(res.mcmc.beta(:,:,i));
-                    Gamma=[temp(2:end,:);temp(1,:)];
-                    Su=squeeze(res.mcmc.sigma(:,:,i));
-                    datakf = [data; NaN(p.forecastHorizon-1,size(data,2))];
-                    [~,datacf(:,:,i)] = conforekf_glp(datakf,Gamma,Su,p.presample,size(datakf,1)-1,1);  % conditinoal forecasts
-                    res.mcmc.Dforecast(:,:,i)= datacf(end-p.forecastHorizon+1:end,:,i);
-                    
-                end
-            end
-            
-            % get GDP forecasts
-            if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
-                t.output.forecast.gdp = [data(end, 1), mean(res.mcmc.Dforecast(:,1,:),3)']*100;
-            else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
-                t.output.forecast.gdp = [data(end-1, 1), mean(res.mcmc.Dforecast(:,1,:),3)']*100;
-            end
-            
-            tEnd = toc(tStart);
-            % save other outputs
-            t.output.model = model;
-            t.output.vintage = vintage;
-            t.output.scenario = scenario;
-            t.output.nobs = nobs;
-            t.output.mhDraws = p.chainLenBVAR;
-            t.output.subDraws = p.chainLenBVAR/2;
-            t.output.executor = p.executor;
-            t.output.timeElapsed = tEnd;
-            t.output.timeStamp = datestr(datetime('now'));
-            t.output.matlabVersion = convertCharsToStrings(version);
-
-            % write to JSON file
-            cd(t.path.working);
-            JSONOutput = jsonencode(t.output);
-            JSONFile = fopen(model + ".json",'w');
-            fwrite(JSONFile, JSONOutput, 'char');
-            fclose(JSONFile);
-            
-            clearvars -except model vintage scenario p
-            
-            pause(5);
-            cd(p.path.root);
-        end
     end
     
 end

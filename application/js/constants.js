@@ -16,6 +16,8 @@ const modelColors = {
   'GLP8v': 'DarkCyan',
   'KR15_FF': 'Blue',
   'Fair': 'Gold',
+  'GBbeforeSPF': 'Brown',
+  'GBafterSPF': 'Brown',
 };
 
 const scenarioStrings = {
@@ -29,3 +31,15 @@ const nberRecessionQuarter = [
   '1980Q1', '1980Q2', '1981Q3', '1981Q4', '1982Q1', '1982Q2', '1982Q3', '1990Q3', '1990Q4',
   '2001Q1', '2001Q2', '2001Q3', '2008Q1', '2008Q2', '2008Q3', '2008Q4', '2009Q1', '2020Q1', '2020Q2',
 ]
+
+const colorSetVariables = ['red', 'blue', 'green', 'gold', 'cyan'];
+
+const scenarioLabel = {
+  's3': 'with current-quarter value',
+  's2': 'with SPF nowcast value',
+};
+
+const labelScenario = {
+  'with current-quarter value': 's3',
+  'with SPF nowcast value': 's2',
+};

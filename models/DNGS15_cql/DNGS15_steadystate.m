@@ -1,6 +1,6 @@
 % computes the steady state and additional parameters
 
-function [ys,check] = DNGS15_steadystate(ys,exe)
+function [ys,check] = DNGS15_cql_steadystate(ys,exe)
 global M_
 
 %% DO NOT CHANGE THIS PART.
@@ -184,7 +184,7 @@ r_ann_t       = 4* (Rstarn - 100*(pistar-1));
 
 %%% observables %%%
 gdp_rgd_obs    = 100*(exp(zstar)-1);           
-hours_dngs15_obs      = Lmean;                         
+hours_dngs15_cql_obs      = Lmean;                         
 laborshare_t_obs = 100*log((1-alp)/(1+laf));  
 wage_rgd_obs         = 100*(exp(zstar)-1);   
 gdpdef_obs       = 100 * (pistar-1);

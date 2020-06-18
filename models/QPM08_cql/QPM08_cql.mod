@@ -2,7 +2,7 @@
 
 
 var RR_US RR_US_BAR
-    unr_obs unr_obs_GAP unr_obs_BAR
+    unr_cql_obs unr_cql_obs_GAP unr_cql_obs_BAR
     PIE_US PIE_US4 Y_US gdpl_rgd_obs gdpl_rgd_obs_BAR ffr_obs G_US cpil_obs
     E4_PIE_US4 E1_Y_US E1_PIE_US 
     UNR_G_US GROWTH_US GROWTH4_US GROWTH4_US_BAR
@@ -13,7 +13,7 @@ var RR_US RR_US_BAR
 ;
 
 
-varexo RES_RR_US_BAR RES_unr_obs_GAP RES_unr_obs_BAR
+varexo RES_RR_US_BAR RES_unr_cql_obs_GAP RES_unr_cql_obs_BAR
        RES_ffr_obs RES_G_US RES_Y_US RES_gdpl_rgd_obs_BAR RES_PIE_US
        RES_UNR_G_US
        RES_blt_obs RES_blt_obs_BAR 
@@ -50,11 +50,11 @@ theta = 1;
 
 model(linear);
 
-unr_obs_GAP = alpha_us1*unr_obs_GAP(-1) + alpha_us2*Y_US + RES_unr_obs_GAP;
+unr_cql_obs_GAP = alpha_us1*unr_cql_obs_GAP(-1) + alpha_us2*Y_US + RES_unr_cql_obs_GAP;
 
-unr_obs_GAP = unr_obs_BAR - unr_obs;
+unr_cql_obs_GAP = unr_cql_obs_BAR - unr_cql_obs;
 
-unr_obs_BAR = unr_obs_BAR(-1) + UNR_G_US + RES_unr_obs_BAR;
+unr_cql_obs_BAR = unr_cql_obs_BAR(-1) + UNR_G_US + RES_unr_cql_obs_BAR;
 
 UNR_G_US = (1-alpha_us3)*UNR_G_US(-1) + RES_UNR_G_US;
 
@@ -116,8 +116,8 @@ end;
 
 shocks; 
 var RES_RR_US_BAR;  stderr 0.1; 
-var RES_unr_obs_GAP; stderr 0.2;
-var RES_unr_obs_BAR;  stderr 0.10;
+var RES_unr_cql_obs_GAP; stderr 0.2;
+var RES_unr_cql_obs_BAR;  stderr 0.10;
 var RES_ffr_obs	;stderr 0.7;
 var RES_G_US	;stderr 0.10;
 var RES_Y_US	;stderr 0.25;
@@ -135,7 +135,7 @@ var RES_Y_US,RES_G_US=(.1*0.25*0.1);
 var RES_gdpl_rgd_obs_BAR,RES_PIE_US=(.1*0.05*0.7);
 end;
 
-unit_root_vars unr_obs_BAR unr_obs cpil_obs gdpl_rgd_obs gdpl_rgd_obs_BAR blt_obs blt_obs_BAR;
+unit_root_vars unr_cql_obs_BAR unr_cql_obs cpil_obs gdpl_rgd_obs gdpl_rgd_obs_BAR blt_obs blt_obs_BAR;
 
 steady;
 
@@ -174,8 +174,8 @@ theta          ,gamma_pdf,     1, 0.5;
 
 
 
-stderr RES_unr_obs_GAP, inv_gamma_pdf, 0.2  , inf;
-stderr RES_unr_obs_BAR, inv_gamma_pdf,  0.1  , inf;
+stderr RES_unr_cql_obs_GAP, inv_gamma_pdf, 0.2  , inf;
+stderr RES_unr_cql_obs_BAR, inv_gamma_pdf,  0.1  , inf;
 stderr RES_UNR_G_US, inv_gamma_pdf,  0.10  ,inf;
 
 
@@ -199,7 +199,7 @@ corr RES_gdpl_rgd_obs_BAR,RES_PIE_US, beta_pdf, 0.05, 0.02;
 
 end;
 
-varobs unr_obs ffr_obs cpil_obs gdpl_rgd_obs blt_obs;
+varobs unr_cql_obs ffr_obs cpil_obs gdpl_rgd_obs blt_obs;
 
 observation_trends;
 gdpl_rgd_obs (growth_us_ss/4);
@@ -209,8 +209,8 @@ end;
 //estimation(datafile=data,xls_sheet=data,xls_range=V1:Z69,nobs=56,mh_replic=1000,smoother,mh_jscale=0.25,mh_nblocks=1,filter_step_ahead=[1:12],forecast=12,conf_sig=0.9,presample=4) Y_US;
 // options_.kalman_algo = 5;
 // options_.plot_priors = 0;
-// estimation(datafile=data,xls_sheet=data,xls_range=V1:Z69,nobs=56,nograph,mode_compute=5,mh_replic=0,smoother,mh_jscale=0.25,mh_nblocks=1,filter_step_ahead=[1:12],forecast=12,conf_sig=0.9,presample=4) Y_US PIE_US4 PIE_US ffr_obs unr_obs unr_obs_BAR GROWTH_US GROWTH4_US GROWTH4_US_BAR blt_obs GROWTH_US_BAR unr_obs_GAP RR_US RR_US_BAR RR_US_GAP blt_obs_GAP blt_obs_BAR; //filtered_vars
-// estimation(datafile=data,xls_sheet=data,xls_range=V1:Z69,nobs=56,nograph,mode_compute=0,mh_replic=0,mode_file=IMF_QPMUS_mode,smoother,mh_jscale=0.25,mh_nblocks=1,filter_step_ahead=[1:12],forecast=12,conf_sig=0.9,presample=4,nodiagnostic) Y_US PIE_US4 PIE_US ffr_obs unr_obs unr_obs_BAR GROWTH_US GROWTH4_US GROWTH4_US_BAR blt_obs GROWTH_US_BAR unr_obs_GAP RR_US RR_US_BAR RR_US_GAP blt_obs_GAP blt_obs_BAR; //filtered_vars
+// estimation(datafile=data,xls_sheet=data,xls_range=V1:Z69,nobs=56,nograph,mode_compute=5,mh_replic=0,smoother,mh_jscale=0.25,mh_nblocks=1,filter_step_ahead=[1:12],forecast=12,conf_sig=0.9,presample=4) Y_US PIE_US4 PIE_US ffr_obs unr_cql_obs unr_cql_obs_BAR GROWTH_US GROWTH4_US GROWTH4_US_BAR blt_obs GROWTH_US_BAR unr_cql_obs_GAP RR_US RR_US_BAR RR_US_GAP blt_obs_GAP blt_obs_BAR; //filtered_vars
+// estimation(datafile=data,xls_sheet=data,xls_range=V1:Z69,nobs=56,nograph,mode_compute=0,mh_replic=0,mode_file=IMF_QPMUS_mode,smoother,mh_jscale=0.25,mh_nblocks=1,filter_step_ahead=[1:12],forecast=12,conf_sig=0.9,presample=4,nodiagnostic) Y_US PIE_US4 PIE_US ffr_obs unr_cql_obs unr_cql_obs_BAR GROWTH_US GROWTH4_US GROWTH4_US_BAR blt_obs GROWTH_US_BAR unr_cql_obs_GAP RR_US RR_US_BAR RR_US_GAP blt_obs_GAP blt_obs_BAR; //filtered_vars
 
 shocks;
 var RES_ffr_obs;

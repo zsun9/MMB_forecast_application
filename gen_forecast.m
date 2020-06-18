@@ -133,7 +133,7 @@ for model = p.models
                 if isfile(t.path.data)
                     copyfile(t.path.data, t.path.working);
                 else
-                    fprinf('Data file %s not found, and the estimation will be skipped.\n', t.name.datafile);
+                    fprintf('Data file %s not found, and the estimation will be skipped.\n', t.name.datafile);
                 end
                 
                 % build up the estimation command

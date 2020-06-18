@@ -1,4 +1,4 @@
-function [ys,check] = QPM08_steadystate(ys, junk)
+function [ys,check] = QPM08_cql_steadystate(ys, junk)
 
 global M_;
 
@@ -12,7 +12,7 @@ pietar_us_ss = get_param_by_name('pietar_us_ss');
 % all unit root variables to the first observation
 
 %data;
-unr_obs=6.525;
+unr_cql_obs=6.525;
 blt_obs=-8.87;
 cpil_obs=498.924140140858;
 gdpl_rgd_obs=895.093472647606;
@@ -20,9 +20,9 @@ ffr_obs=3.21406593406593/4;
 
 RR_US = rr_us_bar_ss;
 RR_US_BAR = rr_us_bar_ss;
-unr_obs = unr_obs(1);
-unr_obs_GAP = 0;
-unr_obs_BAR = unr_obs;
+unr_cql_obs = unr_cql_obs(1);
+unr_cql_obs_GAP = 0;
+unr_cql_obs_BAR = unr_cql_obs;
 PIE_US     = pietar_us_ss;
 PIE_US4    = pietar_us_ss;
 Y_US       = 0;
@@ -51,9 +51,9 @@ check = 0;
 ys = [
 RR_US 
 RR_US_BAR
-unr_obs 
-unr_obs_GAP 
-unr_obs_BAR
+unr_cql_obs 
+unr_cql_obs_GAP 
+unr_cql_obs_BAR
 PIE_US 
 PIE_US4 
 Y_US 
