@@ -1,0 +1,16 @@
+baag10_obs_mean = 0.5206360786;
+blt_obs_mean = 6.3168877551;
+c_rgd_obs_mean = 0.7732880385;
+cpil_obs_mean = 472.1837645986;
+ffr_obs_mean = 1.2840677825;
+gdp_rgd_obs_mean = 0.7183273117;
+gdpdef_obs_mean = 0.8353842340;
+gdpl_rgd_obs_mean = 915.5834390035;
+hours_dngs15_cql_obs_mean = -46.3142539938;
+hours_dngs15_obs_mean = -46.3142539938;
+hours_sw07_cql_obs_mean = -0.0068949018;
+hours_sw07_obs_mean = -0.0068949018;
+ifi_rgd_obs_mean = 0.7563594001;
+unr_cql_obs_mean = 5.9632592593;
+unr_obs_mean = 5.9632592593;
+wage_rgd_obs_mean = 0.3506975130;
