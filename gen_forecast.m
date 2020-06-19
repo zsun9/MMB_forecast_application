@@ -14,12 +14,12 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2020-05-12", ]; %
-p.scenarios = [ "s3"];
-p.models = ["IN10"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.vintages = ["2020-05-12"]; %
+p.scenarios = ["s2"];
+p.models = ["QPM08_cql"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "Zexi Sun";
 
-p.ExcelColumnUntil = "Z";
+p.ExcelColumnUntil = "AE";
 
 % hyper-parameters
 p.chainLen = 1000000;
@@ -158,7 +158,7 @@ for model = p.models
                     sprintf("mode_compute=%s", string(p.mode_compute_order(1))) + ...
                     ") gdp_rgd_obs;";
                 
-                if model == "QPM08"
+                if model == "QPM08" || model == "QPM08_cql"
                     t.script.estimation = strrep(t.script.estimation, ") gdp_rgd_obs;", ") gdpl_rgd_obs;");
                 end
                 
@@ -229,7 +229,7 @@ for model = p.models
                 end
                 
                 % save GDP forecasts (start from the last in-sample obs)
-                if model == "QPM08"
+                if model == "QPM08" || model == "QPM08_cql"
                     if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
                         t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end)']);
                     else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
@@ -262,6 +262,7 @@ for model = p.models
                 t.output.timeStamp = datestr(datetime('now'));
                 t.output.dynareVersion = p.dynareVersion;
                 t.output.matlabVersion = convertCharsToStrings(version);
+                t.otuput.scalingParam = p.scalingParam;
                 
                 % write to JSON file
                 JSONOutput = jsonencode(t.output);
