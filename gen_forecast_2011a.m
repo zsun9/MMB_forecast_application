@@ -3,7 +3,7 @@
 % Last updated: Zexi Sun, 2020-06-10
 
 %% settings
-
+% addpath C:\dynare\4.5.7\matlab  % addpath C:\dynare\4.2.4\matlab
 % navigate to the root folder (if exists)
 try
     cd(p.path.root)
@@ -14,8 +14,8 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = {'2009-02-10'};
-p.scenarios = {'s2'};
+p.vintages = {'2020-05-12'};
+p.scenarios = {'s1'};
 p.models = {'DS04'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = {'KaiLong'};
 
@@ -221,7 +221,9 @@ for model = p.models
                         
                         try
                             pause(5);
-                            dynare(char(t.name.modfile));
+                            dy.exp = ['dynare '  char(t.name.modfile) ' noclearall'];
+                            eval(dy.exp)
+                            %dynare(char(t.name.modfile));
                             break
                         end
                     end
