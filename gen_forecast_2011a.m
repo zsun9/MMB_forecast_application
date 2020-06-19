@@ -4,6 +4,8 @@
 
 %% settings
 % addpath C:\dynare\4.5.7\matlab  % addpath C:\dynare\4.2.4\matlab
+
+% rmpath('C:\dynare\4.5.7\matlab')  % rmpath('C:\dynare\4.2.4\matlab')
 % navigate to the root folder (if exists)
 try
     cd(p.path.root)
@@ -16,7 +18,7 @@ close all; fclose all; clear; clc;
 % Please use double quotes here!
 p.vintages = {'2020-05-12'};
 p.scenarios = {'s1','s2'};
-p.models = {'DS04'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.models = {'IN10'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = {'KaiLong'};
 
 p.ExcelColumnUntil = {'Z'};
