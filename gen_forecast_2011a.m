@@ -15,7 +15,7 @@ close all; fclose all; clear; clc;
 % user-specified parameters
 % Please use double quotes here!
 p.vintages = {'2020-05-12'};
-p.scenarios = {'s1'};
+p.scenarios = {'s1','s2'};
 p.models = {'DS04'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = {'KaiLong'};
 
@@ -39,7 +39,8 @@ p.path.models = [p.path.root, '\\models'];
 p.path.glp_algorithm = [p.path.models, '\\GLP_algorithm'];
 p.path.estimations = [p.path.root, '\\estimations'];
 p.path.vintage_data = [p.path.root, '\\data\\vintage_data'];
-%not convert yet assert(isfolder(p.path.root) && isfolder(p.path.models) && isfolder(p.path.glp_algorithm) && isfolder(p.path.estimations) && isfolder(p.path.vintage_data));
+%assert(isfolder(p.path.root) && isfolder(p.path.models) && isfolder(p.path.glp_algorithm) && isfolder(p.path.estimations) && isfolder(p.path.vintage_data));
+assert(isequal(exist(p.path.root, 'dir'),7) && isequal(exist(p.path.models, 'dir'),7) && isequal(exist(p.path.glp_algorithm, 'dir'),7) && isequal(exist(p.path.vintage_data, 'dir'),7))
 
 % observables in the Bayesian VAR estimation
 p.obs.GLP3v = {'gdp_rgd_obs';'gdpdef_obs';'ffr_obs'};
@@ -61,15 +62,6 @@ if ~isequal(p.dynareVersion, '4.5.7')
 end
 
 clear t;
-
-% trial = {'asdf','dfg','ghf'};
-% for ind = trial
-%     warning(sprintf(ind{1}))
-%     if any(strcmp(ind{1},'dfg'))
-%         disp('got it')
-%     end
-%     %sprintf(strcat('this is ', model))
-% end
 
 
 for model = p.models
@@ -257,7 +249,7 @@ for model = p.models
                     end
                 end
                 
-                assert(length(t.output.forecast.gdp) == p.forecastHorizon + 1);  %not converted yet
+                assert(length(t.output.forecast.gdp) == p.forecastHorizon + 1); % not convert
                 
                 % from quarter-on-quarter to year-on-year growth
                 t.output.forecast.gdp = t.output.forecast.gdp * 4;
@@ -288,8 +280,8 @@ for model = p.models
                 t.output
                 
                 clearvars -except model vintage scenario p
-                t.path.model = strcat(p.path.models{1}, '\\' , model);
-                
+                t.path.model = strcat(p.path.models, '\\' , model{1});
+
                 pause(5);
                 cd(p.path.root);
             end
