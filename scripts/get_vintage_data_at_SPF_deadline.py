@@ -12,7 +12,7 @@ for deadline in infoSpf['deadlines']:
         get_vintage_data.main(
 
             vintageDate=deadline, quarterStart=str(quarterStart), quarterEnd=str(quarterEnd),
-            observed=[
+            observed=list(set([
                 'ffr_obs', 
                 'gdp_rgd_obs', 'gdpdef_obs', 'ifi_rgd_obs', 'c_rgd_obs', 
                 'wage_rgd_obs', 'hours_sw07_obs',
@@ -23,7 +23,9 @@ for deadline in infoSpf['deadlines']:
                 'credit_nom_obs', 'hours_kr15_obs',
                 'mortgage_nom_obs',
                 'mortffr_obs', 'bbb1yffr_obs', 
-                ]
+
+                'cnds_rim_obs', 'credit_rgd_obs', 'g10ffr_obs', 'hours_cmr14_obs', 'igid_rim_obs', 'igiddef_rgd_obs', 'networth_rgd_cmr14_obs', 'networth_rgd_obs'
+                ]))
 
             )
 
