@@ -597,4 +597,4 @@ varobs gdp_rgd_obs hours_dngs15_cql_obs wage_rgd_obs gdpdef_obs ffr_obs c_rgd_ob
 
 % start in 1959
 %estimation(datafile=DataDSGE,xls_sheet=Data,xls_range=R2:Z229,mode_compute=4,first_obs=2,nobs=226,mh_replic=25000,mh_nblocks=1,mh_jscale=0.3,mh_drop=0.1,smoother);
-estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20200512_ew64q1, xls_sheet=s3, xls_range=B1:Z227, presample=4, mh_replic=500000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.4, sub_draws=5000, forecast=100, mode_compute=6) gdp_rgd_obs;
+estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20200512_ew64q1, xls_sheet=s3, xls_range=B1:Z227, presample=4, mh_replic=500000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.4, sub_draws=5000, forecast=100, mode_compute=0, mode_file=DNGS15_cql_mode) gdp_rgd_obs;

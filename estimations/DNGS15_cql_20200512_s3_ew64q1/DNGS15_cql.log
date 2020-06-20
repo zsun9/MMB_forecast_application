@@ -11,35 +11,12 @@ Computing dynamic model derivatives:
 Processing outputs ...
 done
 Preprocessing completed.
-ucts.
-[mex] Sparse kronecker products.
-[mex] Local state space iteration (second order).
-[mex] Bytecode evaluation.
-[mex] k-order perturbation solver.
-[mex] k-order solution simulation.
-[mex] Quasi Monte-Carlo sequence (Sobol).
-[mex] Markov Switching SBVAR.
-
-Using 64-bit preprocessor
-Starting Dynare (version 4.5.7).
-Starting preprocessing of the model file ...
-Substitution of exo lags: added 2 auxiliary variables and equations.
-Found 49 equation(s).
-Evaluating expressions...done
-Computing static model derivatives:
- - order 1
-Computing dynamic model derivatives:
- - order 1
- - order 2
-Processing outputs ...
-done
-Preprocessing completed.
-
-[Warning: Some of the parameters have no value (bet, pistar, sprd, Fom, zstar, rstar, Rstarn, rkstar, omegastar, Lstar, kstar, kbarstar, istar, ystar, cstar, wl_c, zwstar, sigwstar,
-omegabarstar, Gstar, Gammastar, dGdomegastar, d2Gdomega2star, dGammadomegastar, d2Gammadomega2star, dGdsigmastar, d2Gdomegadsigmastar, dGammadsigmastar, d2Gammadomegadsigmastar,
-muestar, nkstar, Rhostar, wekstar, vkstar, nstar, vstar, GammamuG, GammamuGprime, zeta_bw, zeta_zw, zeta_bw_zw, zeta_bsigw, zeta_zsigw, zeta_spsigw, zeta_bmue, zeta_zmue,
-zeta_spmue, Rkstar, zeta_Gw, zeta_Gsigw, zeta_nRk, zeta_nR, zeta_nqk, zeta_nn, zeta_nmue, zeta_nsigw) when using steady. If these parameters are not initialized in a steadystate
-file or a steady_state_model-block, Dynare may not be able to solve the model...] 
+[Warning: Some of the parameters have no value (bet, pistar, sprd, Fom, zstar, rstar, Rstarn, rkstar, omegastar, Lstar, kstar, kbarstar,
+istar, ystar, cstar, wl_c, zwstar, sigwstar, omegabarstar, Gstar, Gammastar, dGdomegastar, d2Gdomega2star, dGammadomegastar,
+d2Gammadomega2star, dGdsigmastar, d2Gdomegadsigmastar, dGammadsigmastar, d2Gammadomegadsigmastar, muestar, nkstar, Rhostar, wekstar,
+vkstar, nstar, vstar, GammamuG, GammamuGprime, zeta_bw, zeta_zw, zeta_bw_zw, zeta_bsigw, zeta_zsigw, zeta_spsigw, zeta_bmue, zeta_zmue,
+zeta_spmue, Rkstar, zeta_Gw, zeta_Gsigw, zeta_nRk, zeta_nR, zeta_nqk, zeta_nn, zeta_nmue, zeta_nsigw) when using steady. If these
+parameters are not initialized in a steadystate file or a steady_state_model-block, Dynare may not be able to solve the model...] 
 
 STEADY-STATE RESULTS:
 
@@ -136,33 +113,8 @@ for 12 forward-looking variable(s)
 
 The rank condition is verified.
 
-Initial value of the log posterior (or likelihood): -2457448.9223
 
-==========================================================
-   Change in the posterior covariance matrix = 24.9903.
-   Change in the posterior mean = 6.0084.
-   Mode improvement = 2454948.5809
-   New value of jscale = 0.00052639
-==========================================================
-
-==========================================================
-   Change in the posterior covariance matrix = 0.31724.
-   Change in the posterior mean = 4.6754.
-   Mode improvement = 262.2986
-   New value of jscale = 0.25353
-==========================================================
-
-==========================================================
-   Change in the posterior covariance matrix = 0.42248.
-   Change in the posterior mean = 3.4992.
-   Mode improvement = 531.2652
-   New value of jscale = 0.29438
-==========================================================
-
-Optimal value of the scale parameter = 0.29438
-
-
-Final value of minus the log posterior (or likelihood):2231.374729 
+Initial value of the log posterior (or likelihood): -2231.3747
 
 MODE CHECK
 
@@ -226,181 +178,101 @@ Estimation::mcmc: Initialization at the posterior mode.
 Estimation::mcmc: Write details about the MCMC... Ok!
 Estimation::mcmc: Details about the MCMC are available in DNGS15_cql/metropolis\DNGS15_cql_mh_history_0.mat
 
-
-Estimation::mcmc: Number of mh files: 2 per block.
-Estimation::mcmc: Total number of generated files: 2.
-Estimation::mcmc: Total number of iterations: 500000.
-Estimation::mcmc: Current acceptance ratio per chain: 
-                                                       Chain  1: 5.4112%
-Estimation::mcmc: Total number of MH draws per chain: 500000.
-Estimation::mcmc: Total number of generated MH files: 2.
-Estimation::mcmc: I'll use mh-files 1 to 2.
-Estimation::mcmc: In MH-file number 1 I'll start at line 200001.
-Estimation::mcmc: Finally I keep 300000 draws per chain.
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('normcdf>localnormcdf', 'C:\Program Files\MATLAB\R2019a\toolbox\stats\stats\normcdf.m', 128)" style="font-weight:bold">normcdf>localnormcdf</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2019a\toolbox\stats\stats\normcdf.m',128,0)">line 128</a>)
 
 
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('normcdf', 'C:\Program Files\MATLAB\R2019a\toolbox\stats\stats\normcdf.m', 50)" style="font-weight:bold">normcdf</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2019a\toolbox\stats\stats\normcdf.m',50,0)">line 50</a>)
+[varargout{1:max(1,nargout)}] = localnormcdf(uflag,x,varargin{:});
 
-MCMC Inefficiency factors per block
-Parameter        Block 1
-SE_z_sh          664.375
-SE_g_sh          741.045
-SE_b_sh          590.217
-SE_mu_sh         735.304
-SE_laf_sh        679.830
-SE_law_sh        604.735
-SE_sigw_sh       559.520
-SE_rm_sh         652.903
-psi1             626.765
-rho_r            745.857
-psi2             689.814
-psi3             651.113
-zeta_p           652.666
-zeta_w           729.182
-iota_w           734.696
-iota_p           746.967
-zeta_spb         744.668
-sprd_aux         724.386
-alp              640.554
-Bigphi           739.889
-h                737.555
-nu_l             740.984
-rstar_aux        724.495
-pistar_aux       739.999
-zstar_aux        700.512
-s2               744.651
-sigmac           696.686
-ppsi             705.379
-Lmean            738.730
-rho_z            545.471
-rho_b            732.132
-rho_g            732.839
-rho_mu           161.118
-rho_rm           640.038
-rho_laf          734.558
-rho_law          477.712
-eta_laf          725.003
-eta_law          744.906
-eta_gz           735.493
-rho_sigw         741.416
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('DNGS15_cql_steadystate>Gammafcn', 'C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_cql_20200512_s3_ew64q1\DNGS15_cql_steadystate.m', 269)" style="font-weight:bold">DNGS15_cql_steadystate>Gammafcn</a> (<a href="matlab: opentoline('C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_cql_20200512_s3_ew64q1\DNGS15_cql_steadystate.m',269,0)">line 269</a>)
+f = omegafcn(z,sigma)*(1-normcdf(z))+normcdf(z-sigma);
 
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('DNGS15_cql_steadystate>nkfcn', 'C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_cql_20200512_s3_ew64q1\DNGS15_cql_steadystate.m', 253)" style="font-weight:bold">DNGS15_cql_steadystate>nkfcn</a> (<a href="matlab: opentoline('C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_cql_20200512_s3_ew64q1\DNGS15_cql_steadystate.m',253,0)">line 253</a>)
+f = 1-(Gammafcn(z,sigma)-mufcn(z,sigma,sprd)*Gfcn(z,sigma))*sprd;
 
-Geweke (1992) Convergence Tests, based on means of draws 200000 to 260000 vs 350000 to 500000.
-p-values are for Chi2-test for equality of means.
-Parameter          Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
-SE_z_sh                 0.542            0.027            0.000            0.074            0.140            0.159
-SE_g_sh                 4.426            0.156            0.000            0.000            0.000            0.000
-SE_b_sh                 0.117            0.008            0.000            0.005            0.014            0.031
-SE_mu_sh                1.746            0.106            0.000            0.782            0.837            0.868
-SE_laf_sh               0.648            0.063            0.000            0.250            0.383            0.482
-SE_law_sh               0.379            0.024            0.000            0.008            0.023            0.034
-SE_sigw_sh              0.724            0.039            0.000            0.000            0.000            0.000
-SE_rm_sh                0.287            0.018            0.000            0.601            0.667            0.704
-psi1                    1.342            0.020            0.000            0.000            0.000            0.000
-rho_r                   0.795            0.013            0.000            0.000            0.000            0.000
-psi2                   -0.002            0.006            0.000            0.002            0.014            0.038
-psi3                    0.157            0.002            0.000            0.000            0.000            0.000
-zeta_p                  0.479            0.004            0.000            0.000            0.000            0.000
-zeta_w                  0.469            0.008            0.000            0.000            0.000            0.000
-iota_w                  0.444            0.020            0.000            0.000            0.000            0.000
-iota_p                  0.776            0.046            0.000            0.000            0.000            0.000
-zeta_spb                0.049            0.000            0.000            0.000            0.001            0.005
-sprd_aux                2.027            0.004            0.000            0.053            0.137            0.216
-alp                     0.192            0.003            0.000            0.000            0.001            0.008
-Bigphi                  1.689            0.018            0.000            0.000            0.000            0.000
-h                       0.629            0.007            0.000            0.000            0.000            0.000
-nu_l                    0.890            0.126            0.000            0.000            0.000            0.000
-rstar_aux               0.429            0.008            0.000            0.756            0.819            0.857
-pistar_aux              0.561            0.050            0.000            0.000            0.000            0.000
-zstar_aux               0.220            0.015            0.000            0.000            0.000            0.000
-s2                      4.029            0.212            0.000            0.000            0.000            0.000
-sigmac                  1.558            0.038            0.000            0.000            0.000            0.000
-ppsi                    0.624            0.019            0.000            0.000            0.000            0.000
-Lmean                 -38.828            0.372            0.000            0.000            0.000            0.000
-rho_z                   0.996            0.001            0.000            0.706            0.758            0.774
-rho_b                   0.179            0.017            0.000            0.000            0.000            0.000
-rho_g                   0.716            0.009            0.000            0.000            0.000            0.000
-rho_mu                  0.999            0.000            0.000            0.119            0.168            0.178
-rho_rm                  0.538            0.011            0.000            0.000            0.000            0.000
-rho_laf                 0.436            0.004            0.000            0.000            0.000            0.002
-rho_law                 0.944            0.008            0.000            0.000            0.000            0.000
-eta_laf                 0.036            0.014            0.000            0.000            0.000            0.002
-eta_law                 0.218            0.043            0.000            0.000            0.000            0.000
-eta_gz                  0.404            0.030            0.000            0.000            0.000            0.000
-rho_sigw                0.773            0.001            0.000            0.000            0.000            0.000
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('DNGS15_cql_steadystate>zetabomegafcn', 'C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_cql_20200512_s3_ew64q1\DNGS15_cql_steadystate.m', 232)" style="font-weight:bold">DNGS15_cql_steadystate>zetabomegafcn</a> (<a href="matlab: opentoline('C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_cql_20200512_s3_ew64q1\DNGS15_cql_steadystate.m',232,0)">line 232</a>)
+nk = nkfcn(z,sigma,sprd);
 
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('DNGS15_cql_steadystate>zetaspbfcn', 'C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_cql_20200512_s3_ew64q1\DNGS15_cql_steadystate.m', 226)" style="font-weight:bold">DNGS15_cql_steadystate>zetaspbfcn</a> (<a href="matlab: opentoline('C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_cql_20200512_s3_ew64q1\DNGS15_cql_steadystate.m',226,0)">line 226</a>)
+zetaratio = zetabomegafcn(z,sigma,sprd)/zetazomegafcn(z,sigma,sprd);
 
-Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
-Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('DNGS15_cql_steadystate>@(sigma)zetaspbfcn(zwstar,sigma,sprd)-zeta_spb')" style="font-weight:bold">DNGS15_cql_steadystate>@(sigma)zetaspbfcn(zwstar,sigma,sprd)-zeta_spb</a>
 
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('fzero', 'C:\Program Files\MATLAB\R2019a\toolbox\matlab\optimfun\fzero.m', 397)" style="font-weight:bold">fzero</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2019a\toolbox\matlab\optimfun\fzero.m',397,0)">line 397</a>)
+        b = x + dx;  fb = FunFcn(b,varargin{:});
 
-ESTIMATION RESULTS
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('DNGS15_cql_steadystate', 'C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_cql_20200512_s3_ew64q1\DNGS15_cql_steadystate.m', 59)" style="font-weight:bold">DNGS15_cql_steadystate</a> (<a href="matlab: opentoline('C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_cql_20200512_s3_ew64q1\DNGS15_cql_steadystate.m',59,0)">line 59</a>)
+sigwstar = fzero(@(sigma)zetaspbfcn(zwstar,sigma,sprd)-zeta_spb,0.5);
 
-Log data density is -2373.510544.
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('evaluate_steady_state_file', 'C:\dynare\4.5.7\matlab\evaluate_steady_state_file.m', 52)" style="font-weight:bold">evaluate_steady_state_file</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\evaluate_steady_state_file.m',52,0)">line 52</a>)
+    [ys,check] = h_steadystate(ys_init, exo_ss);
 
-parameters
-             prior mean   post. mean        90% HPD interval    prior       pstdev
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('evaluate_steady_state', 'C:\dynare\4.5.7\matlab\evaluate_steady_state.m', 212)" style="font-weight:bold">evaluate_steady_state</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\evaluate_steady_state.m',212,0)">line 212</a>)
+    [ys,params,info] = evaluate_steady_state_file(ys_init,exo_ss,M, options,steadystate_check_flag);
 
-psi1              1.500       1.3414      1.3163      1.3681   norm        0.2500
-rho_r             0.750       0.7863      0.7726      0.8019   beta        0.1000
-psi2              0.120      -0.0057     -0.0106     -0.0014   norm        0.0500
-psi3              0.120       0.1560      0.1535      0.1583   norm        0.0500
-zeta_p            0.500       0.4776      0.4709      0.4846   beta        0.1000
-zeta_w            0.500       0.4721      0.4622      0.4839   beta        0.1000
-iota_w            0.500       0.4557      0.4325      0.4749   beta        0.1500
-iota_p            0.500       0.8075      0.7631      0.8481   beta        0.1500
-zeta_spb          0.050       0.0486      0.0479      0.0491   beta        0.0050
-sprd_aux          2.000       2.0285      2.0240      2.0339   gamm        0.1000
-alp               0.300       0.1905      0.1866      0.1942   norm        0.0500
-Bigphi            1.250       1.6803      1.6585      1.7037   norm        0.1200
-h                 0.700       0.6273      0.6166      0.6387   beta        0.1000
-nu_l              2.000       0.8090      0.7176      0.9284   norm        0.7500
-rstar_aux         0.250       0.4340      0.4263      0.4417   gamm        0.1000
-pistar_aux        0.750       0.5917      0.5181      0.6509   gamm        0.4000
-zstar_aux         0.400       0.2089      0.1984      0.2207   norm        0.1000
-s2                4.000       3.8907      3.6943      4.1027   norm        1.5000
-sigmac            1.500       1.5799      1.5484      1.6096   norm        0.3700
-ppsi              0.500       0.6353      0.6187      0.6514   beta        0.1500
-Lmean           -45.000     -38.7354    -39.3730    -38.1997   norm        5.0000
-rho_z             0.500       0.9963      0.9955      0.9971   beta        0.2000
-rho_b             0.500       0.1696      0.1513      0.1912   beta        0.2000
-rho_g             0.500       0.7174      0.7028      0.7314   beta        0.2000
-rho_mu            0.500       0.9993      0.9987      0.9999   beta        0.2000
-rho_rm            0.500       0.5323      0.5178      0.5472   beta        0.2000
-rho_laf           0.500       0.4361      0.4316      0.4398   beta        0.2000
-rho_law           0.500       0.9411      0.9340      0.9478   beta        0.2000
-eta_laf           0.500       0.0315      0.0136      0.0495   beta        0.2000
-eta_law           0.500       0.2460      0.2000      0.2877   beta        0.2000
-eta_gz            0.500       0.4258      0.3961      0.4460   beta        0.2000
-rho_sigw          0.750       0.7735      0.7723      0.7748   beta        0.1500
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('resol', 'C:\dynare\4.5.7\matlab\resol.m', 104)" style="font-weight:bold">resol</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\resol.m',104,0)">line 104</a>)
+[dr.ys,M.params,info] = evaluate_steady_state(oo.steady_state,M,options,oo,~options.steadystate.nocheck);
 
-standard deviation of shocks
-             prior mean   post. mean        90% HPD interval    prior       pstdev
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_resolve', 'C:\dynare\4.5.7\matlab\dynare_resolve.m', 69)" style="font-weight:bold">dynare_resolve</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_resolve.m',69,0)">line 69</a>)
+[dr,info,Model,DynareOptions,DynareResults] = resol(0,Model,DynareOptions,DynareResults);
 
-z_sh              0.100       0.5438      0.4990      0.5909   invg        2.0000
-g_sh              0.100       4.5191      4.3266      4.7021   invg        2.0000
-b_sh              0.100       0.1148      0.1043      0.1247   invg        2.0000
-mu_sh             0.100       1.7142      1.6002      1.8529   invg        2.0000
-laf_sh            0.100       0.6230      0.5402      0.7180   invg        2.0000
-law_sh            0.100       0.3875      0.3529      0.4213   invg        2.0000
-sigw_sh           0.050       0.7137      0.6530      0.7730   invg        4.0000
-rm_sh             0.100       0.2810      0.2534      0.3044   invg        2.0000
-Estimation::mcmc: Posterior (dsge) IRFs...
-Estimation::mcmc: Posterior IRFs, done!
-Estimation::mcmc: Smoothed variables
-Estimation::mcmc: Smoothed variables, done!
-Estimation::mcmc: Smoothed shocks
-Estimation::mcmc: Smoothed shocks, done!
-Estimation::mcmc: Trend_coefficients
-Estimation::mcmc: Trend_coefficients, done!
-Estimation::mcmc: Smoothed constant
-Estimation::mcmc: Smoothed constant, done!
-Estimation::mcmc: Smoothed trend
-Estimation::mcmc: Smoothed trend, done!
-Estimation::mcmc: Updated Variables
-Estimation::mcmc: Updated Variables, done!
-Estimation::mcmc: Forecasted variables (mean)
-Estimation::mcmc: Forecasted variables (mean), done!
-Estimation::mcmc: Forecasted variables (point)
-Estimation::mcmc: Forecasted variables (point), done!
-Total computing time : 5h31m36s
-Note: warning(s) encountered in MATLAB/Octave code
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsge_likelihood', 'C:\dynare\4.5.7\matlab\dsge_likelihood.m', 252)" style="font-weight:bold">dsge_likelihood</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dsge_likelihood.m',252,0)">line 252</a>)
+[T,R,SteadyState,info,Model,DynareOptions,DynareResults] = dynare_resolve(Model,DynareOptions,DynareResults,'restrict');
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('posterior_sampler_iteration', 'C:\dynare\4.5.7\matlab\posterior_sampler_iteration.m', 64)" style="font-weight:bold">posterior_sampler_iteration</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\posterior_sampler_iteration.m',64,0)">line 64</a>)
+            logpost = - feval(TargetFun, par(:),varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('posterior_sampler_core', 'C:\dynare\4.5.7\matlab\posterior_sampler_core.m', 170)" style="font-weight:bold">posterior_sampler_core</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\posterior_sampler_core.m',170,0)">line 170</a>)
+        [par, logpost, accepted, neval] = posterior_sampler_iteration(TargetFun, last_draw(curr_block,:), last_posterior(curr_block),
+        sampler_options,dataset_,dataset_info,options_,M_,estim_params_,bayestopt_,mh_bounds,oo_);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('posterior_sampler', 'C:\dynare\4.5.7\matlab\posterior_sampler.m', 121)" style="font-weight:bold">posterior_sampler</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\posterior_sampler.m',121,0)">line 121</a>)
+    fout = posterior_sampler_core(localVars, fblck, nblck, 0);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\4.5.7\matlab\dynare_estimation_1.m', 448)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation_1.m',448,0)">line 448</a>)
+            posterior_sampler(objective_function,posterior_sampler_options.proposal_distribution,xparam1,posterior_sampler_options,bounds,dataset_,dataset_info,options_,M_,estim_params_,bayestopt_,oo_);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\4.5.7\matlab\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation.m',105,0)">line 105</a>)
+    dynare_estimation_1(var_list,dname);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('DNGS15_cql', 'C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_cql_20200512_s3_ew64q1\DNGS15_cql.m', 824)" style="font-weight:bold">DNGS15_cql</a> (<a href="matlab: opentoline('C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_cql_20200512_s3_ew64q1\DNGS15_cql.m',824,0)">line 824</a>)
+oo_recursive_=dynare_estimation(var_list_);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\4.5.7\matlab\dynare.m', 235)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare.m',235,0)">line 235</a>)
+evalin('base',fname) ;
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gen_forecast_ew2020Q2_3', 'C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\gen_forecast_ew2020Q2_3.m', 201)" style="font-weight:bold">gen_forecast_ew2020Q2_3</a> (<a href="matlab: opentoline('C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\gen_forecast_ew2020Q2_3.m',201,0)">line 201</a>)
+                    dynare(convertStringsToChars(t.name.modfile));
+} 
+gen_forecast_ew2020Q2_3
+[Warning: Folder DNGS15_cql_20090512_s3_ew64q1 does not exist, will be created.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gen_forecast_ew2020Q2_3', 'C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\gen_forecast_ew2020Q2_3.m', 117)" style="font-weight:bold">gen_forecast_ew2020Q2_3</a> (<a href="matlab: opentoline('C:\Users\kailongforecast\Documents\GitHub\MMB_forecast_application\gen_forecast_ew2020Q2_3.m',117,0)">line 117</a>)] 
+Mode file not exists, and mode computation will be started.
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Substitution of exo lags: added 2 auxiliary variables and equations.
+Found 49 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+ - order 2
+Processing outputs ...
+done
+Preprocessing completed.
+
