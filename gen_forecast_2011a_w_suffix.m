@@ -17,7 +17,7 @@ close all; fclose all; clear; clc;
 % user-specified parameters
 % Please use double quotes here!
 p.vintages = {'2020-05-12'};
-p.scenarios = {'s3'};
+p.scenarios = {'s2','s3'};
 p.models = {'DS04'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = {'KaiLong'};
 p.comment = {'_KLTrial21june'};
@@ -280,9 +280,13 @@ for model = p.models
                 fwrite(JSONFile, JSONOutput, 'char');
                 fclose(JSONFile);
                 
-                t.output
+                display(t.output)
                 
                 clearvars -except model vintage scenario p
+                % manually delete the dynare outputs====
+                p.path.todelete = strcat(t.path.working{1},'\\', model{1});
+                rmdir(p.path.todelete,'s')
+                % =======================
                 t.path.model = strcat(p.path.models, '\\' , model{1});
 
                 pause(5);
