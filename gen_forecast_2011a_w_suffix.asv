@@ -17,9 +17,10 @@ close all; fclose all; clear; clc;
 % user-specified parameters
 % Please use double quotes here!
 p.vintages = {'2020-05-12'};
-p.scenarios = {'s1','s2'};
-p.models = {'IN10'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.scenarios = {'s3'};
+p.models = {'DS04'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = {'KaiLong'};
+p.comment = {'_KLTrial21june'};
 
 p.ExcelColumnUntil = {'Z'};
 
@@ -87,7 +88,7 @@ for model = p.models
                 
                 % create folder and copy model files
                 cd(p.path.root);
-                t.name.workingpath = strcat(model , '_' , strrep(vintage, '-', '') , '_' , scenario);
+                t.name.workingpath = strcat(model , '_' , strrep(vintage, '-', '') , '_' , scenario, p.comment);
                 t.path.working = strcat(p.path.estimations , '\\' , t.name.workingpath);
                 
                 if isequal(exist(t.path.working{1}, 'dir'),7)
@@ -105,9 +106,9 @@ for model = p.models
                     switch t.choice
                         case 'y'
                             rmdir(t.path.working, 's');
-                            copyfile(t.path.model, t.path.working);
+                            copyfile(t.path.model{1}, t.path.working{1});
                         case 'c'
-                            copyfile(t.path.model, t.path.working);
+                            copyfile(t.path.model{1}, t.path.working{1});
                         case 'n'
                             continue;
                     end
@@ -280,8 +281,8 @@ for model = p.models
                 fclose(JSONFile);
                 
                 t.output
-                
                 clearvars -except model vintage scenario p
+                delete('filename')
                 t.path.model = strcat(p.path.models, '\\' , model{1});
 
                 pause(5);
