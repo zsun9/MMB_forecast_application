@@ -1531,4 +1531,126 @@ e_f          0.050   5.5469  0.6987 invg  4.0000
 
 Log data density [Laplace approximation] is -595.000120.
 
-Estimation::mcmc: One Ch
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in NKBGG/metropolis\NKBGG_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 1 per block.
+Estimation::mcmc: Total number of generated files: 1.
+Estimation::mcmc: Total number of iterations: 500000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 49.1594%
+Estimation::mcmc: Total number of MH draws per chain: 500000.
+Estimation::mcmc: Total number of generated MH files: 1.
+Estimation::mcmc: I'll use mh-files 1 to 1.
+Estimation::mcmc: In MH-file number 1 I'll start at line 200001.
+Estimation::mcmc: Finally I keep 300000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter        Block 1
+SE_e_a           172.390
+SE_e_g           105.142
+SE_e_rn          110.275
+SE_e_i           141.020
+SE_e_f           143.700
+para_sp_b         93.021
+phiv             149.362
+thetav           145.729
+rhov             115.908
+zetav            123.484
+zetay            175.981
+pi_bar           114.637
+iotapi           133.665
+constebeta       110.598
+ytrend           101.861
+s_bar            117.856
+rhov_a           171.104
+rhov_g           110.199
+rhov_i           109.453
+rhov_f           104.433
+
+
+Geweke (1992) Convergence Tests, based on means of draws 200000 to 260000 vs 350000 to 500000.
+p-values are for Chi2-test for equality of means.
+Parameter          Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_e_a                  1.447            0.125            0.000            0.612            0.635            0.656
+SE_e_g                  4.561            0.291            0.000            0.003            0.001            0.000
+SE_e_rn                 0.315            0.022            0.031            0.853            0.842            0.842
+SE_e_i                  1.343            0.147            0.000            0.537            0.510            0.502
+SE_e_f                  5.829            0.762            0.000            0.562            0.490            0.457
+para_sp_b               0.036            0.003            0.173            0.874            0.857            0.830
+phiv                    1.282            0.234            0.000            0.664            0.637            0.628
+thetav                  0.655            0.040            0.000            0.522            0.541            0.554
+rhov                    0.630            0.030            0.001            0.789            0.800            0.812
+zetav                   1.501            0.061            0.000            0.047            0.038            0.019
+zetay                   0.011            0.008            0.000            0.288            0.306            0.299
+pi_bar                  1.003            0.088            0.554            0.953            0.950            0.940
+iotapi                  0.150            0.062            0.000            0.369            0.378            0.378
+constebeta              0.083            0.025            0.000            0.543            0.540            0.552
+ytrend                  0.680            0.018            0.090            0.870            0.846            0.810
+s_bar                   0.264            0.035            0.000            0.284            0.247            0.260
+rhov_a                  0.916            0.018            0.131            0.915            0.914            0.908
+rhov_g                  0.912            0.017            0.000            0.528            0.508            0.469
+rhov_i                  0.926            0.016            0.000            0.112            0.113            0.127
+rhov_f                  0.933            0.014            0.000            0.593            0.576            0.589
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -594.749486.
+
+parameters
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+para_sp_b         0.050       0.0360      0.0307      0.0412   beta        0.0050
+phiv              4.000       1.2850      0.9035      1.6573   norm        1.5000
+thetav            0.500       0.6551      0.5905      0.7201   beta        0.1000
+rhov              0.500       0.6308      0.5816      0.6800   beta        0.2000
+zetav             1.500       1.5010      1.3988      1.6018   gamm        0.2500
+zetay             0.125       0.0109      0.0002      0.0216   gamm        0.1000
+pi_bar            0.620       1.0028      0.8575      1.1436   gamm        0.1000
+iotapi            0.500       0.1498      0.0530      0.2450   beta        0.1500
+constebeta        0.300       0.0833      0.0416      0.1241   gamm        0.1000
+ytrend            0.400       0.6794      0.6494      0.7096   norm        0.1000
+s_bar             0.500       0.2641      0.2054      0.3210   gamm        0.1000
+rhov_a            0.500       0.9161      0.8880      0.9454   beta        0.2000
+rhov_g            0.500       0.9123      0.8845      0.9401   beta        0.2000
+rhov_i            0.500       0.9262      0.9006      0.9519   beta        0.2000
+rhov_f            0.750       0.9333      0.9112      0.9567   beta        0.1500
+
+standard deviation of shocks
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+e_a               0.100       1.4459      1.2483      1.6342   invg        2.0000
+e_g               0.100       4.5616      4.0852      5.0352   invg        2.0000
+e_rn              0.100       0.3148      0.2790      0.3500   invg        2.0000
+e_i               0.100       1.3452      1.1057      1.5810   invg        2.0000
+e_f               0.050       5.8260      4.6171      7.0220   invg        4.0000
+Estimation::mcmc: Posterior (dsge) IRFs...
+Estimation::mcmc: Posterior IRFs, done!
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 2h04m53s
