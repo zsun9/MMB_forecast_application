@@ -1,0 +1,526 @@
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+WARNING: QPM08.mod:138.1-94: ''unit_root_vars'' is now obsolete; use the ''diffuse_filter'' option of ''estimation'' instead
+Substitution of endo leads >= 2: added 6 auxiliary variables and equations.
+Substitution of endo lags >= 2: added 16 auxiliary variables and equations.
+Found 49 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+ - order 2
+Processing outputs ...
+done
+Preprocessing completed.
+m  0.1000 
+beta_us2                                0.150   0.0448     NaN beta  0.1000 
+beta_us3                                0.200   0.0932     NaN gamm  0.0500 
+lambda_us1                              0.500   0.5819     NaN beta  0.1000 
+lambda_us2                              0.250   0.2894     NaN gamm  0.0500 
+gamma_us1                               0.500   0.7883     NaN beta  0.0500 
+gamma_us2                               0.500   0.4935     NaN gamm  0.3000 
+gamma_us4                               0.200   0.2130     NaN gamm  0.0500 
+kappa_us                               20.000  19.6314     NaN gamm  0.5000 
+theta                                   1.000   1.2345     NaN gamm  0.5000 
+
+standard deviation of shocks
+                                    prior mean     mode    s.d. prior pstdev
+
+RES_unr_obs_GAP                         0.200   0.0894     NaN invg     Inf 
+RES_unr_obs_BAR                         0.100   0.0432     NaN invg     Inf 
+RES_UNR_G_US                            0.100   0.0704     NaN invg     Inf 
+RES_Y_US                                0.250   0.3766     NaN invg     Inf 
+RES_gdpl_rgd_obs_BAR                    0.050   0.0439     NaN invg     Inf 
+RES_G_US                                0.100   0.2374     NaN invg     Inf 
+RES_PIE_US                              0.700   1.6249     NaN invg     Inf 
+RES_ffr_obs                             0.700   0.4119     NaN invg     Inf 
+RES_RR_US_BAR                           0.200   0.0862     NaN invg     Inf 
+RES_blt_obs                             0.400   0.7758     NaN invg     Inf 
+RES_blt_obs_BAR                         0.200   0.1801     NaN invg     Inf 
+
+correlation of shocks
+                                    prior mean     mode    s.d. prior pstdev
+
+RES_Y_US,RES_G_US                       0.250   0.2213     NaN beta  0.1000 
+RES_gdpl_rgd_obs_BAR,RES_PIE_US         0.050   0.0293     NaN beta  0.0200 
+
+
+Log data density [Laplace approximation] is NaN.
+
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+WARNING: QPM08.mod:138.1-94: ''unit_root_vars'' is now obsolete; use the ''diffuse_filter'' option of ''estimation'' instead
+Substitution of endo leads >= 2: added 6 auxiliary variables and equations.
+Substitution of endo lags >= 2: added 16 auxiliary variables and equations.
+Found 49 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+ - order 2
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+STEADY-STATE RESULTS:
+
+RR_US             		 1.8456
+RR_US_BAR         		 1.8456
+unr_obs           		 6.525
+unr_obs_GAP       		 0
+unr_obs_BAR       		 6.525
+PIE_US            		 2.5
+PIE_US4           		 2.5
+Y_US              		 0
+gdpl_rgd_obs      		 895.093
+gdpl_rgd_obs_BAR  		 895.093
+ffr_obs           		 1.0864
+G_US              		 2.7599
+cpil_obs          		 498.924
+E4_PIE_US4        		 2.5
+E1_Y_US           		 0
+E1_PIE_US         		 2.5
+UNR_G_US          		 0
+GROWTH_US         		 2.7599
+GROWTH4_US        		 2.7599
+GROWTH4_US_BAR    		 2.7599
+blt_obs           		 -8.87
+blt_obs_BAR       		 -8.87
+E                 		 0
+E2                		 0
+GROWTH_US_BAR     		 2.7599
+RR_US_GAP         		 0
+blt_obs_GAP       		 0
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+               0               -0                0
+               0               -0                0
+               0               -0                0
+               0                0                0
+               0               -0                0
+               0               -0                0
+               0               -0                0
+       1.235e-18        1.235e-18                0
+       1.942e-18        1.942e-18                0
+       2.211e-18        2.211e-18                0
+       5.884e-18       -5.884e-18                0
+       6.471e-18       -6.471e-18                0
+       6.883e-18        6.883e-18                0
+       1.077e-17        1.077e-17                0
+       1.239e-17        1.239e-17                0
+       3.545e-17       -3.545e-17                0
+       8.732e-17       -8.732e-17                0
+             0.1              0.1                0
+          0.4822          -0.4822                0
+          0.5118         -0.05828           0.5085
+          0.5118         -0.05828          -0.5085
+          0.6648           0.6648                0
+          0.6992           0.6992                0
+          0.7796           0.7796                0
+             0.9              0.9                0
+           0.951           0.9252           0.2203
+           0.951           0.9252          -0.2203
+               1                1                0
+               1                1                0
+               1                1                0
+               1                1                0
+           1.156            1.156                0
+           1.718          -0.2063            1.706
+           1.718          -0.2063           -1.706
+           1.824           -1.824                0
+           7.308            7.308                0
+       3.137e+04        1.568e+04        2.717e+04
+       3.137e+04        1.568e+04       -2.717e+04
+       3.137e+04       -3.137e+04                0
+             Inf              Inf                0
+
+
+There are 9 eigenvalue(s) larger than 1 in modulus 
+for 9 forward-looking variable(s)
+
+The rank condition is verified.
+
+Initial value of the log posterior (or likelihood): -584.8679
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+    0      31    5.848679e+02    0.000e+00    6.552e+02
+Objective function returned Inf; trying a new point...
+    1      65    5.132295e+02    0.000e+00    5.306e+02    3.488e+00
+    2      96    4.214650e+02    0.000e+00    4.717e+02    1.016e+00
+    3     128    3.798897e+02    0.000e+00    3.293e+02    8.655e-01
+    4     159    3.772977e+02    0.000e+00    3.669e+04    1.548e-01
+    5     192    3.727790e+02    0.000e+00    7.827e+03    2.023e-01
+    6     225    3.671064e+02    0.000e+00    3.734e+03    1.911e-01
+    7     259    3.653642e+02    0.000e+00    1.554e+03    7.201e-01
+    8     291    3.365974e+02    0.000e+00    1.473e+03    1.564e+00
+    9     323    3.339503e+02    0.000e+00    1.658e+03    9.355e-01
+   10     356    3.183423e+02    0.000e+00    1.585e+03    1.007e+00
+   11     387    2.981436e+02    0.000e+00    2.083e+03    1.165e+00
+   12     421    2.955878e+02    0.000e+00    1.987e+03    1.964e-01
+   13     453    2.903894e+02    0.000e+00    2.114e+03    4.467e-01
+   14     485    2.893794e+02    0.000e+00    2.035e+03    2.412e-01
+   15     517    2.829714e+02    0.000e+00    1.622e+03    5.617e-01
+   16     549    2.797694e+02    0.000e+00    1.257e+03    5.737e-01
+   17     581    2.735296e+02    0.000e+00    1.068e+03    4.188e-01
+   18     613    2.695589e+02    0.000e+00    1.160e+03    1.864e+00
+   19     645    2.663731e+02    0.000e+00    1.115e+03    3.712e-01
+   20     677    2.661056e+02    0.000e+00    1.168e+03    9.385e-01
+   21     708    2.637987e+02    0.000e+00    1.196e+03    8.410e-01
+   22     741    2.587979e+02    0.000e+00    1.097e+03    7.751e-01
+   23     773    2.528583e+02    0.000e+00    1.009e+03    6.154e-01
+   24     806    2.517902e+02    0.000e+00    1.004e+03    3.563e-01
+   25     838    2.490224e+02    0.000e+00    9.676e+02    3.248e-01
+   26     870    2.442272e+02    0.000e+00    8.249e+02    6.908e-01
+   27     903    2.419756e+02    0.000e+00    7.917e+02    2.530e-01
+   28     935    2.410650e+02    0.000e+00    7.929e+02    5.382e-01
+   29     967    2.393915e+02    0.000e+00    8.479e+02    5.115e-01
+   30     999    2.373922e+02    0.000e+00    8.919e+02    2.468e-01
+
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+   31    1033    2.357829e+02    0.000e+00    9.457e+02    4.598e-01
+   32    1065    2.349841e+02    0.000e+00    9.249e+02    2.195e-01
+   33    1099    2.343090e+02    0.000e+00    8.926e+02    3.575e-01
+   34    1133    2.333177e+02    0.000e+00    8.661e+02    1.959e-01
+   35    1166    2.333533e+02    0.000e+00    8.192e+02    4.722e-01
+   36    1198    2.325014e+02    0.000e+00    8.695e+02    1.947e-01
+   37    1231    2.317491e+02    0.000e+00    8.636e+02    2.473e-01
+   38    1265    2.315774e+02    0.000e+00    8.680e+02    5.016e-02
+   39    1298    2.314935e+02    0.000e+00    8.310e+02    3.383e-01
+   40    1332    2.313637e+02    0.000e+00    8.380e+02    8.473e-02
+   41    1365    2.299142e+02    0.000e+00    8.304e+02    4.320e-01
+   42    1399    2.297610e+02    0.000e+00    8.314e+02    8.603e-02
+   43    1432    2.296016e+02    0.000e+00    7.539e+02    7.723e-01
+   44    1465    2.293241e+02    0.000e+00    7.382e+02    1.087e-01
+   45    1498    2.269649e+02    0.000e+00    6.839e+02    1.093e+00
+   46    1529    2.241506e+02    0.000e+00    6.609e+02    2.498e-01
+   47    1562    2.236431e+02    0.000e+00    6.523e+02    1.216e-01
+   48    1593    2.225941e+02    0.000e+00    5.893e+02    5.080e-01
+   49    1627    2.226275e+02    0.000e+00    5.831e+02    6.321e-02
+   50    1661    2.219765e+02    0.000e+00    5.007e+02    2.196e-01
+   51    1692    2.208388e+02    0.000e+00    5.102e+02    2.714e-01
+   52    1723    2.198349e+02    0.000e+00    4.936e+02    1.659e-01
+   53    1754    2.185888e+02    0.000e+00    4.416e+02    1.974e-01
+   54    1785    2.176493e+02    0.000e+00    4.111e+02    1.212e-01
+   55    1817    2.164649e+02    0.000e+00    3.545e+02    1.831e-01
+   56    1848    2.161072e+02    0.000e+00    3.452e+02    9.710e-02
+   57    1880    2.159966e+02    0.000e+00    3.446e+02    4.787e-02
+   58    1911    2.158629e+02    0.000e+00    3.430e+02    8.660e-02
+   59    1942    2.156454e+02    0.000e+00    3.428e+02    6.427e-02
+   60    1973    2.153371e+02    0.000e+00    3.488e+02    4.763e-02
+
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+   61    2005    2.151088e+02    0.000e+00    3.353e+02    3.887e-02
+   62    2037    2.146264e+02    0.000e+00    2.773e+02    2.316e-01
+   63    2068    2.142776e+02    0.000e+00    2.825e+02    1.073e-01
+   64    2099    2.142285e+02    0.000e+00    2.814e+02    4.316e-02
+   65    2131    2.140921e+02    0.000e+00    2.707e+02    7.135e-02
+   66    2162    2.139860e+02    0.000e+00    2.634e+02    3.717e-02
+   67    2194    2.138697e+02    0.000e+00    2.630e+02    2.270e-02
+   68    2225    2.138497e+02    0.000e+00    2.634e+02    1.954e-02
+   69    2256    2.138327e+02    0.000e+00    2.631e+02    9.510e-03
+   70    2287    2.137883e+02    0.000e+00    2.574e+02    2.325e-02
+   71    2318    2.137264e+02    0.000e+00    2.449e+02    4.016e-02
+   72    2349    2.136700e+02    0.000e+00    2.285e+02    5.091e-02
+   73    2380    2.136448e+02    0.000e+00    2.181e+02    3.051e-02
+   74    2411    2.136413e+02    0.000e+00    2.159e+02    8.486e-03
+   75    2442    2.136384e+02    0.000e+00    2.156e+02    1.655e-03
+   76    2473    2.136357e+02    0.000e+00    2.155e+02    1.561e-03
+   77    2504    2.136300e+02    0.000e+00    2.146e+02    2.304e-03
+   78    2535    2.136202e+02    0.000e+00    2.119e+02    3.211e-03
+   79    2566    2.135985e+02    0.000e+00    2.042e+02    7.633e-03
+   80    2597    2.135503e+02    0.000e+00    1.861e+02    1.965e-02
+   81    2628    2.134384e+02    0.000e+00    1.508e+02    5.344e-02
+   82    2659    2.132250e+02    0.000e+00    1.054e+02    1.196e-01
+   83    2690    2.130602e+02    0.000e+00    7.673e+01    1.374e-01
+   84    2721    2.130344e+02    0.000e+00    6.528e+01    2.648e-02
+   85    2752    2.130359e+02    0.000e+00    6.400e+01    1.927e-02
+   86    2783    2.130345e+02    0.000e+00    6.365e+01    2.907e-03
+   87    2814    2.130298e+02    0.000e+00    6.390e+01    7.514e-03
+   88    2845    2.130208e+02    0.000e+00    6.439e+01    1.347e-02
+   89    2876    2.130001e+02    0.000e+00    6.457e+01    2.971e-02
+   90    2907    2.129588e+02    0.000e+00    6.273e+01    5.519e-02
+
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+   91    2938    2.128920e+02    0.000e+00    5.612e+01    7.889e-02
+   92    2969    2.127903e+02    0.000e+00    4.397e+01    6.977e-02
+   93    3000    2.126233e+02    0.000e+00    2.592e+01    5.313e-02
+   94    3031    2.124579e+02    0.000e+00    1.517e+01    7.232e-02
+   95    3062    2.123869e+02    0.000e+00    7.642e+00    3.635e-02
+   96    3093    2.123855e+02    0.000e+00    8.589e+00    1.064e-02
+   97    3124    2.123866e+02    0.000e+00    7.038e+00    1.209e-02
+   98    3155    2.123861e+02    0.000e+00    6.949e+00    2.045e-03
+   99    3186    2.123844e+02    0.000e+00    6.920e+00    1.219e-02
+  100    3217    2.123829e+02    0.000e+00    7.119e+00    1.373e-02
+  101    3248    2.123797e+02    0.000e+00    7.662e+00    2.361e-02
+  102    3279    2.123740e+02    0.000e+00    8.453e+00    3.012e-02
+  103    3310    2.123619e+02    0.000e+00    9.499e+00    4.155e-02
+  104    3341    2.123373e+02    0.000e+00    1.016e+01    4.906e-02
+  105    3372    2.122965e+02    0.000e+00    8.307e+00    4.072e-02
+  106    3403    2.122695e+02    0.000e+00    4.163e+00    2.005e-02
+  107    3434    2.122627e+02    0.000e+00    2.849e+00    2.005e-02
+  108    3465    2.122609e+02    0.000e+00    4.891e-01    2.798e-02
+  109    3496    2.122108e+02    0.000e+00    1.365e+00    1.774e-02
+  110    3527    2.122045e+02    0.000e+00    2.307e-01    6.441e-03
+  111    3558    2.122036e+02    0.000e+00    1.022e-01    2.005e-03
+  112    3589    2.121958e+02    0.000e+00    3.140e-01    6.399e-03
+  113    3620    2.121938e+02    0.000e+00    8.879e-02    2.063e-03
+  114    3651    2.121935e+02    0.000e+00    2.655e-02    8.979e-04
+  115    3682    2.121935e+02    0.000e+00    7.473e-03    1.853e-04
+  116    3713    2.121917e+02    0.000e+00    3.541e-02    2.218e-03
+  117    3744    2.121913e+02    0.000e+00    4.211e-03    7.043e-04
+  118    3775    2.121913e+02    0.000e+00    1.012e-03    7.952e-05
+  119    3806    2.121908e+02    0.000e+00    1.336e-02    8.580e-04
+  120    3837    2.121907e+02    0.000e+00    4.367e-03    2.455e-04
+
+                                            First-order      Norm of
+ Iter F-count            f(x)  Feasibility   optimality         step
+  121    3868    2.121907e+02    0.000e+00    1.571e-03    2.900e-05
+  122    3899    2.121907e+02    0.000e+00    2.064e-04    8.602e-06
+  123    3930    2.121906e+02    0.000e+00    1.037e-02    2.672e-04
+  124    3961    2.121906e+02    0.000e+00    2.205e-03    1.378e-04
+  125    3992    2.121906e+02    0.000e+00    7.211e-04    8.628e-05
+  126    4023    2.121906e+02    0.000e+00    6.088e-04    1.608e-05
+  127    4054    2.121906e+02    0.000e+00    1.976e-04    5.322e-06
+  128    4085    2.121906e+02    0.000e+00    1.147e-04    5.752e-06
+  129    4117    2.121906e+02    0.000e+00    1.027e-04    2.654e-06
+
+<a href = "matlab: helpview('optim','local_min_poss_with_constr','CSHelpWindow');">Local minimum possible. Constraints satisfied</a>.
+
+fmincon stopped because the <a href = "matlab: helpview('optim','norm_curr_step_simple_fminconip','CSHelpWindow');">size of the current step</a> is less than
+the value of the <a href = "matlab: helpview('optim','step_size_tol','CSHelpWindow');">step size tolerance</a> and constraints are 
+satisfied to within the value of the <a href = "matlab: helpview('optim','constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
+
+<<a href = "matlab: createExitMsg({'optimlib:sqpLineSearch:Exit2basic','fmincon'},{'optimlib:sqpLineSearch:Exit2detailed','1.000000e-06','0.000000e+00','1.000000e-06'},true,true);;">stopping criteria details</a>>
+
+Final value of minus the log posterior (or likelihood):212.190612 
+
+MODE CHECK
+
+Fval obtained by the minimization routine (minus the posterior/likelihood)): 212.190612
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+                                    prior mean     mode    s.d. prior pstdev
+
+alpha_us1                               0.800   0.8030  0.0538 beta  0.1000 
+alpha_us2                               0.300   0.1837  0.0268 gamm  0.2000 
+alpha_us3                               0.500   0.2813  0.1409 beta  0.2000 
+growth_us_ss                            2.500   2.5943  0.2222 norm  0.2500 
+rr_us_bar_ss                            2.000   1.8441  0.1669 norm  0.2000 
+rho_us                                  0.900   0.9239  0.0463 beta  0.0500 
+tau_us                                  0.100   0.0916  0.0415 beta  0.0500 
+beta_us1                                0.750   0.7013  0.0487 gamm  0.1000 
+beta_us2                                0.150   0.0498  0.0520 beta  0.1000 
+beta_us3                                0.200   0.1136  0.0256 gamm  0.0500 
+lambda_us1                              0.500   0.6500  0.0588 beta  0.1000 
+lambda_us2                              0.250   0.2848  0.0402 gamm  0.0500 
+gamma_us1                               0.500   0.7902  0.0210 beta  0.0500 
+gamma_us2                               0.500   0.7450  0.2128 gamm  0.3000 
+gamma_us4                               0.200   0.2389  0.0625 gamm  0.0500 
+kappa_us                               20.000  19.7072  0.4912 gamm  0.5000 
+theta                                   1.000   1.4460  0.5624 gamm  0.5000 
+
+standard deviation of shocks
+                                    prior mean     mode    s.d. prior pstdev
+
+RES_unr_obs_GAP                         0.200   0.0828  0.0179 invg     Inf 
+RES_unr_obs_BAR                         0.100   0.0451  0.0172 invg     Inf 
+RES_UNR_G_US                            0.100   0.0824  0.0246 invg     Inf 
+RES_Y_US                                0.250   0.3717  0.0393 invg     Inf 
+RES_gdpl_rgd_obs_BAR                    0.050   0.0231  0.0095 invg     Inf 
+RES_G_US                                0.100   0.3494  0.1068 invg     Inf 
+RES_PIE_US                              0.700   1.7526  0.1326 invg     Inf 
+RES_ffr_obs                             0.700   0.4138  0.0371 invg     Inf 
+RES_RR_US_BAR                           0.200   0.0932  0.0389 invg     Inf 
+RES_blt_obs                             0.400   0.6552  0.2489 invg     Inf 
+RES_blt_obs_BAR                         0.200   0.0928  0.0385 invg     Inf 
+
+correlation of shocks
+                                    prior mean     mode    s.d. prior pstdev
+
+RES_Y_US,RES_G_US                       0.250   0.2355  0.1066 beta  0.1000 
+RES_gdpl_rgd_obs_BAR,RES_PIE_US         0.050   0.0419  0.0185 beta  0.0200 
+
+
+Log data density [Laplace approximation] is -272.998629.
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in QPM08/metropolis\QPM08_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 3 per block.
+Estimation::mcmc: Total number of generated files: 3.
+Estimation::mcmc: Total number of iterations: 1000000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 30.3469%
+Estimation::mcmc: Total number of MH draws per chain: 1000000.
+Estimation::mcmc: Total number of generated MH files: 3.
+Estimation::mcmc: I'll use mh-files 1 to 3.
+Estimation::mcmc: In MH-file number 1 I'll start at line 300001.
+Estimation::mcmc: Finally I keep 700000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter                                Block 1
+SE_RES_unr_obs_GAP                       138.476
+SE_RES_unr_obs_BAR                       176.819
+SE_RES_UNR_G_US                          167.736
+SE_RES_Y_US                              381.153
+SE_RES_gdpl_rgd_obs_BAR                  718.028
+SE_RES_G_US                              474.416
+SE_RES_PIE_US                            172.626
+SE_RES_ffr_obs                           312.472
+SE_RES_RR_US_BAR                         628.034
+SE_RES_blt_obs                           378.128
+SE_RES_blt_obs_BAR                       741.733
+CC_RES_Y_US_RES_G_US                     148.031
+CC_RES_gdpl_rgd_obs_BAR_RES_PIE_US       171.145
+alpha_us1                                276.297
+alpha_us2                                423.891
+alpha_us3                                182.345
+growth_us_ss                             157.869
+rr_us_bar_ss                             156.078
+rho_us                                   462.071
+tau_us                                   257.395
+beta_us1                                 303.330
+beta_us2                                 207.059
+beta_us3                                 216.580
+lambda_us1                               214.954
+lambda_us2                               186.995
+gamma_us1                                313.183
+gamma_us2                                242.613
+gamma_us4                                165.872
+kappa_us                                 161.161
+theta                                    417.711
+
+
+Geweke (1992) Convergence Tests, based on means of draws 300000 to 440000 vs 650000 to 1000000.
+p-values are for Chi2-test for equality of means.
+Parameter                                  Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_RES_unr_obs_GAP                              0.076            0.014            0.000            0.360            0.342            0.288
+SE_RES_unr_obs_BAR                              0.054            0.018            0.000            0.473            0.448            0.441
+SE_RES_UNR_G_US                                 0.067            0.020            0.000            0.389            0.444            0.427
+SE_RES_Y_US                                     0.252            0.062            0.000            0.721            0.755            0.771
+SE_RES_gdpl_rgd_obs_BAR                         0.332            0.125            0.000            0.826            0.852            0.862
+SE_RES_G_US                                     0.250            0.205            0.000            0.828            0.850            0.855
+SE_RES_PIE_US                                   1.743            0.135            0.000            0.545            0.533            0.505
+SE_RES_ffr_obs                                  0.217            0.046            0.000            0.043            0.043            0.043
+SE_RES_RR_US_BAR                                1.258            0.173            0.000            0.010            0.015            0.004
+SE_RES_blt_obs                                  0.492            0.225            0.000            0.090            0.124            0.140
+SE_RES_blt_obs_BAR                              0.300            0.450            0.000            0.016            0.073            0.137
+CC_RES_Y_US_RES_G_US                            0.258            0.101            0.000            0.270            0.268            0.201
+CC_RES_gdpl_rgd_obs_BAR_RES_PIE_US              0.047            0.019            0.000            0.031            0.024            0.024
+alpha_us1                                       0.710            0.070            0.000            0.143            0.202            0.219
+alpha_us2                                       0.275            0.055            0.000            0.474            0.530            0.543
+alpha_us3                                       0.288            0.133            0.000            0.255            0.262            0.254
+growth_us_ss                                    2.662            0.208            0.000            0.749            0.768            0.766
+rr_us_bar_ss                                    1.897            0.170            0.000            0.024            0.026            0.019
+rho_us                                          0.585            0.102            0.000            0.843            0.841            0.839
+tau_us                                          0.099            0.050            0.000            0.783            0.796            0.801
+beta_us1                                        0.758            0.065            0.000            0.588            0.633            0.655
+beta_us2                                        0.097            0.057            0.000            0.309            0.344            0.338
+beta_us3                                        0.126            0.027            0.000            0.400            0.409            0.342
+lambda_us1                                      0.640            0.062            0.174            0.946            0.951            0.952
+lambda_us2                                      0.243            0.040            0.000            0.035            0.027            0.025
+gamma_us1                                       0.748            0.025            0.000            0.346            0.364            0.274
+gamma_us2                                       0.354            0.154            0.000            0.436            0.463            0.446
+gamma_us4                                       0.246            0.062            0.000            0.587            0.588            0.550
+kappa_us                                       19.923            0.500            0.995            1.000            1.000            1.000
+theta                                           1.380            0.575            0.000            0.805            0.817            0.837
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -266.143172.
+
+parameters
+                                        prior mean   post. mean        90% HPD interval    prior       pstdev
+
+alpha_us1                                    0.800       0.7032      0.5933      0.8144   beta        0.1000
+alpha_us2                                    0.300       0.2818      0.1997      0.3648   gamm        0.2000
+alpha_us3                                    0.500       0.2876      0.0808      0.4945   beta        0.2000
+growth_us_ss                                 2.500       2.6715      2.3403      3.0107   norm        0.2500
+rr_us_bar_ss                                 2.000       1.8971      1.6202      2.1739   norm        0.2000
+rho_us                                       0.900       0.5851      0.4160      0.7349   beta        0.0500
+tau_us                                       0.100       0.0945      0.0193      0.1633   beta        0.0500
+beta_us1                                     0.750       0.7661      0.6659      0.8701   gamm        0.1000
+beta_us2                                     0.150       0.0978      0.0064      0.1799   beta        0.1000
+beta_us3                                     0.200       0.1263      0.0824      0.1687   gamm        0.0500
+lambda_us1                                   0.500       0.6393      0.5394      0.7409   beta        0.1000
+lambda_us2                                   0.250       0.2422      0.1753      0.3085   gamm        0.0500
+gamma_us1                                    0.500       0.7479      0.7152      0.7900   beta        0.0500
+gamma_us2                                    0.500       0.3546      0.1057      0.5851   gamm        0.3000
+gamma_us4                                    0.200       0.2462      0.1443      0.3428   gamm        0.0500
+kappa_us                                    20.000      19.9294     19.1084     20.7425   gamm        0.5000
+theta                                        1.000       1.3429      0.4855      2.1562   gamm        0.5000
+
+standard deviation of shocks
+                                        prior mean   post. mean        90% HPD interval    prior       pstdev
+
+RES_unr_obs_GAP                              0.200       0.0753      0.0521      0.0976   invg           Inf
+RES_unr_obs_BAR                              0.100       0.0542      0.0264      0.0812   invg           Inf
+RES_UNR_G_US                                 0.100       0.0655      0.0338      0.0967   invg           Inf
+RES_Y_US                                     0.250       0.2427      0.1526      0.3348   invg           Inf
+RES_gdpl_rgd_obs_BAR                         0.050       0.3620      0.2679      0.4786   invg           Inf
+RES_G_US                                     0.100       0.2173      0.0245      0.4486   invg           Inf
+RES_PIE_US                                   0.700       1.7432      1.5239      1.9625   invg           Inf
+RES_ffr_obs                                  0.700       0.2165      0.1468      0.2832   invg           Inf
+RES_RR_US_BAR                                0.200       1.2650      1.0188      1.5259   invg           Inf
+RES_blt_obs                                  0.400       0.4857      0.1643      0.8016   invg           Inf
+RES_blt_obs_BAR                              0.200       0.3459      0.0400      0.7818   invg           Inf
+
+correlation of shocks
+                                        prior mean   post. mean        90% HPD interval    prior       pstdev
+
+RES_Y_US,RES_G_US                            0.250       0.2582      0.0973      0.4221   beta        0.1000
+RES_gdpl_rgd_obs_BAR,RES_PIE_US              0.050       0.0463      0.0170      0.0749   beta        0.0200
+Estimation::mcmc: Posterior (dsge) IRFs...
+Estimation::mcmc: Posterior IRFs, done!
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 8h54m54s
+Note: 1 warning(s) encountered in the preprocessor
