@@ -1,9 +1,0 @@
-gdp_rgd_obs_mean = 0.7084338165;
-hours_A16_obs_mean = -0.0051489782;
-cnds_nom_demean_obs_mean = 0.0011584539;
-gdpdef_obs_mean = 0.5794977254;
-i_A16_obs_mean = -0.0317156045;
-baag10_obs_mean = 2.0570625867;
-ffr_obs_mean = 1.1467540297;
-wage_rgd_demean_obs_mean = -0.0097987543;
-fgs_obs_mean = -1.0310231706;
