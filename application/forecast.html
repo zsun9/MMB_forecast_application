@@ -126,10 +126,7 @@
 
     <hr>
 
-    <div class='container-fluid'>
-      <p class="legend" style='text-align: center;'></p>
-      <div class='row' id='charts'></div>
-    </div>
+    <div class='container-fluid' id='bigChart'></div>
 
     <script src='./js/jquery.js'></script>
     <script src='./js/popper.min.js'></script>
@@ -179,12 +176,10 @@
         }
 
         for (let selectType of ['dsge', 'ts', 'external', 'vintage', 'scenario']) {
-          if (selectType == 'vintage') {
-            document.getElementById('select' + selectType).innerHTML = addItems(selectType, 'radio');
-          } else {
-            document.getElementById('select' + selectType).innerHTML = addItems(selectType, 'checkbox');
-          }
+          document.getElementById('select' + selectType).innerHTML = addItems(selectType, 'checkbox');
         }
+
+        document.getElementById('selectSPFMean').checked = true;
 
       });
 
@@ -192,6 +187,8 @@
       // $('#filterModel button').click(function() {
       //   $(this).removeClass('btn-outline-primary').addClass('btn-primary').siblings().removeClass('btn-primary').addClass('btn-outline-primary');
       // });
+
+      
 
       for (let part of ['dsge', 'ts', 'external', 'scenario']) {
         for (let status of ['All', 'Clear']) {
@@ -213,7 +210,9 @@
 
         const selection = $(this).serializeArray();
         $(this)[0].reset();
-        let selected = {
+        document.getElementById('selectSPFMean').checked = true;
+
+        var selected = {
           'vintage': [],
           'dsge': [],
           'ts': [],
@@ -225,221 +224,253 @@
           selected[item.name].push(item.value);
         }
 
-        // let warningShowDescription = document.createElement('p');
-        // warningShowDescription.innerHTML = `Forecasts from ${selected['dsge']} on ${selected['vintage']} in scenario ${selected['scenario']} will be shown.`;
-        // document.getElementById('warning').appendChild(warningShowDescription);
+        var bigChart = document.getElementById('bigChart');
+        while (bigChart.firstChild) {
+            bigChart.removeChild(bigChart.firstChild);
+          }
+        bigChart.innerHTML = `<p class="legend" style='text-align: center;'></p>`;
 
-        let yearStart = parseInt(selected['vintage'][0].substring(0, 4));
-        let quarterStart = Math.floor((parseInt(selected['vintage'][0].substring(5,7)) - 1) / 3) + 1;
-        let vintageQuarter = yearStart + 'Q' + quarterStart;
-        selected['vintageQuarter'].push(vintageQuarter);
+        for (let ivintage = 0; ivintage < selected['vintage'].length; ivintage++) {
 
-        if (quarterStart == 1) {
-          quarterStart = 4;
-          yearStart -= 1;
-        } else {
-          quarterStart -= 1;
-        }
-        let xlabels = new Array(40);
-        let quarter = quarterStart, year = yearStart;
-        for (let i = 0; i < xlabels.length; i++) {
-          xlabels[i] = year.toString().substring(2) + 'Q' + quarter;
-          if (quarter == 4) {
-            quarter = 1;
-            year += 1;
+          console.log(ivintage);
+          // let warningShowDescription = document.createElement('p');
+          // warningShowDescription.innerHTML = `Forecasts from ${selected['dsge']} on ${selected['vintage']} in scenario ${selected['scenario']} will be shown.`;
+          // document.getElementById('warning').appendChild(warningShowDescription);
+
+          let yearStart = parseInt(selected['vintage'][ivintage].substring(0, 4));
+          let quarterStart = Math.floor((parseInt(selected['vintage'][ivintage].substring(5,7)) - 1) / 3) + 1;
+          let vintageQuarter = yearStart + 'Q' + quarterStart;
+          // selected['vintageQuarter'].push(vintageQuarter);
+
+          if (quarterStart == 1) {
+            quarterStart = 4;
+            yearStart -= 1;
           } else {
-            quarter += 1;
+            quarterStart -= 1;
           }
-        }
-
-        fetch('./src/results.json').then(response => response.json()).then(data => {
-
-          let charts = document.getElementById('charts');
-          while (charts.firstChild) {
-            charts.removeChild(charts.firstChild);
-          }
-
-          // get actual GDP series
-          let actualSeries = [];
-          for (let i = 0; i < data['actual'].length; i++) {
-            if (data['actual'][i].vintageQuarter == vintageQuarter) {
-              actualSeries = data['actual'][i].actual.gdp;
-              break;
+          let xlabels = new Array(40);
+          let quarter = quarterStart, year = yearStart;
+          for (let i = 0; i < xlabels.length; i++) {
+            xlabels[i] = year.toString().substring(2) + 'Q' + quarter;
+            if (quarter == 4) {
+              quarter = 1;
+              year += 1;
+            } else {
+              quarter += 1;
             }
           }
 
-          let loopedOnce = false;
-          for (let scenario of selected['scenario']) {
+          fetch('./src/results.json').then(response => response.json()).then(data => {
 
-            let divCol = document.createElement('div');
-            divCol.classList.add(`col-sm-${12/selected['scenario'].length}`);
-            divCol.classList.add(`col-xs-${12/selected['scenario'].length}`);
-            let canvas = document.createElement('canvas');
-            divCol.appendChild(canvas);
-            charts.appendChild(divCol);
+            let charts = document.createElement('div');
+            charts.classList.add('row');
+            charts.id = `charts${ivintage}`;
+            bigChart.appendChild(charts);
 
-            let ctx = canvas.getContext('2d');
+            // let charts = document.getElementById('charts');
+            // while (charts.firstChild) {
+            //   charts.removeChild(charts.firstChild);
+            // }
 
-            let datasets = [];
-            var gdpLastQuarter = 0;
-            for (let type of ['dsge', 'ts', 'external']) {
-              for (let model of selected[type]) {
-                var gdpData = [];
-                var alreadyHaveThisLabel = [];
-                for (let i = 0; i < data[type].length; i++) {
-                  if (data[type][i].model == model) {
-                    if ((data[type][i].vintage == selected['vintage']) && (data[type][i].scenario == scenario)) {
-                      gdpData = data[type][i].forecast.gdp;
-                      gdpLastQuarter = gdpData[0];
-                      datasets.push({
-                        fill: false,
-                        label: model,
-                        data: gdpData,
-                        backgroundColor: modelColors[model],
-                        borderColor: modelColors[model],
-                        pointRadius: 2.5,
-                      });
-                      break;
-                    } else if ((data[type][i].vintageQuarter == selected['vintageQuarter']) && (data[type][i].scenario == undefined)) {
-                      gdpData = data[type][i].forecast.gdp;
-                      gdpLastQuarter = gdpData[0];
-                      if (alreadyHaveThisLabel.includes(model)) {
-                        datasets.push({
-                          fill: false,
-                          label: 'hide',
-                          data: gdpData,
-                          backgroundColor: modelColors[model],
-                          borderColor: modelColors[model],
-                          pointRadius: 0,
-                        });
-                      } else {
+            let supTitle = document.createElement('div');
+            supTitle.classList.add('col');
+            supTitle.innerHTML = `<h5 style='text-align: center;'>Forecast start ${vintageQuarter}</h5>`;
+            let breakTitle = document.createElement('div');
+            breakTitle.classList.add('w-100');
+            charts.appendChild(supTitle);
+            charts.appendChild(breakTitle);
+
+            // get actual GDP series
+            let actualSeries = [];
+            for (let i = 0; i < data['actual'].length; i++) {
+              if (data['actual'][i].vintageQuarter == vintageQuarter) {
+                actualSeries = data['actual'][i].actual.gdp;
+                break;
+              }
+            }
+
+            let loopedOnce = false;
+            for (let scenario of selected['scenario']) {
+
+              let divCol = document.createElement('div');
+              divCol.classList.add(`col-sm-${12/selected['scenario'].length}`);
+              divCol.classList.add(`col-xs-${12/selected['scenario'].length}`);
+              let canvas = document.createElement('canvas');
+              divCol.appendChild(canvas);
+              charts.appendChild(divCol);
+
+              let ctx = canvas.getContext('2d');
+
+              let datasets = [];
+              var gdpLastQuarter = 0;
+              for (let type of ['dsge', 'ts', 'external']) {
+                for (let model of selected[type]) {
+                  var gdpData = [];
+                  var alreadyHaveThisLabel = [];
+                  for (let i = 0; i < data[type].length; i++) {
+                    if (data[type][i].model == model) {
+                      if ((data[type][i].vintage == selected['vintage'][ivintage]) && (data[type][i].scenario == scenario)) {
+                        gdpData = data[type][i].forecast.gdp;
+                        gdpLastQuarter = gdpData[0];
                         datasets.push({
                           fill: false,
                           label: model,
                           data: gdpData,
-                          backgroundColor: modelColors[model],
-                          borderColor: modelColors[model],
-                          pointRadius: 0,
+                          backgroundColor: modelColor[model],
+                          borderColor: modelColor[model],
+                          borderDash: modelDash[model],
+                          pointRadius: 2.5,
                         });
-                        alreadyHaveThisLabel.push(model);
-                      }
-                      
-                    }
-                  
-                  }
-                }
-
-
-              } 
-            }
-
-            console.log(gdpLastQuarter);
-
-            if (loopedOnce == false) {
-              loopedOnce = true;
-              actualSeries.unshift(gdpLastQuarter);
-            }
-
-            datasets.push({
-              fill: false,
-              label: 'Actual',
-              data: actualSeries,
-              backgroundColor: 'black',
-              borderColor: 'black',
-            });
-
-            let recessionPeriods = [];
-            for (let quarter of nberRecessionQuarter) {
-              let quarterNext = '';
-              if (parseInt(quarter[5]) == 4) {
-                quarterNext = (parseInt(quarter.substring(0, 4)) + 1) + 'Q1';
-              } else {
-                quarterNext = quarter.substring(0, 5) + (parseInt(quarter[5]) + 1);
-              }
-              recessionPeriods.push({
-                type: 'box',
-                drawTime: 'beforeDatasetsDraw',
-                xScaleID: 'x-axis-0',
-                xMin: quarter.substring(2),
-                xMax: quarterNext.substring(2),
-                borderColor: 'gainsboro',
-                backgroundColor: 'gainsboro',
-              })
-            }
-
-            Chart.defaults.global.defaultFontFamily = 'Source Sans Pro';
-            Chart.defaults.global.defaultFontSize = 16;
-            Chart.defaults.global.elements.point.radius = 1;
-            Chart.defaults.global.elements.line.tension = 0;
-            let chart = new Chart(ctx, {
-                type: 'line',
-                
-                data: {
-                    labels: xlabels.slice(0, 6),
-                    datasets: datasets,
-                },
-
-                options: {
-
-                  aspectRatio: 0.9,
-
-                  title: {
-                    display: true,
-                    text: `${scenarioStrings[scenario]}`,
-                  },
-
-                  // legend: {
-                  //   labels: {
-                  //     filter: function(item, data) {
-                  //       return !(item.text.includes('hide'));
-                  //     }
-                  //   }
-                  // },
-
-                  tooltips: {
-                    callbacks: {
-                      label: function(tooltipItem, data) {
-                        var label = data.datasets[tooltipItem.datasetIndex].label || '';
-                        if (label) {
-                          label += ': ';
+                        break;
+                      } else if ((data[type][i].vintageQuarter == vintageQuarter) && (data[type][i].scenario == undefined)) {
+                        gdpData = data[type][i].forecast.gdp;
+                        gdpLastQuarter = gdpData[0];
+                        if (alreadyHaveThisLabel.includes(model)) {
+                          datasets.push({
+                            fill: false,
+                            label: 'hide',
+                            data: gdpData,
+                            backgroundColor: modelColor[model],
+                            borderColor: modelColor[model],
+                            borderDash: modelDash[model],
+                            pointRadius: 0,
+                            pointHitRadius: 0,
+                            borderWidth: 2,
+                          });
+                        } else {
+                          datasets.push({
+                            fill: false,
+                            label: model,
+                            data: gdpData,
+                            backgroundColor: modelColor[model],
+                            borderColor: modelColor[model],
+                            borderDash: modelDash[model],
+                            pointRadius: 0,
+                          });
+                          alreadyHaveThisLabel.push(model);
                         }
-                        label += Math.round(tooltipItem.yLabel * 1000) / 1000;
-                        return label;
+                        
                       }
+                    
                     }
-                  },
+                  }
+
+
+                } 
+              }
+
+              console.log(gdpLastQuarter);
+
+              if (loopedOnce == false) {
+                loopedOnce = true;
+                actualSeries.unshift(gdpLastQuarter);
+              }
+
+              datasets.push({
+                fill: false,
+                label: 'Actual',
+                data: actualSeries,
+                backgroundColor: 'black',
+                borderColor: 'black',
+                borderWidth: 3,
+              });
+
+              let recessionPeriods = [];
+              for (let quarter of nberRecessionQuarter) {
+                let quarterNext = '';
+                if (parseInt(quarter[5]) == 4) {
+                  quarterNext = (parseInt(quarter.substring(0, 4)) + 1) + 'Q1';
+                } else {
+                  quarterNext = quarter.substring(0, 5) + (parseInt(quarter[5]) + 1);
+                }
+                recessionPeriods.push({
+                  type: 'box',
+                  drawTime: 'beforeDatasetsDraw',
+                  xScaleID: 'x-axis-0',
+                  xMin: quarter.substring(2),
+                  xMax: quarterNext.substring(2),
+                  borderColor: 'rgba(220, 220, 220, 0.5)',
+                  backgroundColor: 'rgba(220, 220, 220, 0.5)',
+                })
+              }
+
+              Chart.defaults.global.defaultFontFamily = 'Source Sans Pro';
+              Chart.defaults.global.defaultFontSize = 16;
+              Chart.defaults.global.elements.point.radius = 1;
+              Chart.defaults.global.elements.line.tension = 0;
+              let chart = new Chart(ctx, {
+                  type: 'line',
                   
-                  legend: {display: false},
-
-                  scales: {
-                    yAxes: [{
-                      ticks: {
-                        suggestedMin: -8,
-                        suggestedMax: 6,
-                      }
-                    }]
+                  data: {
+                      labels: xlabels.slice(0, 6),
+                      datasets: datasets,
                   },
 
-                  annotation: {annotations: recessionPeriods}
+                  options: {
 
-                },
+                    aspectRatio: 0.9,
+
+                    title: {
+                      display: true,
+                      text: `${scenarioStrings[scenario]}`,
+                    },
+
+                    // legend: {
+                    //   labels: {
+                    //     filter: function(item, data) {
+                    //       return !(item.text.includes('hide'));
+                    //     }
+                    //   }
+                    // },
+
+                    tooltips: {
+                      callbacks: {
+                        label: function(tooltipItem, data) {
+                          var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                          if (label) {
+                            label += ': ';
+                          }
+                          label += Math.round(tooltipItem.yLabel * 1000) / 1000;
+                          return label;
+                        }
+                      }
+                    },
+                    
+                    legend: {display: false},
+
+                    scales: {
+                      yAxes: [{
+                        ticks: {
+                          suggestedMin: -8,
+                          suggestedMax: 6,
+                        }
+                      }]
+                    },
+
+                    annotation: {annotations: recessionPeriods}
+
+                  },
+
+              });
+
+              document.querySelector('.legend').innerHTML = chart.generateLegend();
+              let lis = document.querySelectorAll('li');
+              for (let item of lis) {
+                if (item.innerText == 'hide') {
+                  item.remove();
+                }
+              }
+
+              }
+
+            let breakLine = document.createElement('div');
+            breakLine.classList.add('w-100');
+            bigChart.appendChild(breakLine);
 
             });
+          
+        }
 
-            document.querySelector('.legend').innerHTML = chart.generateLegend();
-            let lis = document.querySelectorAll('li');
-            for (let item of lis) {
-              if (item.innerText == 'hide') {
-                item.remove();
-              }
-            }
-
-
-
-
-            }
-
-          });
 
       });
 

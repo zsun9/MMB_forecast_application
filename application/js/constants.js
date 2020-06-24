@@ -1,17 +1,26 @@
-const modelColors = {
+const modelColor = {
   // Always appear
   'SPFMean': 'Green',
   'SPFIndividual': 'rgba(0, 0, 0, 0.1)',
   // Selective
   'DS04': 'Red',
+  'DS04_ew': 'Red',
   'WW11': 'Fuchsia',
+  'WW11_ew': 'Fuchsia',
   'SW07': 'DodgerBlue',
+  'SW07_ew': 'DodgerBlue',
   'NKBGG': 'Cyan',
+  'NKBGG_ew': 'Cyan',
   'DNGS15': 'Orange',
   'DNGS15_cql': 'Orange',
+  'DNGS15_ew': 'Orange',
+  'DNGS15_cql_ew': 'Orange',
   'FRBEDO08': 'LawnGreen',
+  'FRBEDO08_cql': 'LawnGreen',
   'QPM08': 'DarkMagenta',
   'QPM08_cql': 'DarkMagenta',
+  'QPM08_ew': 'DarkMagenta',
+  'QPM08_cql_ew': 'DarkMagenta',
   'GLP3v': 'GreenYellow',
   'GLP8v': 'DarkCyan',
   'KR15_FF': 'Blue',
@@ -19,6 +28,17 @@ const modelColors = {
   'GBbeforeSPF': 'Brown',
   'GBafterSPF': 'Brown',
 };
+
+const modelDash = {
+  'DS04_ew': [5, 5],
+  'WW11_ew': [5, 5],
+  'SW07_ew': [5, 5],
+  'NKBGG_ew': [5, 5],
+  'DNGS15_ew': [5, 5],
+  'DNGS15_cql_ew': [5, 5],
+  'QPM08_ew': [5, 5],
+  'QPM08_cql_ew': [5, 5],
+}
 
 const scenarioStrings = {
   's1': 'Balanced panel',
