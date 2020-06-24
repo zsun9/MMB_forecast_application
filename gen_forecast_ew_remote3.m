@@ -14,9 +14,9 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2009-05-12"]; %
+p.vintages = ["2001-08-15", "2001-11-14"]; %
 p.scenarios = ["s1", "s2", "s3", "s4"];
-p.models = ["SW07"]; 
+p.models = ["QPM08"]; 
 p.executor = "Zexi Sun";
 
 p.ExcelColumnUntil = "Z";

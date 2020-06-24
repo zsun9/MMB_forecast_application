@@ -23,7 +23,7 @@ close all; fclose all; clear; clc;
 % Please use double quotes here!
 % cell array format---------- Format: {' ', ' ', ' '}
 p.vintages = {'2020-05-12'}; 
-p.scenarios = {'s3','s4'};
+p.scenarios = {'s1','s2'};
 p.models = {'KR15_FF'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 % text format -------------- Format: ' '
 p.executor = 'KaiLong';
@@ -175,7 +175,7 @@ for ind_model = 1:length(p.models) ;%model = p.models
                     sprintf('mh_drop=%s, ', num2str(p.burnIn))  ...
                     p.optionString.subDraws  ...
                     sprintf('forecast=%s, ', num2str(p.forecastHorizon))  ...
-                    sprintf('mode_compute=%s', num2str(p.mode_compute_order))  ...
+                    sprintf('mode_compute=%s', num2str(p.mode_compute_order(1)))  ...
                     ') gdp_rgd_obs;'];
                 
                 if isequal(model,'QPM08')
@@ -210,7 +210,7 @@ for ind_model = 1:length(p.models) ;%model = p.models
                     % if mode file exists, then skip ML estimation
                     t.mode_compute = 0;
                     t.script.estimation = strrep(t.script.estimation, ...
-                        sprintf('mode_compute=%s', num2str(p.mode_compute_order)), ...
+                        sprintf('mode_compute=%s', num2str(p.mode_compute_order(1))), ...
                         sprintf('mode_compute=%s, mode_file=%s', num2str(t.mode_compute), strrep(t.name.modefile, '.mat', '')));
                     
                     DynareFile = fopen(char(t.name.modfile),'w');
@@ -225,7 +225,7 @@ for ind_model = 1:length(p.models) ;%model = p.models
                     fprintf('Mode file not exists, and mode computation will be started.\n');
                     % else loop through all mode compute routines
                     for i = 1:length(p.mode_compute_order)
-                        t.mode_compute = p.mode_compute_order;
+                        t.mode_compute = p.mode_compute_order(i);
                         if i>1
                             t.script.estimation = strrep(t.script.estimation, ...
                                 sprintf('mode_compute=%s', num2str(p.mode_compute_order(i-1))), ...

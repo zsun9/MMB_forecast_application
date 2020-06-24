@@ -14,9 +14,9 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2009-05-12"]; %
+p.vintages = ["2001-02-14", "2001-05-12"]; %
 p.scenarios = ["s1", "s2", "s3", "s4"];
-p.models = ["WW11"]; 
+p.models = ["QPM08"]; 
 p.executor = "Zexi Sun";
 
 p.ExcelColumnUntil = "Z";
@@ -165,7 +165,7 @@ for model = p.models
                     sprintf("mode_compute=%s", string(p.mode_compute_order(1))) + ...
                     ") gdp_rgd_obs;";
                 
-                if model == "QPM08"
+                if model == "QPM08" || model == "QPM08_cql"
                     t.script.estimation = strrep(t.script.estimation, ") gdp_rgd_obs;", ") gdpl_rgd_obs;");
                 end
                 
@@ -236,7 +236,7 @@ for model = p.models
                 end
                 
                 % save GDP forecasts (start from the last in-sample obs)
-                if model == "QPM08"
+                if model == "QPM08" || model == "QPM08_cql"
                     if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
                         t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end)']);
                     else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
