@@ -60,17 +60,24 @@ for i, index in enumerate(actualGDP.index):
 # collect forecast results from the estimation folder
 # calculate forecast errors
 for directory in paths['estimations'].glob('*'):
-    if directory.is_dir():
-        for file in directory.glob('*.json'):
-            inst = json.loads(file.read_text())
-            if 'cql' in directory.stem:
-                assert 'cql' in inst['model']
-            if 'ew' in directory.stem:
-                inst['model'] += '_ew'
-            if 'GLP' in inst['model']:
-                results['ts'].append(inst)
-            else:
-                results['dsge'].append(inst)
+    if 'KLTrial' in directory.stem or '2011' in directory.stem or 'nofa' in directory.stem:
+        print(f'Not included: {directory.stem}')
+    else:
+        if directory.is_dir():
+            foundJSON = False
+            for file in directory.glob('*.json'):
+                foundJSON = True
+                inst = json.loads(file.read_text())
+                if 'cql' in directory.stem:
+                    assert 'cql' in inst['model']
+                if 'ew' in directory.stem:
+                    inst['model'] += '_ew'
+                if 'GLP' in inst['model']:
+                    results['ts'].append(inst)
+                else:
+                    results['dsge'].append(inst)
+            if foundJSON == False:
+                print(f'No JSON: {directory.stem}')
 
 
 # for file in paths['estimations'].rglob('*.json'):
