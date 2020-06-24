@@ -59,31 +59,43 @@ for i, index in enumerate(actualGDP.index):
 
 # collect forecast results from the estimation folder
 # calculate forecast errors
-for file in paths['estimations'].rglob('*.json'):
-    inst = json.loads(file.read_text())
-    if 'GLP' in inst['model']:
-        results['ts'].append(inst)
-    else:
-        results['dsge'].append(inst)
+for directory in paths['estimations'].glob('*'):
+    if directory.is_dir():
+        for file in directory.glob('*.json'):
+            inst = json.loads(file.read_text())
+            if 'cql' in directory.stem:
+                assert 'cql' in inst['model']
+            if 'ew' in directory.stem:
+                inst['model'] += '_ew'
+            if 'GLP' in inst['model']:
+                results['ts'].append(inst)
+            else:
+                results['dsge'].append(inst)
 
-    forecastValues = inst['forecast']['gdp'][1:lengthRMSE+1]
-    # if inst['scenario'] in {'s2', 's4'}:
-    #     forecastValues[0] = float('nan')
 
-    quarter = int(np.floor((int(inst['vintage'][5:7]) - 1) / 3) + 1)
-    year = int(inst['vintage'][0:4])
-    vintageQuarter = str(year) + 'Q' + str(quarter)
+# for file in paths['estimations'].rglob('*.json'):
+#     inst = json.loads(file.read_text())
+#     if 'GLP' in inst['model']:
+#         results['ts'].append(inst)
+#     else:
+#         results['dsge'].append(inst)
 
-    if vintageQuarter in actualForRMSE.keys():
+            forecastValues = inst['forecast']['gdp'][1:lengthRMSE+1]
 
-        jsonError.append({
-            # 'forecast': forecastValues,
-            'squaredError': [(forecast - actual)**2 for forecast, actual in zip(forecastValues, actualForRMSE[vintageQuarter])],
-            'model': inst['model'],
-            'vintage': inst['vintage'],
-            'vintageQuarter': vintageQuarter,
-            'scenario': inst['scenario'],
-        })
+            quarter = int(np.floor((int(inst['vintage'][5:7]) - 1) / 3) + 1)
+            year = int(inst['vintage'][0:4])
+            vintageQuarter = str(year) + 'Q' + str(quarter)
+
+            if vintageQuarter in actualForRMSE.keys():
+
+                jsonError.append({
+                    # 'forecast': forecastValues,
+                    'squaredError': [(forecast - actual)**2 for forecast, actual in zip(forecastValues, actualForRMSE[vintageQuarter])],
+                    'model': inst['model'],
+                    'vintage': inst['vintage'],
+                    'vintageQuarter': vintageQuarter,
+                    'scenario': inst['scenario'],
+                })
 
 results['error'] = jsonError
 # dfError = pd.DataFrame(jsonError)

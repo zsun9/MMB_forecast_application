@@ -22,7 +22,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     import numpy as np
     import datetime as datetime
 
-    diffBound = 0.01 # max allowed difference (in %) between series with missing values and series to fill missing values
+    diffBound = 0.015 # max allowed difference (in %) between series with missing values and series to fill missing values
     # specificRules = {
     #     ('2008-08-07', 'COMPNFB', '2008Q3'): 181.676,
     # }
@@ -232,49 +232,51 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                         # if values other than last or second to last are missing
                         if variable in infoFillHistory['alfred'].values and np.sum(np.isnan(dfToMerge.iloc[:-2].values)) > 0:
 
-                            row = infoFillHistory[infoFillHistory['alfred']==variable]
+                            rows = infoFillHistory[infoFillHistory['alfred']==variable]
+                            for _, row in rows.iterrows():
+                                fillSource, fillVar, fillFilename = row['fillSource'], row['fillVar'], row['fillFilename']
 
-                            fillSource = row['fillSource'].values[0]
-                            fillVar = row['fillVar'].values[0]
-                            fillFilename = row['fillFilename'].values[0]
-
-                            if fillSource == 'alfred':
-                                dfToFill = pd.read_csv(pathAlfred / fillFilename, index_col=0)
-                            elif fillSource == 'rtdsm':
-                                dfToFill = pd.read_excel(pathRtdsm / fillFilename, index_col=0)
-                            else:
-                                raise Exception(f'Cannot identify fill source ({fillSource}), make sure it is alfred or rtdsm')
-
-                            dfToFill, _ = desired_data(
-                                source=fillSource, var=fillVar, df=dfToFill, vintage=actualVintageDateAlfred
-                            )
-
-                            if dfToFill is None:
-                                print(f'Missing values of {variable} not filled: No corresponding data.')
-                            else:
-                                # dfNotFilled = dfToMerge.copy()
-                                diff = np.sum(np.abs(dfToFill.iloc[:-1,0]/dfToMerge.iloc[:-1,0]-1) > diffBound) # don't compare the last entry
-                                if diff < 1:
-                                    for index, (_, row) in enumerate(dfToMerge.iterrows()):
-                                        if np.isnan(row.values[0]):
-                                            try:
-                                                dfToMerge.iloc[index, 0] = dfToFill.iloc[index, 0]
-                                            except:
-                                                pass
-                                    print(f'Missing values of {variable} filled by {fillVar} from {fillSource}.')
-                                elif diff == 1 and np.argmax(np.abs(dfToFill.iloc[:-1,0]/dfToMerge.iloc[:-1,0]-1)) == dfToFill.iloc[:-1,0].shape[0] - 1:
-                                    lastDiff = np.max(np.abs(dfToFill.iloc[:-1,0]/dfToMerge.iloc[:-1,0]-1))
-                                    for index, (_, row) in enumerate(dfToMerge.iterrows()):
-                                        if np.isnan(row.values[0]):
-                                            try:
-                                                dfToMerge.iloc[index, 0] = dfToFill.iloc[index, 0]
-                                            except:
-                                                pass
-                                    print(f'Missing values of {variable} filled by {fillVar} from {fillSource}, even though the diff between the last entry is {lastDiff:.2%} > {diffBound:.2%}.')
+                                if fillSource == 'alfred':
+                                    dfToFill = pd.read_csv(pathAlfred / fillFilename, index_col=0)
+                                elif fillSource == 'rtdsm':
+                                    dfToFill = pd.read_excel(pathRtdsm / fillFilename, index_col=0)
                                 else:
-                                    dfToMerge = pd.merge(dfToMerge, dfToFill, how='outer', left_index=True, right_index=True, sort=True)
-                                    dfToMerge.to_csv(f'diff_{variable}_{fillVar}.csv')
-                                    print(f'Missing values of {variable} not filled: Diff between series to be filled and series to fill > {diffBound:.2%}, will print two series.')
+                                    raise Exception(f'Cannot identify fill source ({fillSource}), make sure it is alfred or rtdsm')
+                                
+                                dfToFill, _ = desired_data(source=fillSource, var=fillVar, df=dfToFill, vintage=actualVintageDateAlfred)
+
+                                if dfToFill is None:
+                                    print(f'Missing values of {variable} not filled: No corresponding data.')
+
+                                else:
+                                    diff = np.sum(np.abs(dfToFill.iloc[:-1,0]/dfToMerge.iloc[:-1,0]-1) > diffBound) # compare two series except the last element
+
+                                    # if all the differences < diffBound
+                                    if diff == 0:
+                                        for index, (_, row) in enumerate(dfToMerge.iterrows()):
+                                            if np.isnan(row.values[0]):
+                                                try:
+                                                    dfToMerge.iloc[index, 0] = dfToFill.iloc[index, 0]
+                                                except:
+                                                    pass
+                                        print(f'Missing values of {variable} filled by {fillVar} from {fillSource}.')
+
+                                    # if only one difference < diffBound, and it is the last one
+                                    elif diff <= 2 and np.sum(np.abs(dfToFill.iloc[:-3,0]/dfToMerge.iloc[:-3,0]-1) > diffBound) == 0:
+                                        lastDiff = np.max(np.abs(dfToFill.iloc[:-1,0]/dfToMerge.iloc[:-1,0]-1))
+                                        for index, (_, row) in enumerate(dfToMerge.iterrows()):
+                                            if np.isnan(row.values[0]):
+                                                try:
+                                                    dfToMerge.iloc[index, 0] = dfToFill.iloc[index, 0]
+                                                except:
+                                                    pass
+                                        print(f'Missing values of {variable} filled by {fillVar} from {fillSource}, even though the diff between the last two elements > {diffBound:.2%}.')
+                                    
+                                    # other cases
+                                    else:
+                                        dfToMerge = pd.merge(dfToMerge, dfToFill, how='outer', left_index=True, right_index=True, sort=True)
+                                        dfToMerge.to_csv(f'diff_{variable}_{fillVar}.csv')
+                                        print(f'Missing values of {variable} not filled: Diff between series to be filled and series to fill > {diffBound:.2%}, will print two series.')
 
                         # create a df to store SPF data
                         dfToMergeSpf = dfToMerge.copy()
@@ -675,13 +677,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 if __name__ == '__main__':
 
     main(
-        vintageDate='2008-11-10', quarterStart='1964Q1', quarterEnd='2008Q4',
-        observed = [
-            'ffr_obs', 
-            'gdp_rgd_obs', 'gdpdef_obs', 'ifi_rgd_obs', 'c_rgd_obs', 
-            'wage_rgd_obs', 'hours_sw07_obs',
-            'baag10_obs', 'hours_dngs15_obs', 
-            'gdpl_rgd_obs', 'unr_obs', 'cpil_obs', 'blt_obs',
-            ]
+        vintageDate='2001-08-15', quarterStart='1964Q1', quarterEnd='2001Q3',
+        observed = ['fgs_obs',]
 
         )
