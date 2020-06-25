@@ -28,22 +28,6 @@ jsonError = []
 jsonRMSE = []
 lengthRMSE = 5
 
-# collect SPF/GB/Fair forecasts
-df_sgf = pd.read_excel(paths['data'] / 'gb_spf_fair.xlsx', encoding='utf-8')
-for index, row in df_sgf.iterrows():
-    if row['model'] == 'Fair':
-        results['dsge'].append({
-            'model': row['model'],
-            'vintageQuarter': row['vintage'],
-            'forecast': {'gdp': row.tolist()[2:]},
-        })
-    else:
-        results['external'].append({
-            'model': row['model'],
-            'vintageQuarter': row['vintage'],
-            'forecast': {'gdp': row.tolist()[2:]},
-        })
-
 # collect actual GDP growth
 actualGDP = pd.read_csv(paths['data'] / 'actualGDP.csv', encoding='utf-8', index_col=0)
 for i, index in enumerate(actualGDP.index):
@@ -56,6 +40,32 @@ for i, index in enumerate(actualGDP.index):
         actualForRMSE[index] = series[:lengthRMSE]
 
     results['actual'].append({'actual': {'gdp': series}, 'vintageQuarter': index})
+
+# collect SPF/GB/Fair forecasts
+df_sgf = pd.read_excel(paths['data'] / 'gb_spf_fair.xlsx', encoding='utf-8')
+for index, row in df_sgf.iterrows():
+    inst = {
+        'model': row['model'],
+        'vintageQuarter': row['vintage'],
+        'forecast': {'gdp': row.tolist()[2:]},
+        }
+    if row['model'] == 'Fair':
+        results['dsge'].append(inst)
+    else:
+        results['external'].append(inst)
+
+    if not inst['model'] in {'SPFIndividual', 'GBafterSPF', 'GBbeforeSPF'}:
+        forecastValues = inst['forecast']['gdp'][1:lengthRMSE+1]
+        vintageQuarter = inst['vintageQuarter']
+
+        if vintageQuarter in actualForRMSE.keys():
+
+            jsonError.append({
+                # 'forecast': forecastValues,
+                'squaredError': [(forecast - actual)**2 for forecast, actual in zip(forecastValues, actualForRMSE[vintageQuarter])],
+                'model': inst['model'],
+                'vintageQuarter': vintageQuarter,
+            })
 
 # collect forecast results from the estimation folder
 # calculate forecast errors
@@ -81,14 +91,6 @@ for directory in paths['estimations'].glob('*'):
             else:
                 for file in directory.glob('*_results.mat'):
                     file.unlink()
-
-
-# for file in paths['estimations'].rglob('*.json'):
-#     inst = json.loads(file.read_text())
-#     if 'GLP' in inst['model']:
-#         results['ts'].append(inst)
-#     else:
-#         results['dsge'].append(inst)
 
             forecastValues = inst['forecast']['gdp'][1:lengthRMSE+1]
 

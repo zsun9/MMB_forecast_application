@@ -130,7 +130,7 @@
 
             // (only for RMSE) actual data in 2020 in not available yet
             // do not show RMSE of external sources yet
-            if ((item.includes('2020')) || (item.includes('SPF'))) {
+            if ((item.includes('2020')) || (item.includes('SPFIndividual')) || (item.includes('GB'))) {
               newString = newString.replace('<input', '<input disabled');
             }
 
@@ -178,31 +178,67 @@
           selected[item.name].push(item.value);
         }
 
+        for (let vintage of selected['vintage']) {
+          let yearStart = parseInt(vintage.substring(0, 4));
+          let quarterStart = Math.floor((parseInt(vintage.substring(5,7)) - 1) / 3) + 1;
+          selected['vintageQuarter'].push(yearStart + 'Q' + quarterStart);
+        }
+
         fetch('./src/results.json').then(response => response.json()).then(data => {
 
           let rmseMap = new Map();
           for (let item of data['error']) {
-            let model = item['model'], scenario = item['scenario'], squaredError = item['squaredError'], vintage = item['vintage'];
+            let model = item['model'], squaredError = item['squaredError'];
 
-            if (((selected['dsge'].includes(model)) || (selected['ts'].includes(model)) || (selected['external'].includes(model))) && (selected['vintage'].includes(vintage))) {
-              let modelScenario = model + ':' + scenario;
-              if (rmseMap.has(modelScenario)) {
-                let existingArray = rmseMap.get(modelScenario);
-                for (let i = 0; i < squaredError.length; i++) {
-                  squaredError[i] += existingArray[1][i];
+            if ('vintageQuarter' in item) {
+              var vintageQuarter = item['vintageQuarter'];
+            } else {
+              let yearStart = parseInt(item['vintage'].substring(0, 4));
+              let quarterStart = Math.floor((parseInt(item['vintage'].substring(5,7)) - 1) / 3) + 1;
+              var vintageQuarter = yearStart + 'Q' + quarterStart;
+            }
+
+            let scenario = ('scenario' in item) ? item['scenario'] : '-';
+
+            if (((selected['dsge'].includes(model)) || (selected['ts'].includes(model)) || (selected['external'].includes(model)) || (selected['external'].includes(model)))) {
+              if (selected['vintageQuarter'].includes(vintageQuarter)) {
+                let modelScenario = model + ':' + scenario;
+                if (rmseMap.has(modelScenario)) {
+                  let existingArray = rmseMap.get(modelScenario);
+                  for (let i = 0; i < squaredError.length; i++) {
+                    squaredError[i] += existingArray[1][i];
+                  }
+                  rmseMap.set(modelScenario, [existingArray[0] + 1, squaredError]);
+                } else {
+                  rmseMap.set(modelScenario, [1, squaredError]);
                 }
-                rmseMap.set(modelScenario, [existingArray[0] + 1, squaredError]);
-              } else {
-                rmseMap.set(modelScenario, [1, squaredError]);
               }
             }
+
+
+            // let model = item['model'], scenario = item['scenario'], squaredError = item['squaredError'], vintage = item['vintage'], vintageQuarter = item['vintageQuarter'];
+
+            // if (((selected['dsge'].includes(model)) || (selected['ts'].includes(model)) || (selected['external'].includes(model)) || (selected['external'].includes(model))) && (selected['vintage'].includes(vintage))) {
+            //   let modelScenario = model + ':' + scenario;
+            //   if (rmseMap.has(modelScenario)) {
+            //     let existingArray = rmseMap.get(modelScenario);
+            //     for (let i = 0; i < squaredError.length; i++) {
+            //       squaredError[i] += existingArray[1][i];
+            //     }
+            //     rmseMap.set(modelScenario, [existingArray[0] + 1, squaredError]);
+            //   } else {
+            //     rmseMap.set(modelScenario, [1, squaredError]);
+            //   }
+            // }
           }
+
+          console.log(rmseMap);
 
           let rmseArray = [];
           for (let entry of rmseMap) {
             let modelScenario = entry[0].split(':');
             let rmse = entry[1][1].map(function (item) { return Math.sqrt(item/entry[1][0]).toFixed(3); });
-            let nowcast = (['s2', 's4'].includes(modelScenario[1])) ? 'N/A' : rmse[0];
+            let nowcast = (['s2', 's4'].includes(modelScenario[1])) ? '-' : rmse[0];
             rmseArray.push({
               'model': modelScenario[0],
               'scenario': modelScenario[1],
