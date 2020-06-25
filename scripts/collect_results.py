@@ -78,6 +78,9 @@ for directory in paths['estimations'].glob('*'):
                     results['dsge'].append(inst)
             if foundJSON == False:
                 print(f'No JSON: {directory.stem}')
+            else:
+                for file in directory.glob('*_results.mat'):
+                    file.unlink()
 
 
 # for file in paths['estimations'].rglob('*.json'):
