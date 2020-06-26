@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <title>MMB forecasting application</title>
+    <meta name='description' content='MMB forecasting application'>
+    <link rel='stylesheet' href='./css/bootstrap.min.css'>
+    <link rel='stylesheet' href='./css/stylesheet.css'>
+  </head>
+
+  <body data-spy='scroll' data-target='#navbar-example'>
+
+    <div id='navbar_placeholder'></div>
+
+    <div class='container'>
+      <h1 class='page-header'>Forecast chart</h1>
+      <p class='lead'>To create forecast charts, specify the vintage date, forecast sources, and data scenarios</p>
+
+      <form id='selectForm'>
+
+        <fieldset class='form-group big-group'>
+          <div class='row'>
+            <div class='col'>
+              <legend class='col-form-label pt-0'>Vintage date</legend>
+            </div>
+            <div class='w-100'></div>
+            <div class='col' id='selectvintage'></div>
+          </div>
+        </fieldset>
+
+        <fieldset class='form-group big-group'>
+          <div class='row'>
+            <div class='col'>
+              <legend class='col-form-label pt-0'>Forecast source</legend>
+            </div>
+          </div>
+
+          <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>Macroeconomic models<a href='' id='dsgeAll'>All</a><a href='' id='dsgeClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+  
+              <!-- <div class='col row'>
+                <div class='col-2 pt-0'>Filters</div>
+                <div class='col-10'>
+                  <div class='btn-group btn-group-sm' role='group' id='filterModel'>
+                    <button type='button' class='btn btn-outline-primary' style='font-size: 0.8em;'>Pre-crisis</button>
+                    <button type='button' class='btn btn-primary' style='font-size: 0.8em;'>All</button>
+                    <button type='button' class='btn btn-outline-primary' style='font-size: 0.8em;'>Post-crisis</button>
+                  </div>
+                </div>
+              </div>
+              <div class='w-100'></div> -->
+  
+              <div class='col' id='selectdsge'></div>
+            </div>
+          </fieldset>
+  
+          <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>Time-series models<a href='' id='tsAll'>All</a><a href='' id='tsClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+              <div class='col' id='selectts'></div>
+            </div>
+          </fieldset>
+
+          <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>External sources<a href='' id='externalAll'>All</a><a href='' id='externalClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+              <div class='col' id='selectexternal'></div>
+            </div>
+          </fieldset>
+  
+          <!-- <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>External projections <a href='' id='externalAll'>All</a><a href='' id='externalClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+              <div class='col' id='selectExternal'>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input' type='checkbox' id='selectSPFMean' name='external' value='SPFMean' disabled>
+                  <label class='form-check-label' for='selectSPFMean' id='selectSPFMeanlabel'>Survey of Professional Forecasters - Mean level</label>
+                </div>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input' type='checkbox' id='selectSPFAll' name='external' value='SPFAll' disabled>
+                  <label class='form-check-label' for='selectSPFAll' id='selectSPFAlllabel' >Survey of Professional Forecasters - Individual</label>
+                </div>
+                <div class='form-check form-check-inline'>
+                  <input class='form-check-input' type='checkbox' id='selectFRB' name='external' value='FRB' disabled>
+                  <label class='form-check-label' for='selectFRB' id='selectFRB'>Greenbook from the Federal Reserve Board of Governors</label>
+                </div>
+              </div>
+            </div>
+          </fieldset> -->
+        </fieldset>
+
+        <fieldset class='form-group big-group'>
+          <div class='row'>
+            <div class='col'>
+              <legend class='col-form-label pt-0'>Data scenario <a href='' id='scenarioAll'>All</a> <a href='' id='scenarioClear'>Clear</a></legend>
+            </div>
+            <div class='w-100'></div>
+            <div class='col' id='selectscenario'></div>
+          </div>
+        </fieldset>
+
+        <div class='row justify-content-center'>
+          <button type='submit' class='btn btn-primary'>Plot charts</button>
+        </div>
+
+      </form>
+
+      <div id='warning' style='color:red'></div>
+      
+    </div>
+
+    <hr>
+
+    <div class='container-fluid' id='bigChart'></div>
+
+    <script src='./js/jquery.js'></script>
+    <script src='./js/popper.min.js'></script>
+    <script src='./js/bootstrap.min.js'></script>
+    <script src="./js/Chart.bundle.js"></script>
+    <script src="./js/chartjs-plugin-annotation.js"></script>
+
+    <script src="./js/constants.js"></script>
+    <script>
+      'use strict';
+
+      $('#navbar_placeholder').load('./common/navbar.html');
+
+      fetch('./src/results.json').then(response => response.json()).then(data => {
+
+        function addItems(selectType, buttonType) {
+
+          let typeSet = new Set();
+
+          if (['dsge', 'ts', 'external'].includes(selectType)) {
+            data[selectType].forEach(item => typeSet.add(item['model']));
+          } else {
+            data['ts'].forEach(item => typeSet.add(item[selectType]));
+            data['dsge'].forEach(item => typeSet.add(item[selectType]));
+            data['external'].forEach(item => typeSet.add(item[selectType]));
+          }
+          typeSet.delete(undefined);
+
+          let typeArray = Array.from(typeSet);
+          typeArray.sort();
+
+          let addString = '';
+
+          for (let item of typeArray) {
+             let newString = `
+             <div class='form-check form-check-inline'>\n<input class='form-check-input' type='${buttonType}' id='select${item}' name='${selectType}' value='${item}'>\n<label class='form-check-label' for='select${item}' id='select${item}label'>${item}</label>\n</div>\n
+             `;
+
+            if (selectType == 'scenario') {
+              newString = newString.replace(`id='select${item}label'>${item}`, `id='select${item}label'>${scenarioStrings[item]}`)
+            }
+
+            addString += newString;
+          }
+
+          return addString;
+        }
+
+        for (let selectType of ['dsge', 'ts', 'external', 'vintage', 'scenario']) {
+          document.getElementById('select' + selectType).innerHTML = addItems(selectType, 'checkbox');
+        }
+
+        document.getElementById('selectSPFMean').checked = true;
+
+      });
+
+      // switch selection
+      // $('#filterModel button').click(function() {
+      //   $(this).removeClass('btn-outline-primary').addClass('btn-primary').siblings().removeClass('btn-primary').addClass('btn-outline-primary');
+      // });
+
+      
+
+      for (let part of ['dsge', 'ts', 'external', 'scenario']) {
+        for (let status of ['All', 'Clear']) {
+          let checkedStatus = (status == 'All') ? true : false;
+          document.getElementById(`${part}${status}`).addEventListener('click', function (event) {
+            event.preventDefault();
+            document.querySelectorAll(`input[name=${part}]`).forEach(function (item) {
+              if (!(item.disabled)) {
+                item.checked = checkedStatus;
+              }
+            });
+          });
+        }
+      }
+
+      // get selection
+      document.getElementById('selectForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const selection = $(this).serializeArray();
+        $(this)[0].reset();
+        document.getElementById('selectSPFMean').checked = true;
+
+        var selected = {
+          'vintage': [],
+          'dsge': [],
+          'ts': [],
+          'scenario': [],
+          'external': [],
+          'vintageQuarter': [],
+        }
+        for (let item of selection) {
+          selected[item.name].push(item.value);
+        }
+
+        var bigChart = document.getElementById('bigChart');
+        while (bigChart.firstChild) {
+            bigChart.removeChild(bigChart.firstChild);
+          }
+        bigChart.innerHTML = `<p class="legend" style='text-align: center;'></p>`;
+
+        for (let ivintage = 0; ivintage < selected['vintage'].length; ivintage++) {
+
+          console.log(ivintage);
+          // let warningShowDescription = document.createElement('p');
+          // warningShowDescription.innerHTML = `Forecasts from ${selected['dsge']} on ${selected['vintage']} in scenario ${selected['scenario']} will be shown.`;
+          // document.getElementById('warning').appendChild(warningShowDescription);
+
+          let yearStart = parseInt(selected['vintage'][ivintage].substring(0, 4));
+          let quarterStart = Math.floor((parseInt(selected['vintage'][ivintage].substring(5,7)) - 1) / 3) + 1;
+          let vintageQuarter = yearStart + 'Q' + quarterStart;
+          // selected['vintageQuarter'].push(vintageQuarter);
+
+          if (quarterStart == 1) {
+            quarterStart = 4;
+            yearStart -= 1;
+          } else {
+            quarterStart -= 1;
+          }
+          let xlabels = new Array(40);
+          let quarter = quarterStart, year = yearStart;
+          for (let i = 0; i < xlabels.length; i++) {
+            xlabels[i] = year.toString().substring(2) + 'Q' + quarter;
+            if (quarter == 4) {
+              quarter = 1;
+              year += 1;
+            } else {
+              quarter += 1;
+            }
+          }
+
+          fetch('./src/results.json').then(response => response.json()).then(data => {
+
+            let charts = document.createElement('div');
+            charts.classList.add('row');
+            charts.id = `charts${ivintage}`;
+            bigChart.appendChild(charts);
+
+            // let charts = document.getElementById('charts');
+            // while (charts.firstChild) {
+            //   charts.removeChild(charts.firstChild);
+            // }
+
+            let supTitle = document.createElement('div');
+            supTitle.classList.add('col');
+            supTitle.innerHTML = `<h5 style='text-align: center;'>Forecast start ${vintageQuarter}</h5>`;
+            let breakTitle = document.createElement('div');
+            breakTitle.classList.add('w-100');
+            charts.appendChild(supTitle);
+            charts.appendChild(breakTitle);
+
+            // get actual GDP series
+            let actualSeries = [];
+            for (let i = 0; i < data['actual'].length; i++) {
+              if (data['actual'][i].vintageQuarter == vintageQuarter) {
+                actualSeries = data['actual'][i].actual.gdp;
+                break;
+              }
+            }
+
+            let loopedOnce = false;
+            for (let scenario of selected['scenario']) {
+
+              let divCol = document.createElement('div');
+              divCol.classList.add(`col-sm-${12/selected['scenario'].length}`);
+              divCol.classList.add(`col-xs-${12/selected['scenario'].length}`);
+              let canvas = document.createElement('canvas');
+              divCol.appendChild(canvas);
+              charts.appendChild(divCol);
+
+              let ctx = canvas.getContext('2d');
+
+              let datasets = [];
+              var gdpLastQuarter = 0;
+              for (let type of ['dsge', 'ts', 'external']) {
+                for (let model of selected[type]) {
+                  var gdpData = [];
+                  var alreadyHaveThisLabel = [];
+                  for (let i = 0; i < data[type].length; i++) {
+                    if (data[type][i].model == model) {
+                      if ((data[type][i].vintage == selected['vintage'][ivintage]) && (data[type][i].scenario == scenario)) {
+                        gdpData = data[type][i].forecast.gdp;
+                        gdpLastQuarter = gdpData[0];
+                        datasets.push({
+                          fill: false,
+                          label: model,
+                          data: gdpData,
+                          backgroundColor: modelColor[model],
+                          borderColor: modelColor[model],
+                          borderDash: modelDash[model],
+                          pointRadius: 2.5,
+                        });
+                        break;
+                      } else if ((data[type][i].vintageQuarter == vintageQuarter) && (data[type][i].scenario == undefined)) {
+                        gdpData = data[type][i].forecast.gdp;
+                        gdpLastQuarter = gdpData[0];
+                        if (alreadyHaveThisLabel.includes(model)) {
+                          datasets.push({
+                            fill: false,
+                            label: 'hide',
+                            data: gdpData,
+                            backgroundColor: modelColor[model],
+                            borderColor: modelColor[model],
+                            borderDash: modelDash[model],
+                            pointRadius: 0,
+                            pointHitRadius: 0,
+                            borderWidth: 2,
+                          });
+                        } else {
+                          datasets.push({
+                            fill: false,
+                            label: model,
+                            data: gdpData,
+                            backgroundColor: modelColor[model],
+                            borderColor: modelColor[model],
+                            borderDash: modelDash[model],
+                            pointRadius: 0,
+                          });
+                          alreadyHaveThisLabel.push(model);
+                        }
+                        
+                      }
+                    
+                    }
+                  }
+
+
+                } 
+              }
+
+              console.log(gdpLastQuarter);
+
+              if (loopedOnce == false) {
+                loopedOnce = true;
+                actualSeries.unshift(gdpLastQuarter);
+              }
+
+              datasets.push({
+                fill: false,
+                label: 'Actual',
+                data: actualSeries,
+                backgroundColor: 'black',
+                borderColor: 'black',
+                borderWidth: 3,
+              });
+
+              let recessionPeriods = [];
+              for (let quarter of nberRecessionQuarter) {
+                let quarterNext = '';
+                if (parseInt(quarter[5]) == 4) {
+                  quarterNext = (parseInt(quarter.substring(0, 4)) + 1) + 'Q1';
+                } else {
+                  quarterNext = quarter.substring(0, 5) + (parseInt(quarter[5]) + 1);
+                }
+                recessionPeriods.push({
+                  type: 'box',
+                  drawTime: 'beforeDatasetsDraw',
+                  xScaleID: 'x-axis-0',
+                  xMin: quarter.substring(2),
+                  xMax: quarterNext.substring(2),
+                  borderColor: 'rgba(220, 220, 220, 0.5)',
+                  backgroundColor: 'rgba(220, 220, 220, 0.5)',
+                })
+              }
+
+              Chart.defaults.global.defaultFontFamily = 'Source Sans Pro';
+              Chart.defaults.global.defaultFontSize = 16;
+              Chart.defaults.global.elements.point.radius = 1;
+              Chart.defaults.global.elements.line.tension = 0;
+              let chart = new Chart(ctx, {
+                  type: 'line',
+                  
+                  data: {
+                      labels: xlabels.slice(0, 6),
+                      datasets: datasets,
+                  },
+
+                  options: {
+
+                    aspectRatio: 0.9,
+
+                    title: {
+                      display: true,
+                      text: `${scenarioStrings[scenario]}`,
+                    },
+
+                    // legend: {
+                    //   labels: {
+                    //     filter: function(item, data) {
+                    //       return !(item.text.includes('hide'));
+                    //     }
+                    //   }
+                    // },
+
+                    tooltips: {
+                      callbacks: {
+                        label: function(tooltipItem, data) {
+                          var label = data.datasets[tooltipItem.datasetIndex].label || '';
+                          if (label) {
+                            label += ': ';
+                          }
+                          label += Math.round(tooltipItem.yLabel * 1000) / 1000;
+                          return label;
+                        }
+                      }
+                    },
+                    
+                    legend: {display: false},
+
+                    scales: {
+                      yAxes: [{
+                        ticks: {
+                          suggestedMin: -8,
+                          suggestedMax: 6,
+                        }
+                      }]
+                    },
+
+                    annotation: {annotations: recessionPeriods}
+
+                  },
+
+              });
+
+              document.querySelector('.legend').innerHTML = chart.generateLegend();
+              let lis = document.querySelectorAll('li');
+              for (let item of lis) {
+                if (item.innerText == 'hide') {
+                  item.remove();
+                }
+              }
+
+              }
+
+            let breakLine = document.createElement('div');
+            breakLine.classList.add('w-100');
+            bigChart.appendChild(breakLine);
+
+            });
+          
+        }
+
+
+      });
+
+    </script>
+
+  </body>
+
+</html>

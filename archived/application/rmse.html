@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <title>MMB forecasting application</title>
+    <meta name='description' content='MMB forecasting application'>
+    <link rel="stylesheet" href="./css/bootstrap-table.min.css">
+    <link rel='stylesheet' href='./css/bootstrap.min.css'>
+    <link rel='stylesheet' href='./css/stylesheet.css'>
+  </head>
+
+  <body data-spy='scroll' data-target='#navbar-example'>
+
+    <div id='navbar_placeholder'></div>
+
+    <div class='container'>
+      <h1 class='page-header'>RMSE table</h1>
+      <p class='lead'>To create RMSE tables, select the vintage date and forecast sources</p>
+
+      <form id='selectForm'>
+
+        <fieldset class='form-group big-group'>
+          <div class='row'>
+            <div class='col'>
+              <legend class='col-form-label pt-0'>Vintage date  <a href='' id='vintageAll'>All</a><a href='' id='vintageClear'>Clear</a></legend>
+            </div>
+            <div class='w-100'></div>
+            <div class='col' id='selectvintage'></div>
+          </div>
+        </fieldset>
+
+        <fieldset class='form-group big-group'>
+          <div class='row'>
+            <div class='col'>
+              <legend class='col-form-label pt-0'>Forecast source</legend>
+            </div>
+          </div>
+  
+            <fieldset class='form-group small-group'>
+              <div class='row'>
+                <div class='col'>
+                  <legend class='col-form-label pt-0'>Macroeconomic models <a href='' id='dsgeAll'>All</a><a href='' id='dsgeClear'>Clear</a></legend>
+                </div>
+                <div class='w-100'></div>
+                <div class='col' id='selectdsge'></div>
+              </div>
+            </fieldset>
+  
+          <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>Time-series models <a href='' id='tsAll'>All</a><a href='' id='tsClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+              <div class='col' id='selectts'></div>
+            </div>
+          </fieldset>
+  
+          <fieldset class='form-group small-group'>
+            <div class='row'>
+              <div class='col'>
+                <legend class='col-form-label pt-0'>External projections <a href='' id='externalAll'>All</a><a href='' id='externalClear'>Clear</a></legend>
+              </div>
+              <div class='w-100'></div>
+              <div class='col' id='selectexternal'></div>
+              </div>
+            </div>
+          </fieldset>
+        </fieldset>
+
+        <div class='row justify-content-center'>
+          <button type='submit' class='btn btn-primary'>Compare RMSE</button>
+        </div>
+
+      </form>
+
+      <div id='warning' style='color:red'></div>
+      
+    </div>
+
+    <hr>
+    <div class='container'>
+      <div class='row'>
+        <div class='col'>
+          <div class='table-reponsive rmseTable'></div>
+        </div>
+      </div>
+      </div>
+    </div>
+
+    <script src='./js/jquery.js'></script>
+    <script src='./js/popper.min.js'></script>
+    <script src='./js/bootstrap.min.js'></script>
+    <script src="./js/bootstrap-table.min.js"></script>
+
+    <script src="./js/constants.js"></script>
+    <script>
+      'use strict';
+
+      $('#navbar_placeholder').load('./common/navbar.html');
+
+      fetch('./src/results.json').then(response => response.json()).then(data => {
+
+        function addItems(selectType, buttonType) {
+
+          let typeSet = new Set();
+
+          if (['dsge', 'ts', 'external'].includes(selectType)) {
+            data[selectType].forEach(item => typeSet.add(item['model']));
+          } else {
+            data['ts'].forEach(item => typeSet.add(item[selectType]));
+            data['dsge'].forEach(item => typeSet.add(item[selectType]));
+            data['external'].forEach(item => typeSet.add(item[selectType]));
+          }
+          typeSet.delete(undefined);
+
+          let typeArray = Array.from(typeSet);
+          typeArray.sort();
+
+          let addString = '';
+
+          for (let item of typeArray) {
+             let newString = `<div class='form-check form-check-inline'>\n<input class='form-check-input' type='${buttonType}' id='select${item}' name='${selectType}' value='${item}'>\n<label class='form-check-label' for='select${item}' id='select${item}label'>${item}</label>\n</div>\n`;
+
+            if (selectType == 'scenario') {
+              newString = newString.replace(`id='select${item}label'>${item}`, `id='select${item}label'>${scenarioStrings[item]}`)
+            }
+
+            // (only for RMSE) actual data in 2020 in not available yet
+            // do not show RMSE of external sources yet
+            if ((item.includes('2020')) || (item.includes('SPFIndividual')) || (item.includes('GB'))) {
+              newString = newString.replace('<input', '<input disabled');
+            }
+
+            addString += newString;
+          }
+
+          return addString;
+        }
+
+        for (let selectType of ['dsge', 'ts', 'external', 'vintage']) {
+          document.getElementById('select' + selectType).innerHTML = addItems(selectType, 'checkbox');
+        }
+
+      });
+
+      for (let part of ['dsge', 'ts', 'external', 'vintage']) {
+        for (let status of ['All', 'Clear']) {
+          let checkedStatus = (status == 'All') ? true : false;
+          document.getElementById(`${part}${status}`).addEventListener('click', function (event) {
+            event.preventDefault();
+            document.querySelectorAll(`input[name=${part}]`).forEach(function (item) {
+              if (!(item.disabled)) {
+                item.checked = checkedStatus;
+              }
+            });
+          });
+        }
+      }
+
+      // get selection
+      document.getElementById('selectForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const selection = $(this).serializeArray();
+        $(this)[0].reset();
+        let selected = {
+          'vintage': [],
+          'dsge': [],
+          'ts': [],
+          'scenario': [],
+          'external': [],
+          'vintageQuarter': [],
+        }
+        for (let item of selection) {
+          selected[item.name].push(item.value);
+        }
+
+        for (let vintage of selected['vintage']) {
+          let yearStart = parseInt(vintage.substring(0, 4));
+          let quarterStart = Math.floor((parseInt(vintage.substring(5,7)) - 1) / 3) + 1;
+          selected['vintageQuarter'].push(yearStart + 'Q' + quarterStart);
+        }
+
+        fetch('./src/results.json').then(response => response.json()).then(data => {
+
+          let rmseMap = new Map();
+          for (let item of data['error']) {
+            let model = item['model'], squaredError = item['squaredError'];
+
+            if ('vintageQuarter' in item) {
+              var vintageQuarter = item['vintageQuarter'];
+            } else {
+              let yearStart = parseInt(item['vintage'].substring(0, 4));
+              let quarterStart = Math.floor((parseInt(item['vintage'].substring(5,7)) - 1) / 3) + 1;
+              var vintageQuarter = yearStart + 'Q' + quarterStart;
+            }
+
+            let scenario = ('scenario' in item) ? item['scenario'] : '-';
+
+            if (((selected['dsge'].includes(model)) || (selected['ts'].includes(model)) || (selected['external'].includes(model)) || (selected['external'].includes(model)))) {
+              if (selected['vintageQuarter'].includes(vintageQuarter)) {
+                let modelScenario = model + ':' + scenario;
+                if (rmseMap.has(modelScenario)) {
+                  let existingArray = rmseMap.get(modelScenario);
+                  for (let i = 0; i < squaredError.length; i++) {
+                    squaredError[i] += existingArray[1][i];
+                  }
+                  rmseMap.set(modelScenario, [existingArray[0] + 1, squaredError]);
+                } else {
+                  rmseMap.set(modelScenario, [1, squaredError]);
+                }
+              }
+            }
+
+
+            // let model = item['model'], scenario = item['scenario'], squaredError = item['squaredError'], vintage = item['vintage'], vintageQuarter = item['vintageQuarter'];
+
+            // if (((selected['dsge'].includes(model)) || (selected['ts'].includes(model)) || (selected['external'].includes(model)) || (selected['external'].includes(model))) && (selected['vintage'].includes(vintage))) {
+            //   let modelScenario = model + ':' + scenario;
+            //   if (rmseMap.has(modelScenario)) {
+            //     let existingArray = rmseMap.get(modelScenario);
+            //     for (let i = 0; i < squaredError.length; i++) {
+            //       squaredError[i] += existingArray[1][i];
+            //     }
+            //     rmseMap.set(modelScenario, [existingArray[0] + 1, squaredError]);
+            //   } else {
+            //     rmseMap.set(modelScenario, [1, squaredError]);
+            //   }
+            // }
+          }
+
+          console.log(rmseMap);
+
+          let rmseArray = [];
+          for (let entry of rmseMap) {
+            let modelScenario = entry[0].split(':');
+            let rmse = entry[1][1].map(function (item) { return Math.sqrt(item/entry[1][0]).toFixed(3); });
+            let nowcast = (['s2', 's4'].includes(modelScenario[1])) ? '-' : rmse[0];
+            rmseArray.push({
+              'model': modelScenario[0],
+              'scenario': modelScenario[1],
+              'nowcast': nowcast,
+              '1-step': rmse[1],
+              '2-step': rmse[2],
+              '3-step': rmse[3],
+              '4-step': rmse[4],
+            });
+          }
+
+          document.querySelector('.rmseTable').innerHTML = `<table id='table'></table>`;
+          let table = document.getElementById('table');
+          table.setAttribute('data-toggle', 'table');
+          table.innerHTML = `
+          <thead>
+            <tr>
+              <th data-field='model' rowspan='2' data-valign='middle' data-sortable='true'>Model</th>
+              <th data-field='scenario' rowspan='2' data-valign='middle' data-sortable='true'>Scenario</th>
+              <th colspan='5'>Root mean squared error</th>
+            </tr>
+            <tr>
+              <th data-field='nowcast' data-sortable='true'>Nowcast</th>
+              <th data-field='1-step' data-sortable='true'>1-step</th>
+              <th data-field='2-step' data-sortable='true'>2-step</th>
+              <th data-field='3-step' data-sortable='true'>3-step</th>
+              <th data-field='4-step' data-sortable='true'>4-step</th>
+            </tr>
+          </thead>
+          `;
+          $('#table').bootstrapTable({
+            'data': rmseArray,
+            'classes': 'table table-sm table-bordered table-hover',
+            'theadClasses': 'thead-light',
+            'sortable': true,
+          });
+
+          });
+
+      });
+
+    </script>
+
+  </body>
+
+</html>

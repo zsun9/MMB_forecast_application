@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <title>MMB forecasting application</title>
+    <meta name='description' content='MMB forecasting application'>
+    <link rel='stylesheet' href='../css/bootstrap.min.css'>
+    <link rel='stylesheet' href='../css/stylesheet.css'>
+  </head>
+
+  <body data-spy='scroll' data-target='#navbar-example'>
+
+    <div id='navbar_placeholder'></div>
+
+    <div class='container'>
+      <div class='row mt-5'>
+        <div class='col-md-6 m-auto'>
+          <div class='card card-body'>
+            <h1 class='text-center mb-3'>Login</h1>
+            <form action='/login' method='POST'>
+              <div class='form-group'>
+                <label for='name'>Username</label>
+                <input
+                  type='name'
+                  id='name'
+                  name='name'
+                  class='form-control'
+                  placeholder='Enter Username'
+                />
+              </div>
+              <div class='form-group'>
+                <label for='password'>Password</label>
+                <input
+                  type='password'
+                  id='password'
+                  name='password'
+                  class='form-control'
+                  placeholder='Enter Password'
+                />
+              </div>
+              <button type='submit' class='btn btn-primary btn-block'>Login</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src='../js/jquery.js'></script>
+    <script src='../js/popper.min.js'></script>
+    <script src='../js/bootstrap.min.js'></script>
+    <script>
+      'use strict';
+
+      $('#navbar_placeholder').load('../common/navbar_login.html');
+      
+    </script>
+
+  </body>
+
+</html>

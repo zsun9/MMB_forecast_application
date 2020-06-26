@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no'>
+    <title>MMB forecasting application</title>
+    <meta name='description' content='MMB forecasting application'>
+    <link rel='stylesheet' href='./css/bootstrap.min.css'>
+    <link rel='stylesheet' href='./css/stylesheet.css'>
+  </head>
+
+  <body data-spy='scroll' data-target='#navbar-example'>
+
+    <div id='navbar_placeholder'></div>
+
+    <div class='container'>
+      <h1 class='page-header'>MMB Forecasting Application</h1>
+      <p class='lead'>The application presents real-time macroeconomic forecasts from estimated macroeconomic and Bayesian time-series models.</p>
+      <p>You can compare the forecasts <a href='./forecast.html'>graphically through forecast charts</a> and <a href='./rmse.html'>numerically through RMSE tables</a>.</p>
+      <p>To understand the difference in the forecasting performance, you can also <a href='./variable.html'>plot the time-series of input variables</a> and <a href='./about.html#models'>read model descriptions</a>.</p>
+    </div>
+
+    <!-- <div class='container'>
+      <p class='invisible'>The chart below displays the latest U.S. GDP growth nowcast and forecast based on input variables collected on May 12th, 2020.</p>
+    </div> -->
+
+    <!-- <footer class='navbar fixed-bottom'>
+        <p class='text-muted'>Place sticky footer content here.</p>
+    </footer> -->
+
+    <script src='./js/jquery.js'></script>
+    <script src='./js/popper.min.js'></script>
+    <script src='./js/bootstrap.min.js'></script>
+    <script>
+      'use strict';
+
+      $('#navbar_placeholder').load('./common/navbar.html');
+      
+    </script>
+
+  </body>
+
+</html>
