@@ -17,6 +17,8 @@ const modelColor = {
   'DNGS15_cql_ew': 'Orange',
   'FRBEDO08': 'LawnGreen',
   'FRBEDO08_cql': 'LawnGreen',
+  'FRBEDO08_ew': 'LawnGreen',
+  'FRBEDO08_cql_ew': 'LawnGreen',
   'QPM08': 'DarkMagenta',
   'QPM08_cql': 'DarkMagenta',
   'QPM08_ew': 'DarkMagenta',
@@ -38,6 +40,8 @@ const modelDash = {
   'DNGS15_cql_ew': [5, 5],
   'QPM08_ew': [5, 5],
   'QPM08_cql_ew': [5, 5],
+  'FRBEDO08_ew': [5, 5],
+  'FRBEDO08_cql_ew': [5, 5],
 }
 
 const scenarioStrings = {

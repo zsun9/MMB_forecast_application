@@ -70,7 +70,7 @@ for index, row in df_sgf.iterrows():
 # collect forecast results from the estimation folder
 # calculate forecast errors
 for directory in paths['estimations'].glob('*'):
-    if 'KLTrial' in directory.stem or '2011' in directory.stem or 'nofa' in directory.stem:
+    if 'KLTrial' in directory.stem or 'nofa' in directory.stem or '2011' in directory.stem:
         print(f'Not included: {directory.stem}')
     else:
         if directory.is_dir():
@@ -82,6 +82,8 @@ for directory in paths['estimations'].glob('*'):
                     assert 'cql' in inst['model']
                 if 'ew' in directory.stem:
                     inst['model'] += '_ew'
+                if 'dy424' in directory.stem:
+                    inst['model'] += '_dy424'
                 if 'GLP' in inst['model']:
                     results['ts'].append(inst)
                 else:

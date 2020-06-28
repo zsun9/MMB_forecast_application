@@ -1,0 +1,726 @@
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 63 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+      -5.776e+17                0
+       1.285e+18       -1.285e+18                0
+       3.763e+18       -3.763e+18                0
+       1.794e+20       -1.794e+20                0
+
+
+There are 20 eigenvalue(s) larger than 1 in modulus 
+for 20 forward-looking variable(s)
+
+The rank condition is verified.
+
+
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('makedataset', 'C:\dynare\4.5.7\matlab\utilities\dataset\makedataset.m', 107)" style="font-weight:bold">makedataset</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\utilities\dataset\makedataset.m',107,0)">line 107</a>)
+makedataset: I can't find a datafile (with allowed extension m, mat, csv, xls or xlsx)!
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_init', 'C:\dynare\4.5.7\matlab\dynare_estimation_init.m', 538)" style="font-weight:bold">dynare_estimation_init</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation_init.m',538,0)">line 538</a>)
+[dataset_, dataset_info, newdatainterfaceflag] = makedataset(options_, options_.dsge_var*options_.dsge_varlag, gsa_flag);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\4.5.7\matlab\dynare_estimation_1.m', 116)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation_1.m',116,0)">line 116</a>)
+    dynare_estimation_init(var_list_, dname, [], M_, options_, oo_, estim_params_, bayestopt_);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\4.5.7\matlab\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation.m',105,0)">line 105</a>)
+    dynare_estimation_1(var_list,dname);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('KR15_HH', 'C:\Users\dev\Desktop\KR15_HH\model_hh_MODIFIED_widerBounds\KR15_HH.m', 948)" style="font-weight:bold">KR15_HH</a> (<a href="matlab: opentoline('C:\Users\dev\Desktop\KR15_HH\model_hh_MODIFIED_widerBounds\KR15_HH.m',948,0)">line 948</a>)
+oo_recursive_=dynare_estimation(var_list_);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\4.5.7\matlab\dynare.m', 235)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare.m',235,0)">line 235</a>)
+evalin('base',fname) ;
+} 
+dynare KR15_HH
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 63 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+STEADY-STATE RESULTS:
+
+lambda           		 0.903777
+R                		 1.01761
+pic              		 1.0075
+c                		 1.1191
+w                		 1.28286
+phi_w            		 59.4818
+psi_w            		 6.96573
+L                		 1.05539
+k                		 14.2922
+k_bar            		 14.3638
+i                		 0.428945
+Q                		 1
+R_e              		 1.01761
+r_k              		 0.0350376
+u                		 1
+mc               		 0.869565
+p_tilda          		 1
+phi_f            		 4.15951
+psi_f            		 4.78343
+y                		 2.13288
+Delta            		 1
+z                		 0.005
+lb               		 0
+lphi             		 -0.223144
+lmu              		 0
+llambda_f        		 -1.89712
+lg               		 0.223144
+lA               		 0
+gdp_rgd_obs      		 0.5
+c_rgd_obs        		 0.5
+dlnI             		 0.5
+hours_kr15_obs   		 667.391
+wage_rgd_obs     		 0.5
+gdpdef_obs       		 0.747201
+ffr_obs          		 1.76129
+o                		 11.8255
+o_p              		 15.9785
+o_i              		 9.28014
+Q_o              		 1
+c_i              		 1.18434
+d_i              		 6.8139
+R_i              		 1.02397
+t_i              		 0
+L_i              		 1.05513
+w_i_tilda        		 1.28294
+w_i              		 1.28294
+phi_w_i          		 57.3451
+psi_w_i          		 6.70592
+w_p_tilda        		 1.28275
+w_p              		 1.28275
+L_p              		 1.05581
+lambda_i         		 0.902485
+theta            		 0.0167962
+i_o              		 0.117813
+la               		 -1.53712
+lm               		 -0.287682
+lmu_o            		 0
+llambda_d        		 -5.07517
+inr_nom_obs      		 0.5
+ir_nom_obs       		 0.5
+mortgage_nom_obs 		 1.2472
+hp_nom_obs       		 0.747201
+mortffr_obs      		 0.636008
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+               0                0                0
+               0                0                0
+       8.065e-17        8.065e-17                0
+       1.315e-16       -1.315e-16                0
+       1.818e-16        1.818e-16                0
+       2.902e-16       -2.902e-16                0
+          0.3985           0.3985                0
+          0.5562           0.5152           0.2097
+          0.5562           0.5152          -0.2097
+             0.6              0.6                0
+          0.6061           0.6061                0
+          0.6382           0.6382                0
+          0.7263           0.7263                0
+           0.777           0.7697           0.1064
+           0.777           0.7697          -0.1064
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+          0.9379            0.936          0.06024
+          0.9379            0.936         -0.06024
+          0.9729           0.9729                0
+           1.021            1.021                0
+           1.072             1.07          0.06721
+           1.072             1.07         -0.06721
+            1.17             1.17                0
+           1.227            1.176           0.3476
+           1.227            1.176          -0.3476
+           1.364            1.357           0.1344
+           1.364            1.357          -0.1344
+           1.397            1.397                0
+           1.675            1.675                0
+           1.675            1.675                0
+           1.675            1.675                0
+           1.694            1.694                0
+           1.718            1.718                0
+       7.568e+16       -7.568e+16                0
+       1.326e+17       -1.326e+17                0
+       5.776e+17       -5.776e+17                0
+       1.285e+18       -1.285e+18                0
+       3.763e+18       -3.763e+18                0
+       1.794e+20       -1.794e+20                0
+
+
+There are 20 eigenvalue(s) larger than 1 in modulus 
+for 20 forward-looking variable(s)
+
+The rank condition is verified.
+
+
+Initial value of the log posterior (or likelihood): -2742762.8108
+Gradient norm 1725205681.3066
+Minimum Hessian eigenvalue 4.4875
+Maximum Hessian eigenvalue 4.494387049174264e+17
+ 
+Iteration 1
+Correct for low angle: 3.45935e-08
+Predicted improvement:  5149465.323947205
+lambda =          1; f =      2716872.4548476
+lambda =    0.33333; f =      2732990.0294298
+lambda =    0.11111; f =      2739388.3118619
+lambda =   0.037037; f =      2741625.3876063
+lambda =   0.012346; f =      2742382.2484303
+lambda =  0.0041152; f =      2742635.8521244
+lambda =  0.0013717; f =      2742720.4957540
+lambda = 0.00045725; f =      2742748.8294786
+lambda = 0.00015242; f =      2742758.1901671
+lambda = 5.0805e-05; f =      2742761.3197533
+lambda = 1.6935e-05; f =      2742762.3428501
+lambda =  5.645e-06; f =      2742762.7762625
+lambda = 1.8817e-06; f =      2742762.8604987
+lambda = 6.2723e-07; f =      2742762.8613898
+lambda = 2.0908e-07; f =      2742762.8586583
+lambda = 6.9692e-08; f =      2742762.8997413
+lambda = 2.3231e-08; f =      2742762.8466928
+lambda = 7.7435e-09; f =      2742762.9055918
+lambda = 2.5812e-09; f =      2742762.9603337
+Norm of dx      1.194
+Predicted improvement: 1488167321406263808.000000000
+lambda =          1; f = 1448719844584850432.0000000
+lambda =    0.33333; f = 160968868935965504.0000000
+lambda =    0.11111; f = 17885428988541496.0000000
+lambda =   0.037037; f = 1987269591496957.0000000
+lambda =   0.012346; f = 220807635307677.4062500
+lambda =  0.0041152; f = 24534150965943.4882813
+lambda =  0.0013717; f = 2726008154405.4458008
+lambda = 0.00045725; f = 302888547119.4234619
+lambda = 0.00015242; f =  33655492456.6742287
+lambda = 5.0805e-05; f =   3741527691.2309899
+lambda = 1.6935e-05; f =    418026857.0617414
+lambda =  5.645e-06; f =     48839996.1510844
+lambda = 1.8817e-06; f =      7849570.3452090
+lambda = 6.2723e-07; f =      3305190.7615110
+lambda = 2.0908e-07; f =      2803630.4208258
+lambda = 6.9692e-08; f =      2749025.0688063
+lambda = 2.3231e-08; f =      2743330.1361238
+lambda = 7.7435e-09; f =      2742804.1193658
+lambda = 2.5812e-09; f =      2742765.5760980
+
+lambda =
+
+  -6.2723e-07
+
+lambda = -6.2723e-07; f =      3337852.7536063
+lambda = -2.0908e-07; f =      2807633.8627499
+lambda = -6.9692e-08; f =      2749606.6555018
+lambda = -2.3231e-08; f =      2743448.2346867
+lambda = -7.7435e-09; f =      2742823.9425361
+lambda = -2.5812e-09; f =      2742766.3792430
+Norm of dx 1.7252e+09
+Predicted improvement:        0.000022608
+lambda =          1; f =      2716872.4316074
+lambda =     1.9332; f =      2716872.4235671
+lambda =     3.7372; f =      2716872.4076814
+lambda =     7.2247; f =      2716872.4040982
+lambda =     13.967; f =      2716872.4300518
+lambda =         27; f =      2716872.5130215
+lambda =      18.18; f =      2716872.4759056
+lambda =     12.242; f =      2716872.5048009
+lambda =     8.2428; f =      2716872.4457066
+lambda =      10.45; f =      2716872.4115015
+lambda =     13.249; f =      2716872.4695991
+lambda =     11.491; f =      2716872.4150144
+lambda =     12.516; f =      2716872.4690633
+lambda =      11.89; f =      2716872.4417833
+lambda =     12.262; f =      2716872.4519382
+lambda =     12.645; f =      2716872.4451500
+lambda =      13.04; f =      2716872.4687450
+lambda =     12.801; f =      2716872.4727368
+lambda =     12.567; f =      2716872.4482917
+lambda =     12.707; f =      2716872.4453936
+lambda =     12.849; f =      2716872.4369114
+lambda =     12.992; f =      2716872.4209402
+lambda =     13.136; f =      2716872.4597421
+Norm of dx 2.8405e-12
+Done for param eps_z =   0.7502
+Predicted improvement:        0.000021879
+lambda =          1; f =      2716872.4703447
+lambda =    0.33333; f =      2716872.4015044
+lambda =    0.64439; f =      2716872.4047637
+lambda =     0.4339; f =      2716872.4607257
+lambda =    0.34224; f =      2716872.4718958
+lambda =    0.33598; f =      2716872.4131054
+Norm of dx 3.1568e-12
+Done for param eps_phi =   3.4432
+Predicted improvement:        0.003285062
+lambda =          1; f =      2716872.4510131
+lambda =    0.33333; f =      2716872.4605302
+lambda =    0.11111; f =      2716872.4627559
+lambda =   0.037037; f =      2716872.4424935
+lambda =   0.012346; f =      2716872.4073180
+lambda =  0.0041152; f =      2716872.4917910
+lambda =  0.0013717; f =      2716872.4993655
+lambda = 0.00045725; f =      2716872.4640756
+lambda = 0.00015242; f =      2716872.4133083
+lambda = 5.0805e-05; f =      2716872.4866963
+lambda = 1.6935e-05; f =      2716872.4015044
+lambda =  5.645e-06; f =      2716872.4015044
+lambda = 1.8817e-06; f =      2716872.4015044
+lambda = 6.2723e-07; f =      2716872.4015044
+lambda = 2.0908e-07; f =      2716872.4015044
+lambda = 6.9692e-08; f =      2716872.4015044
+lambda = 2.3231e-08; f =      2716872.4015044
+lambda = 7.7435e-09; f =      2716872.4015044
+lambda = 2.5812e-09; f =      2716872.4015044
+
+lambda =
+
+  -6.2723e-07
+
+lambda = -6.2723e-07; f =      2716872.4015044
+Norm of dx 2.1962e-11
+Done for param eps_lambda_f =   7.3094
+Predicted improvement:        0.003501613
+lambda =          1; f =      2716872.4078042
+lambda =    0.33333; f =      2716872.4664651
+lambda =    0.11111; f =      2716872.4812663
+lambda =   0.037037; f =      2716872.3784510
+lambda =   0.071599; f =      2716872.4991800
+lambda =   0.048211; f =      2716872.5106587
+lambda =   0.038027; f =      2716872.5041005
+lambda =   0.037331; f =      2716872.4564182
+Norm of dx 1.6525e-11
+Done for param eps_mu =   4.1327
+Predicted improvement:        0.025049247
+lambda =          1; f =      2716872.5034331
+lambda =    0.33333; f =      2716872.4823322
+lambda =    0.11111; f =      2716872.4830116
+lambda =   0.037037; f =      2716872.4291296
+lambda =   0.012346; f =      2716872.5285299
+lambda =  0.0041152; f =      2716872.4313441
+lambda =  0.0013717; f =      2716872.4310685
+lambda = 0.00045725; f =      2716872.4511764
+lambda = 0.00015242; f =      2716872.4211238
+lambda = 5.0805e-05; f =      2716872.5011513
+lambda = 1.6935e-05; f =      2716872.4957167
+lambda =  5.645e-06; f =      2716872.4845984
+lambda = 1.8817e-06; f =      2716872.4299667
+lambda = 6.2723e-07; f =      2716872.3803541
+lambda = 2.0908e-07; f =      2716872.3784510
+lambda = 6.9692e-08; f =      2716872.3784510
+lambda = 2.3231e-08; f =      2716872.3784510
+lambda = 7.7435e-09; f =      2716872.3784510
+lambda = 2.5812e-09; f =      2716872.3784510
+
+lambda =
+
+  -6.2723e-07
+
+lambda = -6.2723e-07; f =      2716872.4043271
+lambda = -2.0908e-07; f =      2716872.3784510
+Norm of dx 3.5681e-10
+Done for param eps_b =   2.2794
+Predicted improvement:        0.001021204
+lambda =          1; f =      2716872.4242802
+lambda =    0.33333; f =      2716872.4210754
+lambda =    0.11111; f =      2716872.4882742
+lambda =   0.037037; f =      2716872.4080785
+lambda =   0.012346; f =      2716872.4643076
+lambda =  0.0041152; f =      2716872.5008214
+lambda =  0.0013717; f =      2716872.4502182
+lambda = 0.00045725; f =      2716872.4991592
+lambda = 0.00015242; f =      2716872.4173372
+lambda = 5.0805e-05; f =      2716872.4803535
+lambda = 1.6935e-05; f =      2716872.3801213
+lambda =  5.645e-06; f =      2716872.4656908
+lambda = 1.8817e-06; f =      2716872.3784510
+lambda = 6.2723e-07; f =      2716872.3784510
+lambda = 2.0908e-07; f =      2716872.3784510
+lambda = 6.9692e-08; f =      2716872.3784510
+lambda = 2.3231e-08; f =      2716872.3784510
+lambda = 7.7435e-09; f =      2716872.3784510
+lambda = 2.5812e-09; f =      2716872.3784510
+
+lambda =
+
+  -6.2723e-07
+
+lambda = -6.2723e-07; f =      2716872.3784510
+Norm of dx 1.2889e-11
+Done for param eps_g =   0.5992
+Predicted improvement:        0.000194844
+lambda =          1; f =      2716872.4649600
+lambda =    0.33333; f =      2716872.4060910
+lambda =    0.11111; f =      2716872.4896302
+lambda =   0.037037; f =      2716872.4620116
+lambda =   0.012346; f =      2716872.3877634
+lambda =  0.0041152; f =      2716872.4614523
+lambda =  0.0013717; f =      2716872.4205169
+lambda = 0.00045725; f =      2716872.5220531
+lambda = 0.00015242; f =      2716872.4662162
+lambda = 5.0805e-05; f =      2716872.5031556
+lambda = 1.6935e-05; f =      2716872.4061802
+lambda =  5.645e-06; f =      2716872.3784510
+lambda = 1.8817e-06; f =      2716872.3784510
+lambda = 6.2723e-07; f =      2716872.3784510
+lambda = 2.0908e-07; f =      2716872.3784510
+lambda = 6.9692e-08; f =      2716872.3784510
+lambda = 2.3231e-08; f =      2716872.3784510
+lambda = 7.7435e-09; f =      2716872.3784510
+lambda = 2.5812e-09; f =      2716872.3784510
+
+lambda =
+
+  -6.2723e-07
+
+lambda = -6.2723e-07; f =      2716872.3784510
+Norm of dx 4.7149e-12
+Done for param eps_R =   0.2878
+Predicted improvement:        0.001798671
+lambda =          1; f =      2716872.4570529
+lambda =    0.33333; f =      2716872.4898169
+lambda =    0.11111; f =      2716872.4508672
+lambda =   0.037037; f =      2716872.4074414
+lambda =   0.012346; f =      2716872.4837835
+lambda =  0.0041152; f =      2716872.4516825
+lambda =  0.0013717; f =      2716872.4465683
+lambda = 0.00045725; f =      2716872.4642720
+lambda = 0.00015242; f =      2716872.4510828
+lambda = 5.0805e-05; f =      2716872.4821368
+lambda = 1.6935e-05; f =      2716872.4470167
+lambda =  5.645e-06; f =      2716872.4348498
+lambda = 1.8817e-06; f =      2716872.3784510
+lambda = 6.2723e-07; f =      2716872.3784510
+lambda = 2.0908e-07; f =      2716872.3784510
+lambda = 6.9692e-08; f =      2716872.3784510
+lambda = 2.3231e-08; f =      2716872.3784510
+lambda = 7.7435e-09; f =      2716872.3784510
+lambda = 2.5812e-09; f =      2716872.3784510
+
+lambda =
+
+  -6.2723e-07
+
+lambda = -6.2723e-07; f =      2716872.3784510
+Norm of dx 1.3502e-11
+Done for param eps_a =   0.5006
+Predicted improvement:        0.013413593
+lambda =          1; f =      2716872.4524736
+lambda =    0.33333; f =      2716872.4406006
+lambda =    0.11111; f =      2716872.4245347
+lambda =   0.037037; f =      2716872.4736132
+lambda =   0.012346; f =      2716872.4640660
+lambda =  0.0041152; f =      2716872.4744516
+lambda =  0.0013717; f =      2716872.4740824
+lambda = 0.00045725; f =      2716872.4323154
+lambda = 0.00015242; f =      2716872.4064285
+lambda = 5.0805e-05; f =      2716872.4046283
+lambda = 1.6935e-05; f =      2716872.4590575
+lambda =  5.645e-06; f =      2716872.4787114
+lambda = 1.8817e-06; f =      2716872.4445010
+lambda = 6.2723e-07; f =      2716872.4911377
+lambda = 2.0908e-07; f =      2716872.3784510
+lambda = 6.9692e-08; f =      2716872.3784510
+lambda = 2.3231e-08; f =      2716872.3784510
+lambda = 7.7435e-09; f =      2716872.3784510
+lambda = 2.5812e-09; f =      2716872.3784510
+
+lambda =
+
+  -6.2723e-07
+
+lambda = -6.2723e-07; f =      2716872.4975686
+lambda = -2.0908e-07; f =      2716872.3784510
+Norm of dx 4.8311e-11
+Done for param eps_m =   0.4995
+Predicted improvement:        0.000962429
+lambda =          1; f =      2716872.4148279
+lambda =    0.33333; f =      2716872.4609625
+lambda =    0.11111; f =      2716872.4284874
+lambda =   0.037037; f =      2716872.5091959
+lambda =   0.012346; f =      2716872.4939552
+lambda =  0.0041152; f =      2716872.5443608
+lambda =  0.0013717; f =      2716872.4907235
+lambda = 0.00045725; f =      2716872.3736708
+lambda = 0.00088394; f =      2716872.4964007
+lambda =  0.0005952; f =      2716872.5543147
+lambda = 0.00046946; f =      2716872.4910796
+lambda = 0.00046088; f =      2716872.4577654
+Norm of dx 1.2022e-11
+Done for param eps_mu_o =   0.4992
+Predicted improvement:        0.000290788
+lambda =          1; f =      2716872.5022598
+lambda =    0.33333; f =      2716872.4274315
+lambda =    0.11111; f =      2716872.4716727
+lambda =   0.037037; f =      2716872.4199224
+lambda =   0.012346; f =      2716872.4271238
+lambda =  0.0041152; f =      2716872.4684989
+lambda =  0.0013717; f =      2716872.4469452
+lambda = 0.00045725; f =      2716872.5015846
+lambda = 0.00015242; f =      2716872.4586249
+lambda = 5.0805e-05; f =      2716872.3717053
+lambda = 9.8216e-05; f =      2716872.4447201
+lambda = 6.6133e-05; f =      2716872.4744653
+lambda = 5.2163e-05; f =      2716872.3717053
+lambda = 6.0144e-05; f =      2716872.4834037
+lambda =  5.522e-05; f =      2716872.4834037
+lambda = 5.2461e-05; f =      2716872.3717053
+lambda = 5.4099e-05; f =      2716872.3717053
+lambda = 5.5789e-05; f =      2716872.4834037
+lambda = 5.4769e-05; f =      2716872.4834037
+lambda = 5.3767e-05; f =      2716872.3717053
+lambda = 5.4366e-05; f =      2716872.3717053
+lambda = 5.4971e-05; f =      2716872.4834037
+Norm of dx 6.5906e-12
+Done for param eps_lambda_d =   0.4999
+Predicted improvement:        0.001568011
+lambda =          1; f =      2716872.5041154
+lambda =    0.33333; f =      2716872.4271779
+lambda =    0.11111; f =      2716872.3703106
+lambda =     0.2148; f =      2716872.3851585
+lambda =    0.14463; f =      2716872.4185881
+lambda =    0.11408; f =      2716872.4402117
+lambda =    0.11199; f =      2716872.4506828
+Norm of dx 1.2952e-11
+Done for param alpha =   0.1551
+Predicted improvement:        0.003798111
+lambda =          1; f =      2716872.4622930
+lambda =    0.33333; f =      2716872.4539664
+lambda =    0.11111; f =      2716872.4121027
+lambda =   0.037037; f =      2716872.4032478
+lambda =   0.012346; f =      2716872.4634724
+lambda =  0.0041152; f =      2716872.4646689
+lambda =  0.0013717; f =      2716872.4418494
+lambda = 0.00045725; f =      2716872.5081742
+lambda = 0.00015242; f =      2716872.4242834
+lambda = 5.0805e-05; f =      2716872.4750330
+lambda = 1.6935e-05; f =      2716872.4054901
+lambda =  5.645e-06; f =      2716872.4794033
+lambda = 1.8817e-06; f =      2716872.3703106
+lambda = 6.2723e-07; f =      2716872.3703106
+lambda = 2.0908e-07; f =      2716872.3703106
+lambda = 6.9692e-08; f =      2716872.3703106
+lambda = 2.3231e-08; f =      2716872.3703106
+lambda = 7.7435e-09; f =      2716872.3703106
+lambda = 2.5812e-09; f =      2716872.3703106
+
+lambda =
+
+  -6.2723e-07
+
+lambda = -6.2723e-07; f =      2716872.3703106
+Norm of dx 1.8582e-11
+Done for param zeta_p =   0.7699
+Predicted improvement:        0.000437562
+lambda =          1; f =      2716872.4372238
+lambda =    0.33333; f =      2716872.4986596
+lambda =    0.11111; f =      2716872.4375576
+lambda =   0.037037; f =      2716872.4337111
+lambda =   0.012346; f =      2716872.3964555
+lambda =  0.0041152; f =      2716872.4356787
+lambda =  0.0013717; f =      2716872.4717818
+lambda = 0.00045725; f =      2716872.4223529
+lambda = 0.00015242; f =      2716872.4582236
+lambda = 5.0805e-05; f =      2716872.4240447
+lambda = 1.6935e-05; f =      2716872.4132831
+lambda =  5.645e-06; f =      2716872.4138004
+lambda = 1.8817e-06; f =      2716872.4551619
+lambda = 6.2723e-07; f =      2716872.3703106
+lambda = 2.0908e-07; f =      2716872.3703106
+lambda = 6.9692e-08; f =      2716872.3703106
+lambda = 2.3231e-08; f =      2716872.3703106
+lambda = 7.7435e-09; f =      2716872.3703106
+lambda = 2.5812e-09; f =      2716872.3703106
+
+lambda =
+
+  -6.2723e-07
+
+lambda = -6.2723e-07; f =      2716872.3703106
+Norm of dx 1.0801e-11
+Done for param iota_p =   0.0636
+Predicted improvement:        0.003417660
+lambda =          1; f =      2716872.4242279
+lambda =    0.33333; f =      2716872.5290716
+lambda =    0.11111; f =      2716872.4483210
+lambda =   0.037037; f =      2716872.4906536
+lambda =   0.012346; f =      2716872.4332800
+lambda =  0.0041152; f =      2716872.4891987
+lambda =  0.0013717; f =      2716872.4903277
+lambda = 0.00045725; f =      2716872.4217223
+lambda = 0.00015242; f =      2716872.4392509
+lambda = 5.0805e-05; f =      2716872.4811036
+lambda = 1.6935e-05; f =      2716872.3703106
+lambda =  5.645e-06; f =      2716872.3703106
+lambda = 1.8817e-06; f =      2716872.3703106
+lambda = 6.2723e-07; f =      2716872.3703106
+lambda = 2.0908e-07; f =      2716872.3703106
+lambda = 6.9692e-08; f =      2716872.3703106
+lambda = 2.3231e-08; f =      2716872.3703106
+lambda = 7.7435e-09; f =      2716872.3703106
+lambda = 2.5812e-09; f =      2716872.3703106
+
+lambda =
+
+  -6.2723e-07
+
+lambda = -6.2723e-07; f =      2716872.3703106
+Norm of dx 2.0224e-11
+Done for param s_bis =   5.1774
+Predicted improvement:        0.013261396
+lambda =          1; f =      2716872.4357231
+lambda =    0.33333; f =      2716872.3872500
+lambda =    0.11111; f =      2716872.4772861
+lambda =   0.037037; f =      2716872.4770930
+lambda =   0.012346; f =      2716872.4719352
+lambda =  0.0041152; f =      2716872.4782949
+lambda =  0.0013717; f =      2716872.4569588
+lambda = 0.00045725; f =      2716872.4990056
+lambda = 0.00015242; f =      2716872.4445808
+lambda = 5.0805e-05; f =      2716872.4751981
+lambda = 1.6935e-05; f =      2716872.4575029
+lambda =  5.645e-06; f =      2716872.4231739
+lambda = 1.8817e-06; f =      2716872.4505943
+lambda = 6.2723e-07; f =      2716872.3703106
+lambda = 2.0908e-07; f =      2716872.3703106
+lambda = 6.9692e-08; f =      2716872.3703106
+lambda = 2.3231e-08; f =      2716872.3703106
+lambda = 7.7435e-09; f =      2716872.3703106
+lambda = 2.5812e-09; f =      2716872.3703106
+
+lambda =
+
+  -6.2723e-07
+
+lambda = -6.2723e-07; f =      2716872.3703106
+Norm of dx 3.3807e-11
+Done for param h =   0.7750
+Predicted improvement:        0.001741978
+lambda =          1; f =      2716872.4890586
+lambda =    0.33333; f =      2716872.4784063
+lambda =    0.11111; f =      2716872.4665626
+lambda =   0.037037; f =      2716872.3987788
+lambda =   0.012346; f =      2716872.4661949
+lambda =  0.0041152; f =      2716872.4100549
+lambda =  0.0013717; f =      2716872.4645827
+lambda = 0.00045725; f =      2716872.4289880
+lambda = 0.00015242; f =      2716872.4842777
+lambda = 5.0805e-05; f =      2716872.4859006
+lambda = 1.6935e-05; f =      2716872.4411034
+lambda =  5.645e-06; f =      2716872.4194867
+lambda = 1.8817e-06; f =      2716872.4821112
+lambda = 6.2723e-07; f =      2716872.3703106
+lambda = 2.0908e-07; f =      2716872.3703106
+lambda = 6.9692e-08; f =      2716872.3703106
+lambda = 2.3231e-08; f =      2716872.3703106
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dyn_first_order_solver', 'C:\dynare\4.5.7\matlab\dyn_first_order_solver.m', 216)" style="font-weight:bold">dyn_first_order_solver</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dyn_first_order_solver.m',216,0)">line 216</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('stochastic_solvers', 'C:\dynare\4.5.7\matlab\stochastic_solvers.m', 267)" style="font-weight:bold">stochastic_solvers</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\stochastic_solvers.m',267,0)">line 267</a>)
+        [dr,info] = dyn_first_order_solver(jacobia_,M_,dr,options_,task);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('resol', 'C:\dynare\4.5.7\matlab\resol.m', 144)" style="font-weight:bold">resol</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\resol.m',144,0)">line 144</a>)
+    [dr,info] = stochastic_solvers(dr,check_flag,M,options,oo);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_resolve', 'C:\dynare\4.5.7\matlab\dynare_resolve.m', 69)" style="font-weight:bold">dynare_resolve</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_resolve.m',69,0)">line 69</a>)
+[dr,info,Model,DynareOptions,DynareResults] = resol(0,Model,DynareOptions,DynareResults);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsge_likelihood', 'C:\dynare\4.5.7\matlab\dsge_likelihood.m', 252)" style="font-weight:bold">dsge_likelihood</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dsge_likelihood.m',252,0)">line 252</a>)
+[T,R,SteadyState,info,Model,DynareOptions,DynareResults] = dynare_resolve(Model,DynareOptions,DynareResults,'restrict');
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('penalty_objective_function', 'C:\dynare\4.5.7\matlab\optimization\penalty_objective_function.m', 33)" style="font-weight:bold">penalty_objective_function</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\optimization\penalty_objective_function.m',33,0)">line 33</a>)
+[fval, info, exit_flag, arg1, arg2] = fcn(x, varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('csminit1', 'C:\dynare\4.5.7\matlab\optimization\csminit1.m', 144)" style="font-weight:bold">csminit1</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\optimization\csminit1.m',144,0)">line 144</a>)
+        f = penalty_objective_function(dxtest,fcn,penalty,varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('mr_gstep', 'C:\dynare\4.5.7\matlab\optimization\mr_gstep.m', 75)" style="font-weight:bold">mr_gstep</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\optimization\mr_gstep.m',75,0)">line 75</a>)
+            [f0, x, fc, retcode] = csminit1(func0,x,penalty,f0,gg,0,diag(hh),Verbose,varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('newrat', 'C:\dynare\4.5.7\matlab\optimization\newrat.m', 167)" style="font-weight:bold">newrat</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\optimization\newrat.m',167,0)">line 167</a>)
+    [fvala, x0, ig] = mr_gstep(h1,x0,bounds,func0,penalty,htol0,Verbose,Save_files,varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_minimize_objective', 'C:\dynare\4.5.7\matlab\optimization\dynare_minimize_objective.m', 251)" style="font-weight:bold">dynare_minimize_objective</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\optimization\dynare_minimize_objective.m',251,0)">line 251</a>)
+    [opt_par_values,hessian_mat,gg,fval,invhess,new_rat_hess_info] = newrat(objective_function,start_par_value,bounds,analytic_grad,crit,nit,0,Verbose,
+    Save_files,hess_info,varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\4.5.7\matlab\dynare_estimation_1.m', 220)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation_1.m',220,0)">line 220</a>)
+    [xparam1, fval, exitflag, hh, options_, Scale, new_rat_hess_info] = dynare_minimize_objective(objective_function,xparam1,options_.mode_compute,options_,[bounds.lb
+    bounds.ub],bayestopt_.name,bayestopt_,hh,dataset_,dataset_info,options_,M_,estim_params_,bayestopt_,bounds,oo_);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\4.5.7\matlab\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation.m',105,0)">line 105</a>)
+    dynare_estimation_1(var_list,dname);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('KR15_HH', 'C:\Users\dev\Desktop\KR15_HH\model_hh_MODIFIED_widerBounds\KR15_HH.m', 948)" style="font-weight:bold">KR15_HH</a> (<a href="matlab: opentoline('C:\Users\dev\Desktop\KR15_HH\model_hh_MODIFIED_widerBounds\KR15_HH.m',948,0)">line 948</a>)
+oo_recursive_=dynare_estimation(var_list_);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\4.5.7\matlab\dynare.m', 235)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare.m',235,0)">line 235</a>)
+evalin('base',fname) ;
+} 
+clear all
+gen_forecast
+[Warning: Folder KR15_HH_20081110_s3 does not exist, will be created.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gen_forecast', 'C:\Users\dev\Desktop\KR15HHwider\gen_forecast.m', 110)" style="font-weight:bold">gen_forecast</a> (<a href="matlab: opentoline('C:\Users\dev\Desktop\KR15HHwider\gen_forecast.m',110,0)">line 110</a>)] 
+Mode file not exists, and mode computation will be started.
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 63 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+

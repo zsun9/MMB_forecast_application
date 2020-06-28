@@ -1,0 +1,287 @@
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 63 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+      -5.776e+17                0
+       1.285e+18       -1.285e+18                0
+       3.763e+18       -3.763e+18                0
+       1.794e+20       -1.794e+20                0
+
+
+There are 20 eigenvalue(s) larger than 1 in modulus 
+for 20 forward-looking variable(s)
+
+The rank condition is verified.
+
+
+
+You did not declare endogenous variables after the estimation/calib_smoother command.
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load')" style="font-weight:bold">load</a>
+Unable to read file 'dssw_mode'. No such file or directory.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_init', 'C:\dynare\4.5.7\matlab\dynare_estimation_init.m', 167)" style="font-weight:bold">dynare_estimation_init</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation_init.m',167,0)">line 167</a>)
+    mode_file = load(options_.mode_file);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\4.5.7\matlab\dynare_estimation_1.m', 116)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation_1.m',116,0)">line 116</a>)
+    dynare_estimation_init(var_list_, dname, [], M_, options_, oo_, estim_params_, bayestopt_);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\4.5.7\matlab\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation.m',105,0)">line 105</a>)
+    dynare_estimation_1(var_list,dname);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('KR15_HH', 'C:\Users\dev\Desktop\KR15_HH\model_hh_MODIFIED_standardBounds\KR15_HH.m', 943)" style="font-weight:bold">KR15_HH</a> (<a href="matlab: opentoline('C:\Users\dev\Desktop\KR15_HH\model_hh_MODIFIED_standardBounds\KR15_HH.m',943,0)">line 943</a>)
+oo_recursive_=dynare_estimation(var_list_);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\4.5.7\matlab\dynare.m', 235)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare.m',235,0)">line 235</a>)
+evalin('base',fname) ;
+} 
+dynare KR15_HH
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 63 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+STEADY-STATE RESULTS:
+
+lambda           		 0.903777
+R                		 1.01761
+pic              		 1.0075
+c                		 1.1191
+w                		 1.28286
+phi_w            		 59.4818
+psi_w            		 6.96573
+L                		 1.05539
+k                		 14.2922
+k_bar            		 14.3638
+i                		 0.428945
+Q                		 1
+R_e              		 1.01761
+r_k              		 0.0350376
+u                		 1
+mc               		 0.869565
+p_tilda          		 1
+phi_f            		 4.15951
+psi_f            		 4.78343
+y                		 2.13288
+Delta            		 1
+z                		 0.005
+lb               		 0
+lphi             		 -0.223144
+lmu              		 0
+llambda_f        		 -1.89712
+lg               		 0.223144
+lA               		 0
+gdp_rgd_obs      		 0.5
+c_rgd_obs        		 0.5
+dlnI             		 0.5
+hours_kr15_obs   		 667.391
+wage_rgd_obs     		 0.5
+gdpdef_obs       		 0.747201
+ffr_obs          		 1.76129
+o                		 11.8255
+o_p              		 15.9785
+o_i              		 9.28014
+Q_o              		 1
+c_i              		 1.18434
+d_i              		 6.8139
+R_i              		 1.02397
+t_i              		 0
+L_i              		 1.05513
+w_i_tilda        		 1.28294
+w_i              		 1.28294
+phi_w_i          		 57.3451
+psi_w_i          		 6.70592
+w_p_tilda        		 1.28275
+w_p              		 1.28275
+L_p              		 1.05581
+lambda_i         		 0.902485
+theta            		 0.0167962
+i_o              		 0.117813
+la               		 -1.53712
+lm               		 -0.287682
+lmu_o            		 0
+llambda_d        		 -5.07517
+inr_nom_obs      		 0.5
+ir_nom_obs       		 0.5
+mortgage_nom_obs 		 1.2472
+hp_nom_obs       		 0.747201
+mortffr_obs      		 0.636008
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+               0                0                0
+               0                0                0
+       8.065e-17        8.065e-17                0
+       1.315e-16       -1.315e-16                0
+       1.818e-16        1.818e-16                0
+       2.902e-16       -2.902e-16                0
+          0.3985           0.3985                0
+          0.5562           0.5152           0.2097
+          0.5562           0.5152          -0.2097
+             0.6              0.6                0
+          0.6061           0.6061                0
+          0.6382           0.6382                0
+          0.7263           0.7263                0
+           0.777           0.7697           0.1064
+           0.777           0.7697          -0.1064
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+             0.9              0.9                0
+          0.9379            0.936          0.06024
+          0.9379            0.936         -0.06024
+          0.9729           0.9729                0
+           1.021            1.021                0
+           1.072             1.07          0.06721
+           1.072             1.07         -0.06721
+            1.17             1.17                0
+           1.227            1.176           0.3476
+           1.227            1.176          -0.3476
+           1.364            1.357           0.1344
+           1.364            1.357          -0.1344
+           1.397            1.397                0
+           1.675            1.675                0
+           1.675            1.675                0
+           1.675            1.675                0
+           1.694            1.694                0
+           1.718            1.718                0
+       7.568e+16       -7.568e+16                0
+       1.326e+17       -1.326e+17                0
+       5.776e+17       -5.776e+17                0
+       1.285e+18       -1.285e+18                0
+       3.763e+18       -3.763e+18                0
+       1.794e+20       -1.794e+20                0
+
+
+There are 20 eigenvalue(s) larger than 1 in modulus 
+for 20 forward-looking variable(s)
+
+The rank condition is verified.
+
+
+
+MODEL SUMMARY
+
+  Number of variables:         63
+  Number of stochastic shocks: 12
+  Number of state variables:   29
+  Number of jumpers:           20
+  Number of static variables:  25
+
+
+MATRIX OF COVARIANCE OF EXOGENOUS SHOCKS
+Variables              eps_z         eps_b       eps_phi        eps_mu  eps_lambda_f         eps_g         eps_R         eps_A         eps_a         eps_m      eps_mu_o  eps_lambda_d
+eps_z               0.599231      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000
+eps_b               0.000000     23.076494      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000
+eps_phi             0.000000      0.000000    112.623034      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000
+eps_mu              0.000000      0.000000      0.000000     20.687033      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000
+eps_lambda_f        0.000000      0.000000      0.000000      0.000000     14.158664      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000
+eps_g               0.000000      0.000000      0.000000      0.000000      0.000000      0.366509      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000
+eps_R               0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.062700      0.000000      0.000000      0.000000      0.000000      0.000000
+eps_A               0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000
+eps_a               0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000    127.762330      0.000000      0.000000      0.000000
+eps_m               0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      2.736708      0.000000      0.000000
+eps_mu_o            0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000     17.690436      0.000000
+eps_lambda_d        0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000      0.000000   1108.270706
+
+POLICY AND TRANSITION FUNCTIONS
+                         gdp_rgd_obs
+Constant                    0.500000
+R(-1)                     -17.092099
+k_bar(-1)                   0.342844
+y(-1)                     -46.884871
+Delta(-1)                   0.030585
+lphi(-1)                   -3.526621
+llambda_f(-1)              -2.696731
+lg(-1)                     68.078612
+lA(-1)                     27.277854
+o(-1)                      -0.188277
+o_i(-1)                     0.692204
+d_i(-1)                    -0.707057
+R_i(-1)                    -4.705018
+w_i(-1)                    -6.126104
+w_p(-1)                    -2.417981
+la(-1)                      0.186716
+lm(-1)                      4.057103
+llambda_d(-1)               0.108240
+pic(-1)                   -14.553875
+c(-1)                      13.673848
+i(-1)                      41.760599
+z(-1)                      87.817963
+lb(-1)                      6.513371
+lmu(-1)                     3.033178
+c_i(-1)                    21.604447
+i_o(-1)                    39.291044
+lmu_o(-1)                  -0.570622
+eps_z                       1.036650
+eps_b                       0.072371
+eps_phi                    -0.039185
+eps_mu                      0.033702
+eps_lambda_f               -0.029964
+eps_g                       0.756429
+eps_R                      -0.347863
+eps_A                       0.303087
+eps_a                       0.002075
+eps_m                       0.045079
+eps_mu_o                   -0.006340
+eps_lambda_d                0.001203
+
+
+THEORETICAL MOMENTS
+VARIABLE            MEAN  STD. DEV.   VARIANCE
+gdp_rgd_obs       0.5000     1.9174     3.6765
+
+
+
+VARIANCE DECOMPOSITION (in percent)
+                      eps_z         eps_b       eps_phi        eps_mu  eps_lambda_f         eps_g         eps_R         eps_A         eps_a         eps_m      eps_mu_o  eps_lambda_d
+gdp_rgd_obs           70.15          4.58         14.47          2.28          0.61          7.14          0.26          0.00          0.05          0.19          0.21          0.05
+
+
+
+MATRIX OF CORRELATIONS
+Variables      gdp_rgd_obs
+gdp_rgd_obs         1.0000
+
+
+
+COEFFICIENTS OF AUTOCORRELATION
+Order               1       2       3       4       5
+gdp_rgd_obs    0.7568  0.6393  0.5517  0.4851  0.4329
+Total computing time : 0h00m00s

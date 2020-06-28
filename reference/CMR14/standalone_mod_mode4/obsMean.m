@@ -1,0 +1,12 @@
+ffr_obs_mean = 1.170895598;
+baag10_obs_mean = 0.555579299;
+g10ffr_obs_mean = 0.369085048;
+networth_rgd_obs_mean = 1.877995873;
+igiddef_rgd_obs_mean = -0.444882432;
+igid_rim_obs_mean = 0.811310646;
+wage_rgd_obs_mean = 0.378576741;
+credit_rgd_obs_mean = 0.845413559;
+hours_cmr14_obs_mean = -770.6050454;
+cnds_rim_obs_mean = 0.663595566;
+gdp_rgd_obs_mean = 0.667761448;
+gdpdef_obs_mean = 0.590978962;
