@@ -22,8 +22,8 @@ close all; fclose all; clear; clc;
 % user-specified parameters
 % Please use double quotes here!
 % cell array format---------- Format: {' ', ' ', ' '}
-p.vintages = {'2001-08-15'}; 
-p.scenarios = {'s1','s2','s3','s4'};
+p.vintages = {'2001-05-12'}; 
+p.scenarios = {'s3','s4'};
 p.models = {'KR15_FF'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 % text format -------------- Format: ' '
 p.executor = 'KaiLong';

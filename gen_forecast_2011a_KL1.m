@@ -5,10 +5,11 @@
 %% settings
 % pick a dynare path
 if 0
-    addpath C:\dynare\4.5.7\matlab
-    addpath C:\dynare\4.2.4\matlab
     rmpath('C:\dynare\4.5.7\matlab')
     rmpath('C:\dynare\4.2.4\matlab')
+    addpath C:\dynare\4.2.4\matlab
+    addpath C:\dynare\4.5.7\matlab
+
 end
 
 % navigate to the root folder (if exists)
@@ -22,7 +23,7 @@ close all; fclose all; clear; clc;
 % user-specified parameters
 % Please use double quotes here!
 % cell array format---------- Format: {' ', ' ', ' '}
-p.vintages = {'2001-02-14'}; 
+p.vintages = {'2008-08-07'}; 
 p.scenarios = {'s1','s2','s3','s4'};
 p.models = {'KR15_FF'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 % text format -------------- Format: ' '
