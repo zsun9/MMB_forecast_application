@@ -35,9 +35,9 @@
 
 var
 a_c a_h a_j a_k a_s a_t a_z b c c1
-rc_obs pi_dm_obs rri_obs rbi_obs hwc_pd_obs hwr_pd_obs hp_r_obs i_nom_obs c_winf_obs h_winf_obs
+data_CC data_DP data_IH data_IK data_NC data_NH data_QQ data_RR data_WC data_WH
 dp h h1 I kc kh lm nc nc1 nh nh1 q r rkc rkh
-uc uc1 wc wc1 wh wh1 X xwc xwc1 xwh xwh1 Y gdp_rgd_obs zkc zkh;
+uc uc1 wc wc1 wh wh1 X xwc xwc1 xwh xwh1 Y zata_GDP zkc zkh;
 
 varexo eps_c eps_e eps_h eps_j eps_k eps_p eps_s eps_t eps_z  ;
 
@@ -117,7 +117,7 @@ STDERR_AZ	=	0.01711	;
 
 //% Set DO_IRFS=1 to plot impulse responses
 //% Set DO_ESTIMATION=1 to do estimation
-DO_IRFS        = 1 ; 
+DO_IRFS        = 0 ; 
 DO_ESTIMATION  = 1 ; 
 
 
@@ -312,7 +312,7 @@ dp - LAGP*dp(-1) = BETA*exp(TRENDY)*(dp(1) - LAGP*dp) -
 
 //% 23
 r = TAYLOR_R*r(-1) + (1-TAYLOR_R)*(TAYLOR_P)*dp + 
-(1-TAYLOR_R)*TAYLOR_Y*(gdp_rgd_obs-gdp_rgd_obs(-1)) +
+(1-TAYLOR_R)*TAYLOR_Y*(zata_GDP-zata_GDP(-1)) +
 (1-TAYLOR_R)*log(1/BETA) + eps_e - a_s/100 ;
 
 //% 24
@@ -357,21 +357,21 @@ exp(rkh) / ( (1/BETA)-(1-DKH) ) = ZETAKC/(1-ZETAKC)*exp(zkh) + (1-ZETAKC/(1-ZETA
 
 
 //% DEFINITION OF VARIABLES TAKEN TO THE DATA
-rc_obs = log(exp(c) + exp(c1)) - CC_SS + TRENDY ;
-pi_dm_obs = dp  ;
-rri_obs = I -  IH_SS + TRENDH ;
-rbi_obs = log ( exp(kc) - (1-DKC)*exp(kc(-1)-TRENDK) + 
+data_CC = log(exp(c) + exp(c1)) - CC_SS + TRENDY ;
+data_DP = dp  ;
+data_IH = I -  IH_SS + TRENDH ;
+data_IK = log ( exp(kc) - (1-DKC)*exp(kc(-1)-TRENDK) + 
           exp(kh) - (1-DKH)*exp(kh(-1)-TRENDY) ) - IK_SS + TRENDK ;
-hwc_pd_obs = ALPHA*nc + (1-ALPHA)*nc1 - NC_SS ;
-hwr_pd_obs = ALPHA*nh + (1-ALPHA)*nh1 - NH_SS ;
-hp_r_obs = q  - QQ_SS + TRENDQ ;
-i_nom_obs = r - log(1/BETA)  ;
-c_winf_obs = log(exp(wc)+exp(wc1)) - log(exp(wc(-1))+exp(wc1(-1))) + dp ;
-h_winf_obs = log(exp(wh)+exp(wh1)) - log(exp(wh(-1))+exp(wh1(-1))) + dp ;
+data_NC = ALPHA*nc + (1-ALPHA)*nc1 - NC_SS ;
+data_NH = ALPHA*nh + (1-ALPHA)*nh1 - NH_SS ;
+data_QQ = q  - QQ_SS + TRENDQ ;
+data_RR = r - log(1/BETA)  ;
+data_WC = log(exp(wc)+exp(wc1)) - log(exp(wc(-1))+exp(wc1(-1))) + dp ;
+data_WH = log(exp(wh)+exp(wh1)) - log(exp(wh(-1))+exp(wh1(-1))) + dp ;
 
-gdp_rgd_obs = (exp(CC_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rc_obs-TRENDY) +
-(exp(IK_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rbi_obs-TRENDK) +
-(exp(QQ_SS+IH_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rri_obs-TRENDH) ;
+zata_GDP = (exp(CC_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(data_CC-TRENDY) +
+(exp(IK_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(data_IK-TRENDK) +
+(exp(QQ_SS+IH_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(data_IH-TRENDH) ;
 
 
 //% STOCHASTIC PROCESSES FOR THE SHOCKS
@@ -438,7 +438,7 @@ end;
 
 if DO_IRFS==1;
 
-stoch_simul(order=1,irf=20) rc_obs rbi_obs rri_obs hp_r_obs gdp_rgd_obs i_nom_obs ;
+stoch_simul(order=1,irf=20) data_CC data_IK data_IH data_QQ zata_GDP data_RR ;
 
 end;
 
@@ -462,8 +462,8 @@ if(DO_ESTIMATION==1);
     stderr eps_s    ,    0.0300,  0    ,  Inf  ,        inv_gamma_pdf,   0.100   ,   1.00 ;  
     stderr eps_t    ,    0.0230,  0    ,  Inf  ,        inv_gamma_pdf,   0.001   ,   0.01 ;  
     stderr eps_z    ,    0.0170,  0    ,  Inf  ,        inv_gamma_pdf,   0.001   ,   0.01 ;      
-    stderr hwr_pd_obs  ,    0.1211,  0    ,  Inf  ,        inv_gamma_pdf,   0.001   ,   0.01 ;  
-    stderr h_winf_obs  ,    0.0070,  0    ,  Inf  ,        inv_gamma_pdf,   0.001   ,   0.01 ;  
+    stderr data_NH  ,    0.1211,  0    ,  Inf  ,        inv_gamma_pdf,   0.001   ,   0.01 ;  
+    stderr data_WH  ,    0.0070,  0    ,  Inf  ,        inv_gamma_pdf,   0.001   ,   0.01 ;  
     ALPHA           ,    0.7970,  0    ,   1   ,        beta_pdf   ,   0.65    ,   0.05 ;      
     EC              ,    0.3117,  0    , 0.99  ,        beta_pdf   ,   0.50    ,   0.075 ;      
     EC1             ,    0.5749,  0    , 0.99  ,        beta_pdf   ,   0.50    ,   0.075 ;    
@@ -496,20 +496,20 @@ if(DO_ESTIMATION==1);
     end;
 
 
-varobs rc_obs pi_dm_obs rri_obs rbi_obs hwc_pd_obs hwr_pd_obs hp_r_obs i_nom_obs c_winf_obs h_winf_obs ;
+varobs data_CC data_DP data_IH data_IK data_NC data_NH data_QQ data_RR data_WC data_WH ;
 
 observation_trends;
-  rc_obs (TREND_AC + MUC/(1-MUC)*TREND_AK) ;
-  rri_obs ( (MUH+MUBB)*TREND_AC + (1-MUH-MUBB-KAPPA)*TREND_AH +(MUH+MUBB)*MUC/(1-MUC)*TREND_AK) ;
-  rbi_obs (TREND_AC + 1/(1-MUC)*TREND_AK) ;
-  hp_r_obs ((1-MUH-MUBB)*TREND_AC + MUC*(1-MUH-MUBB)/(1-MUC)*TREND_AK - (1-MUH-MUBB-KAPPA)*TREND_AH) ;
+  data_CC (TREND_AC + MUC/(1-MUC)*TREND_AK) ;
+  data_IH ( (MUH+MUBB)*TREND_AC + (1-MUH-MUBB-KAPPA)*TREND_AH +(MUH+MUBB)*MUC/(1-MUC)*TREND_AK) ;
+  data_IK (TREND_AC + 1/(1-MUC)*TREND_AK) ;
+  data_QQ ((1-MUH-MUBB)*TREND_AC + MUC*(1-MUH-MUBB)/(1-MUC)*TREND_AK - (1-MUH-MUBB-KAPPA)*TREND_AH) ;
 end;
 
   
 
 //% 10,000 runs of Metropolis in 8 minutes
 
-estimation(datafile=data_20070521,
+estimation(datafile=US_data_65Q106Q4,
 bayesian_irf,irf=20,
 conf_sig=0.95,
 smoother,
@@ -520,6 +520,7 @@ prior_trunc=1e-100,
 mh_replic=5000,  
 mh_nblocks=1, 
 lik_init=1)
-rc_obs rbi_obs rri_obs gdp_rgd_obs hp_r_obs i_nom_obs;
+data_CC data_IK data_IH zata_GDP data_QQ data_RR  ;
+
 
 end;
