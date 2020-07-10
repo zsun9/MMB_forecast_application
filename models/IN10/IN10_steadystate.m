@@ -1,5 +1,5 @@
 
-function [ys,check]=IN10_steadystate(junk,ys);
+function [ys,check]=jules1_d4_steadystate(junk,ys);
 
 BETA      =   get_param_by_name('BETA');
 BETA1     =   get_param_by_name('BETA1');

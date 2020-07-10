@@ -37,7 +37,7 @@ var
 a_c a_h a_j a_k a_s a_t a_z b c c1
 rc_obs pi_dm_obs rri_obs rbi_obs hwc_pd_obs hwr_pd_obs hp_r_obs i_nom_obs c_winf_obs h_winf_obs
 dp h h1 I kc kh lm nc nc1 nh nh1 q r rkc rkh
-uc uc1 wc wc1 wh wh1 X xwc xwc1 xwh xwh1 Y gdp_rgd_obs zkc zkh;
+uc uc1 wc wc1 wh wh1 X xwc xwc1 xwh xwh1 Y gdpl_rgd_obs zkc zkh;
 
 varexo eps_c eps_e eps_h eps_j eps_k eps_p eps_s eps_t eps_z  ;
 
@@ -117,7 +117,7 @@ STDERR_AZ	=	0.01711	;
 
 //% Set DO_IRFS=1 to plot impulse responses
 //% Set DO_ESTIMATION=1 to do estimation
-DO_IRFS        = 1 ; 
+DO_IRFS        = 0 ; 
 DO_ESTIMATION  = 1 ; 
 
 
@@ -312,7 +312,7 @@ dp - LAGP*dp(-1) = BETA*exp(TRENDY)*(dp(1) - LAGP*dp) -
 
 //% 23
 r = TAYLOR_R*r(-1) + (1-TAYLOR_R)*(TAYLOR_P)*dp + 
-(1-TAYLOR_R)*TAYLOR_Y*(gdp_rgd_obs-gdp_rgd_obs(-1)) +
+(1-TAYLOR_R)*TAYLOR_Y*(gdpl_rgd_obs-gdpl_rgd_obs(-1)) +
 (1-TAYLOR_R)*log(1/BETA) + eps_e - a_s/100 ;
 
 //% 24
@@ -369,7 +369,7 @@ i_nom_obs = r - log(1/BETA)  ;
 c_winf_obs = log(exp(wc)+exp(wc1)) - log(exp(wc(-1))+exp(wc1(-1))) + dp ;
 h_winf_obs = log(exp(wh)+exp(wh1)) - log(exp(wh(-1))+exp(wh1(-1))) + dp ;
 
-gdp_rgd_obs = (exp(CC_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rc_obs-TRENDY) +
+gdpl_rgd_obs = (exp(CC_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rc_obs-TRENDY) +
 (exp(IK_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rbi_obs-TRENDK) +
 (exp(QQ_SS+IH_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rri_obs-TRENDH) ;
 
@@ -438,7 +438,7 @@ end;
 
 if DO_IRFS==1;
 
-stoch_simul(order=1,irf=20) rc_obs rbi_obs rri_obs hp_r_obs gdp_rgd_obs i_nom_obs ;
+stoch_simul(order=1,irf=20) rc_obs rbi_obs rri_obs hp_r_obs gdpl_rgd_obs i_nom_obs ;
 
 end;
 
@@ -487,7 +487,8 @@ if(DO_ESTIMATION==1);
     TAYLOR_Y        ,    0.4938,   0   , Inf   ,        normal_pdf ,   0       ,   0.1  ;      
     TETA            ,    0.8393,   0   , 0.999 ,        beta_pdf   ,   0.667   ,   0.05 ;      
     TETAWC          ,    0.7901,   0   , 0.999 ,        beta_pdf   ,   0.667   ,   0.05 ;      
-    TETAWH          ,    0.9218,   0   , 0.999 ,        beta_pdf   ,   0.667   ,   0.05 ;      
+    //TETAWH          ,    0.9218,   0   , 0.999 ,        beta_pdf   ,   0.667   ,   0.05 ;      
+    TETAWH          ,    0.9218,   0   , 0.999 ,        beta_pdf   ,   0.667   ,   0.05 ;  
     TREND_AC        ,    0.0032,       ,       ,        normal_pdf ,   0.005   ,   0.01 ;   
     TREND_AH        ,    0.0008,       ,       ,        normal_pdf ,   0.005   ,   0.01 ;
     TREND_AK        ,    0.0027,       ,       ,        normal_pdf ,   0.005   ,   0.01 ;
@@ -496,7 +497,7 @@ if(DO_ESTIMATION==1);
     end;
 
 
-varobs rc_obs pi_dm_obs rri_obs rbi_obs hwc_pd_obs hwr_pd_obs hp_r_obs i_nom_obs c_winf_obs h_winf_obs ;
+varobs rc_obs pi_dm_obs rri_obs rbi_obs hwc_pd_obs hwr_pd_obs hp_r_obs i_nom_obs c_winf_obs h_winf_obs;
 
 observation_trends;
   rc_obs (TREND_AC + MUC/(1-MUC)*TREND_AK) ;
@@ -508,18 +509,5 @@ end;
   
 
 //% 10,000 runs of Metropolis in 8 minutes
-
-estimation(datafile=data_20070521,
-bayesian_irf,irf=20,
-conf_sig=0.95,
-smoother,
-mh_jscale=0.2, 
-mode_compute=4,
-presample=4, 
-prior_trunc=1e-100,
-mh_replic=5000,  
-mh_nblocks=1, 
-lik_init=1)
-rc_obs rbi_obs rri_obs gdp_rgd_obs hp_r_obs i_nom_obs;
-
+//%estimation(nodisplay, prior_trunc =0, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile='data_20081107.xlsx',  xls_sheet=s3, xls_range=B1:K177, presample=4, mh_replic=100000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=6) gdpl_rgd_obs;
 end;
