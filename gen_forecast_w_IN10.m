@@ -19,7 +19,7 @@ p.scenarios = ["s3"];
 p.models = ["IN10"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "KaiLong";
 
-p.ExcelColumnUntil = "K";
+p.ExcelColumnUntil = "AX";
 
 % hyper-parameters
 p.chainLen = 1000000;

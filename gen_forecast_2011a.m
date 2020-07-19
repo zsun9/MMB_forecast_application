@@ -27,8 +27,8 @@ p.scenarios = {'s1'};
 p.models = {'DS04'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 % text format -------------- Format: ' '
 p.executor = 'KaiLong';
-p.comment = '_matlab2011a_dy424';
-p.ExcelColumnUntil = 'AN';
+p.comment = 'trytrytrytrytrytrytrytrytry_matlab2011a_dy424';
+p.ExcelColumnUntil = 'AX';
 
 
 % hyper-parameters
@@ -275,17 +275,46 @@ for ind_model = 1:length(p.models) ;%model = p.models
                 % save GDP forecasts (start from the last in-sample obs)
                 if any(strcmp(model,'QPM08')); %model == "QPM08"  
                     if any(strcmp(scenario,'s1')); %scenario == "s1" % in scenario 1, first GDP forecast is nowcast
-                        t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end)']);
+                        t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(2:end)']);
                     else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
-                        t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-2:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end-1)']);
+                        t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-2:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(2:end-1)']);
                     end
                 else
                     if any(strcmp(scenario,'s1')); %scenario == "s1" % in scenario 1, first GDP forecast is nowcast
-                        t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end)'];
+                        t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(2:end)'];
                     else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
-                        t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end-1)'];
+                        t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(2:end-1)'];
                     end
                 end
+                
+                
+                %only for matlab2011a testing =======
+                if any(strcmp(model,'QPM08')); %model == "QPM08"  
+                    if any(strcmp(scenario,'s1')); %scenario == "s1" % in scenario 1, first GDP forecast is nowcast
+                       testing.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end)']);
+                    else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
+                       testing.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-2:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end-1)']);
+                    end
+                else
+                    if any(strcmp(scenario,'s1')); %scenario == "s1" % in scenario 1, first GDP forecast is nowcast
+                        testing.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end)'];
+                    else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
+                        testing.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end-1)'];
+                    end
+                end           
+                testing.forecast.gdp = testing.forecast.gdp*4;   
+                testing.model = model;
+                testing.vintage = vintage;
+                testing.scenario = scenario;
+                testing.nobs = options_.nobs;
+                testing.modeCompute = t.mode_compute;
+                testing.mhDraws = p.chainLen;
+                testing.subDraws = p.subDraws;
+                testing.executor = p.executor;
+                testing.timeStamp = datestr(now);
+                testing.dynareVersion = p.dynareVersion;
+                testing.matlabVersion = version;
+                %=================
                 
                 %assert(length(t.output.forecast.gdp) == p.forecastHorizon + 1); % not convert
                 
@@ -314,6 +343,14 @@ for ind_model = 1:length(p.models) ;%model = p.models
                 JSONFile = fopen(strcat(model,'.json'),'w'); %fopen(char(t.name.modfile),'w')
                 fwrite(JSONFile, JSONOutput, 'char');
                 fclose(JSONFile);
+                
+                %only for testing purpose ==========
+                JSONOutputtesting = mat2json(testing);  %bookmark
+                JSONFiletesting = fopen(strcat(model,'testing.json'),'w'); %fopen(char(t.name.modfile),'w')
+                fwrite(JSONFiletesting, JSONOutputtesting, 'char');
+                fclose(JSONFiletesting);
+                
+                %=================================
                 
                 display(t.output)
                 
