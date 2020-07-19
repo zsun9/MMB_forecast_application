@@ -14,12 +14,12 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2008-08-07"]; %
-p.scenarios = ["s3", "s4"];
-p.models = ["FRBEDO08_cql"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
-p.executor = "Zexi Sun";
+p.vintages = ["2008-11-07"]; %
+p.scenarios = ["s3"];
+p.models = ["IN10"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.executor = "KaiLong";
 
-p.ExcelColumnUntil = "AN";
+p.ExcelColumnUntil = "K";
 
 % hyper-parameters
 p.chainLen = 1000000;
@@ -31,7 +31,7 @@ p.burnIn = 0.3;
 p.scalingParam =  0.3;
 p.presample = 4;
 p.nobs = 100;
-p.mode_compute_order = [4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
+p.mode_compute_order = [6,6,6],% [4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
 
 % locate main folders (stored as char type)
 p.path.root = convertCharsToStrings(pwd);

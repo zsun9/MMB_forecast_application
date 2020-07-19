@@ -23,11 +23,11 @@ close all; fclose all; clear; clc;
 % Please use double quotes here!
 % cell array format---------- Format: {' ', ' ', ' '}
 p.vintages = {'2020-05-12'}; 
-p.scenarios = {'s1','s2'};
-p.models = {'KR15_FF'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.scenarios = {'s1'};
+p.models = {'DS04'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 % text format -------------- Format: ' '
 p.executor = 'KaiLong';
-p.comment = '_mat2011a_dy424';
+p.comment = '_matlab2011a_dy424';
 p.ExcelColumnUntil = 'AN';
 
 
@@ -255,6 +255,7 @@ for ind_model = 1:length(p.models) ;%model = p.models
                 pause(5);
                 
                 % delete output folder ===================
+               
                 if isequal(p.dynareVersion,'4.2.4')
                     try
                     p.path.todelete = strcat(t.path.working,'\\', model);
@@ -269,6 +270,7 @@ for ind_model = 1:length(p.models) ;%model = p.models
                     fprintf('Seems that folder storing MH samples cannot be deleted. Please delete it by hand.\n');
                     end
                 end
+               
                 % ==================
                 % save GDP forecasts (start from the last in-sample obs)
                 if any(strcmp(model,'QPM08')); %model == "QPM08"  
@@ -285,7 +287,7 @@ for ind_model = 1:length(p.models) ;%model = p.models
                     end
                 end
                 
-                assert(length(t.output.forecast.gdp) == p.forecastHorizon + 1); % not convert
+                %assert(length(t.output.forecast.gdp) == p.forecastHorizon + 1); % not convert
                 
                 % from quarter-on-quarter to year-on-year growth
                 t.output.forecast.gdp = t.output.forecast.gdp * 4;
