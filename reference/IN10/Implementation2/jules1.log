@@ -1,0 +1,562 @@
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+[Warning: Some of the parameters have no value (RHO_AM) when using steady. If these parameters are not initialized in a steadystate file or a
+steady_state_model-block, Dynare may not be able to solve the model...] 
+
+STEADY-STATE RESULTS:
+
+a_c          		 0
+a_h          		 0
+a_j          		 0
+a_k          		 0
+a_s          		 0
+a_t          		 0
+a_z          		 0
+b            		 0.531941
+c            		 0.407149
+c1           		 -1.2293
+rc_obs       		 0.00468077
+pi_dm_obs    		 0
+rri_obs      		 0.00149615
+rbi_obs      		 0.00743077
+hwc_pd_obs   		 0
+hwr_pd_obs   		 0
+hp_r_obs     		 0.00318462
+i_nom_obs    		 0
+c_winf_obs   		 0
+h_winf_obs   		 0
+dp           		 0
+h            		 2.66069
+h1           		 0.824475
+I            		 -1.65853
+kc           		 3.09164
+kh           		 -0.800203
+lm           		 -2.55742
+nc           		 -0.269438
+nc1          		 -0.0723113
+nh           		 -1.75529
+nh1          		 -1.34491
+q            		 -0.125672
+r            		 0.00752827
+rkc          		 -3.34299
+rkh          		 -3.2819
+uc           		 -0.407149
+uc1          		 1.2293
+wc           		 0.39831
+wc1          		 -1.14454
+wh           		 -0.616975
+wh1          		 -2.37308
+X            		 0.139762
+xwc          		 0.139762
+xwc1         		 0.139762
+xwh          		 0.139762
+xwh1         		 0.139762
+Y            		 0.930807
+gdpl_rgd_obs 		 0
+zkc          		 0
+zkh          		 0
+[Warning: Some of the parameters have no value (RHO_AM) when using initial_estimation_checks. If these parameters are not initialized in a
+steadystate file or a steady_state_model-block, Dynare may not be able to solve the model...] 
+Initial value of the log posterior (or likelihood): 5107.0624
+{Error using <a href="matlab:matlab.internal.language.introspective.errorDocCallback('waitbar', 'C:\Program Files\MATLAB\R2020a\toolbox\matlab\uitools\waitbar.m', 103)" style="font-weight:bold">waitbar</a> (<a href="matlab: opentoline('C:\Program Files\MATLAB\R2020a\toolbox\matlab\uitools\waitbar.m',103,0)">line 103</a>)
+The second argument must be a message character vector or a handle to an existing waitbar.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dyn_waitbar', 'C:\dynare\4.5.7\matlab\dyn_waitbar.m', 66)" style="font-weight:bold">dyn_waitbar</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dyn_waitbar.m',66,0)">line 66</a>)
+            waitbar(prctdone,varargin{:});
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gmhmaxlik_core', 'C:\dynare\4.5.7\matlab\optimization\gmhmaxlik_core.m', 122)" style="font-weight:bold">gmhmaxlik_core</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\optimization\gmhmaxlik_core.m',122,0)">line 122</a>)
+        dyn_waitbar(prtfrc,hh,sprintf('Acceptance ratio [during last 500]: %f [%f]',isux/j,jsux/jj));
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gmhmaxlik', 'C:\dynare\4.5.7\matlab\optimization\gmhmaxlik.m', 100)" style="font-weight:bold">gmhmaxlik</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\optimization\gmhmaxlik.m',100,0)">line 100</a>)
+    [PostMode, PostVariance, Scale, PostMean] = gmhmaxlik_core(fun, OldPostMode, bounds, gmhmaxlikOptions, Scale, flag, MeanPar,
+    OldPostVariance, varargin{:});
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_minimize_objective', 'C:\dynare\4.5.7\matlab\optimization\dynare_minimize_objective.m', 254)" style="font-weight:bold">dynare_minimize_objective</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\optimization\dynare_minimize_objective.m',254,0)">line 254</a>)
+    [opt_par_values, hessian_mat, Scale, fval] = gmhmaxlik(objective_function, start_par_value, ...
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\4.5.7\matlab\dynare_estimation_1.m', 220)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation_1.m',220,0)">line 220</a>)
+    [xparam1, fval, exitflag, hh, options_, Scale, new_rat_hess_info] =
+    dynare_minimize_objective(objective_function,xparam1,options_.mode_compute,options_,[bounds.lb
+    bounds.ub],bayestopt_.name,bayestopt_,hh,dataset_,dataset_info,options_,M_,estim_params_,bayestopt_,bounds,oo_);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\4.5.7\matlab\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare_estimation.m',105,0)">line 105</a>)
+    dynare_estimation_1(var_list,dname);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('jules1', 'C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\reference\IN10\Implementation2\jules1.m', 632)" style="font-weight:bold">jules1</a> (<a href="matlab: opentoline('C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\reference\IN10\Implementation2\jules1.m',632,0)">line 632</a>)
+oo_recursive_=dynare_estimation(var_list_);
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\4.5.7\matlab\dynare.m', 235)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare.m',235,0)">line 235</a>)
+evalin('base',fname) ;
+} 
+% The file is used for estimating models and generating forecasts
+% Two structs: p - high-level parameters, t - temporary parameters in a loop
+% Last updated: Zexi Sun, 2020-06-10
+
+%% settings
+
+% navigate to the root folder (if exists)
+try
+    cd(p.path.root)
+end
+
+% housekeeping
+close all; fclose all; clear; clc;
+
+% user-specified parameters
+% Please use double quotes here!
+p.vintages = ["2008-08-07"]; %
+p.scenarios = ["s3"];
+p.models = ["IN10"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.executor = "KaiLong";
+
+p.ExcelColumnUntil = "AN";
+
+% hyper-parameters
+p.chainLen = 1000000;
+p.chainLenBVAR = 500000;
+p.subDraws = 5000;
+p.forecastHorizon = 40;
+p.chainNum = 1;
+p.burnIn = 0.3;
+p.scalingParam =  0.3;
+p.presample = 4;
+p.nobs = 100;
+p.mode_compute_order = [4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
+
+% locate main folders (stored as char type)
+p.path.root = convertCharsToStrings(pwd);
+p.path.models = p.path.root + "\\models";
+p.path.glp_algorithm = p.path.models + "\\GLP_algorithm";
+p.path.estimations = p.path.root + "\\estimations";
+p.path.vintage_data = p.path.root + "\\data\\vintage_data";
+assert(isfolder(p.path.root) && isfolder(p.path.models) && isfolder(p.path.glp_algorithm) && isfolder(p.path.estimations) && isfolder(p.path.vintage_data));
+
+% observables in the Bayesian VAR estimation
+p.obs.GLP3v = ["gdp_rgd_obs", "gdpdef_obs", "ffr_obs"];
+p.obs.GLP5v = horzcat(p.obs.GLP3v, ["ifi_rgd_obs", "baag10_obs"]);
+p.obs.GLP8v = horzcat(p.obs.GLP5v, ["c_rgd_obs", "wage_rgd_obs", "hours_dngs15_obs"]);
+
+% specify observables that are in first differences in BVAR
+p.pos.GLP3v = '[1, 2]';
+p.pos.GLP5v = '[1, 2, 4]';
+p.pos.GLP8v = '[1, 2, 4, 6, 7]';
+p.dynareVersion = convertCharsToStrings(dynare_version);
+if p.dynareVersion ~= "4.5.7"
+    warning(sprintf("You are about to estimate models using Dynare %s.", p.dynareVersion));
+    warning("Please make sure this is the version you need!");
+    pause(5);
+end
+
+clear t;
+model = p.models
+
+model = 
+
+    "IN10"
+
+if contains(model, "GLP")
+        continue
+    end
+{Error: A CONTINUE may only be used within a FOR or WHILE loop.
+} 
+t.path.model = p.path.models + "\\" + model;
+isfolder(t.path.model)
+
+ans =
+
+  <a href="matlab:helpPopup logical" style="font-weight:bold">logical</a>
+
+   1
+
+vintage = p.vintages
+
+vintage = 
+
+    "2008-08-07"
+
+scenario = p.scenarios
+
+scenario = 
+
+    "s3"
+
+cd(p.path.root);
+                t.name.workingpath = model + "_" + strrep(vintage, "-", "") + "_" + scenario;
+                t.path.working = p.path.estimations + "\\" + t.name.workingpath;
+cd(p.path.root);
+t.name.datafile = "data_" + strrep(vintage, "-", "") + ".xlsx";
+t.path.data = p.path.vintage_data + "\\" + t.name.datafile;
+t.path.data
+
+ans = 
+
+    "C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\\data\\vintage_data\\data_20080807.xlsx"
+
+gen_forecast_w_IN10
+[Warning: Folder IN10_20081107_s3 does not exist, will be created.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gen_forecast_w_IN10', 'C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\gen_forecast_w_IN10.m', 110)" style="font-weight:bold">gen_forecast_w_IN10</a> (<a href="matlab: opentoline('C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\gen_forecast_w_IN10.m',110,0)">line 110</a>)] 
+Mode file not exists, and mode computation will be started.
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+{Unable to resolve the name oo_.SmoothedVariables.Mean.gdpl_rgd_obs.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gen_forecast_w_IN10', 'C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\gen_forecast_w_IN10.m', 243)" style="font-weight:bold">gen_forecast_w_IN10</a> (<a href="matlab: opentoline('C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\gen_forecast_w_IN10.m',243,0)">line 243</a>)
+                        t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-2:end)',
+                        oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end-1)']);
+} 
+clear all
+clc
+dynare IN10.mod
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+{Error: <a href="matlab: opentoline('C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\estimations\IN10_20081107_s3\IN10.m',559,1)">File: IN10.m Line: 559 Column: 1</a>
+At least one END is missing: the statement may begin here.
+
+Error in <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\4.5.7\matlab\dynare.m', 235)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\4.5.7\matlab\dynare.m',235,0)">line 235</a>)
+evalin('base',fname) ;
+} 
+opentoline('C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\estimations\IN10_20081107_s3\IN10.m',559,1)
+dynare IN10.mod
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+

@@ -1,0 +1,342 @@
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Found 50 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+[Warning: Some of the parameters have no value (RHO_AM) when using steady. If these parameters are not initialized in a steadystate file or a
+steady_state_model-block, Dynare may not be able to solve the model...] 
+
+STEADY-STATE RESULTS:
+
+a_c          		 0
+a_h          		 0
+a_j          		 0
+a_k          		 0
+a_s          		 0
+a_t          		 0
+a_z          		 0
+b            		 0.531941
+c            		 0.407149
+c1           		 -1.2293
+rc_obs       		 0.00468077
+pi_dm_obs    		 0
+rri_obs      		 0.00149615
+rbi_obs      		 0.00743077
+hwc_pd_obs   		 0
+hwr_pd_obs   		 0
+hp_r_obs     		 0.00318462
+i_nom_obs    		 0
+c_winf_obs   		 0
+h_winf_obs   		 0
+dp           		 0
+h            		 2.66069
+h1           		 0.824475
+I            		 -1.65853
+kc           		 3.09164
+kh           		 -0.800203
+lm           		 -2.55742
+nc           		 -0.269438
+nc1          		 -0.0723113
+nh           		 -1.75529
+nh1          		 -1.34491
+q            		 -0.125672
+r            		 0.00752827
+rkc          		 -3.34299
+rkh          		 -3.2819
+uc           		 -0.407149
+uc1          		 1.2293
+wc           		 0.39831
+wc1          		 -1.14454
+wh           		 -0.616975
+wh1          		 -2.37308
+X            		 0.139762
+xwc          		 0.139762
+xwc1         		 0.139762
+xwh          		 0.139762
+xwh1         		 0.139762
+Y            		 0.930807
+gdpl_rgd_obs 		 0
+zkc          		 0
+zkh          		 0
+[Warning: Some of the parameters have no value (RHO_AM) when using initial_estimation_checks. If these parameters are not initialized in a
+steadystate file or a steady_state_model-block, Dynare may not be able to solve the model...] 
+Initial value of the log posterior (or likelihood): 2748.7812
+
+==========================================================
+   Change in the posterior covariance matrix = 5.8125.
+   Change in the posterior mean = 1.2865.
+   Mode improvement = 48.2229
+   New value of jscale = 0.0086793
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 1.1404.
+   Change in the posterior mean = 2.6549.
+   Mode improvement = 2.4824
+   New value of jscale = 0.37018
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 4.328.
+   Change in the posterior mean = 2.2044.
+   Mode improvement = 5.7744
+   New value of jscale = 0.25236
+==========================================================
+
+Optimal value of the scale parameter = 0.25236
+
+
+Final value of minus the log posterior (or likelihood):-2805.260833 
+
+MODE CHECK
+
+Fval obtained by the minimization routine (minus the posterior/likelihood)): -2805.260833
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+         prior mean     mode    s.d. prior pstdev
+
+ALPHA        0.650   0.7448  0.0529 beta  0.0500 
+EC           0.500   0.3535  0.0399 beta  0.0750 
+EC1          0.500   0.5327  0.0583 beta  0.0750 
+ETA          0.500   0.4799  0.0913 gamm  0.1000 
+ETA1         0.500   0.4861  0.0932 gamm  0.1000 
+FIKC        10.000  14.0761  1.5498 gamm  2.5000 
+FIKH        10.000  10.1993  2.4302 gamm  2.5000 
+LAGP         0.500   0.7014  0.0975 beta  0.2000 
+LAGWC        0.500   0.1014  0.0551 beta  0.2000 
+LAGWH        0.500   0.5557  0.1405 beta  0.2000 
+NU          -1.000  -0.8623  0.1020 norm  0.1000 
+NU1         -1.000  -0.9863  0.1101 norm  0.1000 
+RHO_AC       0.800   0.9697  0.0135 beta  0.1000 
+RHO_AH       0.800   0.9931  0.0072 beta  0.0900 
+RHO_AJ       0.800   0.9403  0.0349 beta  0.1000 
+RHO_AK       0.800   0.9340  0.0272 beta  0.1000 
+RHO_AT       0.800   0.9626  0.0151 beta  0.1000 
+RHO_AZ       0.800   0.9681  0.0269 beta  0.1000 
+TAYLOR_P     1.500   1.4395  0.0787 norm  0.1000 
+TAYLOR_R     0.750   0.6168  0.0493 beta  0.1000 
+TAYLOR_Y     0.000   0.4853  0.0698 norm  0.1000 
+TETA         0.667   0.7863  0.0236 beta  0.0500 
+TETAWC       0.667   0.7752  0.0263 beta  0.0500 
+TETAWH       0.667   0.9199  0.0116 beta  0.0500 
+TREND_AC     0.005   0.0025  0.0004 norm  0.0100 
+TREND_AH     0.005  -0.0006  0.0011 norm  0.0100 
+TREND_AK     0.005   0.0024  0.0005 norm  0.0100 
+ZETAKC       0.500   0.7975  0.1008 beta  0.2000 
+
+standard deviation of shocks
+         prior mean     mode    s.d. prior pstdev
+
+eps_c        0.001   0.0114  0.0009 invg  0.0100 
+eps_e        0.001   0.0039  0.0005 invg  0.0100 
+eps_h        0.001   0.0224  0.0018 invg  0.0100 
+eps_j        0.001   0.0520  0.0252 invg  0.0100 
+eps_k        0.001   0.0102  0.0016 invg  0.0100 
+eps_p        0.001   0.0055  0.0005 invg  0.0100 
+eps_s        0.100   0.0475  0.0083 invg  1.0000 
+eps_t        0.001   0.0243  0.0033 invg  0.0100 
+eps_z        0.001   0.0216  0.0079 invg  0.0100 
+
+standard deviation of measurement errors
+         prior mean     mode    s.d. prior pstdev
+
+hwr_pd_obs   0.001   0.1338  0.0085 invg  0.0100 
+h_winf_obs   0.001   0.0076  0.0006 invg  0.0100 
+
+
+Log data density [Laplace approximation] is 2671.340341.
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in IN10/metropolis\IN10_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 4 per block.
+Estimation::mcmc: Total number of generated files: 4.
+Estimation::mcmc: Total number of iterations: 1000000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 32.4298%
+Estimation::mcmc: Total number of MH draws per chain: 1000000.
+Estimation::mcmc: Total number of generated MH files: 4.
+Estimation::mcmc: I'll use mh-files 1 to 4.
+Estimation::mcmc: In MH-file number 1 I'll start at line 300001.
+Estimation::mcmc: Finally I keep 700000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter                Block 1
+SE_eps_c                 252.150
+SE_eps_e                 228.280
+SE_eps_h                 225.141
+SE_eps_j                 254.108
+SE_eps_k                 351.775
+SE_eps_p                 287.561
+SE_eps_s                 371.616
+SE_eps_t                 376.028
+SE_eps_z                 557.443
+SE_EOBS_hwr_pd_obs       314.452
+SE_EOBS_h_winf_obs       240.694
+ALPHA                    274.766
+EC                       322.017
+EC1                      266.991
+ETA                      279.884
+ETA1                     326.536
+FIKC                     391.306
+FIKH                     296.131
+LAGP                     320.595
+LAGWC                    245.119
+LAGWH                    227.292
+NU                       290.748
+NU1                      249.828
+RHO_AC                   308.898
+RHO_AH                   424.520
+RHO_AJ                   274.681
+RHO_AK                   252.457
+RHO_AT                   271.142
+RHO_AZ                   735.816
+TAYLOR_P                 272.100
+TAYLOR_R                 216.333
+TAYLOR_Y                 242.009
+TETA                     267.300
+TETAWC                   309.458
+TETAWH                   260.991
+TREND_AC                 306.607
+TREND_AH                 302.606
+TREND_AK                 291.164
+ZETAKC                   231.079
+
+
+Geweke (1992) Convergence Tests, based on means of draws 300000 to 440000 vs 650000 to 1000000.
+p-values are for Chi2-test for equality of means.
+Parameter                  Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eps_c                        0.012            0.001            0.000            0.020            0.047            0.089
+SE_eps_e                        0.004            0.000            0.000            0.747            0.783            0.791
+SE_eps_h                        0.023            0.002            0.122            0.915            0.909            0.908
+SE_eps_j                        0.063            0.022            0.530            0.976            0.975            0.976
+SE_eps_k                        0.011            0.002            0.000            0.006            0.032            0.080
+SE_eps_p                        0.006            0.001            0.000            0.176            0.188            0.227
+SE_eps_s                        0.049            0.010            0.000            0.007            0.037            0.090
+SE_eps_t                        0.026            0.004            0.000            0.003            0.006            0.018
+SE_eps_z                        0.022            0.008            0.000            0.065            0.131            0.198
+SE_EOBS_hwr_pd_obs              0.135            0.010            0.000            0.788            0.783            0.794
+SE_EOBS_h_winf_obs              0.008            0.001            0.000            0.648            0.651            0.623
+ALPHA                           0.744            0.042            0.000            0.004            0.023            0.066
+EC                              0.359            0.048            0.000            0.093            0.101            0.112
+EC1                             0.529            0.062            0.000            0.001            0.000            0.000
+ETA                             0.502            0.098            0.000            0.001            0.000            0.000
+ETA1                            0.507            0.099            0.000            0.023            0.025            0.035
+FIKC                           14.269            1.878            0.000            0.415            0.445            0.427
+FIKH                           10.804            2.547            0.000            0.341            0.305            0.281
+LAGP                            0.707            0.104            0.000            0.093            0.122            0.149
+LAGWC                           0.118            0.058            0.000            0.649            0.669            0.701
+LAGWH                           0.563            0.133            0.000            0.683            0.703            0.711
+NU                             -0.848            0.113            0.011            0.892            0.893            0.893
+NU1                            -0.984            0.102            0.000            0.569            0.571            0.591
+RHO_AC                          0.962            0.014            0.000            0.001            0.007            0.029
+RHO_AH                          0.989            0.008            0.000            0.714            0.691            0.639
+RHO_AJ                          0.930            0.032            0.000            0.062            0.087            0.130
+RHO_AK                          0.933            0.028            0.000            0.319            0.343            0.299
+RHO_AT                          0.959            0.016            0.000            0.093            0.129            0.169
+RHO_AZ                          0.932            0.098            0.000            0.009            0.051            0.120
+TAYLOR_P                        1.453            0.081            0.000            0.001            0.005            0.020
+TAYLOR_R                        0.612            0.045            0.000            0.009            0.011            0.005
+TAYLOR_Y                        0.491            0.071            0.000            0.064            0.096            0.100
+TETA                            0.785            0.026            0.000            0.296            0.340            0.410
+TETAWC                          0.776            0.028            0.000            0.018            0.036            0.073
+TETAWH                          0.914            0.012            0.000            0.809            0.810            0.822
+TREND_AC                        0.003            0.000            0.000            0.014            0.052            0.114
+TREND_AH                       -0.000            0.001            0.000            0.074            0.150            0.240
+TREND_AK                        0.002            0.001            0.000            0.031            0.080            0.149
+ZETAKC                          0.799            0.090            0.000            0.068            0.141            0.219
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is 2672.804824.
+
+parameters
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+ALPHA             0.650       0.7456      0.6759      0.8152   beta        0.0500
+EC                0.500       0.3591      0.2788      0.4360   beta        0.0750
+EC1               0.500       0.5298      0.4275      0.6310   beta        0.0750
+ETA               0.500       0.4996      0.3414      0.6564   gamm        0.1000
+ETA1              0.500       0.5083      0.3459      0.6649   gamm        0.1000
+FIKC             10.000      14.3743     11.2241     17.4989   gamm        2.5000
+FIKH             10.000      10.7733      6.5637     14.7639   gamm        2.5000
+LAGP              0.500       0.7025      0.5345      0.8802   beta        0.2000
+LAGWC             0.500       0.1178      0.0259      0.2043   beta        0.2000
+LAGWH             0.500       0.5673      0.3509      0.7914   beta        0.2000
+NU               -1.000      -0.8471     -1.0338     -0.6614   norm        0.1000
+NU1              -1.000      -0.9832     -1.1520     -0.8186   norm        0.1000
+RHO_AC            0.800       0.9618      0.9395      0.9850   beta        0.1000
+RHO_AH            0.800       0.9887      0.9784      0.9986   beta        0.0900
+RHO_AJ            0.800       0.9310      0.8839      0.9811   beta        0.1000
+RHO_AK            0.800       0.9324      0.8894      0.9784   beta        0.1000
+RHO_AT            0.800       0.9596      0.9344      0.9860   beta        0.1000
+RHO_AZ            0.800       0.9196      0.7458      0.9955   beta        0.1000
+TAYLOR_P          1.500       1.4474      1.3134      1.5793   norm        0.1000
+TAYLOR_R          0.750       0.6123      0.5395      0.6862   beta        0.1000
+TAYLOR_Y          0.000       0.4907      0.3740      0.6063   norm        0.1000
+TETA              0.667       0.7855      0.7431      0.8268   beta        0.0500
+TETAWC            0.667       0.7752      0.7276      0.8221   beta        0.0500
+TETAWH            0.667       0.9136      0.8946      0.9339   beta        0.0500
+TREND_AC          0.005       0.0027      0.0020      0.0033   norm        0.0100
+TREND_AH          0.005      -0.0003     -0.0021      0.0015   norm        0.0100
+TREND_AK          0.005       0.0022      0.0014      0.0031   norm        0.0100
+ZETAKC            0.500       0.8041      0.6672      0.9506   beta        0.2000
+
+standard deviation of shocks
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+eps_c             0.001       0.0117      0.0101      0.0133   invg        0.0100
+eps_e             0.001       0.0040      0.0033      0.0047   invg        0.0100
+eps_h             0.001       0.0229      0.0200      0.0258   invg        0.0100
+eps_j             0.001       0.0629      0.0279      0.0968   invg        0.0100
+eps_k             0.001       0.0110      0.0082      0.0139   invg        0.0100
+eps_p             0.001       0.0057      0.0047      0.0066   invg        0.0100
+eps_s             0.100       0.0480      0.0307      0.0640   invg        1.0000
+eps_t             0.001       0.0258      0.0187      0.0323   invg        0.0100
+eps_z             0.001       0.0215      0.0073      0.0315   invg        0.0100
+
+standard deviation of measurement errors
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+hwr_pd_obs        0.001       0.1347      0.1185      0.1508   invg        0.0100
+h_winf_obs        0.001       0.0078      0.0067      0.0089   invg        0.0100
+Estimation::mcmc: Posterior (dsge) IRFs...
+Estimation::mcmc: Posterior IRFs, done!
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Smoothed measurement errors
+Estimation::mcmc: Smoothed measurement errors, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 7h25m07s
+Note: warning(s) encountered in MATLAB/Octave code

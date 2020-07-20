@@ -544,27 +544,27 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
           
             elif obs == 'hwc_pd_obs':
             # LN((PAYEMS-USCONS)*AWHMAN/CNP16OV) - mean(LN((PAYEMS-USCONS)*AWHMAN/CNP16OV))
-                df.loc[:, obs] = np.log((df[d['PAYEMS']].values-df[d['USCONS']].values)*df[d['AWHMAN']].values/df[d['CNP16OV']].values) - np.nanmean(np.log((df[d['PAYEMS']].values - df[d['USCONS']].values)*df[d['AWHMAN']].values/df[d['CNP16OV']].values))                                 
-                                                                                                                         
+                df.loc[:, obs] = np.log((df[d['PAYEMS']].values-df[d['USCONS']].values)*df[d['AWHMAN']].values/df[d['CNP16OV']].values) - np.nanmean(np.log((df[d['PAYEMS']].values - df[d['USCONS']].values)*df[d['AWHMAN']].values/df[d['CNP16OV']].values)[1:-1])                                                           
+                                            
             elif obs == 'hwr_pd_obs':
             # LN(USCONS*CES2000000007/CNP16OV) - mean(LN(USCONS*CES2000000007/CNP16OV))
-                df.loc[:, obs] = np.log(df[d['USCONS']].values*df[d['CES2000000007']].values/df[d['CNP16OV']].values) - np.nanmean(np.log(df[d['USCONS']].values*df[d['CES2000000007']].values/df[d['CNP16OV']].values))                                                                                                                         
-          
+                df.loc[:, obs] = np.log(df[d['USCONS']].values*df[d['CES2000000007']].values/df[d['CNP16OV']].values) - np.nanmean(np.log(df[d['USCONS']].values*df[d['CES2000000007']].values/df[d['CNP16OV']].values)[1:-1])                                                                                                                         
+                 
             elif obs == 'hp_r_obs':
             # LN(CBHPI/IPDNBS) - first observation of LN(CBHPI/IPDNBS)
                 df.loc[:, obs] = np.log(df[d['CBHPI']].values/df[d['IPDNBS']].values) - np.log(df[d['CBHPI']].values/df[d['IPDNBS']].values)[1]  
         
             elif obs == 'i_nom_obs':
            # TB3MS/400 - mean (TB3MS/400)
-                df.loc[:, obs] = df[d['TB3MS']].values/400 - np.nanmean(df[d['TB3MS']].values/400)       
+                df.loc[:, obs] = df[d['TB3MS']].values/400 - np.nanmean(df[d['TB3MS']][1:-1].values/400)       
 
             elif obs == 'c_winf_obs':  
            # ΔLN(AHETPI) - mean(ΔLN(AHETPI))
-                df.loc[:, obs] = np.log(df[d['AHETPI']].values) -  np.log(df[d['AHETPI']].shift().values) - np.nanmean(np.log(df[d['AHETPI']].values) -  np.log(df[d['AHETPI']].shift().values))     
+                df.loc[:, obs] = np.log(df[d['AHETPI']].values) -  np.log(df[d['AHETPI']].shift().values) - np.nanmean(np.log(df[d['AHETPI']].values)[1:-1] -  np.log(df[d['AHETPI']].shift().values)[1:-1])     
                                                                                                 
             elif obs == 'h_winf_obs':
            # ΔLN(CES2000000008) - mean(ΔLN(CES2000000008))
-                df.loc[:, obs] = np.log(df[d['CES2000000008']].values) -  np.log(df[d['CES2000000008']].shift().values) - np.nanmean(np.log(df[d['CES2000000008']].values) -  np.log(df[d['CES2000000008']].shift().values))     
+                df.loc[:, obs] = np.log(df[d['CES2000000008']].values) -  np.log(df[d['CES2000000008']].shift().values) - np.nanmean(np.log(df[d['CES2000000008']].values)[1:-1] -  np.log(df[d['CES2000000008']].shift().values)[1:-1])     
                                                                                                                          
           
             
@@ -677,7 +677,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 if __name__ == '__main__':
 
     main(
-        vintageDate='2019-08-15', quarterStart='1989Q1', quarterEnd='2008Q2',
-        observed = ['gdp_rgd_obs',]
+        vintageDate = '2001-11-14', quarterStart = '1965Q1', quarterEnd = '2001Q4', raw = [],
+        observed = ['hwr_pd_obs']
 
         )
