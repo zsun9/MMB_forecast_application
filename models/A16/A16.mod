@@ -55,7 +55,7 @@ chi_spk                 % Fraction of savers and keepers
 chi_w                   % Fraction of buyers/workers
 ctau_q_t                % Transitory financial intermediation shock
 d_FGS_num               % Growth rate of financing gap
-gdp_rgd_obs                   % Growth rate of real GDP
+gdp_rgd_demean_obs                  % Growth rate of real GDP
 d_GDPm1                 % Growth rate of real GDP (lag 1)
 d_GDPm2                 % Growth rate of real GDP (lag 2)
 d_GDPm3                 % Growth rate of real GDP (lag 3)
@@ -103,7 +103,7 @@ varexo  eps_z  eps_g  eps_i  eps_tau eps_tau_trans eps_phi eps_beta  eps_p  eps_
 % Declare model parameters
 
 parameters
-gdp_rgd_obs_mean %@# include "obsMean.m"
+
 gam_s       
 bet_s       
 delta       
@@ -347,7 +347,7 @@ exp(ToY_t)/exp(steady_state(ToY_t)) = ((exp(BoY_t)/(exp(steady_state(BoY_t))))^(
 
 (1 - 1/exp(g_t))*exp(yhat) + exp(r(-1))*exp(B_t(-1))/exp(z_t) - exp(T_t) - exp(B_t);
 
-i_t - (rho_i*i_t(-1) + (1-rho_i)*((steady_state(r) + (pi_t + pi_t(-1)+pi_t(-2)+pi_t(-3))/4) + phi_pi*((pi_t + pi_t(-1)+pi_t(-2)+pi_t(-3))/4 - pistar) + phi_Ygap*(ygap_t) + phi_DY*((gdp_rgd_obs-gdp_rgd_obs_mean) + (gdp_rgd_obs(-1)-gdp_rgd_obs_mean(-1)) + (gdp_rgd_obs(-2)-gdp_rgd_obs_mean(-2)) + (gdp_rgd_obs(-3)-gdp_rgd_obs_mean(-3)))/400) + eps_i/100);
+i_t - (rho_i*i_t(-1) + (1-rho_i)*((steady_state(r) + (pi_t + pi_t(-1)+pi_t(-2)+pi_t(-3))/4) + phi_pi*((pi_t + pi_t(-1)+pi_t(-2)+pi_t(-3))/4 - pistar) + phi_Ygap*(ygap_t) + phi_DY*(gdp_rgd_demean_obs + gdp_rgd_demean_obs(-1) + gdp_rgd_demean_obs(-2) + gdp_rgd_demean_obs(-3))/400) + eps_i/100);
 
 (ygap_t+1600*(ygap_t(+2) - 4*ygap_t(+1) + 6*ygap_t - 4*ygap_t(-1) + ygap_t(-2))) = 1600*(yhat(+2) - 4*yhat(+1) + 6*yhat - 4*yhat(-1) + yhat(-2));
 
@@ -413,7 +413,7 @@ sg           - sg_ss;
 
 (cnds_nom_demean_obs)      -     100*(chat - chat(-1) + z_t - gam);
 (i_A16_obs)      -     100*(Ihat - Ihat(-1) + z_t - gam);
-(gdp_rgd_obs-gdp_rgd_obs_mean)       -     100*(GDP_t - GDP_t(-1) + z_t - gam);
+(gdp_rgd_demean_obs)       -     100*(GDP_t - GDP_t(-1) + z_t - gam);
 (wage_rgd_demean_obs)     -     100*(what_t - what_t(-1) + z_t - gam);
 gdpdef_obs       -     100*pi_t;
 ffr_obs        -     100*i_t;
@@ -435,7 +435,7 @@ d_FGS_num     -     100*(FGS_num - FGS_num(-1) + z_t - gam);
 
 (Spreadgap_t+1600*(Spreadgap_t(+2) - 4*Spreadgap_t(+1) + 6*Spreadgap_t - 4*Spreadgap_t(-1) + Spreadgap_t(-2))) = 1600*4*(baag10_obs(+2) - 4*baag10_obs(+1) + 6*baag10_obs - 4*baag10_obs(-1) + baag10_obs(-2));
 
-d_GDPm1       - gdp_rgd_obs(-1);
+d_GDPm1       - gdp_rgd_demean_obs(-1);
 d_GDPm2       - d_GDPm1(-1);
 d_GDPm3       - d_GDPm2(-1);
 pi_tm1        - pi_t(-1);
@@ -472,47 +472,47 @@ set_dynare_seed(cputime);
 
 % Declare model observables
 
-varobs gdp_rgd_obs i_A16_obs cnds_nom_demean_obs wage_rgd_demean_obs gdpdef_obs ffr_obs hours_A16_obs baag10_obs fgs_obs;
+varobs gdp_rgd_demean_obs i_A16_obs cnds_nom_demean_obs wage_rgd_demean_obs gdpdef_obs ffr_obs hours_A16_obs baag10_obs fgs_obs;
 
 % Declare estimation parameters, starting values, bounds, and priors shapes.
 
 estimated_params ;
-stderr eps_z,                0.6142     , 0,  , inv_gamma2_pdf,  0.50,    1;  
-stderr eps_g,                0.1518     , 0,  , inv_gamma2_pdf,  0.50,    1;  
-stderr eps_i,                0.4441     , 0,  , inv_gamma2_pdf,  0.10,    1;  
-stderr eps_tau,              0.2274     , 0,  , inv_gamma2_pdf,  0.50,    1;  
-stderr eps_tau_trans,        0.2491     , 0,  , inv_gamma2_pdf,  0.50,    1;  
-stderr eps_beta,             1.1614     , 0,  , inv_gamma2_pdf,  0.50,    1;  
-stderr eps_p,                0.0641     , 0,  , inv_gamma2_pdf,  0.10,    1;  
-stderr eps_w,                0.2961     , 0,  , inv_gamma2_pdf,  0.10,    1;  
-stderr eps_meas,             0.1        , 0,  , inv_gamma2_pdf,  0.05, 0.05;      
-stderr eps_meas_sp,          0.0300     , 0,  , inv_gamma2_pdf,  0.05, 0.05; 
+stderr eps_z,                0.6142     , ,  , inv_gamma2_pdf,  0.50,    1;  
+stderr eps_g,                0.1518     , ,  , inv_gamma2_pdf,  0.50,    1;  
+stderr eps_i,                0.4441     , ,  , inv_gamma2_pdf,  0.10,    1;  
+stderr eps_tau,              0.2274     , ,  , inv_gamma2_pdf,  0.50,    1;  
+stderr eps_tau_trans,        0.2491     , ,  , inv_gamma2_pdf,  0.50,    1;  
+stderr eps_beta,             1.1614     , ,  , inv_gamma2_pdf,  0.50,    1;  
+stderr eps_p,                0.0641     , ,  , inv_gamma2_pdf,  0.10,    1;  
+stderr eps_w,                0.2961     , ,  , inv_gamma2_pdf,  0.10,    1;  
+stderr eps_meas,             0.1        , ,  , inv_gamma2_pdf,  0.05, 0.05;      
+stderr eps_meas_sp,          0.0300     , ,  , inv_gamma2_pdf,  0.05, 0.05; 
 bet_s       ,   		     0.7549  	,  ,  , gamma_pdf     ,  0.75, 0.05;        
 nu          ,  			     1.8823     ,  ,  , gamma_pdf     ,     2, 0.75;      
-h           , 			     0.7355     , 0, 1, beta_pdf      ,  0.50, 0.20;      
-eta         , 			     0.7296  	, 0, 1, beta_pdf      ,  0.60, 0.10;        
-xi_p        , 			     0.8829     , 0, 1, beta_pdf      ,  0.75, 0.15;      
-iota_p      , 			     0.0965     , 0, 1, beta_pdf      ,  0.50, 0.15;      
-xi_w        , 			     0.8940     , 0, 1, beta_pdf      ,  0.75, 0.15;      
-iota_w      , 			     0.4723     , 0, 1, beta_pdf      ,  0.50, 0.15;  
-sg_ss       ,                0.0147       , 0.0131, 0.017, gamma_pdf     ,  0.40, 0.20; 
-theta       ,                0.5        , 0, 1, beta_pdf      ,  0.75, 0.05;
+h           , 			     0.7355     , , , beta_pdf      ,  0.50, 0.20;      
+eta         , 			     0.7296  	, , , beta_pdf      ,  0.60, 0.10;        
+xi_p        , 			     0.8829     , , , beta_pdf      ,  0.75, 0.15;      
+iota_p      , 			     0.0965     , , , beta_pdf      ,  0.50, 0.15;      
+xi_w        , 			     0.8940     , , , beta_pdf      ,  0.75, 0.15;      
+iota_w      , 			     0.4723     , , , beta_pdf      ,  0.50, 0.15;  
+%sg_ss       ,                0.0147       , 0.0131, 0.017, gamma_pdf     ,  0.40, 0.20; 
+theta       ,                0.5        , , , beta_pdf      ,  0.75, 0.05;
 %etau_q_ss   , 			     2          , 0,  , gamma_pdf     ,     2, 0.40;         
-theta_I     ,   		     1.4534     , 0,  , gamma_pdf     ,     4, 2;            
+theta_I     ,   		     1.4534     , ,  , gamma_pdf     ,     4, 2;            
 pis         ,                0.5893  	,  ,  , gamma_pdf     ,  0.50, 0.10;  
-rho_i       , 			     0.9525     , 0, 1, beta_pdf      ,  0.85, 0.10;      
-phi_pi      ,  			     0.5689     , 0,  , normal_pdf    ,  0.70, 0.05;         
+rho_i       , 			     0.9525     , , , beta_pdf      ,  0.85, 0.10;      
+phi_pi      ,  			     0.5689     , ,  , normal_pdf    ,  0.70, 0.05;         
 phi_DY      , 		         0.1152     ,  ,  , normal_pdf    , 0.125, 0.05;     
-tB          ,  		         0.3	    , 0,  , gamma_pdf     ,  0.50, 0.20;            
-rho_z       , 			     0.3156     , 0, 1, beta_pdf      ,  0.50, 0.20;         
-rho_g       , 			     0.9897     ,0,1.01,beta_pdf      ,  0.50, 0.20;         
-rho_beta    , 			     0.6212     , 0, 1, beta_pdf      ,  0.50, 0.20;      
+tB          ,  		         0.3	    , ,  , gamma_pdf     ,  0.50, 0.20;            
+rho_z       , 			     0.3156     , , , beta_pdf      ,  0.50, 0.20;         
+rho_g       , 			     0.9897     , , ,beta_pdf      ,  0.50, 0.20;         
+rho_beta    , 			     0.6212     , , , beta_pdf      ,  0.50, 0.20;      
 rho_tau     , 			     0.95       ,  ,  , beta_pdf      ,  0.50, 0.20;  
-decay       ,                0.60       , 0,  , beta_pdf      ,  0.50, 0.20;   
-rho_p       , 			     0.6182     , 0, 1, beta_pdf      ,  0.50, 0.20;      
-rho_w       , 			     0.1874     , 0, 1, beta_pdf      ,  0.50, 0.20;      
-theta_p     , 			     0.2155     , 0, 1, beta_pdf      ,  0.50, 0.20;      
-theta_w     , 			     0.1161     , 0, 1, beta_pdf      ,  0.50, 0.20;      
+decay       ,                0.60       , ,  , beta_pdf      ,  0.50, 0.20;   
+rho_p       , 			     0.6182     , , , beta_pdf      ,  0.50, 0.20;      
+rho_w       , 			     0.1874     , , , beta_pdf      ,  0.50, 0.20;      
+theta_p     , 			     0.2155     , , , beta_pdf      ,  0.50, 0.20;      
+theta_w     , 			     0.1161     , , , beta_pdf      ,  0.50, 0.20;      
 end;
 
 % Initial condition for minimizer:
@@ -526,7 +526,7 @@ xi_p         ,  0.80;
 iota_p       ,  0.21;
 xi_w         ,  0.92;
 iota_w       ,  0.43;
-sg_ss        ,  0.0147;
+%sg_ss        ,  0.0147;
 theta        ,  0.68;
 %etau_q_ss    ,  3.1;
 theta_I      ,  0.81;
@@ -565,7 +565,7 @@ options_.endogenous_prior = 1;
    // datafile = data_20151110,xls_sheet=Sheet1, xls_range=B1:J79, first_obs = 1, order = 1,  
 // plot_priors  = 0, mode_compute = 7,
   //  irf = 30, bayesian_irf, mh_replic =100000, mh_nblocks = 1,
-   // mh_drop = .3, mh_jscale = .30, forecast=5)gdp_rgd_obs ;
+   // mh_drop = .3, mh_jscale = .30, forecast=5)gdp_rgd_demean_obs ;
     
 
 
