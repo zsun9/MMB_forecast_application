@@ -144,7 +144,14 @@ for model = p.models
                 else
                     p.optionString.subDraws = sprintf("sub_draws=%s, ", string(p.subDraws));
                 end
+                             
+                if model == "IN10"
+                    p.optionString.extra = "prior_trunc =0 ,";
+                else
+                    p.optionString.extra = "";
+                end                
                 t.script.estimation = "\nestimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, " + ...
+                    p.optionString.extra + ...
                     sprintf("datafile=%s, ", t.dataFile) + ...
                     sprintf("xls_sheet=%s, ", scenario) + ...
                     sprintf("xls_range=%s, ", t.xlsRange) + ...
@@ -158,7 +165,7 @@ for model = p.models
                     sprintf("mode_compute=%s", string(p.mode_compute_order(1))) + ...
                     ") gdp_rgd_obs;";
                 
-                if model == "QPM08" || model == "QPM08_cql"
+                if model == "QPM08" || model == "QPM08_cql" || model == "IN10"
                     t.script.estimation = strrep(t.script.estimation, ") gdp_rgd_obs;", ") gdpl_rgd_obs;");
                 end
                 
@@ -229,7 +236,7 @@ for model = p.models
                 end
                 
                 % save GDP forecasts (start from the last in-sample obs)
-                if model == "QPM08" || model == "QPM08_cql"
+                if model == "QPM08" || model == "QPM08_cql" || model == "IN10"
                     if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
                         t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end)']);
                     else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
@@ -241,6 +248,10 @@ for model = p.models
                     else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
                         t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end-1)'];
                     end
+                end
+                
+                if model == "IN10"
+                    t.output.forecast.gdp = t.output.forecast.gdp*100;
                 end
                 
                 assert(length(t.output.forecast.gdp) == p.forecastHorizon + 1);
