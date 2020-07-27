@@ -168,7 +168,7 @@ e_p        = 0;
 e_w        = 0; 
 cnds_nom_demean_obs     = 0;
 i_A16_obs     = 0;
-gdp_rgd_demean_obs   = 0;
+gdp_rgd_obs   = 0;
 wage_rgd_demean_obs    = 0;
 d_GDPm1    = 0;
 d_GDPm2    = 0;
@@ -231,7 +231,7 @@ chi_spk
 chi_w          
 ctau_q_t       
 d_FGS_num      
-gdp_rgd_demean_obs          
+gdp_rgd_obs          
 d_GDPm1        
 d_GDPm2        
 d_GDPm3        

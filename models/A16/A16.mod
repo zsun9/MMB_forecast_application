@@ -55,7 +55,7 @@ chi_spk                 % Fraction of savers and keepers
 chi_w                   % Fraction of buyers/workers
 ctau_q_t                % Transitory financial intermediation shock
 d_FGS_num               % Growth rate of financing gap
-gdp_rgd_demean_obs                  % Growth rate of real GDP
+gdp_rgd_obs                  % Growth rate of real GDP
 d_GDPm1                 % Growth rate of real GDP (lag 1)
 d_GDPm2                 % Growth rate of real GDP (lag 2)
 d_GDPm3                 % Growth rate of real GDP (lag 3)
@@ -347,7 +347,7 @@ exp(ToY_t)/exp(steady_state(ToY_t)) = ((exp(BoY_t)/(exp(steady_state(BoY_t))))^(
 
 (1 - 1/exp(g_t))*exp(yhat) + exp(r(-1))*exp(B_t(-1))/exp(z_t) - exp(T_t) - exp(B_t);
 
-i_t - (rho_i*i_t(-1) + (1-rho_i)*((steady_state(r) + (pi_t + pi_t(-1)+pi_t(-2)+pi_t(-3))/4) + phi_pi*((pi_t + pi_t(-1)+pi_t(-2)+pi_t(-3))/4 - pistar) + phi_Ygap*(ygap_t) + phi_DY*(gdp_rgd_demean_obs + gdp_rgd_demean_obs(-1) + gdp_rgd_demean_obs(-2) + gdp_rgd_demean_obs(-3))/400) + eps_i/100);
+i_t - (rho_i*i_t(-1) + (1-rho_i)*((steady_state(r) + (pi_t + pi_t(-1)+pi_t(-2)+pi_t(-3))/4) + phi_pi*((pi_t + pi_t(-1)+pi_t(-2)+pi_t(-3))/4 - pistar) + phi_Ygap*(ygap_t) + phi_DY*(gdp_rgd_obs + gdp_rgd_obs(-1) + gdp_rgd_obs(-2) + gdp_rgd_obs(-3))/400) + eps_i/100);
 
 (ygap_t+1600*(ygap_t(+2) - 4*ygap_t(+1) + 6*ygap_t - 4*ygap_t(-1) + ygap_t(-2))) = 1600*(yhat(+2) - 4*yhat(+1) + 6*yhat - 4*yhat(-1) + yhat(-2));
 
@@ -413,7 +413,7 @@ sg           - sg_ss;
 
 (cnds_nom_demean_obs)      -     100*(chat - chat(-1) + z_t - gam);
 (i_A16_obs)      -     100*(Ihat - Ihat(-1) + z_t - gam);
-(gdp_rgd_demean_obs)       -     100*(GDP_t - GDP_t(-1) + z_t - gam);
+(gdp_rgd_obs)       -     100*(GDP_t - GDP_t(-1) + z_t - gam);
 (wage_rgd_demean_obs)     -     100*(what_t - what_t(-1) + z_t - gam);
 gdpdef_obs       -     100*pi_t;
 ffr_obs        -     100*i_t;
@@ -435,7 +435,7 @@ d_FGS_num     -     100*(FGS_num - FGS_num(-1) + z_t - gam);
 
 (Spreadgap_t+1600*(Spreadgap_t(+2) - 4*Spreadgap_t(+1) + 6*Spreadgap_t - 4*Spreadgap_t(-1) + Spreadgap_t(-2))) = 1600*4*(baag10_obs(+2) - 4*baag10_obs(+1) + 6*baag10_obs - 4*baag10_obs(-1) + baag10_obs(-2));
 
-d_GDPm1       - gdp_rgd_demean_obs(-1);
+d_GDPm1       - gdp_rgd_obs(-1);
 d_GDPm2       - d_GDPm1(-1);
 d_GDPm3       - d_GDPm2(-1);
 pi_tm1        - pi_t(-1);
@@ -472,7 +472,7 @@ set_dynare_seed(cputime);
 
 % Declare model observables
 
-varobs gdp_rgd_demean_obs i_A16_obs cnds_nom_demean_obs wage_rgd_demean_obs gdpdef_obs ffr_obs hours_A16_obs baag10_obs fgs_obs;
+varobs gdp_rgd_obs i_A16_obs cnds_nom_demean_obs wage_rgd_demean_obs gdpdef_obs ffr_obs hours_A16_obs baag10_obs fgs_obs;
 
 % Declare estimation parameters, starting values, bounds, and priors shapes.
 
@@ -565,7 +565,7 @@ options_.endogenous_prior = 1;
    // datafile = data_20151110,xls_sheet=Sheet1, xls_range=B1:J79, first_obs = 1, order = 1,  
 // plot_priors  = 0, mode_compute = 7,
   //  irf = 30, bayesian_irf, mh_replic =100000, mh_nblocks = 1,
-   // mh_drop = .3, mh_jscale = .30, forecast=5)gdp_rgd_demean_obs ;
+   // mh_drop = .3, mh_jscale = .30, forecast=5)gdp_rgd_obs ;
     
 
 
