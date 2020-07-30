@@ -7,7 +7,7 @@ infoSpf = pd.read_csv(pathlib.Path('../data')  / 'spf_dates.csv', encoding='utf-
 for deadline in infoSpf['deadlines']:
 
 #   if pd.to_datetime(deadline).year in {2001, 2008, 2009, 2020}:
-     if pd.to_datetime(deadline).year in {2001}:
+     if pd.to_datetime(deadline).year in {2001, 2008, 2009, 2020}:
 
         print(f'Generating data in {deadline}')
         quarterStart, quarterEnd = create_sample_ends_at_vintagedate.main(vintageDate=deadline, sampleSize=100)
@@ -25,6 +25,7 @@ for deadline in infoSpf['deadlines']:
                 'credit_nom_obs', 'hours_kr15_obs',
                 'mortgage_nom_obs',
                 'mortffr_obs', 'bbb1yffr_obs', 
+                'hp_nom_obs',
 
                 'cnds_rim_obs', 'credit_rgd_obs', 'g10ffr_obs', 'hours_cmr14_obs', 'igid_rim_obs', 'igiddef_rgd_obs', 'networth_rgd_cmr14_obs', 'networth_rgd_obs',
                 'rc_obs', 'pi_dm_obs','rri_obs','rbi_obs','hp_r_obs',

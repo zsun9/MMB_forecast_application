@@ -14,12 +14,12 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2008-08-07"]; %
-p.scenarios = ["s3", "s4"];
-p.models = ["FRBEDO08_cql"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.vintages = ["2020-02-11", "2020-05-12"]; %
+p.scenarios = ["s1"];
+p.models = ["KR15_HH"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "Zexi Sun";
 
-p.ExcelColumnUntil = "AX";
+p.ExcelColumnUntil = "AY";
 
 % hyper-parameters
 p.chainLen = 1000000;
@@ -94,7 +94,7 @@ for model = p.models
                         beep;
                         t.choice = input('', 's');
                     end
-                    t = lower(t);
+                    t.choice = lower(t.choice);
                     
                     switch t.choice
                         case "y"
