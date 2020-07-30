@@ -3,7 +3,9 @@ const modelColor = {
   'SPFMean': 'Green',
   'SPFIndividual': 'rgba(0, 0, 0, 0.1)',
   // Selective
+  'CMR14': 'Red',
   'DS04': 'Red',
+  'IN10': 'Red',
   'DS04_ew': 'Red',
   'WW11': 'Fuchsia',
   'WW11_ew': 'Fuchsia',

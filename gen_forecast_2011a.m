@@ -22,9 +22,9 @@ close all; fclose all; clear; clc;
 % user-specified parameters
 % Please use double quotes here!
 % cell array format---------- Format: {' ', ' ', ' '}
-p.vintages = {'2020-05-12'}; 
-p.scenarios = {'s1'};
-p.models = {'DS04'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.vintages = {'2008-11-10'}; 
+p.scenarios = {'s3'};
+p.models = {'KR15_HH'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 % text format -------------- Format: ' '
 p.executor = 'KaiLong';
 p.comment = 'trytrytrytrytrytrytrytrytry_matlab2011a_dy424';
