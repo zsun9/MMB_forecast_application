@@ -17,11 +17,14 @@ for dirPath in paths['estimations'].glob('*'):
             jsonPath = list(dirPath.glob('*.json'))[0]
             with open(list(dirPath.glob('*.log'))[0], 'r') as logFile:
                 log = logFile.readlines()
-                for line in log:
+                for index, line in enumerate(log):
                     if 'Chain  1: ' in line:
                         acceptanceRates.append((dirPath.stem, float(line.replace('Chain  1: ', '').replace(' ', '').replace('\n', '').replace('%', ''))))
+                    if 'average acceptation rate per chain' in line:
+                        acceptanceRates.append((dirPath.stem, 100*float(log[index+1].replace('Chain  1: ', '').replace(' ', '').replace('\n', '').replace('%', ''))))
 
         except:
+            print(f'Something wrong with: {dirPath.stem}')
             jsonNotExist.append(dirPath.stem)
 
 with open(paths['root'] / 'accpetanceRate.txt', 'w') as outputFile:
