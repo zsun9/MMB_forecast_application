@@ -322,4 +322,4 @@ varobs gdp_rgd_obs, c_rgd_obs, inr_nom_obs, hours_kr15_obs, wage_rgd_obs, gdpdef
 //disp(['Debt to GDP ratio:        ',num2str(d_i*(1-n_p)/4/y)]);
 //disp(['Spread (annualized):      ',num2str(400*R_i/R-400)]);
 //estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20081110, xls_sheet=s3, xls_range=B1:X101, presample=4, mh_replic=100000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=5) gdp_rgd_obs;
-estimation(nograph, smoother, order=1, prefilter=0, datafile=data_20011114, xls_sheet=s1, xls_range=B1:AY100, presample=4, mh_replic=100000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, forecast=40, mode_compute=0, mode_file=KR15_HH_mode) gdp_rgd_obs;
+estimation(nograph, smoother, order=1, prefilter=0, datafile=data_20011114, xls_sheet=s1, xls_range=B1:BD100, presample=4, mh_replic=100000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, forecast=40, mode_compute=0, mode_file=KR15_HH_mode) gdp_rgd_obs;

@@ -13,7 +13,7 @@ const modelColor = {
   'SW07_ew': 'DodgerBlue',
   'NKBGG': 'Cyan',
   'NKBGG_ew': 'Cyan',
-  'DNGS15': 'Red',
+  'DNGS15': 'Orange',
   'DNGS15_cql': 'Orange',
   'DNGS15_ew': 'Orange',
   'DNGS15_cql_ew': 'Orange',
@@ -31,6 +31,7 @@ const modelColor = {
   'Fair': 'Gold',
   'GBbeforeSPF': 'Brown',
   'GBafterSPF': 'Brown',
+  'KR15_HH': 'Purple',
 };
 
 const modelDash = {

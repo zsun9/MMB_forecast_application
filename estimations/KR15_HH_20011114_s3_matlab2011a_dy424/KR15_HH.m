@@ -4,8 +4,6 @@
 % Warning : this file is generated automatically by Dynare
 %           from model file (.mod)
 
-clear all
-clear global
 tic;
 global M_ oo_ options_ ys0_ ex0_
 options_ = [];
@@ -662,15 +660,14 @@ options_.mh_drop = 0.3;
 options_.mh_jscale = 0.3;
 options_.mh_nblck = 1;
 options_.mh_replic = 100000;
-options_.mode_compute = 0;
+options_.mode_compute = 6;
 options_.nograph = 1;
 options_.order = 1;
 options_.prefilter = 0;
 options_.presample = 4;
 options_.smoother = 1;
 options_.datafile = 'data_20011114';
-options_.mode_file = 'KR15_HH_mode';
-options_.xls_range = 'B1:AY101';
+options_.xls_range = 'B1:BD101';
 options_.xls_sheet = 's3';
 var_list_=[];
 var_list_ = 'gdp_rgd_obs';
