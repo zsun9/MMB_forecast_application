@@ -28,7 +28,7 @@ p.models = {'KR15_HH'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR
 % text format -------------- Format: ' '
 p.executor = 'KaiLong';
 p.comment = '_matlab2011a_dy424';
-p.ExcelColumnUntil = 'AY';
+p.ExcelColumnUntil = 'BD';
 
 
 % hyper-parameters

@@ -29,8 +29,9 @@ for deadline in infoSpf['deadlines']:
 
                 'cnds_rim_obs', 'credit_rgd_obs', 'g10ffr_obs', 'hours_cmr14_obs', 'igid_rim_obs', 'igiddef_rgd_obs', 'networth_rgd_cmr14_obs', 'networth_rgd_obs',
                 'rc_obs', 'pi_dm_obs','rri_obs','rbi_obs','hp_r_obs',
-                'hwc_pd_obs' , 'hwr_pd_obs' , 'i_nom_obs' , 'c_winf_obs' ,'h_winf_obs'
+                'hwc_pd_obs' , 'hwr_pd_obs' , 'i_nom_obs' , 'c_winf_obs' ,'h_winf_obs',
                 
+                'i_A16_obs', 'hours_A16_obs', 'fgs_obs', 'cnds_nom_demean_obs', 'wage_rgd_demean_obs',
                 ]))
 
             )
