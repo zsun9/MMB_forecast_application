@@ -42,7 +42,7 @@ for i, index in enumerate(actualGDP.index):
     results['actual'].append({'actual': {'gdp': series}, 'vintageQuarter': index})
 
 # collect SPF/GB/Fair forecasts
-df_sgf = pd.read_excel(paths['data'] / 'gb_spf_fair.xlsx', encoding='utf-8')
+df_sgf = pd.read_excel(paths['data'] / 'gb_spf_fair.xlsx')
 for index, row in df_sgf.iterrows():
     inst = {
         'model': row['model'],
@@ -70,7 +70,8 @@ for index, row in df_sgf.iterrows():
 # collect forecast results from the estimation folder
 # calculate forecast errors
 for directory in paths['estimations'].glob('*'):
-    if 'KLTrial' in directory.stem or 'nofa' in directory.stem or '2011' in directory.stem:
+
+    if 'KR15_FF' in directory.stem or 'IN10' in directory.stem or '20090811' in directory.stem or '20091110' in directory.stem:
         print(f'Not included: {directory.stem}')
     else:
         if directory.is_dir():
@@ -80,10 +81,12 @@ for directory in paths['estimations'].glob('*'):
                 inst = json.loads(file.read_text())
                 if 'cql' in directory.stem:
                     assert 'cql' in inst['model']
+                if 'nofa' in directory.stem:
+                    assert 'nofa' in inst['model']
                 if 'ew' in directory.stem:
                     inst['model'] += '_ew'
-                if 'dy424' in directory.stem:
-                    inst['model'] += '_dy424'
+                # if 'dy424' in directory.stem:
+                #     inst['model'] += '_dy424'
                 if 'GLP' in inst['model']:
                     results['ts'].append(inst)
                 else:

@@ -22,13 +22,13 @@ close all; fclose all; clear; clc;
 % user-specified parameters
 % Please use double quotes here!
 % cell array format---------- Format: {' ', ' ', ' '}
-p.vintages = {'2020-05-12'}; 
-p.scenarios = {'s1'};
-p.models = {'DS04'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.vintages = {'2008-11-10'}; 
+p.scenarios = {'s3'};
+p.models = {'KR15_HH'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 % text format -------------- Format: ' '
 p.executor = 'KaiLong';
-p.comment = 'trytrytrytrytrytrytrytrytry_matlab2011a_dy424';
-p.ExcelColumnUntil = 'AX';
+p.comment = '_matlab2011a_dy424';
+p.ExcelColumnUntil = 'BD';
 
 
 % hyper-parameters
@@ -41,7 +41,7 @@ p.burnIn = 0.3;
 p.scalingParam =  0.3;
 p.presample = 4;
 p.nobs = 100;
-p.mode_compute_order = [4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
+p.mode_compute_order = [4, 7, 1, 3, 5, 6];
 
 % locate main folders (stored as char type)
 p.path.root = pwd; %p.path.root = convertCharsToStrings(pwd);
@@ -110,7 +110,7 @@ for ind_model = 1:length(p.models) ;%model = p.models
                         beep;
                         t.choice = input('', 's');
                     end
-                    t = lower(t);
+                    t.choice = lower(t.choice);
                     
                     switch t.choice
                         case 'y'
@@ -164,7 +164,7 @@ for ind_model = 1:length(p.models) ;%model = p.models
                 end
                 t.script.estimation = ['\nestimation(' ...
                     p.optionString.nodisplay    ...
-                    ', smoother, order=1, prefilter=0, mode_check, bayesian_irf, '  ...
+                    ', smoother, order=1, prefilter=0, '  ...
                     sprintf('datafile=%s, ', t.dataFile)  ...
                     sprintf('xls_sheet=%s, ', scenario)  ...
                     sprintf('xls_range=%s, ', t.xlsRange)  ...

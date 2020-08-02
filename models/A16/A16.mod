@@ -557,7 +557,7 @@ stderr eps_meas,  0.154;
 end;
 
 % Add prior on standard deviation of FGS observable:
-options_.endogenous_prior = 1;
+% options_.endogenous_prior = 1;
 
 
 

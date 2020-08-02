@@ -3,7 +3,9 @@ const modelColor = {
   'SPFMean': 'Green',
   'SPFIndividual': 'rgba(0, 0, 0, 0.1)',
   // Selective
+  'CMR14': 'Red',
   'DS04': 'Red',
+  'IN10': 'Red',
   'DS04_ew': 'Red',
   'WW11': 'Fuchsia',
   'WW11_ew': 'Fuchsia',
@@ -24,11 +26,12 @@ const modelColor = {
   'QPM08_ew': 'DarkMagenta',
   'QPM08_cql_ew': 'DarkMagenta',
   'GLP3v': 'GreenYellow',
-  'GLP8v': 'DarkCyan',
+  'GLP8v': 'Blue',
   'KR15_FF': 'Blue',
   'Fair': 'Gold',
   'GBbeforeSPF': 'Brown',
   'GBafterSPF': 'Brown',
+  'KR15_HH': 'Purple',
 };
 
 const modelDash = {

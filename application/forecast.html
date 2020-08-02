@@ -12,11 +12,11 @@
 
   <body data-spy='scroll' data-target='#navbar-example'>
 
-    <div id='navbar_placeholder'></div>
+    <!-- <div id='navbar_placeholder'></div> -->
 
     <div class='container'>
-      <h1 class='page-header'>Forecast chart</h1>
-      <p class='lead'>To create forecast charts, specify the vintage date, forecast sources, and data scenarios</p>
+      <!-- <h1 class='page-header'>Forecast chart</h1>
+      <p class='lead'>To create forecast charts, specify the vintage date, forecast sources, and data scenarios</p> -->
 
       <form id='selectForm'>
 
@@ -125,8 +125,8 @@
     </div>
 
     <hr>
-
-    <div class='container-fluid' id='bigChart'></div>
+    <div class='container-fluid' style='padding: 0pt; margin: 0pt;' id='bigChart'></div>
+    <hr>
 
     <script src='./js/jquery.js'></script>
     <script src='./js/popper.min.js'></script>
@@ -180,6 +180,7 @@
         }
 
         document.getElementById('selectSPFMean').checked = true;
+        document.getElementById('selectSPFIndividual').checked = true;
 
       });
 
@@ -211,6 +212,7 @@
         const selection = $(this).serializeArray();
         $(this)[0].reset();
         document.getElementById('selectSPFMean').checked = true;
+        document.getElementById('selectSPFIndividual').checked = true;
 
         var selected = {
           'vintage': [],
@@ -232,7 +234,7 @@
 
         for (let ivintage = 0; ivintage < selected['vintage'].length; ivintage++) {
 
-          console.log(ivintage);
+          // console.log(ivintage);
           // let warningShowDescription = document.createElement('p');
           // warningShowDescription.innerHTML = `Forecasts from ${selected['dsge']} on ${selected['vintage']} in scenario ${selected['scenario']} will be shown.`;
           // document.getElementById('warning').appendChild(warningShowDescription);
@@ -260,7 +262,13 @@
             }
           }
 
+
           fetch('./src/results.json').then(response => response.json()).then(data => {
+
+            let supTitle = document.createElement('h5');
+            supTitle.setAttribute('style', 'margin: 0%; padding: 0; text-align:center; font-weight: bold; font-size: 16pt;');
+            supTitle.innerText = `Forecast start ${vintageQuarter}`;
+            bigChart.appendChild(supTitle);
 
             let charts = document.createElement('div');
             charts.classList.add('row');
@@ -272,13 +280,14 @@
             //   charts.removeChild(charts.firstChild);
             // }
 
-            let supTitle = document.createElement('div');
-            supTitle.classList.add('col');
-            supTitle.innerHTML = `<h5 style='text-align: center;'>Forecast start ${vintageQuarter}</h5>`;
-            let breakTitle = document.createElement('div');
-            breakTitle.classList.add('w-100');
-            charts.appendChild(supTitle);
-            charts.appendChild(breakTitle);
+            // let supTitle = document.createElement('div');
+            // supTitle.classList.add('col');
+            // supTitle.innerHTML = `<h5 style='text-align: center;'>Forecast start ${vintageQuarter}</h5>`;
+            // let breakTitle = document.createElement('div');
+            // breakTitle.classList.add('w-100');
+            // breakTitle.classList.add('h-25');
+            // charts.appendChild(supTitle);
+            // charts.appendChild(breakTitle);
 
             // get actual GDP series
             let actualSeries = [];
@@ -309,7 +318,17 @@
                   var alreadyHaveThisLabel = [];
                   for (let i = 0; i < data[type].length; i++) {
                     if (data[type][i].model == model) {
-                      if ((data[type][i].vintage == selected['vintage'][ivintage]) && (data[type][i].scenario == scenario)) {
+                      if ((data[type][i].vintageQuarter == vintageQuarter) && (data[type][i].scenario == undefined) && (data[type][i].model == 'SPFMean')) {
+                        gdpData = data[type][i].forecast.gdp;
+                        datasets.push({
+                          fill: false,
+                          label: data[type][i].model,
+                          data: gdpData,
+                          backgroundColor: 'DarkGreen',
+                          borderColor: 'DarkGreen',
+                          borderWidth: 4,
+                        });
+                      } else if ((data[type][i].vintage == selected['vintage'][ivintage]) && (data[type][i].scenario == scenario)) {
                         gdpData = data[type][i].forecast.gdp;
                         gdpLastQuarter = gdpData[0];
                         datasets.push({
@@ -328,7 +347,7 @@
                         if (alreadyHaveThisLabel.includes(model)) {
                           datasets.push({
                             fill: false,
-                            label: 'hide',
+                            label: 'Individual SPF',
                             data: gdpData,
                             backgroundColor: modelColor[model],
                             borderColor: modelColor[model],
@@ -359,8 +378,6 @@
                 } 
               }
 
-              console.log(gdpLastQuarter);
-
               if (loopedOnce == false) {
                 loopedOnce = true;
                 actualSeries.unshift(gdpLastQuarter);
@@ -370,9 +387,9 @@
                 fill: false,
                 label: 'Actual',
                 data: actualSeries,
-                backgroundColor: 'black',
-                borderColor: 'black',
-                borderWidth: 3,
+                backgroundColor: 'Black',
+                borderColor: 'Black',
+                borderWidth: 4,
               });
 
               let recessionPeriods = [];
@@ -394,7 +411,10 @@
                 })
               }
 
-              Chart.defaults.global.defaultFontFamily = 'Source Sans Pro';
+              
+
+              Chart.defaults.global.defaultFontFamily = 'Arial';
+              Chart.defaults.global.defaultFontColor = 'Black';
               Chart.defaults.global.defaultFontSize = 16;
               Chart.defaults.global.elements.point.radius = 1;
               Chart.defaults.global.elements.line.tension = 0;
@@ -441,8 +461,8 @@
                     scales: {
                       yAxes: [{
                         ticks: {
-                          suggestedMin: -8,
-                          suggestedMax: 6,
+                          min: -8, // suggestedMin
+                          max: 6, // suggestedMax
                         }
                       }]
                     },
@@ -456,16 +476,16 @@
               document.querySelector('.legend').innerHTML = chart.generateLegend();
               let lis = document.querySelectorAll('li');
               for (let item of lis) {
-                if (item.innerText == 'hide') {
+                if (item.innerText == 'Individual SPF') {
                   item.remove();
                 }
               }
 
               }
 
-            let breakLine = document.createElement('div');
-            breakLine.classList.add('w-100');
-            bigChart.appendChild(breakLine);
+            // let breakLine = document.createElement('div');
+            // breakLine.classList.add('w-100');
+            // bigChart.appendChild(breakLine);
 
             });
           

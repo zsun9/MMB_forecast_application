@@ -15,11 +15,11 @@ close all; fclose all; clear; clc;
 % user-specified parameters
 % Please use double quotes here!
 p.vintages = ["2008-08-07"]; %
-p.scenarios = ["s3", "s4"];
-p.models = ["FRBEDO08_cql"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
-p.executor = "Zexi Sun";
+p.scenarios = ["s1"];
+p.models = ["A16"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.executor = "Zexi";
 
-p.ExcelColumnUntil = "AX";
+p.ExcelColumnUntil = "BD";
 
 % hyper-parameters
 p.chainLen = 1000000;
@@ -94,7 +94,7 @@ for model = p.models
                         beep;
                         t.choice = input('', 's');
                     end
-                    t = lower(t);
+                    t.choice = lower(t.choice);
                     
                     switch t.choice
                         case "y"
@@ -144,13 +144,16 @@ for model = p.models
                 else
                     p.optionString.subDraws = sprintf("sub_draws=%s, ", string(p.subDraws));
                 end
-                             
+
+                p.optionString.extra = "";
                 if model == "IN10"
-                    p.optionString.extra = "prior_trunc =0 ,";
-                else
-                    p.optionString.extra = "";
-                end                
-                t.script.estimation = "\nestimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, " + ...
+                    p.optionString.extra = "prior_trunc = 0, ";
+                end
+                if model == "A16"
+                    p.optionString.extra = "qz_zero_threshold = 1e-32, ";
+                end
+                
+                t.script.estimation = "\nestimation(nodisplay, smoother, order=1, prefilter=0, " + ...
                     p.optionString.extra + ...
                     sprintf("datafile=%s, ", t.dataFile) + ...
                     sprintf("xls_sheet=%s, ", scenario) + ...
@@ -325,7 +328,7 @@ for model = p.models
                     beep;
                     t.choice = input('', 's');
                 end
-                t = lower(t);
+                t.choice = lower(t.choice);
 
                 switch t.choice
                     case "y"
