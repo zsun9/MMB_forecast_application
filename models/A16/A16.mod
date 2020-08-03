@@ -567,4 +567,3 @@ end;
   //  irf = 30, bayesian_irf, mh_replic =100000, mh_nblocks = 1,
    // mh_drop = .3, mh_jscale = .30, forecast=5)gdp_rgd_obs ;
     
-check()
