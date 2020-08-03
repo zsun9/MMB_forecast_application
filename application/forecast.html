@@ -479,6 +479,10 @@
                 if (item.innerText == 'Individual SPF') {
                   item.remove();
                 }
+                if (item.innerText.includes('_')) {
+                  let oldInnerHTML = item.innerHTML;
+                  item.innerHTML = oldInnerHTML.replace('background-color: ', 'border-style: dotted; border-color: ');
+                }
               }
 
               }
