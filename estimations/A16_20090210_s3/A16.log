@@ -1,0 +1,236 @@
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+WARNING: A16.mod:107.1-156.5: Symbol s_phi declared twice.
+Substitution of endo leads >= 2: added 6 auxiliary variables and equations.
+Substitution of endo lags >= 2: added 10 auxiliary variables and equations.
+Found 101 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+<a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'local_min_found','CSHelpWindow');">Local minimum found that satisfies the constraints</a>.
+
+Optimization completed because the objective function is non-decreasing in 
+<a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'feasible_directions','CSHelpWindow');">feasible directions</a>, to within the value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'optimality_tolerance_msgcsh','CSHelpWindow');">optimality tolerance</a>,
+and constraints are satisfied to within the value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
+
+<<a href = "matlab: createExitMsg({'optimlib:sqpLineSearch:Exit1basic'},{'optimlib:sqpLineSearch:Exit1detailed','0.000000e+00','1.000000e-04','1.179887e-10','1.000000e-06'},true,true);;">stopping criteria details</a>>
+
+
+Initial value of the log posterior (or likelihood): -531.0313
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+            prior mean     mode    s.d. prior pstdev
+
+bet_s           0.750   0.6829  0.0245 gamm  0.0500 
+nu              2.000   3.3169  0.5941 gamm  0.7500 
+h               0.500   0.8670  0.0176 beta  0.2000 
+eta             0.600   0.6898  0.0173 beta  0.1000 
+xi_p            0.750   0.9071  0.0107 beta  0.1500 
+iota_p          0.500   0.0651  0.0288 beta  0.1500 
+xi_w            0.750   0.9471  0.0146 beta  0.1500 
+iota_w          0.500   0.1322  0.0437 beta  0.1500 
+theta           0.750   0.7139  0.0227 beta  0.0500 
+theta_I         4.000   3.4740  0.5684 gamm  2.0000 
+pis             0.500   0.3900  0.0913 gamm  0.1000 
+rho_i           0.850   0.9280  0.0121 beta  0.1000 
+phi_pi          0.700   0.5682  0.0278 norm  0.0500 
+phi_DY          0.125   0.1621  0.0297 norm  0.0500 
+tB              0.500   0.2218  0.0255 gamm  0.2000 
+rho_z           0.500   0.4805  0.0585 beta  0.2000 
+rho_g           0.500   0.9993  0.0005 beta  0.2000 
+rho_beta        0.500   0.3914  0.0866 beta  0.2000 
+rho_tau         0.500   0.9988  0.0013 beta  0.2000 
+decay           0.500   0.8853  0.0311 beta  0.2000 
+rho_p           0.500   0.9724  0.0055 beta  0.2000 
+rho_w           0.500   0.2381  0.1003 beta  0.2000 
+theta_p         0.500   0.3067  0.1085 beta  0.2000 
+theta_w         0.500   0.1497  0.0531 beta  0.2000 
+
+standard deviation of shocks
+            prior mean     mode    s.d. prior pstdev
+
+eps_z           0.500   1.0240  0.0729 invg2 1.0000 
+eps_g           0.500   0.8245  0.0598 invg2 1.0000 
+eps_i           0.100   0.1247  0.0095 invg2 1.0000 
+eps_tau         0.500   0.2215  0.0218 invg2 1.0000 
+eps_tau_trans   0.500   0.1965  0.0207 invg2 1.0000 
+eps_beta        0.500   3.1225  0.4747 invg2 1.0000 
+eps_p           0.100   0.0306  0.0071 invg2 1.0000 
+eps_w           0.100   0.2650  0.0331 invg2 1.0000 
+eps_meas        0.050   0.3230  0.0204 invg2 0.0500 
+eps_meas_sp     0.050   0.0255  0.0187 invg2 0.0500 
+
+
+Log data density [Laplace approximation] is -630.028442.
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in A16/metropolis\A16_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 2 per block.
+Estimation::mcmc: Total number of generated files: 2.
+Estimation::mcmc: Total number of iterations: 500000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 37.5612%
+Estimation::mcmc: Total number of MH draws per chain: 500000.
+Estimation::mcmc: Total number of generated MH files: 2.
+Estimation::mcmc: I'll use mh-files 1 to 2.
+Estimation::mcmc: In MH-file number 1 I'll start at line 150001.
+Estimation::mcmc: Finally I keep 350000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter              Block 1
+SE_eps_z               148.980
+SE_eps_g               143.242
+SE_eps_i               146.455
+SE_eps_tau             214.070
+SE_eps_tau_trans       174.155
+SE_eps_beta            338.782
+SE_eps_p               460.412
+SE_eps_w               237.042
+SE_eps_meas            287.807
+SE_eps_meas_sp         519.543
+bet_s                  482.148
+nu                     370.508
+h                      338.404
+eta                    361.238
+xi_p                   506.316
+iota_p                 227.244
+xi_w                   278.185
+iota_w                 277.526
+theta                  539.297
+theta_I                308.920
+pis                    224.653
+rho_i                  246.742
+phi_pi                 428.521
+phi_DY                 415.739
+tB                     140.853
+rho_z                  205.374
+rho_g                  178.296
+rho_beta               278.151
+rho_tau                136.132
+decay                  234.534
+rho_p                  287.077
+rho_w                  317.316
+theta_p                494.756
+theta_w                454.359
+
+
+Geweke (1992) Convergence Tests, based on means of draws 150000 to 220000 vs 325000 to 500000.
+p-values are for Chi2-test for equality of means.
+Parameter                Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eps_z                      1.042            0.078            0.000            0.554            0.542            0.539
+SE_eps_g                      0.841            0.062            0.148            0.898            0.896            0.880
+SE_eps_i                      0.127            0.009            0.700            0.976            0.975            0.974
+SE_eps_tau                    0.234            0.025            0.000            0.006            0.012            0.018
+SE_eps_tau_trans              0.197            0.020            0.000            0.820            0.831            0.811
+SE_eps_beta                   3.398            0.687            0.000            0.000            0.000            0.000
+SE_eps_p                      0.036            0.010            0.000            0.362            0.420            0.386
+SE_eps_w                      0.254            0.040            0.000            0.168            0.138            0.131
+SE_eps_meas                   0.326            0.025            0.000            0.828            0.832            0.820
+SE_eps_meas_sp                0.055            0.038            0.000            0.311            0.367            0.394
+bet_s                         0.680            0.044            0.000            0.026            0.057            0.083
+nu                            3.487            0.857            0.000            0.000            0.000            0.001
+h                             0.869            0.024            0.000            0.000            0.000            0.000
+eta                           0.683            0.024            0.000            0.465            0.463            0.401
+xi_p                          0.892            0.022            0.000            0.804            0.826            0.818
+iota_p                        0.084            0.035            0.000            0.821            0.829            0.806
+xi_w                          0.939            0.016            0.000            0.000            0.002            0.002
+iota_w                        0.151            0.052            0.000            0.353            0.397            0.438
+theta                         0.696            0.048            0.000            0.637            0.683            0.715
+theta_I                       3.278            0.728            0.000            0.782            0.801            0.797
+pis                           0.399            0.080            0.000            0.031            0.020            0.008
+rho_i                         0.921            0.013            0.000            0.651            0.651            0.636
+phi_pi                        0.563            0.047            0.000            0.003            0.005            0.007
+phi_DY                        0.170            0.048            0.000            0.015            0.034            0.044
+tB                            0.207            0.024            0.099            0.893            0.900            0.907
+rho_z                         0.467            0.063            0.000            0.438            0.386            0.375
+rho_g                         0.999            0.001            0.000            0.431            0.449            0.399
+rho_beta                      0.412            0.105            0.000            0.000            0.001            0.001
+rho_tau                       0.998            0.001            0.000            0.435            0.390            0.402
+decay                         0.873            0.033            0.000            0.685            0.708            0.720
+rho_p                         0.971            0.007            0.000            0.104            0.134            0.110
+rho_w                         0.301            0.130            0.000            0.271            0.267            0.240
+theta_p                       0.375            0.189            0.000            0.014            0.028            0.037
+theta_w                       0.211            0.115            0.000            0.842            0.841            0.837
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -620.048178.
+
+parameters
+                prior mean   post. mean        90% HPD interval    prior       pstdev
+
+bet_s                0.750       0.6861      0.6148      0.7562   gamm        0.0500
+nu                   2.000       3.3928      2.0114      4.6688   gamm        0.7500
+h                    0.500       0.8670      0.8277      0.9076   beta        0.2000
+eta                  0.600       0.6825      0.6442      0.7220   beta        0.1000
+xi_p                 0.750       0.8910      0.8565      0.9270   beta        0.1500
+iota_p               0.500       0.0836      0.0297      0.1381   beta        0.1500
+xi_w                 0.750       0.9379      0.9126      0.9636   beta        0.1500
+iota_w               0.500       0.1498      0.0638      0.2324   beta        0.1500
+theta                0.750       0.6917      0.6124      0.7687   beta        0.0500
+theta_I              4.000       3.2546      2.0923      4.4004   gamm        2.0000
+pis                  0.500       0.3991      0.2682      0.5262   gamm        0.1000
+rho_i                0.850       0.9200      0.8995      0.9413   beta        0.1000
+phi_pi               0.700       0.5603      0.4806      0.6378   norm        0.0500
+phi_DY               0.125       0.1714      0.0907      0.2511   norm        0.0500
+tB                   0.500       0.2068      0.1703      0.2441   gamm        0.2000
+rho_z                0.500       0.4664      0.3609      0.5699   beta        0.2000
+rho_g                0.500       0.9990      0.9981      0.9998   beta        0.2000
+rho_beta             0.500       0.4232      0.2506      0.5934   beta        0.2000
+rho_tau              0.500       0.9980      0.9964      0.9998   beta        0.2000
+decay                0.500       0.8729      0.8206      0.9257   beta        0.2000
+rho_p                0.500       0.9709      0.9601      0.9819   beta        0.2000
+rho_w                0.500       0.3019      0.0857      0.5055   beta        0.2000
+theta_p              0.500       0.3794      0.0650      0.6856   beta        0.2000
+theta_w              0.500       0.2046      0.0313      0.3676   beta        0.2000
+
+standard deviation of shocks
+                prior mean   post. mean        90% HPD interval    prior       pstdev
+
+eps_z                0.500       1.0445      0.9125      1.1681   invg2       1.0000
+eps_g                0.500       0.8407      0.7374      0.9381   invg2       1.0000
+eps_i                0.100       0.1270      0.1118      0.1423   invg2       1.0000
+eps_tau              0.500       0.2337      0.1929      0.2740   invg2       1.0000
+eps_tau_trans        0.500       0.1967      0.1631      0.2308   invg2       1.0000
+eps_beta             0.500       3.3440      2.2721      4.3669   invg2       1.0000
+eps_p                0.100       0.0367      0.0216      0.0510   invg2       1.0000
+eps_w                0.100       0.2552      0.1897      0.3200   invg2       1.0000
+eps_meas             0.050       0.3250      0.2836      0.3652   invg2       0.0500
+eps_meas_sp          0.050       0.0574      0.0108      0.1194   invg2       0.0500
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 3h33m17s
+Note: 1 warning(s) encountered in the preprocessor
