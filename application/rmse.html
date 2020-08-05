@@ -130,7 +130,7 @@
 
             // (only for RMSE) actual data in 2020 in not available yet
             // do not show RMSE of external sources yet
-            if ((item.includes('2020')) || (item.includes('SPFIndividual'))) {
+            if (item.includes('SPFIndividual')) {
               newString = newString.replace('<input', '<input disabled');
             }
 

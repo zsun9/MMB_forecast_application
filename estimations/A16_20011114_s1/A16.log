@@ -21,33 +21,8 @@ and constraints are satisfied to within the value of the <a href = "matlab: help
 
 <<a href = "matlab: createExitMsg({'optimlib:sqpLineSearch:Exit1basic'},{'optimlib:sqpLineSearch:Exit1detailed','0.000000e+00','1.000000e-04','1.179887e-10','1.000000e-06'},true,true);;">stopping criteria details</a>>
 
-Initial value of the log posterior (or likelihood): -9591.2934
 
-==========================================================
-   Change in the posterior covariance matrix = 3.987.
-   Change in the posterior mean = 1.1496.
-   Mode improvement = 8856.5563
-   New value of jscale = 0.0039108
-==========================================================
-
-==========================================================
-   Change in the posterior covariance matrix = 0.10363.
-   Change in the posterior mean = 1.5778.
-   Mode improvement = 73.4001
-   New value of jscale = 0.1283
-==========================================================
-
-==========================================================
-   Change in the posterior covariance matrix = 0.44602.
-   Change in the posterior mean = 1.7236.
-   Mode improvement = 25.8695
-   New value of jscale = 0.27865
-==========================================================
-
-Optimal value of the scale parameter = 0.27865
-
-
-Final value of minus the log posterior (or likelihood):687.206442 
+Initial value of the log posterior (or likelihood): -687.2064
 
 RESULTS FROM POSTERIOR ESTIMATION
 parameters
@@ -106,7 +81,7 @@ Estimation::mcmc: Number of mh files: 1 per block.
 Estimation::mcmc: Total number of generated files: 1.
 Estimation::mcmc: Total number of iterations: 100000.
 Estimation::mcmc: Current acceptance ratio per chain: 
-                                                       Chain  1: 34.977%
+                                                       Chain  1: 30.654%
 Estimation::mcmc: Total number of MH draws per chain: 100000.
 Estimation::mcmc: Total number of generated MH files: 1.
 Estimation::mcmc: I'll use mh-files 1 to 1.
@@ -117,79 +92,79 @@ Estimation::mcmc: Finally I keep 70000 draws per chain.
 
 MCMC Inefficiency factors per block
 Parameter              Block 1
-SE_eps_z               253.591
-SE_eps_g               161.646
-SE_eps_i               146.344
-SE_eps_tau             321.823
-SE_eps_tau_trans       290.466
-SE_eps_beta            639.493
-SE_eps_p               521.292
-SE_eps_w               358.962
-SE_eps_meas            557.345
-SE_eps_meas_sp         709.151
-bet_s                  510.012
-nu                     442.573
-h                      521.446
-eta                    505.438
-xi_p                   638.458
-iota_p                 167.108
-xi_w                   565.155
-iota_w                 539.417
-theta                  604.192
-theta_I                582.884
-pis                    539.040
-rho_i                  409.960
-phi_pi                 340.191
-phi_DY                 523.979
-tB                     414.675
-rho_z                  394.687
-rho_g                  255.048
-rho_beta               421.782
-rho_tau                206.077
-decay                  483.038
-rho_p                  386.756
-rho_w                  599.277
-theta_p                592.775
-theta_w                654.316
+SE_eps_z               172.517
+SE_eps_g               139.294
+SE_eps_i               162.505
+SE_eps_tau             282.116
+SE_eps_tau_trans       332.014
+SE_eps_beta            484.970
+SE_eps_p               451.450
+SE_eps_w               436.451
+SE_eps_meas            459.523
+SE_eps_meas_sp         651.357
+bet_s                  590.672
+nu                     369.659
+h                      391.814
+eta                    361.855
+xi_p                   569.066
+iota_p                 142.855
+xi_w                   357.196
+iota_w                 527.775
+theta                  547.104
+theta_I                569.490
+pis                    580.956
+rho_i                  457.412
+phi_pi                 379.688
+phi_DY                 603.075
+tB                     312.281
+rho_z                  295.721
+rho_g                  207.736
+rho_beta               391.912
+rho_tau                296.751
+decay                  403.023
+rho_p                  330.344
+rho_w                  495.141
+theta_p                644.190
+theta_w                704.981
 
 
 Geweke (1992) Convergence Tests, based on means of draws 30000 to 44000 vs 65000 to 100000.
 p-values are for Chi2-test for equality of means.
 Parameter                Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
-SE_eps_z                      1.297            0.099            0.000            0.173            0.216            0.245
-SE_eps_g                      1.052            0.078            0.000            0.221            0.240            0.237
-SE_eps_i                      0.245            0.018            0.000            0.375            0.380            0.356
-SE_eps_tau                    0.334            0.036            0.000            0.021            0.043            0.052
-SE_eps_tau_trans              0.257            0.026            0.000            0.016            0.022            0.008
-SE_eps_beta                   3.457            0.588            0.000            0.000            0.000            0.000
-SE_eps_p                      0.029            0.008            0.000            0.001            0.006            0.021
-SE_eps_w                      0.138            0.023            0.000            0.011            0.034            0.056
-SE_eps_meas                   0.266            0.021            0.000            0.047            0.121            0.183
-SE_eps_meas_sp                0.061            0.048            0.000            0.001            0.014            0.055
-bet_s                         0.782            0.035            0.000            0.175            0.299            0.406
-nu                            2.633            0.654            0.000            0.063            0.138            0.206
-h                             0.868            0.021            0.000            0.000            0.000            0.000
-eta                           0.673            0.020            0.000            0.022            0.070            0.118
-xi_p                          0.898            0.018            0.000            0.000            0.000            0.002
-iota_p                        0.068            0.029            0.000            0.030            0.033            0.019
-xi_w                          0.927            0.024            0.000            0.009            0.038            0.062
-iota_w                        0.176            0.047            0.093            0.944            0.956            0.963
-theta                         0.742            0.046            0.000            0.000            0.000            0.000
-theta_I                       1.049            0.279            0.000            0.339            0.446            0.500
-pis                           0.411            0.067            0.000            0.000            0.000            0.002
-rho_i                         0.689            0.035            0.000            0.674            0.735            0.774
-phi_pi                        0.423            0.031            0.000            0.062            0.102            0.113
-phi_DY                        0.163            0.026            0.000            0.005            0.017            0.032
-tB                            0.226            0.020            0.000            0.290            0.371            0.398
-rho_z                         0.493            0.062            0.723            0.986            0.989            0.990
-rho_g                         0.999            0.001            0.000            0.065            0.112            0.155
-rho_beta                      0.516            0.079            0.000            0.008            0.027            0.033
-rho_tau                       0.998            0.001            0.000            0.118            0.150            0.171
-decay                         0.775            0.038            0.000            0.028            0.072            0.126
-rho_p                         0.989            0.004            0.000            0.049            0.086            0.106
-rho_w                         0.621            0.096            0.000            0.004            0.022            0.040
-theta_p                       0.198            0.118            0.000            0.000            0.000            0.000
-theta_w                       0.344            0.122            0.000            0.472            0.594            0.676
+SE_eps_z                      1.291            0.098            0.000            0.262            0.274            0.263
+SE_eps_g                      1.050            0.076            0.000            0.177            0.159            0.149
+SE_eps_i                      0.248            0.018            0.000            0.126            0.164            0.135
+SE_eps_tau                    0.339            0.036            0.000            0.001            0.006            0.007
+SE_eps_tau_trans              0.262            0.026            0.000            0.007            0.020            0.028
+SE_eps_beta                   3.521            0.418            0.000            0.746            0.801            0.832
+SE_eps_p                      0.024            0.006            0.000            0.003            0.014            0.037
+SE_eps_w                      0.135            0.026            0.000            0.391            0.460            0.496
+SE_eps_meas                   0.246            0.020            0.000            0.035            0.065            0.051
+SE_eps_meas_sp                0.057            0.037            0.000            0.412            0.523            0.580
+bet_s                         0.772            0.038            0.000            0.032            0.096            0.173
+nu                            3.011            0.673            0.000            0.054            0.115            0.170
+h                             0.872            0.017            0.000            0.743            0.800            0.829
+eta                           0.674            0.016            0.000            0.001            0.003            0.004
+xi_p                          0.907            0.012            0.000            0.000            0.000            0.001
+iota_p                        0.067            0.028            0.000            0.078            0.135            0.205
+xi_w                          0.932            0.017            0.000            0.788            0.829            0.859
+iota_w                        0.171            0.045            0.000            0.010            0.036            0.057
+theta                         0.732            0.042            0.000            0.013            0.060            0.141
+theta_I                       1.183            0.238            0.000            0.353            0.480            0.564
+pis                           0.391            0.074            0.000            0.516            0.621            0.686
+rho_i                         0.695            0.037            0.967            0.998            0.999            0.999
+phi_pi                        0.426            0.033            0.000            0.008            0.028            0.051
+phi_DY                        0.110            0.031            0.426            0.973            0.977            0.979
+tB                            0.227            0.017            0.000            0.150            0.222            0.238
+rho_z                         0.501            0.054            0.000            0.197            0.265            0.305
+rho_g                         0.999            0.001            0.000            0.743            0.732            0.669
+rho_beta                      0.524            0.081            0.000            0.453            0.547            0.608
+rho_tau                       0.998            0.002            0.000            0.026            0.046            0.053
+decay                         0.778            0.035            0.013            0.897            0.915            0.926
+rho_p                         0.989            0.004            0.000            0.053            0.064            0.068
+rho_w                         0.615            0.086            0.481            0.974            0.979            0.982
+theta_p                       0.189            0.113            0.000            0.137            0.263            0.369
+theta_w                       0.394            0.155            0.000            0.000            0.004            0.019
 
 
 Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
@@ -198,27 +173,64 @@ Estimation::marginal density: I'm computing the posterior log marginal density (
 
 ESTIMATION RESULTS
 
-Log data density is -782.833254.
+Log data density is -782.635137.
 
 parameters
                 prior mean   post. mean        90% HPD interval    prior       pstdev
 
-bet_s                0.750       0.7901      0.7419      0.8449   gamm        0.0500
-nu                   2.000       2.6401      1.5665      3.6635   gamm        0.7500
-h                    0.500       0.8697      0.8330      0.9068   beta        0.2000
-eta                  0.600       0.6724      0.6381      0.7053   beta        0.1000
-xi_p                 0.750       0.8975      0.8706      0.9235   beta        0.1500
-iota_p               0.500       0.0691      0.0222      0.1140   beta        0.1500
-xi_w                 0.750       0.9278      0.8888      0.9747   beta        0.1500
-iota_w               0.500       0.1771      0.0970      0.2595   beta        0.1500
-theta                0.750       0.7426      0.6558      0.8171   beta        0.0500
-theta_I              4.000       1.0490      0.6288      1.4575   gamm        2.0000
-pis                  0.500       0.4204      0.3149      0.5267   gamm        0.1000
-rho_i                0.850       0.6893      0.6316      0.7452   beta        0.1000
-phi_pi               0.700       0.4222      0.3819      0.4661   norm        0.0500
-phi_DY               0.125       0.1654      0.1215      0.2069   norm        0.0500
-tB                   0.500       0.2257      0.1976      0.2506   gamm        0.2000
-rho_z                0.500       0.4904      0.3831      0.5921   beta        0.2000
-rho_g                0.500       0.9988      0.9978      0.9998   beta        0.2000
-rho_beta             0.500       0.5129      0.3791      0.6468   beta        0.2000
-rho_tau         
+bet_s                0.750       0.7647      0.7020      0.8304   gamm        0.0500
+nu                   2.000       2.9455      1.8549      3.9774   gamm        0.7500
+h                    0.500       0.8718      0.8425      0.8999   beta        0.2000
+eta                  0.600       0.6752      0.6494      0.7014   beta        0.1000
+xi_p                 0.750       0.9061      0.8865      0.9268   beta        0.1500
+iota_p               0.500       0.0671      0.0228      0.1102   beta        0.1500
+xi_w                 0.750       0.9296      0.9023      0.9560   beta        0.1500
+iota_w               0.500       0.1717      0.0859      0.2519   beta        0.1500
+theta                0.750       0.7268      0.6579      0.7924   beta        0.0500
+theta_I              4.000       1.1585      0.7687      1.5634   gamm        2.0000
+pis                  0.500       0.3742      0.2426      0.4978   gamm        0.1000
+rho_i                0.850       0.6927      0.6315      0.7508   beta        0.1000
+phi_pi               0.700       0.4273      0.3820      0.4721   norm        0.0500
+phi_DY               0.125       0.1089      0.0598      0.1593   norm        0.0500
+tB                   0.500       0.2279      0.2024      0.2505   gamm        0.2000
+rho_z                0.500       0.4940      0.4005      0.5818   beta        0.2000
+rho_g                0.500       0.9987      0.9977      0.9998   beta        0.2000
+rho_beta             0.500       0.5297      0.4039      0.6641   beta        0.2000
+rho_tau              0.500       0.9976      0.9955      0.9998   beta        0.2000
+decay                0.500       0.7749      0.7144      0.8347   beta        0.2000
+rho_p                0.500       0.9889      0.9823      0.9954   beta        0.2000
+rho_w                0.500       0.6303      0.4946      0.7598   beta        0.2000
+theta_p              0.500       0.1973      0.0184      0.3756   beta        0.2000
+theta_w              0.500       0.4161      0.1772      0.6937   beta        0.2000
+
+standard deviation of shocks
+                prior mean   post. mean        90% HPD interval    prior       pstdev
+
+eps_z                0.500       1.2875      1.1241      1.4464   invg2       1.0000
+eps_g                0.500       1.0498      0.9247      1.1764   invg2       1.0000
+eps_i                0.100       0.2473      0.2175      0.2770   invg2       1.0000
+eps_tau              0.500       0.3386      0.2792      0.3979   invg2       1.0000
+eps_tau_trans        0.500       0.2616      0.2195      0.3062   invg2       1.0000
+eps_beta             0.500       3.5168      2.7984      4.1643   invg2       1.0000
+eps_p                0.100       0.0247      0.0147      0.0345   invg2       1.0000
+eps_w                0.100       0.1302      0.0937      0.1722   invg2       1.0000
+eps_meas             0.050       0.2426      0.2151      0.2703   invg2       0.0500
+eps_meas_sp          0.050       0.0591      0.0117      0.1168   invg2       0.0500
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 1h17m45s
+Note: 1 warning(s) encountered in the preprocessor

@@ -568,4 +568,4 @@ end;
    // mh_drop = .3, mh_jscale = .30, forecast=5)gdp_rgd_obs ;
     
 
-estimation(nodisplay, smoother, order=1, prefilter=0, qz_zero_threshold = 1e-32, datafile=data_20011114, xls_sheet=s1, xls_range=B1:BD100, presample=4, mh_replic=100000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=6) gdp_rgd_obs;
+estimation(nodisplay, smoother, order=1, prefilter=0, qz_zero_threshold = 1e-32, datafile=data_20011114, xls_sheet=s1, xls_range=B1:BD100, presample=4, mh_replic=100000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=0, mode_file=A16_mode) gdp_rgd_obs;

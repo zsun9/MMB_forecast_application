@@ -12,11 +12,11 @@
 
   <body data-spy='scroll' data-target='#navbar-example'>
 
-    <!-- <div id='navbar_placeholder'></div> -->
+    <div id='navbar_placeholder'></div>
 
     <div class='container'>
-      <!-- <h1 class='page-header'>Forecast chart</h1>
-      <p class='lead'>To create forecast charts, specify the vintage date, forecast sources, and data scenarios</p> -->
+      <h1 class='page-header'>Forecast chart</h1>
+      <p class='lead'>To create forecast charts, specify the vintage date, forecast sources, and data scenarios</p>
 
       <form id='selectForm'>
 
@@ -461,8 +461,8 @@
                     scales: {
                       yAxes: [{
                         ticks: {
-                          min: -8, // suggestedMin
-                          max: 6, // suggestedMax
+                          suggestedMin: -8, // suggestedMin
+                          suggestedMax: 6, // suggestedMax
                         }
                       }]
                     },

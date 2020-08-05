@@ -6,6 +6,7 @@ const modelColor = {
   'DS04': 'Red',
   'WW11': 'Violet',
   'SW07': 'DodgerBlue',
+  'SW07_ew': 'DodgerBlue',
   'FRBEDO08': 'LawnGreen',
   'FRBEDO08_cql': 'LawnGreen',
   'Fair': 'SandyBrown',
@@ -20,7 +21,7 @@ const modelColor = {
   'DNGS15_ew': 'Orange',
   'DNGS15_nofa': 'Orange',
   'KR15_HH': 'SpringGreen',
-  'A16': 'Purple',
+  'A16': 'Teal',
   'CMR14': 'OrangeRed',
   // Selective others
   'GLP3v': 'GreenYellow',
@@ -29,6 +30,7 @@ const modelColor = {
 };
 
 const modelDash = {
+  'SW07_ew': [10, 5],
   'FRBEDO08_cql': [10, 5],
   'QPM08_cql': [10, 5],
   'DNGS15_cql': [10, 5],
