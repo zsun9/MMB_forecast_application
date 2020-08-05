@@ -1,0 +1,1831 @@
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Substitution of exo lags: added 2 auxiliary variables and equations.
+Found 49 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+ - order 2
+Processing outputs ...
+done
+Preprocessing completed.
+[Warning: Some of the parameters have no value (bet, pistar, sprd, Fom, zstar, rstar, Rstarn, rkstar, omegastar, Lstar, kstar, kbarstar, istar, ystar,
+cstar, wl_c, zwstar, sigwstar, omegabarstar, Gstar, Gammastar, dGdomegastar, d2Gdomega2star, dGammadomegastar, d2Gammadomega2star, dGdsigmastar,
+d2Gdomegadsigmastar, dGammadsigmastar, d2Gammadomegadsigmastar, muestar, nkstar, Rhostar, wekstar, vkstar, nstar, vstar, GammamuG, GammamuGprime,
+zeta_bw, zeta_zw, zeta_bw_zw, zeta_bsigw, zeta_zsigw, zeta_spsigw, zeta_bmue, zeta_zmue, zeta_spmue, Rkstar, zeta_Gw, zeta_Gsigw, zeta_nRk, zeta_nR,
+zeta_nqk, zeta_nn, zeta_nmue, zeta_nsigw) when using steady. If these parameters are not initialized in a steadystate file or a
+steady_state_model-block, Dynare may not be able to solve the model...] 
+
+STEADY-STATE RESULTS:
+
+y_t              		 0
+c_t              		 0
+i_t              		 0
+k_t              		 0
+kbar_t           		 0
+L_t              		 0
+mc_t             		 0
+pi_t             		 0
+R_t              		 0
+rk_t             		 0
+u_t              		 0
+w_t              		 0
+muw_t            		 0
+qk_t             		 0
+Rktil_t          		 0
+n_t              		 0
+z_t              		 0
+ztil_t           		 0
+b_t              		 0
+g_t              		 0
+laf_t            		 0
+law_t            		 0
+sigw_t           		 0
+mu_t             		 0
+rm_t             		 0
+gdp_rgd_obs      		 0.675032
+hours_dngs15_obs 		 0.467095
+wage_rgd_obs     		 0.675032
+gdpdef_obs       		 0.636515
+ffr_obs          		 1.24246
+c_rgd_obs        		 0.675032
+ifi_rgd_obs      		 0.675032
+baag10_obs       		 0.449254
+y_ft             		 0
+c_ft             		 0
+i_ft             		 0
+k_ft             		 0
+kbar_ft          		 0
+L_ft             		 0
+r_ft             		 0
+rk_ft            		 0
+u_ft             		 0
+w_ft             		 0
+qk_ft            		 0
+outputgap_t      		 0
+r_ft_obs         		 2.42378
+r_ann_t          		 2.42378
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+       2.879e-17        2.879e-17                0
+       3.204e-17       -3.204e-17                0
+       9.941e-17       -9.941e-17                0
+       1.994e-16        1.994e-16                0
+       3.653e-16       -3.653e-16                0
+          0.1893            0.174          0.07462
+          0.1893            0.174         -0.07462
+          0.2185           0.2185                0
+          0.2771           0.2709          0.05831
+          0.2771           0.2709         -0.05831
+          0.3284           0.3284                0
+          0.3298           0.3298                0
+          0.7042           0.7042                0
+           0.812            0.812                0
+          0.8275           0.8223          0.09216
+          0.8275           0.8223         -0.09216
+          0.9279           0.9279                0
+          0.9326           0.9326                0
+          0.9512           0.9512                0
+          0.9583           0.9583                0
+          0.9738           0.9738                0
+          0.9788           0.9788                0
+          0.9899           0.9899                0
+           1.058            1.058                0
+           1.138            1.138                0
+           1.239            1.234            0.108
+           1.239            1.234           -0.108
+           1.276            1.276                0
+           3.239            2.943            1.353
+           3.239            2.943           -1.353
+       2.918e+17       -2.918e+17                0
+       4.175e+17        4.175e+17                0
+       2.804e+18       -2.804e+18                0
+        1.37e+19        -1.37e+19                0
+             Inf             -Inf                0
+
+
+There are 12 eigenvalue(s) larger than 1 in modulus 
+for 12 forward-looking variable(s)
+
+The rank condition is verified.
+
+Initial value of the log posterior (or likelihood): -2484133.4922
+-----------------
+f at the beginning of new iteration,   2484133.4922076166
+Predicted improvement: 58551913397.917480469
+lambda =          1; f =      3063286.1929007
+lambda =    0.33333; f =      2548112.7911746
+lambda =    0.11111; f =      2491126.0292342
+lambda =   0.037037; f =      2484874.6012531
+lambda =   0.012346; f =      2484204.9956049
+lambda =  0.0041152; f =      2484138.7595971
+lambda =  0.0013717; f =      2484133.6508821
+lambda = 0.00045725; f =        74022.4267016
+lambda = 0.00015242; f =       231240.1560570
+lambda = 5.0805e-05; f =       611847.0559807
+Norm of dx       3422
+----
+Improvement on iteration 1 =  2410111.065506061
+-----------------
+f at the beginning of new iteration,     74022.4267015554
+Predicted improvement: 11955276.913937144
+lambda =          1; f =        74086.5297680
+lambda =    0.33333; f =        74026.0097232
+lambda =    0.11111; f =        74022.5597921
+lambda =   0.037037; f =        74022.4371709
+lambda =   0.012346; f =        74022.4269585
+lambda =  0.0041152; f =        26233.1175577
+Norm of dx     48.903
+----
+Improvement on iteration 2 =    47789.309143839
+-----------------
+f at the beginning of new iteration,     26233.1175577163
+Predicted improvement:   838234.760019369
+lambda =          1; f =        26243.2706528
+lambda =    0.33333; f =        26233.7411775
+lambda =    0.11111; f =        26233.1203318
+lambda =   0.037037; f =        26233.2447030
+lambda =   0.012346; f =        26233.1247472
+lambda =  0.0041152; f =        23570.1929190
+Norm of dx     13.386
+----
+Improvement on iteration 3 =     2662.924638742
+-----------------
+f at the beginning of new iteration,     23570.1929189744
+Predicted improvement:   112323.819070754
+lambda =          1; f =        23575.7909233
+lambda =    0.33333; f =        23570.3811868
+lambda =    0.11111; f =        23570.1930470
+lambda =   0.037037; f =        18516.2759774
+Norm of dx     5.0058
+----
+Improvement on iteration 4 =     5053.916941614
+-----------------
+f at the beginning of new iteration,     18516.2759773608
+Predicted improvement:   176419.777639657
+lambda =          1; f =        18534.4785783
+lambda =    0.33333; f =        18517.2362091
+lambda =    0.11111; f =        18516.2817166
+lambda =   0.037037; f =        14101.1497583
+Norm of dx     9.7647
+----
+Improvement on iteration 5 =     4415.126219037
+-----------------
+f at the beginning of new iteration,     14101.1497583240
+Predicted improvement:    55875.748385899
+lambda =          1; f =        14108.1646775
+lambda =    0.33333; f =        14101.5411912
+lambda =    0.11111; f =        14101.1511581
+lambda =   0.037037; f =        10764.2213611
+lambda =   0.071599; f =         9442.7644597
+Norm of dx     4.3625
+----
+Improvement on iteration 6 =     4658.385298625
+-----------------
+f at the beginning of new iteration,      9442.7644596989
+Predicted improvement:    19724.418910153
+lambda =          1; f =         9443.6461507
+lambda =    0.33333; f =         9442.8028531
+lambda =    0.11111; f =        11499.0091102
+lambda =   0.037037; f =         8465.7658699
+Norm of dx     2.1959
+----
+Improvement on iteration 7 =      976.998589787
+-----------------
+f at the beginning of new iteration,      8465.7658699121
+Predicted improvement:    40751.572120601
+lambda =          1; f =         8470.4202279
+lambda =    0.33333; f =         8465.9690088
+lambda =    0.11111; f =         8465.7759172
+lambda =   0.037037; f =         7003.3957616
+Norm of dx     4.7341
+----
+Improvement on iteration 8 =     1462.370108277
+-----------------
+f at the beginning of new iteration,      7003.3957616355
+Predicted improvement:     6971.853638306
+lambda =          1; f =         7003.4335854
+lambda =    0.33333; f =         7003.3966189
+lambda =    0.11111; f =         6063.9745996
+Norm of dx     1.1658
+----
+Improvement on iteration 9 =      939.421162052
+-----------------
+f at the beginning of new iteration,      6063.9745995839
+Predicted improvement:     6111.634146499
+lambda =          1; f =         6064.0273248
+lambda =    0.33333; f =         6063.9748672
+lambda =    0.11111; f =         5169.1720933
+Norm of dx     1.2032
+----
+Improvement on iteration 10 =      894.802506304
+-----------------
+f at the beginning of new iteration,      5169.1720932803
+Predicted improvement:     4988.747008572
+lambda =          1; f =         5169.1733685
+lambda =    0.33333; f =         5169.1743863
+lambda =    0.11111; f =         4480.4775379
+Norm of dx     1.2484
+----
+Improvement on iteration 11 =      688.694555402
+-----------------
+f at the beginning of new iteration,      4480.4775378779
+Predicted improvement:     8883.355848478
+lambda =          1; f =         4480.8926032
+lambda =    0.33333; f =         4480.4816980
+lambda =    0.11111; f =         4480.4775853
+lambda =   0.037037; f =         4183.9424144
+Norm of dx     2.2443
+----
+Improvement on iteration 12 =      296.535123450
+-----------------
+f at the beginning of new iteration,      4183.9424144278
+Predicted improvement:     2501.773521721
+lambda =          1; f =         4183.9949236
+lambda =    0.33333; f =         4183.9443209
+lambda =    0.11111; f =         3889.8629445
+Norm of dx    0.81978
+----
+Improvement on iteration 13 =      294.079469941
+-----------------
+f at the beginning of new iteration,      3889.8629444871
+Predicted improvement:     1566.178324524
+lambda =          1; f =         3889.8737228
+lambda =    0.33333; f =         3119.0765076
+lambda =    0.64439; f =         3889.8634764
+lambda =     0.4339; f =         2983.7223575
+Norm of dx    0.57612
+----
+Improvement on iteration 14 =      906.140586978
+-----------------
+f at the beginning of new iteration,      2983.7223575087
+Predicted improvement:      819.707199970
+lambda =          1; f =         2983.7298729
+lambda =    0.33333; f =         2983.7224928
+lambda =    0.11111; f =         2834.5930155
+lambda =     0.2148; f =         2858.7923962
+Norm of dx    0.44971
+----
+Improvement on iteration 15 =      149.129341992
+-----------------
+f at the beginning of new iteration,      2834.5930155170
+Predicted improvement:     4646.095939441
+lambda =          1; f =         2835.4643953
+lambda =    0.33333; f =         2834.5976679
+lambda =    0.11111; f =         2834.5931173
+lambda =   0.037037; f =         2583.4039586
+lambda =   0.071599; f =         2834.5930198
+lambda =   0.048211; f =         2834.5930357
+lambda =   0.038027; f =         2578.9620358
+lambda =   0.043845; f =         2834.5930168
+lambda =   0.040255; f =         2569.7304655
+lambda =   0.042372; f =         2834.5930155
+lambda =   0.041089; f =         2566.7576375
+lambda =   0.041854; f =         2564.7111676
+Norm of dx     2.4315
+----
+Improvement on iteration 16 =      269.881847914
+warning: possible inaccuracy in H matrix
+-----------------
+f at the beginning of new iteration,      2564.7111676031
+Predicted improvement:     1237.860980415
+lambda =          1; f =         2564.7156595
+lambda =    0.33333; f =         2564.7113815
+lambda =    0.11111; f =         2564.7111726
+lambda =   0.037037; f =         2502.7356499
+Norm of dx    0.68247
+----
+Improvement on iteration 17 =       61.975517734
+-----------------
+f at the beginning of new iteration,      2502.7356498690
+Predicted improvement:      520.831699251
+lambda =          1; f =         2502.7358156
+lambda =    0.33333; f =         2226.0686283
+lambda =    0.64439; f =         2502.7356623
+lambda =     0.4339; f =         2170.9201629
+lambda =    0.55011; f =         2502.7356509
+lambda =     0.4771; f =         2153.4981437
+lambda =    0.51965; f =         2502.7356499
+lambda =    0.49369; f =         2149.0729678
+Norm of dx    0.33647
+----
+Improvement on iteration 18 =      353.662682037
+warning: possible inaccuracy in H matrix
+-----------------
+f at the beginning of new iteration,      2149.0729678324
+Predicted improvement:      504.382365830
+lambda =          1; f =         2149.0796185
+lambda =    0.33333; f =         1942.3039827
+Norm of dx    0.38903
+----
+Improvement on iteration 19 =      206.768985136
+-----------------
+f at the beginning of new iteration,      1942.3039826963
+Predicted improvement:      300.349709990
+lambda =          1; f =         1942.3201467
+lambda =    0.33333; f =         1942.3045545
+lambda =    0.11111; f =         1879.3231876
+lambda =     0.2148; f =         1942.3040136
+lambda =    0.14463; f =         1862.1470845
+lambda =    0.18337; f =         1942.3039832
+lambda =    0.15903; f =         1855.3285884
+lambda =    0.17322; f =         1849.7886002
+lambda =    0.18867; f =         1942.3039850
+lambda =    0.17924; f =         1942.3039827
+lambda =    0.17381; f =         1849.6418860
+lambda =    0.17705; f =         1849.3559050
+lambda =    0.18034; f =         1942.3039827
+lambda =    0.17836; f =         1849.9974832
+Norm of dx    0.35047
+Cliff.  Perturbing search direction.
+Predicted improvement:      663.050527489
+lambda =          1; f =         1942.3193995
+lambda =    0.33333; f =         1942.3045081
+lambda =    0.11111; f =         1806.3570450
+lambda =     0.2148; f =         1942.3040069
+lambda =    0.14463; f =         1769.8296141
+lambda =    0.18337; f =         1942.3039827
+lambda =    0.15903; f =         1754.9740633
+lambda =    0.17322; f =         1741.3417960
+lambda =    0.18867; f =         1942.3039836
+lambda =    0.17924; f =         1736.5948467
+lambda =    0.18484; f =         1942.3039828
+lambda =    0.18146; f =         1735.7833184
+lambda =    0.18348; f =         1942.3039827
+Norm of dx    0.39093
+Cliff again.  Try traversing
+Predicted improvement: 11085157.050819516
+lambda =          1; f =      2393141.7422522
+lambda =    0.33333; f =       266716.2901496
+lambda =    0.11111; f =        31094.0598371
+lambda =   0.037037; f =         5102.8571909
+lambda =   0.012346; f =         2269.3694510
+lambda =  0.0041152; f =         1971.6999243
+lambda =  0.0013717; f =         1943.8746841
+lambda = 0.00045725; f =         1942.3187545
+lambda = 0.00015242; f =         1942.3043326
+lambda = 5.0805e-05; f =         1144.4450236
+lambda = 9.8216e-05; f =         1942.3039905
+lambda = 6.6133e-05; f =         1025.0349726
+Norm of dx     4708.5
+----
+Improvement on iteration 20 =      917.269010139
+-----------------
+f at the beginning of new iteration,      1025.0349725575
+Predicted improvement:      115.020966786
+lambda =          1; f =          830.3468834
+lambda =     1.9332; f =          699.4860769
+lambda =     3.7372; f =          564.8150747
+Norm of dx    0.14391
+----
+Improvement on iteration 21 =      460.219897832
+-----------------
+f at the beginning of new iteration,       564.8150747253
+Predicted improvement:       35.896832710
+lambda =          1; f =          514.9649754
+Norm of dx    0.11929
+----
+Improvement on iteration 22 =       49.850099335
+-----------------
+f at the beginning of new iteration,       514.9649753899
+Predicted improvement:      951.032575532
+lambda =          1; f =          515.1214935
+lambda =    0.33333; f =          514.9656523
+lambda =    0.11111; f =          514.9655843
+lambda =   0.037037; f =          484.7695408
+Norm of dx      2.825
+----
+Improvement on iteration 23 =       30.195434570
+-----------------
+f at the beginning of new iteration,       484.7695408199
+Predicted improvement:       33.972081062
+lambda =          1; f =          438.6599791
+Norm of dx    0.21535
+----
+Improvement on iteration 24 =       46.109561768
+-----------------
+f at the beginning of new iteration,       438.6599790523
+Predicted improvement:       54.417603885
+lambda =          1; f =          438.6600146
+lambda =    0.33333; f =          415.6629322
+Norm of dx    0.24571
+----
+Improvement on iteration 25 =       22.997046893
+-----------------
+f at the beginning of new iteration,       415.6629321590
+Predicted improvement:       14.238284952
+lambda =          1; f =          404.7520141
+Norm of dx    0.13129
+----
+Improvement on iteration 26 =       10.910918079
+-----------------
+f at the beginning of new iteration,       404.7520140796
+Predicted improvement:       15.922547753
+lambda =          1; f =          395.2361555
+lambda =    0.33333; f =          397.8569267
+Norm of dx    0.08948
+----
+Improvement on iteration 27 =        9.515858604
+-----------------
+f at the beginning of new iteration,       395.2361554751
+Predicted improvement:        3.773351644
+lambda =          1; f =          388.8364459
+lambda =     1.9332; f =          385.0948233
+Norm of dx   0.031361
+----
+Improvement on iteration 28 =       10.141332213
+-----------------
+f at the beginning of new iteration,       385.0948232623
+Predicted improvement:        6.073769310
+lambda =          1; f =          376.8112497
+Norm of dx   0.083408
+----
+Improvement on iteration 29 =        8.283573584
+-----------------
+f at the beginning of new iteration,       376.8112496779
+Predicted improvement:        4.725197496
+lambda =          1; f =          370.2498696
+Norm of dx   0.088338
+----
+Improvement on iteration 30 =        6.561380037
+-----------------
+f at the beginning of new iteration,       370.2498696413
+Predicted improvement:        3.801898479
+lambda =          1; f =          364.7581575
+lambda =     1.9332; f =          364.9507357
+Norm of dx   0.082194
+----
+Improvement on iteration 31 =        5.491712104
+-----------------
+f at the beginning of new iteration,       364.7581575369
+Predicted improvement:        3.963594083
+lambda =          1; f =          359.1177039
+lambda =     1.9332; f =          358.0364537
+Norm of dx    0.09067
+----
+Improvement on iteration 32 =        6.721703820
+-----------------
+f at the beginning of new iteration,       358.0364537170
+Predicted improvement:        2.773821692
+lambda =          1; f =          353.7957701
+lambda =     1.9332; f =          351.9476154
+Norm of dx   0.031393
+----
+Improvement on iteration 33 =        6.088838359
+-----------------
+f at the beginning of new iteration,       351.9476153575
+Predicted improvement:        2.590537720
+lambda =          1; f =          348.1201807
+lambda =     1.9332; f =          347.0443377
+Norm of dx   0.036525
+----
+Improvement on iteration 34 =        4.903277677
+-----------------
+f at the beginning of new iteration,       347.0443376801
+Predicted improvement:        1.588114391
+lambda =          1; f =          344.7253237
+lambda =     1.9332; f =          344.3597262
+Norm of dx    0.05315
+----
+Improvement on iteration 35 =        2.684611494
+-----------------
+f at the beginning of new iteration,       344.3597261856
+Predicted improvement:        4.962717269
+lambda =          1; f =          344.8427366
+lambda =    0.33333; f =          343.0024481
+Norm of dx   0.084595
+----
+Improvement on iteration 36 =        1.357278116
+-----------------
+f at the beginning of new iteration,       343.0024480698
+Predicted improvement:        1.691851531
+lambda =          1; f =          340.4308254
+lambda =     1.9332; f =          339.6782043
+Norm of dx    0.03153
+----
+Improvement on iteration 37 =        3.324243727
+-----------------
+f at the beginning of new iteration,       339.6782043431
+Predicted improvement:        1.216258085
+lambda =          1; f =          337.8205118
+lambda =     1.9332; f =          337.0637717
+Norm of dx   0.033352
+----
+Improvement on iteration 38 =        2.614432671
+-----------------
+f at the beginning of new iteration,       337.0637716717
+Predicted improvement:        0.867907364
+lambda =          1; f =          335.8195633
+lambda =     1.9332; f =          335.5824901
+Norm of dx   0.031389
+----
+Improvement on iteration 39 =        1.481281550
+-----------------
+f at the beginning of new iteration,       335.5824901220
+Predicted improvement:        0.697349613
+lambda =          1; f =          334.3725135
+lambda =     1.9332; f =          333.6002671
+lambda =     3.7372; f =          333.2608510
+Norm of dx   0.013844
+----
+Improvement on iteration 40 =        2.321639169
+-----------------
+f at the beginning of new iteration,       333.2608509530
+Predicted improvement:        1.944066532
+lambda =          1; f =          330.0232179
+lambda =     1.9332; f =          328.6096706
+Norm of dx   0.036411
+----
+Improvement on iteration 41 =        4.651180360
+-----------------
+f at the beginning of new iteration,       328.6096705933
+Predicted improvement:        1.202203949
+lambda =          1; f =          327.0381295
+Norm of dx   0.042294
+----
+Improvement on iteration 42 =        1.571541058
+-----------------
+f at the beginning of new iteration,       327.0381295354
+Predicted improvement:        2.910404894
+lambda =          1; f =          329.9678459
+lambda =    0.33333; f =          326.3219041
+Norm of dx    0.11607
+----
+Improvement on iteration 43 =        0.716225462
+-----------------
+f at the beginning of new iteration,       326.3219040735
+Predicted improvement:        0.553590502
+lambda =          1; f =          325.4950442
+lambda =     1.9332; f =          325.2200508
+Norm of dx   0.029515
+----
+Improvement on iteration 44 =        1.101853317
+-----------------
+f at the beginning of new iteration,       325.2200507565
+Predicted improvement:        0.255074621
+lambda =          1; f =          324.8090392
+lambda =     1.9332; f =          324.5994534
+Norm of dx   0.017047
+----
+Improvement on iteration 45 =        0.620597340
+-----------------
+f at the beginning of new iteration,       324.5994534169
+Predicted improvement:        0.299699304
+lambda =          1; f =          324.1667211
+lambda =     1.9332; f =          324.0495396
+Norm of dx   0.021255
+----
+Improvement on iteration 46 =        0.549913791
+-----------------
+f at the beginning of new iteration,       324.0495396256
+Predicted improvement:        0.204278137
+lambda =          1; f =          323.6840300
+lambda =     1.9332; f =          323.4215010
+lambda =     3.7372; f =          323.1371940
+Norm of dx   0.012896
+----
+Improvement on iteration 47 =        0.912345627
+-----------------
+f at the beginning of new iteration,       323.1371939987
+Predicted improvement:        0.312663179
+lambda =          1; f =          322.6769589
+lambda =     1.9332; f =          322.5633102
+Norm of dx    0.02672
+----
+Improvement on iteration 48 =        0.573883770
+-----------------
+f at the beginning of new iteration,       322.5633102283
+Predicted improvement:        0.128263891
+lambda =          1; f =          322.3593180
+lambda =     1.9332; f =          322.2631581
+Norm of dx  0.0071009
+----
+Improvement on iteration 49 =        0.300152079
+-----------------
+f at the beginning of new iteration,       322.2631581492
+Predicted improvement:        0.101604131
+lambda =          1; f =          322.0930706
+lambda =     1.9332; f =          321.9945150
+Norm of dx  0.0077455
+----
+Improvement on iteration 50 =        0.268643193
+-----------------
+f at the beginning of new iteration,       321.9945149559
+Predicted improvement:        0.214412308
+lambda =          1; f =          321.6477595
+lambda =     1.9332; f =          321.4713063
+Norm of dx   0.018359
+----
+Improvement on iteration 51 =        0.523208675
+-----------------
+f at the beginning of new iteration,       321.4713062804
+Predicted improvement:        0.247444801
+lambda =          1; f =          321.0943508
+lambda =     1.9332; f =          320.9639556
+Norm of dx   0.024397
+----
+Improvement on iteration 52 =        0.507350637
+-----------------
+f at the beginning of new iteration,       320.9639556439
+Predicted improvement:        0.123207912
+lambda =          1; f =          320.8183876
+Norm of dx  0.0076862
+----
+Improvement on iteration 53 =        0.145568043
+-----------------
+f at the beginning of new iteration,       320.8183876005
+Predicted improvement:        0.094344047
+lambda =          1; f =          320.7057611
+Norm of dx  0.0073415
+----
+Improvement on iteration 54 =        0.112626542
+-----------------
+f at the beginning of new iteration,       320.7057610590
+Predicted improvement:        0.070070978
+lambda =          1; f =          320.5828750
+lambda =     1.9332; f =          320.4988663
+lambda =     3.7372; f =          320.4182321
+Norm of dx  0.0073565
+----
+Improvement on iteration 55 =        0.287528984
+-----------------
+f at the beginning of new iteration,       320.4182320750
+Predicted improvement:        0.107684430
+lambda =          1; f =          320.2539990
+lambda =     1.9332; f =          320.1917272
+Norm of dx   0.020584
+----
+Improvement on iteration 56 =        0.226504884
+-----------------
+f at the beginning of new iteration,       320.1917271905
+Predicted improvement:        0.055336164
+lambda =          1; f =          320.0923898
+lambda =     1.9332; f =          320.0199075
+lambda =     3.7372; f =          319.9338851
+Norm of dx  0.0069787
+----
+Improvement on iteration 57 =        0.257842113
+-----------------
+f at the beginning of new iteration,       319.9338850778
+Predicted improvement:        0.220854611
+lambda =          1; f =          319.5555214
+lambda =     1.9332; f =          319.3176610
+lambda =     3.7372; f =          319.1820175
+Norm of dx   0.029626
+----
+Improvement on iteration 58 =        0.751867583
+-----------------
+f at the beginning of new iteration,       319.1820174952
+Predicted improvement:        0.240142540
+lambda =          1; f =          318.8251691
+lambda =     1.9332; f =          318.7215992
+Norm of dx   0.011328
+----
+Improvement on iteration 59 =        0.460418344
+-----------------
+f at the beginning of new iteration,       318.7215991513
+Predicted improvement:        0.074933748
+lambda =          1; f =          318.5916634
+lambda =     1.9332; f =          318.5076042
+lambda =     3.7372; f =          318.4542806
+Norm of dx   0.017433
+----
+Improvement on iteration 60 =        0.267318515
+-----------------
+f at the beginning of new iteration,       318.4542806361
+Predicted improvement:        0.210979433
+lambda =          1; f =          318.0914255
+lambda =     1.9332; f =          317.8592764
+lambda =     3.7372; f =          317.7013551
+Norm of dx   0.021049
+----
+Improvement on iteration 61 =        0.752925514
+-----------------
+f at the beginning of new iteration,       317.7013551220
+Predicted improvement:        0.437621949
+lambda =          1; f =          317.1215978
+Norm of dx   0.038135
+----
+Improvement on iteration 62 =        0.579757370
+-----------------
+f at the beginning of new iteration,       317.1215977515
+Predicted improvement:        0.191143853
+lambda =          1; f =          316.8887142
+Norm of dx   0.044293
+----
+Improvement on iteration 63 =        0.232883546
+-----------------
+f at the beginning of new iteration,       316.8887142052
+Predicted improvement:        0.094819455
+lambda =          1; f =          316.7223262
+lambda =     1.9332; f =          316.6090566
+lambda =     3.7372; f =          316.5057626
+Norm of dx   0.020815
+----
+Improvement on iteration 64 =        0.382951650
+-----------------
+f at the beginning of new iteration,       316.5057625555
+Predicted improvement:        0.228159763
+lambda =          1; f =          316.1204484
+lambda =     1.9332; f =          315.8887378
+Norm of dx   0.020961
+----
+Improvement on iteration 65 =        0.617024776
+-----------------
+f at the beginning of new iteration,       315.8887377798
+Predicted improvement:        0.316270661
+lambda =          1; f =          315.4484520
+Norm of dx   0.042716
+----
+Improvement on iteration 66 =        0.440285776
+-----------------
+f at the beginning of new iteration,       315.4484520033
+Predicted improvement:        0.237497407
+lambda =          1; f =          315.0910353
+lambda =     1.9332; f =          314.9796861
+Norm of dx   0.044142
+----
+Improvement on iteration 67 =        0.468765944
+-----------------
+f at the beginning of new iteration,       314.9796860598
+Predicted improvement:        0.173105802
+lambda =          1; f =          314.6623468
+lambda =     1.9332; f =          314.4192581
+lambda =     3.7372; f =          314.1005435
+Norm of dx   0.021824
+----
+Improvement on iteration 68 =        0.879142587
+-----------------
+f at the beginning of new iteration,       314.1005434725
+Predicted improvement:        0.510591275
+lambda =          1; f =          313.3942931
+Norm of dx   0.054813
+----
+Improvement on iteration 69 =        0.706250418
+-----------------
+f at the beginning of new iteration,       313.3942930544
+Predicted improvement:        0.385369504
+lambda =          1; f =          312.9039095
+Norm of dx   0.076642
+----
+Improvement on iteration 70 =        0.490383556
+-----------------
+f at the beginning of new iteration,       312.9039094980
+Predicted improvement:        0.208058244
+lambda =          1; f =          312.6495224
+Norm of dx   0.025078
+----
+Improvement on iteration 71 =        0.254387117
+-----------------
+f at the beginning of new iteration,       312.6495223809
+Predicted improvement:        0.108474083
+lambda =          1; f =          312.5025091
+Norm of dx   0.022077
+----
+Improvement on iteration 72 =        0.147013288
+-----------------
+f at the beginning of new iteration,       312.5025090926
+Predicted improvement:        0.090440118
+lambda =          1; f =          312.3666194
+lambda =     1.9332; f =          312.3202712
+Norm of dx   0.012133
+----
+Improvement on iteration 73 =        0.182237914
+-----------------
+f at the beginning of new iteration,       312.3202711782
+Predicted improvement:        0.080633262
+lambda =          1; f =          312.1718053
+lambda =     1.9332; f =          312.0565201
+lambda =     3.7372; f =          311.8983143
+lambda =     7.2247; f =          311.8413094
+Norm of dx  0.0081387
+----
+Improvement on iteration 74 =        0.478961770
+-----------------
+f at the beginning of new iteration,       311.8413094083
+Predicted improvement:        0.173792818
+lambda =          1; f =          311.5782336
+lambda =     1.9332; f =          311.4817016
+Norm of dx   0.016638
+----
+Improvement on iteration 75 =        0.359607852
+-----------------
+f at the beginning of new iteration,       311.4817015558
+Predicted improvement:        0.098793389
+lambda =          1; f =          311.3378164
+lambda =     1.9332; f =          311.3028581
+Norm of dx   0.027388
+----
+Improvement on iteration 76 =        0.178843468
+-----------------
+f at the beginning of new iteration,       311.3028580874
+Predicted improvement:        0.048991053
+lambda =          1; f =          311.2223902
+lambda =     1.9332; f =          311.1785230
+Norm of dx  0.0099999
+----
+Improvement on iteration 77 =        0.124335048
+-----------------
+f at the beginning of new iteration,       311.1785230399
+Predicted improvement:        0.127807867
+lambda =          1; f =          310.9672480
+lambda =     1.9332; f =          310.8473052
+Norm of dx    0.01497
+----
+Improvement on iteration 78 =        0.331217884
+-----------------
+f at the beginning of new iteration,       310.8473051560
+Predicted improvement:        0.231469827
+lambda =          1; f =          310.4966277
+lambda =     1.9332; f =          310.3692062
+Norm of dx   0.043999
+----
+Improvement on iteration 79 =        0.478098975
+-----------------
+f at the beginning of new iteration,       310.3692061808
+Predicted improvement:        0.107118704
+lambda =          1; f =          310.2142159
+lambda =     1.9332; f =          310.1762786
+Norm of dx   0.013365
+----
+Improvement on iteration 80 =        0.192927545
+-----------------
+f at the beginning of new iteration,       310.1762786361
+Predicted improvement:        0.076782242
+lambda =          1; f =          310.0488794
+lambda =     1.9332; f =          309.9777874
+Norm of dx  0.0091874
+----
+Improvement on iteration 81 =        0.198491264
+-----------------
+f at the beginning of new iteration,       309.9777873723
+Predicted improvement:        0.154260340
+lambda =          1; f =          309.7553297
+lambda =     1.9332; f =          309.8516591
+lambda =     1.3017; f =          309.7363890
+Norm of dx   0.016718
+----
+Improvement on iteration 82 =        0.241398353
+-----------------
+f at the beginning of new iteration,       309.7363890197
+Predicted improvement:        0.078280462
+lambda =          1; f =          309.6179609
+lambda =     1.9332; f =          309.5760281
+Norm of dx   0.020153
+----
+Improvement on iteration 83 =        0.160360932
+-----------------
+f at the beginning of new iteration,       309.5760280874
+Predicted improvement:        0.039080652
+lambda =          1; f =          309.5041725
+lambda =     1.9332; f =          309.4485125
+lambda =     3.7372; f =          309.3722314
+Norm of dx  0.0071457
+----
+Improvement on iteration 84 =        0.203796707
+-----------------
+f at the beginning of new iteration,       309.3722313808
+Predicted improvement:        0.190249562
+lambda =          1; f =          309.0880914
+lambda =     1.9332; f =          308.9984526
+Norm of dx   0.032046
+----
+Improvement on iteration 85 =        0.373778812
+-----------------
+f at the beginning of new iteration,       308.9984525691
+Predicted improvement:        0.118693716
+lambda =          1; f =          308.8633093
+Norm of dx   0.031713
+----
+Improvement on iteration 86 =        0.135143303
+-----------------
+f at the beginning of new iteration,       308.8633092659
+Predicted improvement:        0.042763284
+lambda =          1; f =          308.8179565
+Norm of dx    0.01398
+----
+Improvement on iteration 87 =        0.045352734
+-----------------
+f at the beginning of new iteration,       308.8179565320
+Predicted improvement:        0.010683148
+lambda =          1; f =          308.7977608
+lambda =     1.9332; f =          308.7810218
+lambda =     3.7372; f =          308.7544078
+lambda =     7.2247; f =          308.7242972
+Norm of dx  0.0042421
+----
+Improvement on iteration 88 =        0.093659346
+-----------------
+f at the beginning of new iteration,       308.7242971862
+Predicted improvement:        0.069100538
+lambda =          1; f =          308.6082455
+lambda =     1.9332; f =          308.5390932
+Norm of dx    0.02146
+----
+Improvement on iteration 89 =        0.185203977
+-----------------
+f at the beginning of new iteration,       308.5390932096
+Predicted improvement:        0.100462443
+lambda =          1; f =          308.4052837
+Norm of dx   0.026389
+----
+Improvement on iteration 90 =        0.133809483
+-----------------
+f at the beginning of new iteration,       308.4052837263
+Predicted improvement:        0.036035294
+lambda =          1; f =          308.3591640
+Norm of dx   0.016237
+----
+Improvement on iteration 91 =        0.046119752
+-----------------
+f at the beginning of new iteration,       308.3591639745
+Predicted improvement:        0.014703740
+lambda =          1; f =          308.3355493
+lambda =     1.9332; f =          308.3239386
+Norm of dx   0.010434
+----
+Improvement on iteration 92 =        0.035225354
+-----------------
+f at the beginning of new iteration,       308.3239386205
+Predicted improvement:        0.024216742
+lambda =          1; f =          308.2802594
+lambda =     1.9332; f =          308.2480453
+lambda =     3.7372; f =          308.2090295
+Norm of dx  0.0071204
+----
+Improvement on iteration 93 =        0.114909135
+-----------------
+f at the beginning of new iteration,       308.2090294854
+Predicted improvement:        0.089657069
+lambda =          1; f =          308.0655703
+lambda =     1.9332; f =          307.9971037
+Norm of dx   0.019369
+----
+Improvement on iteration 94 =        0.211925812
+-----------------
+f at the beginning of new iteration,       307.9971036738
+Predicted improvement:        0.069206757
+lambda =          1; f =          307.9119842
+Norm of dx    0.03319
+----
+Improvement on iteration 95 =        0.085119470
+-----------------
+f at the beginning of new iteration,       307.9119842036
+Predicted improvement:        0.017125187
+lambda =          1; f =          307.8886952
+Norm of dx   0.011818
+----
+Improvement on iteration 96 =        0.023289047
+-----------------
+f at the beginning of new iteration,       307.8886951567
+Predicted improvement:        0.014181277
+lambda =          1; f =          307.8646006
+lambda =     1.9332; f =          307.8497678
+lambda =     3.7372; f =          307.8419584
+Norm of dx  0.0092001
+----
+Improvement on iteration 97 =        0.046736797
+-----------------
+f at the beginning of new iteration,       307.8419583594
+Predicted improvement:        0.032601281
+lambda =          1; f =          307.7790100
+lambda =     1.9332; f =          307.7243325
+lambda =     3.7372; f =          307.6298074
+lambda =     7.2247; f =          307.4891881
+lambda =     13.967; f =          307.3776803
+Norm of dx  0.0061594
+----
+Improvement on iteration 98 =        0.464278039
+-----------------
+f at the beginning of new iteration,       307.3776803201
+Predicted improvement:        0.175423711
+lambda =          1; f =          307.1339572
+Norm of dx   0.057844
+----
+Improvement on iteration 99 =        0.243723090
+-----------------
+f at the beginning of new iteration,       307.1339572304
+Predicted improvement:        0.065624236
+lambda =          1; f =          307.0661705
+Norm of dx   0.038254
+----
+Improvement on iteration 100 =        0.067786702
+-----------------
+f at the beginning of new iteration,       307.0661705282
+Predicted improvement:        0.005409009
+lambda =          1; f =          307.0573224
+lambda =     1.9332; f =          307.0526828
+Norm of dx  0.0042039
+----
+Improvement on iteration 101 =        0.013487775
+-----------------
+f at the beginning of new iteration,       307.0526827535
+Predicted improvement:        0.009676830
+lambda =          1; f =          307.0365093
+lambda =     1.9332; f =          307.0273453
+Norm of dx   0.003291
+----
+Improvement on iteration 102 =        0.025337479
+-----------------
+f at the beginning of new iteration,       307.0273452740
+Predicted improvement:        0.025460641
+lambda =          1; f =          306.9823319
+lambda =     1.9332; f =          306.9512770
+lambda =     3.7372; f =          306.9225232
+Norm of dx  0.0069751
+----
+Improvement on iteration 103 =        0.104822111
+-----------------
+f at the beginning of new iteration,       306.9225231634
+Predicted improvement:        0.085716927
+lambda =          1; f =          306.7692605
+lambda =     1.9332; f =          306.6588990
+lambda =     3.7372; f =          306.5348028
+Norm of dx   0.021522
+----
+Improvement on iteration 104 =        0.387720404
+-----------------
+f at the beginning of new iteration,       306.5348027598
+Predicted improvement:        0.088784462
+lambda =          1; f =          306.4376792
+Norm of dx   0.028029
+----
+Improvement on iteration 105 =        0.097123582
+-----------------
+f at the beginning of new iteration,       306.4376791774
+Predicted improvement:        0.007178926
+lambda =          1; f =          306.4286472
+Norm of dx   0.010602
+----
+Improvement on iteration 106 =        0.009031954
+-----------------
+f at the beginning of new iteration,       306.4286472237
+Predicted improvement:        0.003759887
+lambda =          1; f =          306.4222299
+lambda =     1.9332; f =          306.4182140
+lambda =     3.7372; f =          306.4158094
+Norm of dx  0.0053074
+----
+Improvement on iteration 107 =        0.012837811
+-----------------
+f at the beginning of new iteration,       306.4158094125
+Predicted improvement:        0.009341609
+lambda =          1; f =          306.3977446
+lambda =     1.9332; f =          306.3819989
+lambda =     3.7372; f =          306.3546302
+lambda =     7.2247; f =          306.3133749
+lambda =     13.967; f =          306.2785636
+Norm of dx  0.0034985
+----
+Improvement on iteration 108 =        0.137245830
+-----------------
+f at the beginning of new iteration,       306.2785635826
+Predicted improvement:        0.073637021
+lambda =          1; f =          306.1795984
+Norm of dx   0.023334
+----
+Improvement on iteration 109 =        0.098965163
+-----------------
+f at the beginning of new iteration,       306.1795984197
+Predicted improvement:        0.027565193
+lambda =          1; f =          306.1535607
+Norm of dx   0.020903
+----
+Improvement on iteration 110 =        0.026037707
+-----------------
+f at the beginning of new iteration,       306.1535607124
+Predicted improvement:        0.003551395
+lambda =          1; f =          306.1490310
+Norm of dx  0.0027919
+----
+Improvement on iteration 111 =        0.004529667
+-----------------
+f at the beginning of new iteration,       306.1490310458
+Predicted improvement:        0.003966478
+lambda =          1; f =          306.1418032
+lambda =     1.9332; f =          306.1363089
+lambda =     3.7372; f =          306.1290694
+Norm of dx   0.002515
+----
+Improvement on iteration 112 =        0.019961611
+-----------------
+f at the beginning of new iteration,       306.1290694349
+Predicted improvement:        0.019893355
+lambda =          1; f =          306.0940592
+lambda =     1.9332; f =          306.0699240
+lambda =     3.7372; f =          306.0463277
+Norm of dx  0.0079511
+----
+Improvement on iteration 113 =        0.082741762
+-----------------
+f at the beginning of new iteration,       306.0463276730
+Predicted improvement:        0.043039782
+lambda =          1; f =          305.9739788
+lambda =     1.9332; f =          305.9313268
+Norm of dx   0.018939
+----
+Improvement on iteration 114 =        0.115000863
+-----------------
+f at the beginning of new iteration,       305.9313268100
+Predicted improvement:        0.032687654
+lambda =          1; f =          305.8977124
+Norm of dx   0.025748
+----
+Improvement on iteration 115 =        0.033614423
+-----------------
+f at the beginning of new iteration,       305.8977123873
+Predicted improvement:        0.003746707
+lambda =          1; f =          305.8905232
+lambda =     1.9332; f =          305.8843578
+lambda =     3.7372; f =          305.8739041
+lambda =     7.2247; f =          305.8590387
+lambda =     13.967; f =          305.8494307
+Norm of dx  0.0027964
+----
+Improvement on iteration 116 =        0.048281715
+-----------------
+f at the beginning of new iteration,       305.8494306723
+Predicted improvement:        0.030513019
+lambda =          1; f =          305.7972268
+lambda =     1.9332; f =          305.7644867
+lambda =     3.7372; f =          305.7455908
+Norm of dx  0.0098341
+----
+Improvement on iteration 117 =        0.103839869
+-----------------
+f at the beginning of new iteration,       305.7455908035
+Predicted improvement:        0.018074998
+lambda =          1; f =          305.7245811
+Norm of dx   0.017697
+----
+Improvement on iteration 118 =        0.021009659
+-----------------
+f at the beginning of new iteration,       305.7245811448
+Predicted improvement:        0.001385524
+lambda =          1; f =          305.7230763
+Norm of dx  0.0054128
+----
+Improvement on iteration 119 =        0.001504859
+-----------------
+f at the beginning of new iteration,       305.7230762863
+Predicted improvement:        0.000102455
+lambda =          1; f =          305.7229134
+lambda =     1.9332; f =          305.7228403
+Norm of dx  0.0010824
+----
+Improvement on iteration 120 =        0.000236020
+-----------------
+f at the beginning of new iteration,       305.7228402666
+Predicted improvement:        0.000136846
+lambda =          1; f =          305.7225867
+lambda =     1.9332; f =          305.7223901
+lambda =     3.7372; f =          305.7221195
+lambda =     7.2247; f =          305.7220057
+Norm of dx  0.0010359
+----
+Improvement on iteration 121 =        0.000834610
+-----------------
+f at the beginning of new iteration,       305.7220056567
+Predicted improvement:        0.000612952
+lambda =          1; f =          305.7208757
+lambda =     1.9332; f =          305.7199870
+lambda =     3.7372; f =          305.7187221
+lambda =     7.2247; f =          305.7179652
+Norm of dx  0.0014334
+----
+Improvement on iteration 122 =        0.004040493
+-----------------
+f at the beginning of new iteration,       305.7179651641
+Predicted improvement:        0.001723499
+lambda =          1; f =          305.7153317
+lambda =     1.9332; f =          305.7143510
+Norm of dx  0.0040255
+----
+Improvement on iteration 123 =        0.003614125
+-----------------
+f at the beginning of new iteration,       305.7143510395
+Predicted improvement:        0.000204533
+lambda =          1; f =          305.7141037
+Norm of dx  0.0020757
+----
+Improvement on iteration 124 =        0.000247360
+-----------------
+f at the beginning of new iteration,       305.7141036796
+Predicted improvement:        0.000068044
+lambda =          1; f =          305.7139893
+lambda =     1.9332; f =          305.7139187
+lambda =     3.7372; f =          305.7138816
+Norm of dx 0.00094396
+----
+Improvement on iteration 125 =        0.000222073
+-----------------
+f at the beginning of new iteration,       305.7138816067
+Predicted improvement:        0.000170292
+lambda =          1; f =          305.7135457
+lambda =     1.9332; f =          305.7132418
+lambda =     3.7372; f =          305.7126806
+lambda =     7.2247; f =          305.7116936
+lambda =     13.967; f =          305.7101521
+lambda =         27; f =          305.7085430
+Norm of dx 0.00029611
+----
+Improvement on iteration 126 =        0.005338596
+-----------------
+f at the beginning of new iteration,       305.7085430106
+Predicted improvement:        0.004748048
+lambda =          1; f =          305.6999746
+lambda =     1.9332; f =          305.6936551
+lambda =     3.7372; f =          305.6860454
+Norm of dx  0.0092316
+----
+Improvement on iteration 127 =        0.022497570
+-----------------
+f at the beginning of new iteration,       305.6860454409
+Predicted improvement:        0.005872439
+lambda =          1; f =          305.6793172
+Norm of dx    0.02061
+----
+Improvement on iteration 128 =        0.006728246
+-----------------
+f at the beginning of new iteration,       305.6793171952
+Predicted improvement:        0.000466539
+lambda =          1; f =          305.6786578
+lambda =     1.9332; f =          305.6785232
+Norm of dx  0.0025862
+----
+Improvement on iteration 129 =        0.000794019
+-----------------
+f at the beginning of new iteration,       305.6785231760
+Predicted improvement:        0.000317721
+lambda =          1; f =          305.6779063
+lambda =     1.9332; f =          305.6773661
+lambda =     3.7372; f =          305.6764184
+lambda =     7.2247; f =          305.6749479
+lambda =     13.967; f =          305.6734526
+Norm of dx 0.00074839
+----
+Improvement on iteration 130 =        0.005070530
+-----------------
+f at the beginning of new iteration,       305.6734526464
+Predicted improvement:        0.004544808
+lambda =          1; f =          305.6646317
+lambda =     1.9332; f =          305.6568898
+lambda =     3.7372; f =          305.6432646
+lambda =     7.2247; f =          305.6219450
+lambda =     13.967; f =          305.5995779
+Norm of dx  0.0060995
+----
+Improvement on iteration 131 =        0.073874770
+-----------------
+f at the beginning of new iteration,       305.5995778768
+Predicted improvement:        0.045069974
+lambda =          1; f =          305.5296076
+lambda =     1.9332; f =          305.5032147
+Norm of dx   0.093424
+----
+Improvement on iteration 132 =        0.096363183
+-----------------
+f at the beginning of new iteration,       305.5032146943
+Predicted improvement:        0.008285734
+lambda =          1; f =          305.4943422
+Norm of dx   0.014789
+----
+Improvement on iteration 133 =        0.008872495
+-----------------
+f at the beginning of new iteration,       305.4943421989
+Predicted improvement:        0.000237591
+lambda =          1; f =          305.4939986
+lambda =     1.9332; f =          305.4939219
+Norm of dx  0.0020022
+----
+Improvement on iteration 134 =        0.000420320
+-----------------
+f at the beginning of new iteration,       305.4939218793
+Predicted improvement:        0.000206356
+lambda =          1; f =          305.4935169
+lambda =     1.9332; f =          305.4931535
+lambda =     3.7372; f =          305.4924905
+lambda =     7.2247; f =          305.4913570
+lambda =     13.967; f =          305.4897178
+lambda =         27; f =          305.4886055
+Norm of dx 0.00046497
+----
+Improvement on iteration 135 =        0.005316349
+-----------------
+f at the beginning of new iteration,       305.4886055308
+Predicted improvement:        0.004975326
+lambda =          1; f =          305.4788511
+lambda =     1.9332; f =          305.4701044
+lambda =     3.7372; f =          305.4541711
+lambda =     7.2247; f =          305.4270234
+lambda =     13.967; f =          305.3883032
+lambda =         27; f =          305.3662261
+Norm of dx  0.0074866
+----
+Improvement on iteration 136 =        0.122379477
+-----------------
+f at the beginning of new iteration,       305.3662260540
+Predicted improvement:        0.040068331
+lambda =          1; f =          305.3154080
+Norm of dx    0.03574
+----
+Improvement on iteration 137 =        0.050818007
+-----------------
+f at the beginning of new iteration,       305.3154080466
+Predicted improvement:        0.007128929
+lambda =          1; f =          305.3076036
+Norm of dx   0.033747
+----
+Improvement on iteration 138 =        0.007804450
+-----------------
+f at the beginning of new iteration,       305.3076035965
+Predicted improvement:        0.000717846
+lambda =          1; f =          305.3063693
+lambda =     1.9332; f =          305.3055767
+lambda =     3.7372; f =          305.3050408
+Norm of dx  0.0023511
+----
+Improvement on iteration 139 =        0.002562809
+-----------------
+f at the beginning of new iteration,       305.3050407873
+Predicted improvement:        0.001726845
+lambda =          1; f =          305.3018125
+lambda =     1.9332; f =          305.2992157
+lambda =     3.7372; f =          305.2953724
+lambda =     7.2247; f =          305.2926090
+Norm of dx  0.0030586
+----
+Improvement on iteration 140 =        0.012431781
+-----------------
+f at the beginning of new iteration,       305.2926090058
+Predicted improvement:        0.008925502
+lambda =          1; f =          305.2756371
+lambda =     1.9332; f =          305.2613749
+lambda =     3.7372; f =          305.2381143
+lambda =     7.2247; f =          305.2092810
+Norm of dx  0.0056144
+----
+Improvement on iteration 141 =        0.083328041
+-----------------
+f at the beginning of new iteration,       305.2092809649
+Predicted improvement:        0.088756758
+lambda =          1; f =          305.0465675
+lambda =     1.9332; f =          304.9216509
+lambda =     3.7372; f =          304.7556998
+Norm of dx    0.13105
+----
+Improvement on iteration 142 =        0.453581202
+-----------------
+f at the beginning of new iteration,       304.7556997632
+Predicted improvement:        0.300357763
+lambda =          1; f =          304.3483320
+Norm of dx    0.66085
+----
+Improvement on iteration 143 =        0.407367718
+-----------------
+f at the beginning of new iteration,       304.3483320455
+Predicted improvement:        0.128907761
+lambda =          1; f =          304.2127152
+Norm of dx    0.36699
+----
+Improvement on iteration 144 =        0.135616837
+-----------------
+f at the beginning of new iteration,       304.2127152083
+Predicted improvement:        0.010434987
+lambda =          1; f =          304.2066236
+lambda =    0.33333; f =          304.2074555
+lambda =    0.64439; f =          304.2055129
+Norm of dx   0.018049
+----
+Improvement on iteration 145 =        0.007202282
+-----------------
+f at the beginning of new iteration,       304.2055129263
+Predicted improvement:        0.002685303
+lambda =          1; f =          304.2033797
+Norm of dx   0.025515
+----
+Improvement on iteration 146 =        0.002133228
+-----------------
+f at the beginning of new iteration,       304.2033796986
+Predicted improvement:        0.000623236
+lambda =          1; f =          304.2024328
+lambda =     1.9332; f =          304.2020844
+Norm of dx  0.0027582
+----
+Improvement on iteration 147 =        0.001295319
+-----------------
+f at the beginning of new iteration,       304.2020843800
+Predicted improvement:        0.000990711
+lambda =          1; f =          304.2001961
+lambda =     1.9332; f =          304.1986018
+lambda =     3.7372; f =          304.1959791
+lambda =     7.2247; f =          304.1926258
+Norm of dx  0.0062296
+----
+Improvement on iteration 148 =        0.009458610
+-----------------
+f at the beginning of new iteration,       304.1926257698
+Predicted improvement:        0.012155085
+lambda =          1; f =          304.1698988
+lambda =     1.9332; f =          304.1515532
+lambda =     3.7372; f =          304.1238239
+lambda =     7.2247; f =          304.0985903
+Norm of dx   0.032592
+----
+Improvement on iteration 149 =        0.094035444
+-----------------
+f at the beginning of new iteration,       304.0985903256
+Predicted improvement:        0.072535476
+lambda =          1; f =          303.9646821
+lambda =     1.9332; f =          303.8603123
+lambda =     3.7372; f =          303.7182271
+lambda =     7.2247; f =          303.7077688
+Norm of dx    0.14068
+----
+Improvement on iteration 150 =        0.390821530
+-----------------
+f at the beginning of new iteration,       303.7077687957
+Predicted improvement:        0.223467406
+lambda =          1; f =          303.5505013
+Norm of dx    0.24593
+----
+Improvement on iteration 151 =        0.157267503
+-----------------
+f at the beginning of new iteration,       303.5505012929
+Predicted improvement:        0.047605906
+lambda =          1; f =          303.4998661
+Norm of dx   0.051385
+----
+Improvement on iteration 152 =        0.050635216
+-----------------
+f at the beginning of new iteration,       303.4998660770
+Predicted improvement:        0.015525024
+lambda =          1; f =          303.4853935
+Norm of dx   0.085933
+----
+Improvement on iteration 153 =        0.014472549
+-----------------
+f at the beginning of new iteration,       303.4853935278
+Predicted improvement:        0.001443808
+lambda =          1; f =          303.4841586
+Norm of dx   0.014112
+----
+Improvement on iteration 154 =        0.001234946
+-----------------
+f at the beginning of new iteration,       303.4841585820
+Predicted improvement:        0.000169411
+lambda =          1; f =          303.4840085
+Norm of dx  0.0037708
+----
+Improvement on iteration 155 =        0.000150124
+-----------------
+f at the beginning of new iteration,       303.4840084585
+Predicted improvement:        0.000024278
+lambda =          1; f =          303.4839877
+Norm of dx  0.0015722
+----
+Improvement on iteration 156 =        0.000020724
+-----------------
+f at the beginning of new iteration,       303.4839877342
+Predicted improvement:        0.000007406
+lambda =          1; f =          303.4839754
+lambda =     1.9332; f =          303.4839681
+Norm of dx 0.00026831
+----
+Improvement on iteration 157 =        0.000019648
+-----------------
+f at the beginning of new iteration,       303.4839680862
+Predicted improvement:        0.000021602
+lambda =          1; f =          303.4839297
+lambda =     1.9332; f =          303.4839029
+lambda =     3.7372; f =          303.4838760
+Norm of dx 0.00029907
+----
+Improvement on iteration 158 =        0.000092040
+-----------------
+f at the beginning of new iteration,       303.4838760464
+Predicted improvement:        0.000071589
+lambda =          1; f =          303.4837371
+lambda =     1.9332; f =          303.4836159
+lambda =     3.7372; f =          303.4834046
+lambda =     7.2247; f =          303.4830823
+lambda =     13.967; f =          303.4827808
+Norm of dx  0.0014421
+----
+Improvement on iteration 159 =        0.001095238
+-----------------
+f at the beginning of new iteration,       303.4827808080
+Predicted improvement:        0.001113339
+lambda =          1; f =          303.4806565
+lambda =     1.9332; f =          303.4788587
+lambda =     3.7372; f =          303.4758920
+lambda =     7.2247; f =          303.4720814
+Norm of dx  0.0093978
+----
+Improvement on iteration 160 =        0.010699409
+-----------------
+f at the beginning of new iteration,       303.4720813985
+Predicted improvement:        0.012552466
+lambda =          1; f =          303.4491702
+lambda =     1.9332; f =          303.4319122
+lambda =     3.7372; f =          303.4110400
+Norm of dx    0.10128
+----
+Improvement on iteration 161 =        0.061041367
+-----------------
+f at the beginning of new iteration,       303.4110400316
+Correct for low angle: 0.00368635
+Predicted improvement:        0.082038329
+lambda =          1; f =          303.2931157
+lambda =     1.9332; f =          303.2687216
+Norm of dx     0.4493
+----
+Improvement on iteration 162 =        0.142318410
+-----------------
+f at the beginning of new iteration,       303.2687216217
+Correct for low angle: 0.00202554
+Predicted improvement:        0.217844400
+lambda =          1; f =          303.4170885
+lambda =    0.33333; f =          303.1920369
+Norm of dx    0.49458
+----
+Improvement on iteration 163 =        0.076684672
+-----------------
+f at the beginning of new iteration,       303.1920369496
+Predicted improvement:        0.035096907
+lambda =          1; f =          303.1510297
+Norm of dx    0.32652
+----
+Improvement on iteration 164 =        0.041007222
+-----------------
+f at the beginning of new iteration,       303.1510297274
+Predicted improvement:        0.003036927
+lambda =          1; f =          303.1479838
+Norm of dx   0.019898
+----
+Improvement on iteration 165 =        0.003045914
+-----------------
+f at the beginning of new iteration,       303.1479838133
+Predicted improvement:        0.000103065
+lambda =          1; f =          303.1478855
+Norm of dx   0.014416
+----
+Improvement on iteration 166 =        0.000098272
+-----------------
+f at the beginning of new iteration,       303.1478855416
+Predicted improvement:        0.000008723
+lambda =          1; f =          303.1478746
+Norm of dx  0.0028346
+----
+Improvement on iteration 167 =        0.000010894
+-----------------
+f at the beginning of new iteration,       303.1478746472
+Predicted improvement:        0.000000447
+lambda =          1; f =          303.1478742
+Norm of dx 0.00020469
+----
+Improvement on iteration 168 =        0.000000475
+-----------------
+f at the beginning of new iteration,       303.1478741718
+Predicted improvement:        0.000000023
+lambda =          1; f =          303.1478741
+lambda =     1.9332; f =          303.1478741
+lambda =     3.7372; f =          303.1478741
+lambda =     2.5164; f =          303.1478741
+lambda =     3.1904; f =          303.1478741
+Norm of dx 8.2504e-05
+----
+Improvement on iteration 169 =        0.000000106
+-----------------
+f at the beginning of new iteration,       303.1478740657
+Predicted improvement:        0.000000028
+lambda =          1; f =          303.1478741
+lambda =    0.33333; f =          303.1478741
+lambda =    0.11111; f =          303.1478741
+lambda =   0.037037; f =          303.1478741
+lambda =   0.012346; f =          303.1478741
+lambda =  0.0041152; f =          303.1478741
+lambda =  0.0013717; f =          303.1478741
+lambda = 0.00045725; f =          303.1478741
+lambda = 0.00015242; f =          303.1478741
+Norm of dx 0.00016614
+----
+Improvement on iteration 170 =        0.000000000
+improvement < crit termination
+
+Final value of minus the log posterior (or likelihood):303.147874 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+         prior mean     mode    s.d. prior pstdev
+
+psi1         1.500   1.4526  0.1089 norm  0.2500 
+rho_r        0.750   0.6182  0.0461 beta  0.1000 
+psi2         0.120  -0.0235  0.0059 norm  0.0500 
+psi3         0.120   0.1576  0.0324 norm  0.0500 
+zeta_spb     0.050   0.0509  0.0043 beta  0.0050 
+sprd_aux     2.000   1.9287  0.0890 gamm  0.1000 
+alp          0.300   0.1603  0.0207 norm  0.0500 
+Bigphi       1.250   1.7263  0.0883 norm  0.1200 
+h            0.700   0.3454  0.0526 beta  0.1000 
+nu_l         2.000   2.0420  0.3803 norm  0.7500 
+rstar_aux    0.250   0.1233  0.0482 gamm  0.1000 
+pistar_aux   0.750   0.3551  0.1812 gamm  0.4000 
+zstar_aux    0.400   0.5495  0.0583 norm  0.1000 
+sigmac       1.500   0.8294  0.1156 norm  0.3700 
+Lmean      -45.000 -43.8192  2.2785 norm  5.0000 
+rho_z        0.500   0.9871  0.0041 beta  0.2000 
+rho_b        0.500   0.9351  0.0155 beta  0.2000 
+rho_g        0.500   0.9780  0.0100 beta  0.2000 
+rho_mu       0.500   0.7690  0.0508 beta  0.2000 
+rho_rm       0.500   0.1781  0.0482 beta  0.2000 
+rho_laf      0.500   0.9913  0.0035 beta  0.2000 
+rho_law      0.500   0.9897  0.0048 beta  0.2000 
+eta_laf      0.500   0.0423  0.0295 beta  0.2000 
+eta_law      0.500   0.1390  0.0551 beta  0.2000 
+eta_gz       0.500   0.3343  0.2206 beta  0.2000 
+rho_sigw     0.750   0.9906  0.0094 beta  0.1500 
+
+standard deviation of shocks
+         prior mean     mode    s.d. prior pstdev
+
+z_sh         0.100   0.3640  0.0281 invg  2.0000 
+g_sh         0.100   2.1458  0.1541 invg  2.0000 
+b_sh         0.100   0.0269  0.0034 invg  2.0000 
+mu_sh        0.100   0.5424  0.0418 invg  2.0000 
+laf_sh       0.100   0.7009  0.0883 invg  2.0000 
+law_sh       0.100   1.1628  0.1084 invg  2.0000 
+sigw_sh      0.050   0.0426  0.0040 invg  4.0000 
+rm_sh        0.100   0.2072  0.0241 invg  2.0000 
+
+
+Log data density [Laplace approximation] is -391.992870.
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in DNGS15_nonr/metropolis\DNGS15_nonr_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 2 per block.
+Estimation::mcmc: Total number of generated files: 2.
+Estimation::mcmc: Total number of iterations: 500000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 31.4698%
+Estimation::mcmc: Total number of MH draws per chain: 500000.
+Estimation::mcmc: Total number of generated MH files: 2.
+Estimation::mcmc: I'll use mh-files 1 to 2.
+Estimation::mcmc: In MH-file number 1 I'll start at line 150001.
+Estimation::mcmc: Finally I keep 350000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter        Block 1
+SE_z_sh          172.650
+SE_g_sh          198.614
+SE_b_sh          331.755
+SE_mu_sh         204.720
+SE_laf_sh        319.022
+SE_law_sh        376.971
+SE_sigw_sh       283.509
+SE_rm_sh         194.325
+psi1             383.392
+rho_r            165.725
+psi2             280.443
+psi3             263.396
+zeta_spb         184.356
+sprd_aux         203.472
+alp              562.224
+Bigphi           252.422
+h                594.303
+nu_l             274.120
+rstar_aux        324.502
+pistar_aux       211.151
+zstar_aux        388.468
+sigmac           546.142
+Lmean            202.881
+rho_z            607.549
+rho_b            234.270
+rho_g            318.844
+rho_mu           348.711
+rho_rm           162.349
+rho_laf          232.616
+rho_law          180.921
+eta_laf          163.626
+eta_law          117.037
+eta_gz           106.989
+rho_sigw         715.770
+
+
+Geweke (1992) Convergence Tests, based on means of draws 150000 to 220000 vs 325000 to 500000.
+p-values are for Chi2-test for equality of means.
+Parameter          Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_z_sh                 0.364            0.028            0.000            0.684            0.725            0.744
+SE_g_sh                 2.218            0.169            0.039            0.900            0.903            0.900
+SE_b_sh                 0.028            0.005            0.000            0.035            0.051            0.046
+SE_mu_sh                0.560            0.044            0.000            0.019            0.035            0.026
+SE_laf_sh               0.777            0.113            0.000            0.148            0.191            0.188
+SE_law_sh               1.305            0.150            0.000            0.094            0.144            0.151
+SE_sigw_sh              0.047            0.005            0.000            0.000            0.000            0.000
+SE_rm_sh                0.208            0.024            0.000            0.039            0.055            0.081
+psi1                    1.426            0.124            0.000            0.005            0.012            0.011
+rho_r                   0.622            0.043            0.000            0.238            0.257            0.277
+psi2                   -0.025            0.007            0.000            0.505            0.521            0.531
+psi3                    0.142            0.035            0.000            0.003            0.010            0.010
+zeta_spb                0.053            0.004            0.000            0.186            0.221            0.176
+sprd_aux                1.903            0.092            0.000            0.002            0.008            0.023
+alp                     0.126            0.037            0.000            0.032            0.066            0.067
+Bigphi                  1.686            0.095            0.000            0.294            0.334            0.337
+h                       0.435            0.101            0.000            0.004            0.016            0.021
+nu_l                    2.336            0.427            0.000            0.264            0.302            0.309
+rstar_aux               0.173            0.061            0.000            0.101            0.150            0.145
+pistar_aux              0.450            0.198            0.000            0.791            0.819            0.819
+zstar_aux               0.600            0.065            0.000            0.037            0.070            0.071
+sigmac                  0.672            0.153            0.000            0.008            0.025            0.030
+Lmean                 -43.386            2.371            0.000            0.768            0.786            0.799
+rho_z                   0.981            0.011            0.000            0.646            0.681            0.686
+rho_b                   0.945            0.017            0.000            0.611            0.579            0.558
+rho_g                   0.972            0.013            0.000            0.004            0.006            0.009
+rho_mu                  0.813            0.050            0.000            0.009            0.024            0.027
+rho_rm                  0.170            0.047            0.000            0.088            0.092            0.084
+rho_laf                 0.992            0.004            0.000            0.030            0.045            0.039
+rho_law                 0.990            0.004            0.000            0.083            0.107            0.082
+eta_laf                 0.055            0.029            0.000            0.478            0.485            0.445
+eta_law                 0.136            0.047            0.000            0.075            0.070            0.043
+eta_gz                  0.384            0.184            0.000            0.708            0.713            0.729
+rho_sigw                0.925            0.059            0.000            0.000            0.002            0.006
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -390.176017.
+
+parameters
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+psi1              1.500       1.4208      1.2269      1.6202   norm        0.2500
+rho_r             0.750       0.6223      0.5485      0.6888   beta        0.1000
+psi2              0.120      -0.0249     -0.0359     -0.0133   norm        0.0500
+psi3              0.120       0.1414      0.0853      0.1996   norm        0.0500
+zeta_spb          0.050       0.0537      0.0467      0.0605   beta        0.0050
+sprd_aux          2.000       1.8997      1.7438      2.0482   gamm        0.1000
+alp               0.300       0.1236      0.0638      0.1856   norm        0.0500
+Bigphi            1.250       1.6820      1.5205      1.8362   norm        0.1200
+h                 0.700       0.4426      0.2805      0.6017   beta        0.1000
+nu_l              2.000       2.3533      1.6305      3.0491   norm        0.7500
+rstar_aux         0.250       0.1769      0.0735      0.2754   gamm        0.1000
+pistar_aux        0.750       0.4513      0.1143      0.7451   gamm        0.4000
+zstar_aux         0.400       0.6046      0.5005      0.7081   norm        0.1000
+sigmac            1.500       0.6611      0.4340      0.8990   norm        0.3700
+Lmean           -45.000     -43.4028    -47.3430    -39.6689   norm        5.0000
+rho_z             0.500       0.9795      0.9621      0.9942   beta        0.2000
+rho_b             0.500       0.9451      0.9166      0.9724   beta        0.2000
+rho_g             0.500       0.9712      0.9505      0.9917   beta        0.2000
+rho_mu            0.500       0.8150      0.7338      0.8921   beta        0.2000
+rho_rm            0.500       0.1701      0.0894      0.2456   beta        0.2000
+rho_laf           0.500       0.9924      0.9869      0.9980   beta        0.2000
+rho_law           0.500       0.9899      0.9832      0.9972   beta        0.2000
+eta_laf           0.500       0.0543      0.0083      0.0972   beta        0.2000
+eta_law           0.500       0.1350      0.0559      0.2084   beta        0.2000
+eta_gz            0.500       0.3829      0.0809      0.6705   beta        0.2000
+rho_sigw          0.750       0.9201      0.8352      0.9982   beta        0.1500
+
+standard deviation of shocks
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+z_sh              0.100       0.3640      0.3183      0.4087   invg        2.0000
+g_sh              0.100       2.2223      1.9451      2.4924   invg        2.0000
+b_sh              0.100       0.0283      0.0206      0.0354   invg        2.0000
+mu_sh             0.100       0.5587      0.4874      0.6300   invg        2.0000
+laf_sh            0.100       0.7820      0.5962      0.9629   invg        2.0000
+law_sh            0.100       1.3116      1.0606      1.5525   invg        2.0000
+sigw_sh           0.050       0.0470      0.0394      0.0543   invg        4.0000
+rm_sh             0.100       0.2075      0.1692      0.2454   invg        2.0000
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 6h19m45s
+Note: warning(s) encountered in MATLAB/Octave code
