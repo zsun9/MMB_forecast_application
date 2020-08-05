@@ -71,7 +71,7 @@ for index, row in df_sgf.iterrows():
 # calculate forecast errors
 for directory in paths['estimations'].glob('*'):
 
-    if 'KR15_FF' in directory.stem or 'IN10' in directory.stem or '20090811' in directory.stem or '20091110' in directory.stem:
+    if 'IN10' in directory.stem or '20090811' in directory.stem or '20091110' in directory.stem:
         print(f'Not included: {directory.stem}')
     else:
         if directory.is_dir():
@@ -85,8 +85,8 @@ for directory in paths['estimations'].glob('*'):
                     assert 'nofa' in inst['model']
                 if 'ew' in directory.stem:
                     inst['model'] += '_ew'
-                # if 'dy424' in directory.stem:
-                #     inst['model'] += '_dy424'
+                if 'KR15' in directory.stem and 'dy424' not in directory.stem:
+                    inst['model'] += '_dy457'
                 if 'GLP' in inst['model']:
                     results['ts'].append(inst)
                 else:
@@ -97,22 +97,22 @@ for directory in paths['estimations'].glob('*'):
                 for file in directory.glob('*_results.mat'):
                     file.unlink()
 
-            forecastValues = inst['forecast']['gdp'][1:lengthRMSE+1]
+                forecastValues = inst['forecast']['gdp'][1:lengthRMSE+1]
 
-            quarter = int(np.floor((int(inst['vintage'][5:7]) - 1) / 3) + 1)
-            year = int(inst['vintage'][0:4])
-            vintageQuarter = str(year) + 'Q' + str(quarter)
+                quarter = int(np.floor((int(inst['vintage'][5:7]) - 1) / 3) + 1)
+                year = int(inst['vintage'][0:4])
+                vintageQuarter = str(year) + 'Q' + str(quarter)
 
-            if vintageQuarter in actualForRMSE.keys():
+                if vintageQuarter in actualForRMSE.keys():
 
-                jsonError.append({
-                    # 'forecast': forecastValues,
-                    'squaredError': [(forecast - actual)**2 for forecast, actual in zip(forecastValues, actualForRMSE[vintageQuarter])],
-                    'model': inst['model'],
-                    'vintage': inst['vintage'],
-                    'vintageQuarter': vintageQuarter,
-                    'scenario': inst['scenario'],
-                })
+                    jsonError.append({
+                        # 'forecast': forecastValues,
+                        'squaredError': [(forecast - actual)**2 for forecast, actual in zip(forecastValues, actualForRMSE[vintageQuarter])],
+                        'model': inst['model'],
+                        'vintage': inst['vintage'],
+                        'vintageQuarter': vintageQuarter,
+                        'scenario': inst['scenario'],
+                    })
 
 results['error'] = jsonError
 # dfError = pd.DataFrame(jsonError)

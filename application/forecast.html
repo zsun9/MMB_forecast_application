@@ -479,6 +479,10 @@
                 if (item.innerText == 'Individual SPF') {
                   item.remove();
                 }
+                if (item.innerText.includes('_nofa') || item.innerText.includes('_cql') || item.innerText.includes('_ew') || item.innerText.includes('_dy457')) {
+                  let oldInnerHTML = item.innerHTML;
+                  item.innerHTML = oldInnerHTML.replace('background-color: ', 'border-style: dotted; border-color: ');
+                }
               }
 
               }

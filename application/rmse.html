@@ -130,7 +130,7 @@
 
             // (only for RMSE) actual data in 2020 in not available yet
             // do not show RMSE of external sources yet
-            if ((item.includes('2020')) || (item.includes('SPFIndividual')) || (item.includes('GB'))) {
+            if ((item.includes('2020')) || (item.includes('SPFIndividual'))) {
               newString = newString.replace('<input', '<input disabled');
             }
 
@@ -214,8 +214,7 @@
                 }
               }
             }
-
-
+            
             // let model = item['model'], scenario = item['scenario'], squaredError = item['squaredError'], vintage = item['vintage'], vintageQuarter = item['vintageQuarter'];
 
             // if (((selected['dsge'].includes(model)) || (selected['ts'].includes(model)) || (selected['external'].includes(model)) || (selected['external'].includes(model))) && (selected['vintage'].includes(vintage))) {
