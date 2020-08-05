@@ -1,0 +1,224 @@
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+WARNING: A16.mod:107.1-156.5: Symbol s_phi declared twice.
+Substitution of endo leads >= 2: added 6 auxiliary variables and equations.
+Substitution of endo lags >= 2: added 10 auxiliary variables and equations.
+Found 101 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+Processing outputs ...
+done
+Preprocessing completed.
+
+<a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'local_min_found','CSHelpWindow');">Local minimum found that satisfies the constraints</a>.
+
+Optimization completed because the objective function is non-decreasing in 
+<a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'feasible_directions','CSHelpWindow');">feasible directions</a>, to within the value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'optimality_tolerance_msgcsh','CSHelpWindow');">optimality tolerance</a>,
+and constraints are satisfied to within the value of the <a href = "matlab: helpview([docroot '/toolbox/optim/msg_csh/optim_msg_csh.map'],'constraint_tolerance','CSHelpWindow');">constraint tolerance</a>.
+
+<<a href = "matlab: createExitMsg({'optimlib:sqpLineSearch:Exit1basic'},{'optimlib:sqpLineSearch:Exit1detailed','0.000000e+00','1.000000e-04','1.179887e-10','1.000000e-06'},true,true);;">stopping criteria details</a>>
+
+Initial value of the log posterior (or likelihood): -9621.6081
+
+==========================================================
+   Change in the posterior covariance matrix = 3.9433.
+   Change in the posterior mean = 1.0822.
+   Mode improvement = 8880.7081
+   New value of jscale = 0.0050607
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.045216.
+   Change in the posterior mean = 1.1062.
+   Mode improvement = 83.2586
+   New value of jscale = 0.11848
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.34248.
+   Change in the posterior mean = 1.4115.
+   Mode improvement = 29.1791
+   New value of jscale = 0.31865
+==========================================================
+
+Optimal value of the scale parameter = 0.31865
+
+
+Final value of minus the log posterior (or likelihood):686.820605 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+            prior mean     mode    s.d. prior pstdev
+
+bet_s           0.750   0.7685  0.0147 gamm  0.0500 
+nu              2.000   2.6106  0.6096 gamm  0.7500 
+h               0.500   0.8706  0.0094 beta  0.2000 
+eta             0.600   0.6739  0.0198 beta  0.1000 
+xi_p            0.750   0.9076  0.0084 beta  0.1500 
+iota_p          0.500   0.0565  0.0398 beta  0.1500 
+xi_w            0.750   0.9369  0.0122 beta  0.1500 
+iota_w          0.500   0.1588  0.0344 beta  0.1500 
+theta           0.750   0.7480  0.0224 beta  0.0500 
+theta_I         4.000   1.1245  0.1872 gamm  2.0000 
+pis             0.500   0.3791  0.0267 gamm  0.1000 
+rho_i           0.850   0.7074  0.0206 beta  0.1000 
+phi_pi          0.700   0.3915  0.0208 norm  0.0500 
+phi_DY          0.125   0.1311  0.0108 norm  0.0500 
+tB              0.500   0.2435  0.0141 gamm  0.2000 
+rho_z           0.500   0.5096  0.0465 beta  0.2000 
+rho_g           0.500   0.9991  0.0006 beta  0.2000 
+rho_beta        0.500   0.5011  0.0494 beta  0.2000 
+rho_tau         0.500   0.9986  0.0015 beta  0.2000 
+decay           0.500   0.7862  0.0314 beta  0.2000 
+rho_p           0.500   0.9914  0.0036 beta  0.2000 
+rho_w           0.500   0.6164  0.0909 beta  0.2000 
+theta_p         0.500   0.2012  0.0539 beta  0.2000 
+theta_w         0.500   0.3170  0.0687 beta  0.2000 
+
+standard deviation of shocks
+            prior mean     mode    s.d. prior pstdev
+
+eps_z           0.500   1.2721  0.1017 invg2 1.0000 
+eps_g           0.500   1.0303  0.0756 invg2 1.0000 
+eps_i           0.100   0.2431  0.0176 invg2 1.0000 
+eps_tau         0.500   0.2996  0.0347 invg2 1.0000 
+eps_tau_trans   0.500   0.2403  0.0241 invg2 1.0000 
+eps_beta        0.500   3.3543  0.3684 invg2 1.0000 
+eps_p           0.100   0.0230  0.0072 invg2 1.0000 
+eps_w           0.100   0.1299  0.0225 invg2 1.0000 
+eps_meas        0.050   0.2532  0.0176 invg2 0.0500 
+eps_meas_sp     0.050   0.0254  0.0073 invg2 0.0500 
+
+
+Log data density [Laplace approximation] is -800.080685.
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in A16/metropolis\A16_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 1 per block.
+Estimation::mcmc: Total number of generated files: 1.
+Estimation::mcmc: Total number of iterations: 100000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 30.158%
+Estimation::mcmc: Total number of MH draws per chain: 100000.
+Estimation::mcmc: Total number of generated MH files: 1.
+Estimation::mcmc: I'll use mh-files 1 to 1.
+Estimation::mcmc: In MH-file number 1 I'll start at line 30001.
+Estimation::mcmc: Finally I keep 70000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter              Block 1
+SE_eps_z               199.445
+SE_eps_g               145.994
+SE_eps_i               202.866
+SE_eps_tau             363.316
+SE_eps_tau_trans       229.100
+SE_eps_beta            584.804
+SE_eps_p               482.922
+SE_eps_w               469.223
+SE_eps_meas            344.205
+SE_eps_meas_sp         626.125
+bet_s                  635.593
+nu                     485.913
+h                      543.786
+eta                    322.370
+xi_p                   577.250
+iota_p                 183.605
+xi_w                   489.286
+iota_w                 464.810
+theta                  555.433
+theta_I                545.199
+pis                    646.589
+rho_i                  481.869
+phi_pi                 551.376
+phi_DY                 652.650
+tB                     342.055
+rho_z                  388.094
+rho_g                  201.982
+rho_beta               476.360
+rho_tau                133.204
+decay                  305.578
+rho_p                  268.179
+rho_w                  560.905
+theta_p                599.863
+theta_w                671.924
+
+
+Geweke (1992) Convergence Tests, based on means of draws 30000 to 44000 vs 65000 to 100000.
+p-values are for Chi2-test for equality of means.
+Parameter                Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eps_z                      1.289            0.099            0.011            0.860            0.878            0.893
+SE_eps_g                      1.047            0.076            0.000            0.368            0.375            0.375
+SE_eps_i                      0.249            0.018            0.000            0.001            0.003            0.005
+SE_eps_tau                    0.341            0.038            0.000            0.000            0.002            0.006
+SE_eps_tau_trans              0.268            0.029            0.000            0.000            0.000            0.000
+SE_eps_beta                   3.404            0.536            0.000            0.001            0.010            0.031
+SE_eps_p                      0.024            0.006            0.000            0.002            0.016            0.045
+SE_eps_w                      0.130            0.025            0.000            0.000            0.000            0.000
+SE_eps_meas                   0.261            0.020            0.000            0.705            0.740            0.772
+SE_eps_meas_sp                0.044            0.024            0.000            0.000            0.001            0.004
+bet_s                         0.772            0.046            0.000            0.008            0.047            0.106
+nu                            2.475            0.594            0.000            0.069            0.155            0.229
+h                             0.868            0.021            0.000            0.001            0.015            0.053
+eta                           0.677            0.018            0.000            0.032            0.061            0.053
+xi_p                          0.904            0.014            0.000            0.150            0.266            0.357
+iota_p                        0.070            0.030            0.000            0.164            0.195            0.215
+xi_w                          0.929            0.020            0.000            0.001            0.006            0.012
+iota_w                        0.160            0.041            0.000            0.389            0.512            0.598
+theta                         0.759            0.041            0.000            0.000            0.000            0.000
+theta_I                       1.178            0.315            0.000            0.000            0.000            0.000
+pis                           0.444            0.078            0.000            0.000            0.000            0.000
+rho_i                         0.707            0.041            0.000            0.000            0.000            0.000
+phi_pi                        0.433            0.036            0.000            0.000            0.000            0.000
+phi_DY                        0.124            0.035            0.000            0.000            0.000            0.000
+tB                            0.226            0.020            0.000            0.003            0.005            0.007
+rho_z                         0.485            0.058            0.000            0.000            0.000            0.000
+rho_g                         0.999            0.001            0.000            0.008            0.020            0.034
+rho_beta                      0.487            0.068            0.000            0.125            0.228            0.319
+rho_tau                       0.998            0.001            0.000            0.125            0.146            0.165
+decay                         0.782            0.036            0.000            0.449            0.517            0.549
+rho_p                         0.990            0.004            0.000            0.065            0.120            0.178
+rho_w                         0.594            0.101            0.000            0.001            0.007            0.024
+theta_p                       0.281            0.145            0.000            0.002            0.013            0.035
+theta_w                       0.478            0.195            0.000            0.004            0.028            0.068
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -781.646965.
+
+parameters
+                prior mean   post. mean        90% HPD interval    prior       pstdev
+
+bet_s                0.750       0.7646      0.6835      0.8275   gamm        0.0500
+nu                   2.000       2.4713      1.4954      3.4053   gamm        0.7500
+h                    0.500       0.8691      0.8382      0.9018   beta        0.2000
+eta                  0.600       0.6756      0.6463      0.7039   beta        0.1000
+xi_p                 0.750       0.9019      0.8771      0.9247   beta        0.1500
+iota_p               0.500       0.0688      0.0224      0.1132   beta        0.1500
+xi_w                 0.750       0.9268      0.8923      0.9597   beta        0.1500
+iota_w               0.500       0.1600      0.0896      0.2276   beta        0.1500
+theta                0.750       0.7547      0.6823      0.8230   beta        0.0500
+theta_I              4.000       1.1446      0.6469      1.6250   gamm        2.0000
+pis                  0.500       0.4335      0.3135      0.5434   gamm        0.1000
+rho_i                0.850       0.7015      0.6333      0.7676   beta        0.1000
+phi_pi               0.700       0.4338      0.3819      0.4883   norm        0.0500
+phi_DY               0.125       0.1203      0.0660      0.1857   norm        0.0500
+tB                   0.500       0.2253      0.1954      0.2511   gamm        0.2000
+rho_z                0.500       0.4854      0.3864      0.5822   beta        0.2000
+rho_g                0.500       0.9988      0.9979      0.9998   beta        0.2000
+rho_beta             0.500       0.4875      0.3742      0.6011   beta        0.2000
+rho_tau      
