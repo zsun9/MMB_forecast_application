@@ -27,6 +27,8 @@ const modelColor = {
   'GLP3v': 'GreenYellow',
   'GLP5v': 'Salmon',
   'GLP8v': 'SkyBlue',
+
+  'IN10': 'Red',
 };
 
 const modelDash = {
