@@ -486,7 +486,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 df.loc[:, obs] = np.log(((df[d['GPDI']]+df[d['PCEDG']])/(df[d['GPDIC1']]+df[d['PCEDGC96']])/df[d['GDPCTPI']])/((df[d['GPDI']].shift()+df[d['PCEDG']].shift())/(df[d['GPDIC1']].shift()+df[d['PCEDGC96']].shift())/df[d['GDPCTPI']].shift()))*100
 
 
-
+ 
 
 
 
@@ -506,7 +506,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
             elif obs == 'hours_A16_obs':
                 # (demean: LN(TOTLQ*100/CLF16OV))*100
-                df.loc[:, obs] = np.log(((df[d['TOTLQ']])*100/df[d['CLF16OV']])/((df[d['TOTLQ']].shift()*100)/df[d['CLF16OV']].shift()))
+                df.loc[:, obs] = np.log(((df[d['TOTLQ']])*100/df[d['CNP16OV']]))
                 df.loc[:, obs] = (df.loc[:, obs] - df.loc[:, obs][:-1].mean())*100
                 
             
@@ -677,7 +677,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 if __name__ == '__main__':
 
     main(
-        vintageDate = '2001-11-14', quarterStart = '1965Q1', quarterEnd = '2001Q4', raw = [],
-        observed = ['hwr_pd_obs']
+        vintageDate = '2011-04-01', quarterStart = '1989Q1', quarterEnd = '2008Q2', raw = [],
+        observed = ['hours_A16_obs']
 
         )
