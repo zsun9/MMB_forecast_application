@@ -23,9 +23,13 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     import datetime as datetime
 
     diffBound = 0.015 # max allowed difference (in %) between series with missing values and series to fill missing values
-    # specificRules = {
-    #     ('2008-08-07', 'COMPNFB', '2008Q3'): 181.676,
-    # }
+    specificRules = {
+        # ('2008-08-07', 'COMPNFB', '2008Q3'): 181.676,
+        ('2020-08-12', 'PRS85006023', '2020Q3'): '2020-08-14',
+        ('2020-08-12', 'HOANBS', '2020Q3'): '2020-08-14',
+        ('2020-08-12', 'IPDNBS', '2020Q3'): '2020-08-14',
+        ('2020-08-12', 'COMPNFB', '2020Q3'): '2020-08-14',
+    }
 
     # parse arguments
     vintageDate = pd.to_datetime(vintageDate)
@@ -211,11 +215,12 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                         dfTemp = pd.read_csv(file, index_col=0)
                     except:
                         dfTemp = pd.read_excel(file, index_col=0)
-                    dfToMerge, actualVintageDateAlfred = desired_data(
-                        source='alfred', var=variable, 
-                        df=dfTemp, 
-                        vintage=vintageDate
-                    )
+
+                    # check whether needs to change the vintage date (a trick just for some very specific settings)
+                    if (vintageDate.strftime('%Y-%m-%d'), variable, quarterEnd.upper()) in specificRules.keys():
+                        dfToMerge, actualVintageDateAlfred = desired_data(source='alfred', var=variable, df=dfTemp, vintage=pd.to_datetime(specificRules[(vintageDate.strftime('%Y-%m-%d'), variable, quarterEnd.upper())]))
+                    else:
+                        dfToMerge, actualVintageDateAlfred = desired_data(source='alfred', var=variable, df=dfTemp, vintage=vintageDate)
 
                     # proceed if dfToMerge is not None
                     if dfToMerge is None:
@@ -485,7 +490,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 # ΔLN(((GPDI+PCEDG)/(GPDIC1+PCEDGC96))/GDPCTPI)*100
                 df.loc[:, obs] = np.log(((df[d['GPDI']]+df[d['PCEDG']])/(df[d['GPDIC1']]+df[d['PCEDGC96']])/df[d['GDPCTPI']])/((df[d['GPDI']].shift()+df[d['PCEDG']].shift())/(df[d['GPDIC1']].shift()+df[d['PCEDGC96']].shift())/df[d['GDPCTPI']].shift()))*100
 
-
+            elif obs == 'emp_obs':
+                # ΔLN(CE16OV)*100
+                df.loc[:, obs] = np.log(df[d['CE16OV']]/df[d['CE16OV']].shift())*100
  
 
 

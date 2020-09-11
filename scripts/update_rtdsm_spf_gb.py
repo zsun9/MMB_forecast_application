@@ -3,9 +3,9 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
     import requests, time, zipfile, io, pathlib
     timeout = 10
 
-    pathRtdsm = pathlib.Path('raw/rtdsm')
-    pathSpf = pathlib.Path('raw/spf')
-    pathGreenbook = pathlib.Path('raw/greenbook')
+    pathRtdsm = pathlib.Path('../data/raw/rtdsm')
+    pathSpf = pathlib.Path('../data/raw/spf')
+    pathGreenbook = pathlib.Path('../data/raw/greenbook')
     assert pathRtdsm.exists() and pathSpf.exists() and pathGreenbook.exists(), 'Some paths not found.'
 
     # update ALFRED data

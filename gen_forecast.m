@@ -1,6 +1,6 @@
 % The file is used for estimating models and generating forecasts
 % Two structs: p - high-level parameters, t - temporary parameters in a loop
-% Last updated: Zexi Sun, 2020-06-10
+% Last updated: Zexi Sun, 2020-09-11
 
 %% settings
 
@@ -14,15 +14,15 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2001-11-14"]; %
-p.scenarios = ["s3"];
-p.models = ["A16"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.vintages = ["2020-05-12"]; %
+p.scenarios = ["s1", "s2", "s3", "s4"];
+p.models = ["SW07"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "Zexi";
 
-p.ExcelColumnUntil = "BD";
+p.ExcelColumnUntil = "BE";
 
 % hyper-parameters
-p.chainLen = 1000000;
+p.chainLen = 500000;
 p.chainLenBVAR = 500000;
 p.subDraws = 5000;
 p.forecastHorizon = 40;
