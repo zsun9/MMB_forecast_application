@@ -22,17 +22,17 @@ close all; fclose all; clear; clc;
 % user-specified parameters
 % Please use double quotes here!
 % cell array format---------- Format: {' ', ' ', ' '}
-p.vintages = {'2008-11-10'}; 
-p.scenarios = {'s3'};
+p.vintages = {'2020-08-12'}; 
+p.scenarios = {'s1', 's2', 's3', 's4'};
 p.models = {'KR15_HH'};% "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 % text format -------------- Format: ' '
 p.executor = 'KaiLong';
 p.comment = '_matlab2011a_dy424';
-p.ExcelColumnUntil = 'BD';
+p.ExcelColumnUntil = 'BE';
 
 
 % hyper-parameters
-p.chainLen = 1000000;
+p.chainLen = 500000;
 p.chainLenBVAR = 500000;
 p.subDraws = 5000;
 p.forecastHorizon = 40;
