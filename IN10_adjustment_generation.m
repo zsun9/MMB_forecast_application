@@ -32,8 +32,9 @@ for ii = 1:length(p.vintage)
         fname =     strcat(target_copy_model,".json");
         stru.target_copy_model = jsondecode(fileread(fname));   
 
-        adjusted_gdp =  stru.objective_model.forecast.gdp + (stru.target_copy_model.forecast.gdp(1) - stru.objective_model.forecast.gdp(1));
-
+        %adjusted_gdp =  stru.objective_model.forecast.gdp + (stru.target_copy_model.forecast.gdp(1) - stru.objective_model.forecast.gdp(1));
+        adjusted_gdp =   stru.objective_model.forecast.gdp;
+        adjusted_gdp(1) = stru.target_copy_model.forecast.gdp(1);
 
         adjstruc = stru.objective_model;
         adjstruc.forecast.gdp = adjusted_gdp;
