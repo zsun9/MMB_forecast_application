@@ -572,7 +572,8 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
             elif obs == 'h_winf_obs':
            # ΔLN(CES2000000008) - mean(ΔLN(CES2000000008))
                 df.loc[:, obs] = np.log(df[d['CES2000000008']].values) -  np.log(df[d['CES2000000008']].shift().values) - np.nanmean(np.log(df[d['CES2000000008']].values)[1:-1] -  np.log(df[d['CES2000000008']].shift().values)[1:-1])     
-                                                                                                                         
+ 
+                                                                                                                                            
           
             
             
