@@ -3,7 +3,7 @@ objective_model = "IN10";
 target_copy_model = "DNGS15";
 
 
-p.vintage = ["20010214","20010512","20010815","20011114","20080807","20081110","20090210","20090512","20200211","20200512"];
+p.vintage = ["20010214","20010512","20010815","20011114","20080807","20081110","20090210","20090512","20200211","20200512","20200812"];
 p.scenario = ["s1","s2","s3","s4"];
 
 
@@ -32,8 +32,9 @@ for ii = 1:length(p.vintage)
         fname =     strcat(target_copy_model,".json");
         stru.target_copy_model = jsondecode(fileread(fname));   
 
-        adjusted_gdp =  stru.objective_model.forecast.gdp + (stru.target_copy_model.forecast.gdp(1) - stru.objective_model.forecast.gdp(1));
-
+        %adjusted_gdp =  stru.objective_model.forecast.gdp + (stru.target_copy_model.forecast.gdp(1) - stru.objective_model.forecast.gdp(1));
+        adjusted_gdp =   stru.objective_model.forecast.gdp;
+        adjusted_gdp(1) = stru.target_copy_model.forecast.gdp(1);
 
         adjstruc = stru.objective_model;
         adjstruc.forecast.gdp = adjusted_gdp;
