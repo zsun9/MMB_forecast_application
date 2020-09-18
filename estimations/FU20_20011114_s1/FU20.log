@@ -1,0 +1,247 @@
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+Substitution of exo lags: added 2 auxiliary variables and equations.
+Found 40 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+ - order 2
+Processing outputs ...
+done
+Preprocessing completed.
+liary variables and equations.
+Found 40 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+ - order 2
+Processing outputs ...
+done
+Preprocessing completed.
+
+
+Initial value of the log posterior (or likelihood): -477.6381
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+           prior mean     mode    s.d. prior pstdev
+
+rhoZ           0.500   0.9866  0.0079 beta  0.2000 
+rhob2          0.500   0.2011  0.1070 beta  0.2000 
+rhog           0.500   0.9372  0.0237 beta  0.2000 
+rhomu          0.500   0.6295  0.0753 beta  0.2000 
+rhoms          0.500   0.1306  0.0744 beta  0.2000 
+rhop           0.500   0.8188  0.0737 beta  0.2000 
+rhow           0.500   0.9450  0.0195 beta  0.2000 
+thetap         0.500   0.7188  0.1168 beta  0.2000 
+thetaw         0.500   0.7775  0.0893 beta  0.2000 
+inv_adj_cost   4.000   4.6879  1.0203 norm  1.5000 
+sigma_c        1.500   1.3678  0.1706 norm  0.3750 
+h              0.700   0.7645  0.0530 beta  0.1000 
+zeta_w         0.500   0.8368  0.0436 beta  0.1000 
+nu_L           2.000   1.8714  0.6860 norm  0.7500 
+zeta_p         0.500   0.9084  0.0166 beta  0.1000 
+iota_w         0.500   0.4529  0.1476 beta  0.1500 
+iota_p         0.500   0.3173  0.1133 beta  0.1500 
+czcap          0.500   0.6244  0.1008 beta  0.1500 
+Phi            1.250   1.6487  0.0866 norm  0.1250 
+psi1           1.500   1.8536  0.1891 norm  0.2500 
+rhoR           0.750   0.7925  0.0375 beta  0.1000 
+psi2           0.125   0.0965  0.0431 norm  0.0500 
+psi3           0.125   0.1825  0.0333 norm  0.0500 
+const_pi       0.625   0.5387  0.0641 gamm  0.1000 
+constebeta     0.250   0.2100  0.0917 gamm  0.1000 
+const_L        0.000   0.6162  1.4873 norm  2.0000 
+ctrend         0.400   0.5743  0.0767 norm  0.1000 
+rhogZ          0.500   0.5564  0.1288 norm  0.2500 
+alpha          0.300   0.2577  0.0381 norm  0.0500 
+
+standard deviation of shocks
+           prior mean     mode    s.d. prior pstdev
+
+eZ             0.100   0.3510  0.0293 invg  2.0000 
+eb2            0.100   0.2360  0.0279 invg  2.0000 
+eg             0.100   0.4949  0.0357 invg  2.0000 
+emu            0.100   0.5225  0.0695 invg  2.0000 
+ems            0.100   0.2545  0.0195 invg  2.0000 
+ep             0.100   0.1055  0.0141 invg  2.0000 
+ew             0.100   0.1216  0.0236 invg  2.0000 
+
+
+Log data density [Laplace approximation] is -551.034429.
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Old metropolis.log file successfully erased!
+Estimation::mcmc: Creation of a new metropolis.log file.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in FU20/metropolis\FU20_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 2 per block.
+Estimation::mcmc: Total number of generated files: 2.
+Estimation::mcmc: Total number of iterations: 500000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 19.027%
+Estimation::mcmc: Total number of MH draws per chain: 500000.
+Estimation::mcmc: Total number of generated MH files: 2.
+Estimation::mcmc: I'll use mh-files 1 to 2.
+Estimation::mcmc: In MH-file number 1 I'll start at line 150001.
+Estimation::mcmc: Finally I keep 350000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter          Block 1
+SE_eZ              308.037
+SE_eb2             273.375
+SE_eg              305.077
+SE_emu             420.441
+SE_ems             316.407
+SE_ep              388.577
+SE_ew              550.999
+rhoZ               742.281
+rhob2              272.752
+rhog               348.958
+rhomu              376.836
+rhoms              361.721
+rhop               651.252
+rhow               458.743
+thetap             516.005
+thetaw             569.022
+inv_adj_cost       295.978
+sigma_c            384.740
+h                  389.391
+zeta_w             579.932
+nu_L               303.822
+zeta_p             744.465
+iota_w             327.660
+iota_p             419.117
+czcap              386.607
+Phi                387.072
+psi1               286.437
+rhoR               613.502
+psi2               623.860
+psi3               418.287
+const_pi           281.531
+constebeta         316.117
+const_L            430.347
+ctrend             635.006
+rhogZ              309.618
+alpha              405.370
+
+
+Geweke (1992) Convergence Tests, based on means of draws 150000 to 220000 vs 325000 to 500000.
+p-values are for Chi2-test for equality of means.
+Parameter            Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eZ                     0.345            0.029            0.000            0.156            0.159            0.166
+SE_eb2                    0.240            0.027            0.000            0.003            0.002            0.005
+SE_eg                     0.513            0.038            0.000            0.207            0.245            0.275
+SE_emu                    0.525            0.082            0.000            0.000            0.000            0.000
+SE_ems                    0.264            0.021            0.000            0.006            0.010            0.009
+SE_ep                     0.103            0.016            0.000            0.043            0.057            0.070
+SE_ew                     0.122            0.029            0.000            0.000            0.000            0.000
+rhoZ                      0.920            0.060            0.000            0.000            0.000            0.000
+rhob2                     0.198            0.098            0.000            0.003            0.002            0.001
+rhog                      0.940            0.024            0.000            0.000            0.000            0.000
+rhomu                     0.628            0.082            0.000            0.000            0.000            0.000
+rhoms                     0.175            0.081            0.000            0.001            0.003            0.006
+rhop                      0.838            0.131            0.000            0.000            0.000            0.000
+rhow                      0.939            0.022            0.000            0.000            0.000            0.000
+thetap                    0.654            0.147            0.000            0.000            0.000            0.000
+thetaw                    0.637            0.127            0.000            0.000            0.001            0.001
+inv_adj_cost              5.206            1.026            0.000            0.743            0.744            0.759
+sigma_c                   1.276            0.161            0.000            0.000            0.000            0.000
+h                         0.774            0.054            0.000            0.000            0.000            0.000
+zeta_w                    0.793            0.066            0.000            0.000            0.000            0.000
+nu_L                      1.974            0.665            0.000            0.322            0.319            0.305
+zeta_p                    0.828            0.122            0.000            0.000            0.000            0.000
+iota_w                    0.503            0.145            0.000            0.000            0.000            0.000
+iota_p                    0.358            0.125            0.000            0.000            0.000            0.000
+czcap                     0.671            0.102            0.000            0.000            0.000            0.000
+Phi                       1.650            0.091            0.000            0.000            0.000            0.000
+psi1                      1.766            0.187            0.000            0.002            0.003            0.002
+rhoR                      0.771            0.060            0.000            0.000            0.000            0.000
+psi2                      0.088            0.062            0.000            0.000            0.000            0.000
+psi3                      0.178            0.039            0.000            0.000            0.000            0.000
+const_pi                  0.541            0.065            0.000            0.308            0.303            0.294
+constebeta                0.249            0.100            0.000            0.127            0.125            0.134
+const_L                   1.317            1.381            0.000            0.000            0.000            0.000
+ctrend                    0.647            0.088            0.000            0.000            0.000            0.000
+rhogZ                     0.528            0.136            0.000            0.001            0.000            0.000
+alpha                     0.251            0.037            0.000            0.000            0.000            0.000
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -546.300616.
+
+parameters
+               prior mean   post. mean        90% HPD interval    prior       pstdev
+
+rhoZ                0.500       0.9213      0.8272      0.9937   beta        0.2000
+rhob2               0.500       0.1901      0.0426      0.3346   beta        0.2000
+rhog                0.500       0.9387      0.9027      0.9786   beta        0.2000
+rhomu               0.500       0.6317      0.4894      0.7673   beta        0.2000
+rhoms               0.500       0.1785      0.0465      0.3026   beta        0.2000
+rhop                0.500       0.8641      0.6799      0.9984   beta        0.2000
+rhow                0.500       0.9416      0.9082      0.9735   beta        0.2000
+thetap              0.500       0.6681      0.4443      0.8729   beta        0.2000
+thetaw              0.500       0.6254      0.4347      0.8281   beta        0.2000
+inv_adj_cost        4.000       5.2221      3.6093      6.9259   norm        1.5000
+sigma_c             1.500       1.2493      1.0102      1.5005   norm        0.3750
+h                   0.700       0.7815      0.6933      0.8641   beta        0.1000
+zeta_w              0.500       0.7803      0.6716      0.8892   beta        0.1000
+nu_L                2.000       1.9915      0.8634      3.0530   norm        0.7500
+zeta_p              0.500       0.7939      0.6158      0.9346   beta        0.1000
+iota_w              0.500       0.5158      0.2740      0.7523   beta        0.1500
+iota_p              0.500       0.3723      0.1690      0.5856   beta        0.1500
+czcap               0.500       0.6849      0.5185      0.8490   beta        0.1500
+Phi                 1.250       1.6572      1.5066      1.8068   norm        0.1250
+psi1                1.500       1.7651      1.4800      2.0699   norm        0.2500
+rhoR                0.750       0.7580      0.6626      0.8573   beta        0.1000
+psi2                0.125       0.0753      0.0010      0.1645   norm        0.0500
+psi3                0.125       0.1723      0.1064      0.2344   norm        0.0500
+const_pi            0.625       0.5381      0.4354      0.6448   gamm        0.1000
+constebeta          0.250       0.2483      0.0872      0.3970   gamm        0.1000
+const_L             0.000       1.2431     -1.0459      3.5723   norm        2.0000
+ctrend              0.400       0.6356      0.4892      0.7542   norm        0.1000
+rhogZ               0.500       0.5299      0.3045      0.7485   norm        0.2500
+alpha               0.300       0.2535      0.1890      0.3117   norm        0.0500
+
+standard deviation of shocks
+               prior mean   post. mean        90% HPD interval    prior       pstdev
+
+eZ                  0.100       0.3445      0.2969      0.3910   invg        2.0000
+eb2                 0.100       0.2407      0.1987      0.2848   invg        2.0000
+eg                  0.100       0.5124      0.4503      0.5738   invg        2.0000
+emu                 0.100       0.5169      0.3776      0.6499   invg        2.0000
+ems                 0.100       0.2633      0.2292      0.2968   invg        2.0000
+ep                  0.100       0.1038      0.0792      0.1284   invg        2.0000
+ew                  0.100       0.1267      0.0765      0.1728   invg        2.0000
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 2h07m56s
