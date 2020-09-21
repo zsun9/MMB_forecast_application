@@ -943,4 +943,4 @@ options_.plot_priors = 0;
 // estimation(datafile = data_BAAoverTB, order = 1, smoother, presample = 16, mh_replic = 0, mh_nblocks = 2, mh_jscale = 0.28, mode_compute = 4, nograph) volEquity;
 //loglinear, mode_file = cmr_mode, mode_compute = 0, 
 
-estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20080807, xls_sheet=s1, xls_range=B1:AX100, presample=4, mh_replic=100000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=4) gdp_rgd_obs;
+estimation(nodisplay, smoother, order=1, prefilter=0, datafile=data_20080807, xls_sheet=s1, xls_range=B1:BE100, presample=4, mh_replic=100000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=0, mode_file=CMR14_mode) gdp_rgd_obs;

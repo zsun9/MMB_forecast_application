@@ -29,6 +29,9 @@ const modelColor = {
   'GLP8v': 'SkyBlue',
 
   'IN10': 'Red',
+  'GSW12': 'Violet',
+  'VI16_BGG': 'DodgerBlue',
+  'VI16_GK': 'LawnGreen',
 };
 
 const modelDash = {

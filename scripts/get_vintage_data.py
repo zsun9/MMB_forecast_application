@@ -25,6 +25,9 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     diffBound = 0.015 # max allowed difference (in %) between series with missing values and series to fill missing values
     specificRules = {
         # ('2008-08-07', 'COMPNFB', '2008Q3'): 181.676,
+        ('2008-08-07', 'HOANBS', '2008Q3'): '2008-08-08',
+        ('2008-08-07', 'IPDNBS', '2008Q3'): '2008-08-08',
+        ('2008-08-07', 'COMPNFB', '2008Q3'): '2008-08-08',
         ('2020-08-12', 'PRS85006023', '2020Q3'): '2020-08-14',
         ('2020-08-12', 'HOANBS', '2020Q3'): '2020-08-14',
         ('2020-08-12', 'IPDNBS', '2020Q3'): '2020-08-14',

@@ -1,7 +1,7 @@
 % computes the steady state of dog.mod (growthless deterministic growth model). 
 % stephane [DOT] adjemian [AT] ens [DOT] fr
 
-function [ys,check] = US_NFED_20024_steadystate(ys,exe)
+function [ys,check] = FRBEDO08_steadystate(ys,exe)
 global M_
 
 %% DO NOT CHANGE THIS PART.

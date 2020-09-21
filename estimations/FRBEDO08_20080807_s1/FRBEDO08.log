@@ -9,309 +9,204 @@ Computing dynamic model derivatives:
 Processing outputs ...
 done
 Preprocessing completed.
-  2.000   2.5855     NaN gamm  1.0000 
-ETAw                0.500   0.1852     NaN beta  0.2240 
-CHInr               2.000   2.7280     NaN gamm  1.0000 
-CHIcd               2.000   2.2709     NaN gamm  1.0000 
-CHIr                6.000   7.2704     NaN gamm  1.0000 
-CHIl                2.000   0.0060     NaN gamm  1.0000 
-ETAl                0.500   0.7586     NaN beta  0.2240 
-PHIpaigdp           2.000   3.3243     NaN norm  1.0000 
-PHIdeltapaigdp      0.500   0.8884     NaN norm  0.4000 
-PHIhgdp             0.500   1.0499     NaN norm  0.4000 
-PHIdeltahgdp        0.500   0.1860     NaN norm  0.4000 
-PHIr                0.750   0.8920     NaN beta  0.1120 
-RHOanr              0.750   0.8405     NaN beta  0.1120 
-RHOacd              0.750   0.7861     NaN beta  0.1120 
-RHOar               0.500   0.7606     NaN beta  0.1500 
-RHOxicnnsmall       0.750   0.9784     NaN beta  0.1120 
-RHOxicdsmall        0.750   0.9546     NaN beta  0.1120 
-RHOxirsmall         0.750   0.7919     NaN beta  0.1120 
-RHOxilsmall         0.750   0.9505     NaN beta  0.1120 
-RHOzm               0.500   0.6445     NaN beta  0.1500 
-RHOzk               0.500   0.8548     NaN beta  0.1500 
-RHOxgf              0.750   0.7935     NaN beta  0.1120 
 
-standard deviation of shocks
-                prior mean     mode    s.d. prior pstdev
-
-epsilonanr          0.040   0.0426     NaN invg  0.0200 
-epsilonacd          0.020   0.0117     NaN invg  0.0200 
-epsilonar           0.040   0.0434     NaN invg  0.0200 
-epsilonxicnnsmall   0.030   0.0278     NaN invg  0.0200 
-epsilonxicdsmall    0.030   0.0911     NaN invg  0.0200 
-epsilonxirsmall     0.030   0.0197     NaN invg  0.0200 
-epsilonxilsmall     0.030   0.0262     NaN invg  0.0200 
-epsilonr            0.002   0.0015     NaN invg  20.0000 
-epsilonzm           0.005   0.0041     NaN invg  0.0200 
-epsilonzk           0.005   0.0044     NaN invg  0.0200 
-epsilonxgf          0.010   0.0047     NaN invg  0.0200 
-epsilongthetaxc     0.005   0.0024     NaN invg  0.0200 
-epsilongthetaxk     0.005   0.0023     NaN invg  0.0200 
-epsilongthetal      0.005   0.0024     NaN invg  0.0200 
-eta_xgdp            0.005   0.0031     NaN invg  2.0000 
-eta_pgdp            0.005   0.0023     NaN invg  2.0000 
-eta_pecnn           0.005   0.0031     NaN invg  2.0000 
-eta_pecd            0.005   0.0296     NaN invg  2.0000 
-eta_per             0.005   0.0023     NaN invg  2.0000 
-eta_penr            0.005   0.0095     NaN invg  2.0000 
-eta_paipc           0.005   0.0023     NaN invg  2.0000 
-eta_paipk           0.005   0.0026     NaN invg  2.0000 
-eta_wage            0.005   0.0064     NaN invg  2.0000 
-
-
-Log data density [Laplace approximation] is NaN.
-
-
-Configuring Dynare ...
-[mex] Generalized QZ.
-[mex] Sylvester equation solution.
-[mex] Kronecker products.
-[mex] Sparse kronecker products.
-[mex] Local state space iteration (second order).
-[mex] Bytecode evaluation.
-[mex] k-order perturbation solver.
-[mex] k-order solution simulation.
-[mex] Quasi Monte-Carlo sequence (Sobol).
-[mex] Markov Switching SBVAR.
-
-Using 64-bit preprocessor
-Starting Dynare (version 4.5.7).
-Starting preprocessing of the model file ...
-Found 75 equation(s).
-Evaluating expressions...done
-Computing static model derivatives:
- - order 1
-Computing dynamic model derivatives:
- - order 1
-Processing outputs ...
-done
-Preprocessing completed.
-
-Initial value of the log posterior (or likelihood): -956.0868
-
-==========================================================
-   Change in the posterior covariance matrix = 400.
-   Change in the posterior mean = 0.017692.
-   Mode improvement = 297.0111
-   New value of jscale = 2.1473e-05
-==========================================================
-
-==========================================================
-   Change in the posterior covariance matrix = 0.00025898.
-   Change in the posterior mean = 0.032494.
-   Mode improvement = 21.6917
-   New value of jscale = 0.56607
-==========================================================
-
-==========================================================
-   Change in the posterior covariance matrix = 0.0055216.
-   Change in the posterior mean = 0.32607.
-   Mode improvement = 157.1319
-   New value of jscale = 0.34802
-==========================================================
-
-Optimal value of the scale parameter = 0.34802
-
-
-Final value of minus the log posterior (or likelihood):480.252191 
-
-MODE CHECK
-
-Fval obtained by the minimization routine (minus the posterior/likelihood)): 480.252191
+Initial value of the log posterior (or likelihood): -433.7931
 
 RESULTS FROM POSTERIOR ESTIMATION
 parameters
                 prior mean     mode    s.d. prior pstdev
 
-Hcnn                0.500   0.8038  0.0040 beta  0.1220 
-Hcd                 0.500   0.4750  0.0061 beta  0.1220 
-Hr                  0.500   0.3934  0.0101 beta  0.1220 
-NU                  2.000   0.9953  0.0633 gamm  1.0000 
-CHIp                2.000   1.7539  0.0555 gamm  1.0000 
-ETAp                0.500   0.4359  0.0178 beta  0.2240 
-CHIw                2.000   2.0407  0.0353 gamm  1.0000 
-ETAw                0.500   0.2952  0.0101 beta  0.2240 
-CHInr               2.000   1.5542  0.0489 gamm  1.0000 
-CHIcd               2.000   0.7603  0.0744 gamm  1.0000 
-CHIr                6.000  10.2719  0.0386 gamm  1.0000 
-CHIl                2.000   0.8930  0.0486 gamm  1.0000 
-ETAl                0.500   0.8639  0.0097 beta  0.2240 
-PHIpaigdp           2.000   3.6542  0.0748 norm  1.0000 
-PHIdeltapaigdp      0.500  -0.3178  0.0171 norm  0.4000 
-PHIhgdp             0.500   0.3080  0.0111 norm  0.4000 
-PHIdeltahgdp        0.500  -0.1590  0.0119 norm  0.4000 
-PHIr                0.750   0.8236  0.0092 beta  0.1120 
-RHOanr              0.750   0.9903  0.0143 beta  0.1120 
-RHOacd              0.750   0.8449  0.0031 beta  0.1120 
-RHOar               0.500   0.5491  0.0064 beta  0.1500 
-RHOxicnnsmall       0.750   0.8143  0.0039 beta  0.1120 
-RHOxicdsmall        0.750   0.9776  0.0124 beta  0.1120 
-RHOxirsmall         0.750   0.8006  0.0094 beta  0.1120 
-RHOxilsmall         0.750   0.9511  0.0046 beta  0.1120 
-RHOzm               0.500   0.3290  0.0098 beta  0.1500 
-RHOzk               0.500   0.8775  0.0071 beta  0.1500 
-RHOxgf              0.750   0.9835  0.0050 beta  0.1120 
+Hcnn                0.500   0.7612  0.0049 beta  0.1220 
+Hcd                 0.500   0.5337  0.0042 beta  0.1220 
+Hr                  0.500   0.3648  0.0039 beta  0.1220 
+NU                  2.000   2.2864  0.1502 gamm  1.0000 
+CHIp                2.000   1.7239  0.0464 gamm  1.0000 
+ETAp                0.500   0.5399  0.0183 beta  0.2240 
+CHIw                2.000   1.1652  0.0498 gamm  1.0000 
+ETAw                0.500   0.0703  0.0174 beta  0.2240 
+CHInr               2.000   2.0198  0.0682 gamm  1.0000 
+CHIcd               2.000   1.4542  0.0921 gamm  1.0000 
+CHIr                6.000  11.3417  0.0571 gamm  1.0000 
+CHIl                2.000   1.1997  0.0991 gamm  1.0000 
+ETAl                0.500   0.5751  0.0081 beta  0.2240 
+PHIpaigdp           2.000   3.0717  0.1387 norm  1.0000 
+PHIdeltapaigdp      0.500  -0.0228  0.0290 norm  0.4000 
+PHIhgdp             0.500   0.4195  0.0329 norm  0.4000 
+PHIdeltahgdp        0.500   0.1316  0.0163 norm  0.4000 
+PHIr                0.750   0.8552  0.0064 beta  0.1120 
+RHOanr              0.750   0.8300  0.0040 beta  0.1120 
+RHOacd              0.750   0.8455  0.0030 beta  0.1120 
+RHOar               0.500   0.5625  0.0120 beta  0.1500 
+RHOxicnnsmall       0.750   0.7999  0.0082 beta  0.1120 
+RHOxicdsmall        0.750   0.9703  0.0063 beta  0.1120 
+RHOxirsmall         0.750   0.8083  0.0054 beta  0.1120 
+RHOxilsmall         0.750   0.9383  0.0044 beta  0.1120 
+RHOzm               0.500   0.3973  0.0141 beta  0.1500 
+RHOzk               0.500   0.8922  0.0072 beta  0.1500 
+RHOxgf              0.750   0.8594  0.0056 beta  0.1120 
 
 standard deviation of shocks
                 prior mean     mode    s.d. prior pstdev
 
-epsilonanr          0.040   0.0507  0.0008 invg  0.0200 
-epsilonacd          0.020   0.0121  0.0008 invg  0.0200 
-epsilonar           0.040   0.0799  0.0009 invg  0.0200 
-epsilonxicnnsmall   0.030   0.0121  0.0011 invg  0.0200 
-epsilonxicdsmall    0.030   0.0309  0.0014 invg  0.0200 
-epsilonxirsmall     0.030   0.0385  0.0019 invg  0.0200 
-epsilonxilsmall     0.030   0.0223  0.0013 invg  0.0200 
-epsilonr            0.002   0.0018  0.0002 invg  20.0000 
-epsilonzm           0.005   0.0058  0.0008 invg  0.0200 
-epsilonzk           0.005   0.0042  0.0005 invg  0.0200 
-epsilonxgf          0.010   0.0248  0.0018 invg  0.0200 
-epsilongthetaxc     0.005   0.0022  0.0012 invg  0.0200 
-epsilongthetaxk     0.005   0.0035  0.0004 invg  0.0200 
-epsilongthetal      0.005   0.0025  0.0011 invg  0.0200 
-eta_xgdp            0.005   0.0017  0.0004 invg  2.0000 
-eta_pgdp            0.005   0.0023  0.0002 invg  2.0000 
-eta_pecnn           0.005   0.0023  0.0004 invg  2.0000 
-eta_pecd            0.005   0.0251  0.0021 invg  2.0000 
-eta_per             0.005   0.0187  0.0028 invg  2.0000 
-eta_penr            0.005   0.0086  0.0035 invg  2.0000 
-eta_paipc           0.005   0.0026  0.0003 invg  2.0000 
-eta_paipk           0.005   0.0030  0.0008 invg  2.0000 
-eta_wage            0.005   0.0066  0.0005 invg  2.0000 
+epsilonanr          0.040   0.0413  0.0022 invg  0.0200 
+epsilonacd          0.020   0.0092  0.0010 invg  0.0200 
+epsilonar           0.040   0.0594  0.0011 invg  0.0200 
+epsilonxicnnsmall   0.030   0.0132  0.0014 invg  0.0200 
+epsilonxicdsmall    0.030   0.0582  0.0021 invg  0.0200 
+epsilonxirsmall     0.030   0.0347  0.0018 invg  0.0200 
+epsilonxilsmall     0.030   0.0354  0.0006 invg  0.0200 
+epsilonr            0.002   0.0016  0.0002 invg  20.0000 
+epsilonzm           0.005   0.0041  0.0004 invg  0.0200 
+epsilonzk           0.005   0.0025  0.0013 invg  0.0200 
+epsilonxgf          0.010   0.0052  0.0019 invg  0.0200 
+epsilongthetaxc     0.005   0.0023  0.0010 invg  0.0200 
+epsilongthetaxk     0.005   0.0023  0.0004 invg  0.0200 
+epsilongthetal      0.005   0.0024  0.0015 invg  0.0200 
+eta_xgdp            0.005   0.0029  0.0004 invg  2.0000 
+eta_pgdp            0.005   0.0024  0.0002 invg  2.0000 
+eta_pecnn           0.005   0.0017  0.0005 invg  2.0000 
+eta_pecd            0.005   0.0256  0.0020 invg  2.0000 
+eta_per             0.005   0.0239  0.0028 invg  2.0000 
+eta_penr            0.005   0.0088  0.0033 invg  2.0000 
+eta_paipc           0.005   0.0023  0.0003 invg  2.0000 
+eta_paipk           0.005   0.0030  0.0006 invg  2.0000 
+eta_wage            0.005   0.0064  0.0005 invg  2.0000 
 
 
-Log data density [Laplace approximation] is -811.162085.
+Log data density [Laplace approximation] is -760.110572.
 
 Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Old mh-files successfully erased!
+Estimation::mcmc: Old metropolis.log file successfully erased!
+Estimation::mcmc: Creation of a new metropolis.log file.
 Estimation::mcmc: Initialization at the posterior mode.
 
 Estimation::mcmc: Write details about the MCMC... Ok!
 Estimation::mcmc: Details about the MCMC are available in FRBEDO08/metropolis\FRBEDO08_mh_history_0.mat
 
 
-Estimation::mcmc: Number of mh files: 5 per block.
-Estimation::mcmc: Total number of generated files: 5.
-Estimation::mcmc: Total number of iterations: 1000000.
+Estimation::mcmc: Number of mh files: 3 per block.
+Estimation::mcmc: Total number of generated files: 3.
+Estimation::mcmc: Total number of iterations: 500000.
 Estimation::mcmc: Current acceptance ratio per chain: 
-                                                       Chain  1: 26.5774%
-Estimation::mcmc: Total number of MH draws per chain: 1000000.
-Estimation::mcmc: Total number of generated MH files: 5.
-Estimation::mcmc: I'll use mh-files 2 to 5.
-Estimation::mcmc: In MH-file number 2 I'll start at line 64151.
-Estimation::mcmc: Finally I keep 700000 draws per chain.
+                                                       Chain  1: 42.109%
+Estimation::mcmc: Total number of MH draws per chain: 500000.
+Estimation::mcmc: Total number of generated MH files: 3.
+Estimation::mcmc: I'll use mh-files 1 to 3.
+Estimation::mcmc: In MH-file number 1 I'll start at line 150001.
+Estimation::mcmc: Finally I keep 350000 draws per chain.
 
 
 
 MCMC Inefficiency factors per block
 Parameter                  Block 1
-SE_epsilonanr              738.458
-SE_epsilonacd              654.157
-SE_epsilonar               730.375
-SE_epsilonxicnnsmall       733.133
-SE_epsilonxicdsmall        691.369
-SE_epsilonxirsmall         738.262
-SE_epsilonxilsmall         697.950
-SE_epsilonr                453.121
-SE_epsilonzm               428.426
-SE_epsilonzk               601.500
-SE_epsilonxgf              710.932
-SE_epsilongthetaxc         541.529
-SE_epsilongthetaxk         742.355
-SE_epsilongthetal          654.830
-SE_eta_xgdp                337.759
-SE_eta_pgdp                331.452
-SE_eta_pecnn               384.509
-SE_eta_pecd                319.385
-SE_eta_per                 698.839
-SE_eta_penr                420.015
-SE_eta_paipc               202.673
-SE_eta_paipk               138.083
-SE_eta_wage                242.373
-Hcnn                       736.155
-Hcd                        741.458
-Hr                         735.917
-NU                         712.608
-CHIp                       732.294
-ETAp                       735.890
-CHIw                       729.457
-ETAw                       719.652
-CHInr                      731.697
-CHIcd                      728.782
-CHIr                       741.826
-CHIl                       746.276
-ETAl                       726.325
-PHIpaigdp                  725.233
-PHIdeltapaigdp             738.781
-PHIhgdp                    743.121
-PHIdeltahgdp               726.418
-PHIr                       679.216
-RHOanr                     710.592
-RHOacd                     742.497
-RHOar                      739.609
-RHOxicnnsmall              746.606
-RHOxicdsmall               381.200
-RHOxirsmall                742.768
-RHOxilsmall                710.832
-RHOzm                      739.560
-RHOzk                      733.477
-RHOxgf                     730.816
+SE_epsilonanr              668.048
+SE_epsilonacd              600.464
+SE_epsilonar               734.467
+SE_epsilonxicnnsmall       580.313
+SE_epsilonxicdsmall        691.507
+SE_epsilonxirsmall         655.064
+SE_epsilonxilsmall         725.237
+SE_epsilonr                242.050
+SE_epsilonzm               373.286
+SE_epsilonzk               204.235
+SE_epsilonxgf              633.642
+SE_epsilongthetaxc         505.735
+SE_epsilongthetaxk         648.306
+SE_epsilongthetal          601.358
+SE_eta_xgdp                212.524
+SE_eta_pgdp                245.092
+SE_eta_pecnn               163.361
+SE_eta_pecd                112.987
+SE_eta_per                 215.537
+SE_eta_penr                 79.546
+SE_eta_paipc               148.566
+SE_eta_paipk                95.654
+SE_eta_wage                145.535
+Hcnn                       680.623
+Hcd                        730.069
+Hr                         729.727
+NU                         632.222
+CHIp                       730.631
+ETAp                       710.064
+CHIw                       599.131
+ETAw                       662.725
+CHInr                      706.209
+CHIcd                      687.402
+CHIr                       684.511
+CHIl                       673.239
+ETAl                       731.430
+PHIpaigdp                  638.953
+PHIdeltapaigdp             701.555
+PHIhgdp                    725.334
+PHIdeltahgdp               723.623
+PHIr                       608.265
+RHOanr                     729.633
+RHOacd                     737.109
+RHOar                      661.065
+RHOxicnnsmall              730.146
+RHOxicdsmall               448.977
+RHOxirsmall                658.471
+RHOxilsmall                688.588
+RHOzm                      683.408
+RHOzk                      724.911
+RHOxgf                     705.828
 
 
-Geweke (1992) Convergence Tests, based on means of draws 300000 to 440000 vs 650000 to 1000000.
+Geweke (1992) Convergence Tests, based on means of draws 150000 to 220000 vs 325000 to 500000.
 p-values are for Chi2-test for equality of means.
 Parameter                    Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
-SE_epsilonanr                     0.048            0.007            0.000            0.000            0.000            0.002
-SE_epsilonacd                     0.009            0.002            0.000            0.782            0.824            0.849
-SE_epsilonar                      0.066            0.007            0.000            0.000            0.000            0.001
-SE_epsilonxicnnsmall              0.022            0.007            0.000            0.000            0.000            0.000
-SE_epsilonxicdsmall               0.031            0.005            0.000            0.130            0.249            0.348
-SE_epsilonxirsmall                0.028            0.009            0.000            0.000            0.000            0.000
-SE_epsilonxilsmall                0.018            0.003            0.000            0.000            0.000            0.000
-SE_epsilonr                       0.002            0.000            0.000            0.000            0.000            0.003
-SE_epsilonzm                      0.005            0.001            0.000            0.000            0.000            0.000
-SE_epsilonzk                      0.005            0.001            0.000            0.000            0.000            0.000
-SE_epsilonxgf                     0.014            0.007            0.000            0.000            0.000            0.002
-SE_epsilongthetaxc                0.003            0.001            0.000            0.186            0.277            0.356
-SE_epsilongthetaxk                0.007            0.005            0.000            0.001            0.013            0.054
-SE_epsilongthetal                 0.005            0.003            0.000            0.018            0.042            0.068
-SE_eta_xgdp                       0.002            0.000            0.000            0.000            0.000            0.004
-SE_eta_pgdp                       0.002            0.000            0.000            0.153            0.224            0.270
-SE_eta_pecnn                      0.003            0.000            0.000            0.000            0.000            0.000
-SE_eta_pecd                       0.026            0.002            0.000            0.000            0.000            0.000
-SE_eta_per                        0.016            0.010            0.000            0.000            0.000            0.000
-SE_eta_penr                       0.009            0.003            0.000            0.000            0.000            0.000
-SE_eta_paipc                      0.002            0.000            0.000            0.000            0.000            0.000
-SE_eta_paipk                      0.003            0.000            0.000            0.000            0.000            0.000
-SE_eta_wage                       0.007            0.001            0.000            0.000            0.000            0.000
-Hcnn                              0.913            0.057            0.000            0.000            0.000            0.000
-Hcd                               0.388            0.040            0.000            0.000            0.000            0.000
-Hr                                0.457            0.070            0.000            0.000            0.000            0.000
-NU                                1.556            0.360            0.000            0.000            0.000            0.000
-CHIp                              1.854            0.330            0.000            0.000            0.001            0.006
-ETAp                              0.400            0.073            0.000            0.000            0.000            0.000
-CHIw                              1.240            0.331            0.000            0.000            0.000            0.000
-ETAw                              0.147            0.051            0.000            0.000            0.000            0.000
-CHInr                             1.821            0.202            0.000            0.000            0.000            0.000
-CHIcd                             1.206            0.349            0.000            0.000            0.000            0.000
-CHIr                             10.446            0.514            0.000            0.000            0.000            0.000
-CHIl                              0.463            0.382            0.000            0.000            0.000            0.000
-ETAl                              0.854            0.052            0.000            0.000            0.000            0.000
-PHIpaigdp                         3.025            0.325            0.000            0.000            0.003            0.015
-PHIdeltapaigdp                   -0.021            0.164            0.000            0.000            0.000            0.000
-PHIhgdp                           0.512            0.115            0.000            0.000            0.000            0.000
-PHIdeltahgdp                     -0.286            0.136            0.000            0.169            0.301            0.412
-PHIr                              0.842            0.026            0.000            0.000            0.000            0.004
-RHOanr                            0.827            0.047            0.000            0.000            0.000            0.000
-RHOacd                            0.858            0.039            0.000            0.000            0.000            0.000
-RHOar                             0.768            0.083            0.000            0.000            0.000            0.000
-RHOxicnnsmall                     0.745            0.061            0.000            0.000            0.000            0.000
-RHOxicdsmall                      0.982            0.006            0.000            0.388            0.473            0.476
-RHOxirsmall                       0.682            0.060            0.000            0.000            0.000            0.000
-RHOxilsmall                       0.969            0.013            0.000            0.003            0.023            0.066
-RHOzm                             0.329            0.071            0.000            0.000            0.000            0.000
-RHOzk                             0.784            0.042            0.000            0.588            0.687            0.748
-RHOxgf                            0.932            0.027            0.000            0.000            0.000            0.000
+SE_epsilonanr                     0.036            0.007            0.000            0.034            0.107            0.186
+SE_epsilonacd                     0.010            0.003            0.000            0.811            0.851            0.876
+SE_epsilonar                      0.059            0.008            0.000            0.000            0.000            0.001
+SE_epsilonxicnnsmall              0.015            0.002            0.000            0.000            0.001            0.006
+SE_epsilonxicdsmall               0.060            0.006            0.000            0.000            0.004            0.027
+SE_epsilonxirsmall                0.034            0.005            0.000            0.495            0.591            0.649
+SE_epsilonxilsmall                0.033            0.004            0.000            0.000            0.000            0.000
+SE_epsilonr                       0.002            0.000            0.000            0.000            0.000            0.002
+SE_epsilonzm                      0.004            0.001            0.000            0.000            0.004            0.017
+SE_epsilonzk                      0.003            0.001            0.000            0.590            0.656            0.712
+SE_epsilonxgf                     0.008            0.003            0.000            0.538            0.619            0.651
+SE_epsilongthetaxc                0.004            0.002            0.000            0.216            0.267            0.316
+SE_epsilongthetaxk                0.004            0.002            0.000            0.000            0.002            0.012
+SE_epsilongthetal                 0.004            0.002            0.000            0.303            0.381            0.399
+SE_eta_xgdp                       0.003            0.000            0.000            0.114            0.185            0.261
+SE_eta_pgdp                       0.002            0.000            0.000            0.004            0.002            0.001
+SE_eta_pecnn                      0.002            0.000            0.000            0.000            0.000            0.000
+SE_eta_pecd                       0.026            0.002            0.000            0.010            0.010            0.014
+SE_eta_per                        0.025            0.003            0.000            0.000            0.001            0.005
+SE_eta_penr                       0.009            0.001            0.000            0.000            0.000            0.000
+SE_eta_paipc                      0.002            0.000            0.000            0.032            0.072            0.126
+SE_eta_paipk                      0.003            0.000            0.000            0.000            0.000            0.001
+SE_eta_wage                       0.006            0.001            0.000            0.161            0.205            0.227
+Hcnn                              0.819            0.027            0.000            0.000            0.000            0.000
+Hcd                               0.439            0.040            0.000            0.000            0.000            0.000
+Hr                                0.451            0.050            0.000            0.000            0.000            0.000
+NU                                2.348            0.242            0.000            0.057            0.144            0.240
+CHIp                              1.829            0.292            0.001            0.959            0.970            0.976
+ETAp                              0.585            0.069            0.000            0.000            0.000            0.002
+CHIw                              1.279            0.191            0.000            0.579            0.665            0.717
+ETAw                              0.089            0.035            0.000            0.000            0.000            0.000
+CHInr                             2.249            0.322            0.000            0.001            0.014            0.056
+CHIcd                             1.853            0.368            0.000            0.000            0.000            0.000
+CHIr                             11.099            0.252            0.000            0.000            0.000            0.001
+CHIl                              1.339            0.180            0.000            0.000            0.000            0.004
+ETAl                              0.485            0.068            0.000            0.624            0.706            0.755
+PHIpaigdp                         2.488            0.326            0.000            0.000            0.002            0.010
+PHIdeltapaigdp                   -0.076            0.095            0.000            0.545            0.647            0.714
+PHIhgdp                           0.618            0.168            0.000            0.002            0.021            0.063
+PHIdeltahgdp                      0.258            0.132            0.000            0.000            0.005            0.030
+PHIr                              0.853            0.013            0.000            0.000            0.000            0.000
+RHOanr                            0.874            0.032            0.000            0.000            0.000            0.000
+RHOacd                            0.777            0.045            0.000            0.000            0.000            0.001
+RHOar                             0.570            0.026            0.000            0.000            0.000            0.000
+RHOxicnnsmall                     0.823            0.056            0.000            0.000            0.000            0.000
+RHOxicdsmall                      0.969            0.006            0.000            0.304            0.436            0.538
+RHOxirsmall                       0.839            0.016            0.000            0.174            0.301            0.401
+RHOxilsmall                       0.941            0.019            0.000            0.002            0.015            0.042
+RHOzm                             0.332            0.037            0.000            0.677            0.749            0.789
+RHOzk                             0.822            0.029            0.000            0.007            0.047            0.121
+RHOxgf                            0.894            0.027            0.000            0.001            0.012            0.035
 
 
 Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
@@ -320,68 +215,66 @@ Estimation::marginal density: I'm computing the posterior log marginal density (
 
 ESTIMATION RESULTS
 
-Log data density is -658.649982.
+Log data density is -646.323848.
 
 parameters
                     prior mean   post. mean        90% HPD interval    prior       pstdev
 
-Hcnn                     0.500       0.9429      0.8900      0.9816   beta        0.1220
-Hcd                      0.500       0.3829      0.3060      0.4386   beta        0.1220
-Hr                       0.500       0.4895      0.3987      0.5680   beta        0.1220
-NU                       2.000       1.7361      1.2653      2.1129   gamm        1.0000
-CHIp                     2.000       1.9053      1.3864      2.4878   gamm        1.0000
-ETAp                     0.500       0.4162      0.3065      0.5472   beta        0.2240
-CHIw                     2.000       1.0928      0.7344      1.4967   gamm        1.0000
-ETAw                     0.500       0.1376      0.0579      0.2087   beta        0.2240
-CHInr                    2.000       1.8737      1.5600      2.1802   gamm        1.0000
-CHIcd                    2.000       1.3620      0.9001      1.7657   gamm        1.0000
-CHIr                     6.000      10.6722      9.9822     11.3146   gamm        1.0000
-CHIl                     2.000       0.3290      0.0035      0.8803   gamm        1.0000
-ETAl                     0.500       0.8421      0.7614      0.9183   beta        0.2240
-PHIpaigdp                2.000       3.0793      2.5683      3.6062   norm        1.0000
-PHIdeltapaigdp           0.500       0.0391     -0.2359      0.2542   norm        0.4000
-PHIhgdp                  0.500       0.5071      0.3143      0.7057   norm        0.4000
-PHIdeltahgdp             0.500      -0.3493     -0.4641     -0.2185   norm        0.4000
-PHIr                     0.750       0.8521      0.8229      0.8835   beta        0.1120
-RHOanr                   0.750       0.8087      0.7495      0.8666   beta        0.1120
-RHOacd                   0.750       0.8495      0.7987      0.9259   beta        0.1120
-RHOar                    0.500       0.8054      0.6984      0.8886   beta        0.1500
-RHOxicnnsmall            0.750       0.7244      0.6427      0.7954   beta        0.1120
-RHOxicdsmall             0.750       0.9815      0.9720      0.9914   beta        0.1120
-RHOxirsmall              0.750       0.6594      0.5745      0.7426   beta        0.1120
-RHOxilsmall              0.750       0.9705      0.9491      0.9894   beta        0.1120
-RHOzm                    0.500       0.3614      0.2477      0.4311   beta        0.1500
-RHOzk                    0.500       0.7866      0.7148      0.8659   beta        0.1500
-RHOxgf                   0.750       0.9336      0.8913      0.9752   beta        0.1120
+Hcnn                     0.500       0.8291      0.7976      0.8695   beta        0.1220
+Hcd                      0.500       0.4206      0.3594      0.4615   beta        0.1220
+Hr                       0.500       0.4728      0.4122      0.5293   beta        0.1220
+NU                       2.000       2.3651      1.9808      2.7371   gamm        1.0000
+CHIp                     2.000       1.9284      1.4947      2.3775   gamm        1.0000
+ETAp                     0.500       0.5836      0.4576      0.6909   beta        0.2240
+CHIw                     2.000       1.3616      1.1283      1.5938   gamm        1.0000
+ETAw                     0.500       0.0951      0.0373      0.1515   beta        0.2240
+CHInr                    2.000       2.3501      1.8926      2.8662   gamm        1.0000
+CHIcd                    2.000       2.0084      1.4207      2.4407   gamm        1.0000
+CHIr                     6.000      11.0022     10.6859     11.3335   gamm        1.0000
+CHIl                     2.000       1.3463      1.0465      1.6010   gamm        1.0000
+ETAl                     0.500       0.4632      0.3616      0.5697   beta        0.2240
+PHIpaigdp                2.000       2.3251      1.9611      2.6884   norm        1.0000
+PHIdeltapaigdp           0.500      -0.0691     -0.2198      0.0834   norm        0.4000
+PHIhgdp                  0.500       0.6664      0.4040      0.9115   norm        0.4000
+PHIdeltahgdp             0.500       0.3208      0.1402      0.4696   norm        0.4000
+PHIr                     0.750       0.8532      0.8314      0.8746   beta        0.1120
+RHOanr                   0.750       0.8860      0.8366      0.9292   beta        0.1120
+RHOacd                   0.750       0.7557      0.7020      0.8130   beta        0.1120
+RHOar                    0.500       0.5700      0.5216      0.6163   beta        0.1500
+RHOxicnnsmall            0.750       0.8511      0.7954      0.9193   beta        0.1120
+RHOxicdsmall             0.750       0.9686      0.9582      0.9793   beta        0.1120
+RHOxirsmall              0.750       0.8365      0.8150      0.8583   beta        0.1120
+RHOxilsmall              0.750       0.9399      0.9084      0.9764   beta        0.1120
+RHOzm                    0.500       0.3329      0.2787      0.4047   beta        0.1500
+RHOzk                    0.500       0.8245      0.7767      0.8725   beta        0.1500
+RHOxgf                   0.750       0.9000      0.8566      0.9399   beta        0.1120
 
 standard deviation of shocks
                     prior mean   post. mean        90% HPD interval    prior       pstdev
 
-epsilonanr               0.040       0.0482      0.0342      0.0581   invg        0.0200
-epsilonacd               0.020       0.0095      0.0061      0.0130   invg        0.0200
-epsilonar                0.040       0.0623      0.0557      0.0691   invg        0.0200
-epsilonxicnnsmall        0.030       0.0244      0.0151      0.0369   invg        0.0200
-epsilonxicdsmall         0.030       0.0334      0.0271      0.0404   invg        0.0200
-epsilonxirsmall          0.030       0.0241      0.0137      0.0365   invg        0.0200
-epsilonxilsmall          0.030       0.0176      0.0136      0.0219   invg        0.0200
-epsilonr                 0.002       0.0017      0.0014      0.0020   invg       20.0000
-epsilonzm                0.005       0.0053      0.0039      0.0065   invg        0.0200
-epsilonzk                0.005       0.0054      0.0031      0.0077   invg        0.0200
-epsilonxgf               0.010       0.0119      0.0030      0.0208   invg        0.0200
+epsilonanr               0.040       0.0338      0.0258      0.0415   invg        0.0200
+epsilonacd               0.020       0.0101      0.0063      0.0137   invg        0.0200
+epsilonar                0.040       0.0567      0.0478      0.0690   invg        0.0200
+epsilonxicnnsmall        0.030       0.0154      0.0117      0.0191   invg        0.0200
+epsilonxicdsmall         0.030       0.0619      0.0524      0.0719   invg        0.0200
+epsilonxirsmall          0.030       0.0335      0.0271      0.0403   invg        0.0200
+epsilonxilsmall          0.030       0.0337      0.0278      0.0401   invg        0.0200
+epsilonr                 0.002       0.0018      0.0015      0.0020   invg       20.0000
+epsilonzm                0.005       0.0040      0.0029      0.0051   invg        0.0200
+epsilonzk                0.005       0.0029      0.0016      0.0041   invg        0.0200
+epsilonxgf               0.010       0.0080      0.0030      0.0127   invg        0.0200
 epsilongthetaxc          0.005       0.0031      0.0013      0.0050   invg        0.0200
-epsilongthetaxk          0.005       0.0062      0.0012      0.0142   invg        0.0200
-epsilongthetal           0.005       0.0048      0.0014      0.0085   invg        0.0200
-eta_xgdp                 0.005       0.0022      0.0014      0.0030   invg        2.0000
+epsilongthetaxk          0.005       0.0036      0.0013      0.0060   invg        0.0200
+epsilongthetal           0.005       0.0037      0.0012      0.0065   invg        0.0200
+eta_xgdp                 0.005       0.0029      0.0022      0.0037   invg        2.0000
 eta_pgdp                 0.005       0.0024      0.0020      0.0028   invg        2.0000
-eta_pecnn                0.005       0.0029      0.0023      0.0035   invg        2.0000
-eta_pecd                 0.005       0.0263      0.0226      0.0301   invg        2.0000
-eta_per                  0.005       0.0127      0.0013      0.0257   invg        2.0000
-eta_penr                 0.005       0.0100      0.0065      0.0137   invg        2.0000
+eta_pecnn                0.005       0.0023      0.0016      0.0029   invg        2.0000
+eta_pecd                 0.005       0.0256      0.0223      0.0288   invg        2.0000
+eta_per                  0.005       0.0248      0.0203      0.0294   invg        2.0000
+eta_penr                 0.005       0.0098      0.0077      0.0120   invg        2.0000
 eta_paipc                0.005       0.0024      0.0020      0.0028   invg        2.0000
-eta_paipk                0.005       0.0029      0.0023      0.0034   invg        2.0000
-eta_wage                 0.005       0.0070      0.0060      0.0079   invg        2.0000
-Estimation::mcmc: Posterior (dsge) IRFs...
-Estimation::mcmc: Posterior IRFs, done!
+eta_paipk                0.005       0.0029      0.0023      0.0035   invg        2.0000
+eta_wage                 0.005       0.0063      0.0054      0.0072   invg        2.0000
 Estimation::mcmc: Smoothed variables
 Estimation::mcmc: Smoothed variables, done!
 Estimation::mcmc: Smoothed shocks
@@ -398,4 +291,4 @@ Estimation::mcmc: Forecasted variables (mean)
 Estimation::mcmc: Forecasted variables (mean), done!
 Estimation::mcmc: Forecasted variables (point)
 Estimation::mcmc: Forecasted variables (point), done!
-Total computing time : 6h36m26s
+Total computing time : 6h51m15s
