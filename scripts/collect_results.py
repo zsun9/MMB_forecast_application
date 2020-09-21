@@ -71,7 +71,9 @@ for index, row in df_sgf.iterrows():
 # calculate forecast errors
 for directory in paths['estimations'].glob('*'):
 
-    if '20090811' in directory.stem or '20091110' in directory.stem: # 'IN10' in directory.stem or 
+    if '20090811' in directory.stem or '20091110' in directory.stem:
+        print(f'Not included: {directory.stem}')
+    elif 'IN10' in directory.stem and 'adjusted' not in directory.stem:
         print(f'Not included: {directory.stem}')
     else:
         if directory.is_dir():
