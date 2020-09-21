@@ -30,6 +30,7 @@ const modelColor = {
 
   'IN10': 'Red',
   'GSW12': 'Violet',
+  'GSW12_cql': 'Violet',
   'VI16_BGG': 'DodgerBlue',
   'VI16_GK': 'LawnGreen',
 };
@@ -42,6 +43,8 @@ const modelDash = {
   'DNGS15_ew': [10, 5],
   'DNGS15_nofa': [10, 5],
   'KR15_FF_dy457': [10, 5],
+
+  'GSW12_cql': [10, 5],
 }
 
 const scenarioStrings = {
