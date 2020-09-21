@@ -493,4 +493,4 @@ end;
 
 varobs gdp_rgd_obs gdpdef_obs ffr_obs cnds_nom_obs cd_nom_obs ir_nom_obs inr_nom_obs cnds_def_obs cd_def_obs wage_rgd_obs hours_frbedo08_cql_obs;
 
-estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20080807, xls_sheet=s4, xls_range=B1:AN101, presample=4, mh_replic=1000000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=6) gdp_rgd_obs;
+estimation(nodisplay, smoother, order=1, prefilter=0, datafile=data_20080807, xls_sheet=s4, xls_range=B1:BE101, presample=4, mh_replic=500000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=6) gdp_rgd_obs;

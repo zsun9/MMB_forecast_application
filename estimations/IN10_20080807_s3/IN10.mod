@@ -511,4 +511,4 @@ end;
 //% 10,000 runs of Metropolis in 8 minutes
 //%estimation(nodisplay, prior_trunc =0, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile='data_20081107.xlsx',  xls_sheet=s3, xls_range=B1:K177, presample=4, mh_replic=100000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=6) gdpl_rgd_obs;
 //%end;
-estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, prior_trunc =0 ,datafile=data_20080807, xls_sheet=s3, xls_range=B1:AX101, presample=4, mh_replic=1000000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=4) gdpl_rgd_obs;
+estimation(nodisplay, smoother, order=1, prefilter=0, prior_trunc = 0, datafile=data_20080807, xls_sheet=s3, xls_range=B1:BE101, presample=4, mh_replic=500000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=4) gdpl_rgd_obs;
