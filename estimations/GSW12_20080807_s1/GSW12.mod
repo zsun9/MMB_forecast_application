@@ -1,5 +1,5 @@
 /*
- * This file provides replication for the Gal, Jord, Smets, Frank and Wouters, Rafael (2012)
+ * This file provides replication for the Galí, Jordá, Smets, Frank and Wouters, Rafael (2012)
  * model also estimated  in Smets, Frank, Anders Warne and Rafael Wouters (2014):
  * "Professsional forecasters and real-time forecasting with a DSGE model"
  * International Journal of Forecasting 30(4): 981-995
