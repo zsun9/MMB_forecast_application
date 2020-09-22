@@ -12,7 +12,7 @@
 
   <body data-spy='scroll' data-target='#navbar-example'>
 
-    <div id='navbar_placeholder'></div>
+    <!-- <div id='navbar_placeholder'></div> -->
 
     <div class='container'>
       <h1 class='page-header'>Forecast chart</h1>
@@ -210,7 +210,7 @@
         event.preventDefault();
 
         const selection = $(this).serializeArray();
-        $(this)[0].reset();
+        // $(this)[0].reset();
         document.getElementById('selectSPFMean').checked = true;
         document.getElementById('selectSPFIndividual').checked = true;
 
@@ -461,8 +461,10 @@
                     scales: {
                       yAxes: [{
                         ticks: {
-                          suggestedMin: -8, // suggestedMin
-                          suggestedMax: 6, // suggestedMax
+                          // max: 40,
+                          // min: -60,
+                          suggestedMin: -8,
+                          suggestedMax: 6,
                         }
                       }]
                     },

@@ -33,6 +33,7 @@ const modelColor = {
   'GSW12_cql': 'Violet',
   'VI16_BGG': 'DodgerBlue',
   'VI16_GK': 'LawnGreen',
+  'FU20': 'Teal',
 };
 
 const modelDash = {

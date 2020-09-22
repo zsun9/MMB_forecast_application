@@ -75,6 +75,8 @@ for directory in paths['estimations'].glob('*'):
         print(f'Not included: {directory.stem}')
     elif 'IN10' in directory.stem and 'adjusted' not in directory.stem:
         print(f'Not included: {directory.stem}')
+    elif ('DNGS15' in directory.stem or 'FRBEDO08' in directory.stem or 'GSW12' in directory.stem or 'QPM08' in directory.stem) and ('s3' in directory.stem or 's4' in directory.stem) and ('cql' not in directory.stem):
+        print(f'Not included: {directory.stem}')
     else:
         if directory.is_dir():
             foundJSON = False
@@ -82,7 +84,8 @@ for directory in paths['estimations'].glob('*'):
                 foundJSON = True
                 inst = json.loads(file.read_text())
                 if 'cql' in directory.stem:
-                    assert 'cql' in inst['model']
+                    # assert 'cql' in inst['model']
+                    inst['model'] = inst['model'].replace('_cql', '')
                 if 'nofa' in directory.stem:
                     assert 'nofa' in inst['model']
                 if 'ew' in directory.stem:
