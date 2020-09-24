@@ -7,13 +7,13 @@ infoSpf = pd.read_csv(pathlib.Path('../data')  / 'spf_dates.csv', encoding='utf-
 for deadline in infoSpf['deadlines']:
 
 #   if pd.to_datetime(deadline).year in {2001, 2008, 2009, 2020}:
-     if pd.to_datetime(deadline).year in {2020} and pd.to_datetime(deadline).month in {8}:
+     if pd.to_datetime(deadline).year in {2009} and pd.to_datetime(deadline).month in {2}:
 
         print(f'Generating data in {deadline}')
         quarterStart, quarterEnd = create_sample_ends_at_vintagedate.main(vintageDate=deadline, sampleSize=100)
         get_vintage_data.main(
 
-            vintageDate=deadline, quarterStart=str(quarterStart), quarterEnd=str(quarterEnd),
+            vintageDate=deadline, quarterStart='1964Q1', quarterEnd=str(quarterEnd),
             observed=list(set([
                 'ffr_obs', 
                 'gdp_rgd_obs', 'gdpdef_obs', 'ifi_rgd_obs', 'c_rgd_obs', 
