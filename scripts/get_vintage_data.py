@@ -605,13 +605,13 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
     dfCompleteSpf.index = [str(index) for index in dfCompleteSpf.index]
 
     # remove some observables' current quarter value
-    observableNoCurrentQuaterValue = {'hours_sw07_obs', 'hours_frbedo08_obs', 'hours_kr15_obs', 'hours_dngs15_obs', 'unr_obs', 'hours_cmr14_obs'}
-    if obsEnd.to_period('Q') == vintageDate.to_period('Q'):
-        for observable in observableNoCurrentQuaterValue:
-            if observable in dfComplete.columns:
-                dfComplete[observable.replace('_obs', '_cql_obs')] = dfComplete[observable]
-                dfCompleteSpf[observable.replace('_obs', '_cql_obs')] = dfComplete[observable]
-                dfComplete.iloc[-1, dfComplete.columns.get_loc(observable)] = float('nan')
+    # observableNoCurrentQuaterValue = {'hours_sw07_obs', 'hours_frbedo08_obs', 'hours_kr15_obs', 'hours_dngs15_obs', 'unr_obs', 'hours_cmr14_obs'}
+    # if obsEnd.to_period('Q') == vintageDate.to_period('Q'):
+    #     for observable in observableNoCurrentQuaterValue:
+    #         if observable in dfComplete.columns:
+    #             dfComplete[observable.replace('_obs', '_cql_obs')] = dfComplete[observable]
+    #             dfCompleteSpf[observable.replace('_obs', '_cql_obs')] = dfComplete[observable]
+    #             dfComplete.iloc[-1, dfComplete.columns.get_loc(observable)] = float('nan')
 
     # if there are missing values in the last quarter and vintage date is no later than 120 days after the start of last quarter:
     # then create data for four scenarios
