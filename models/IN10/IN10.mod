@@ -369,9 +369,9 @@ i_nom_obs = r - log(1/BETA)  ;
 c_winf_obs = log(exp(wc)+exp(wc1)) - log(exp(wc(-1))+exp(wc1(-1))) + dp ;
 h_winf_obs = log(exp(wh)+exp(wh1)) - log(exp(wh(-1))+exp(wh1(-1))) + dp ;
 
-gdpl_rgd_obs = (exp(CC_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rc_obs-TRENDY) +
-(exp(IK_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rbi_obs-TRENDK) +
-(exp(QQ_SS+IH_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rri_obs-TRENDH) ;
+gdpl_rgd_obs = (exp(CC_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rc_obs) +
+(exp(IK_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rbi_obs) +
+(exp(QQ_SS+IH_SS)/(exp(CC_SS)+exp(QQ_SS+IH_SS)+exp(IK_SS)))*(rri_obs) ;
 
 
 //% STOCHASTIC PROCESSES FOR THE SHOCKS

@@ -22,15 +22,15 @@ const modelColor = {
   'DNGS15_nofa': 'Orange',
   'KR15_HH': 'SpringGreen',
   'A16': 'Teal',
-  'CMR14': 'OrangeRed',
+  'CMR14': 'Yellow',
   // Selective others
   'GLP3v': 'GreenYellow',
   'GLP5v': 'Salmon',
   'GLP8v': 'SkyBlue',
 
   'IN10': 'Red',
-  'GSW12': 'Violet',
-  'GSW12_cql': 'Violet',
+  'GSW12': 'Cyan',
+  'GSW12_cql': 'Cyan',
   'VI16_BGG': 'DodgerBlue',
   'VI16_GK': 'LawnGreen',
   'FU20': 'Teal',
