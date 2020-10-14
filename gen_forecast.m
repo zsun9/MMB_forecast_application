@@ -9,7 +9,7 @@ try
     cd(p.path.root)
 end
 
-if 0  % select dynare version
+if 0  % add path of dynare version
    addpath C:\dynare\4.6.2\matlab 
    rmpath('C:\dynare\4.6.2\matlab')
 end
@@ -19,6 +19,7 @@ close all; fclose all; clear; clc;
 %-------------------------------------
 % user-specified parameters
 % Please use double quotes here!
+p.targetdynare = "4.6.2";
 p.vintages = ["2009-05-12"]; %
 p.scenarios = ["s4"];%, "s2", "s3", "s4"];
 p.models = ["GSW12"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
@@ -61,7 +62,7 @@ p.pos.GLP8v = '[1, 2, 4, 6, 7]';
 %% DSGE estimation
 
 p.dynareVersion = convertCharsToStrings(dynare_version);
-if p.dynareVersion ~= "4.5.7"
+if p.dynareVersion ~= p.targetdynare
     warning(sprintf("You are about to estimate models using Dynare %s.", p.dynareVersion));
     warning("Please make sure this is the version you need!");
     pause(5);
@@ -257,8 +258,10 @@ for model = p.models
                 else
                     if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
                         t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end)'];
+                        t.output.forecast.inflation = [oo_.SmoothedVariables.Mean.gdpdef_obs(end:end)', oo_.MeanForecast.Mean.gdpdef_obs(1:end)'];                 
                     else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
                         t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end-1)'];
+                        t.output.forecast.inflation = [oo_.SmoothedVariables.Mean.gdpdef_obs(end-1:end)', oo_.MeanForecast.Mean.gdpdef_obs(1:end-1)'];                  
                     end
                 end
                 
