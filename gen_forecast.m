@@ -9,20 +9,28 @@ try
     cd(p.path.root)
 end
 
+if 0  % add path of dynare version
+   addpath C:\dynare\4.6.2\matlab 
+   rmpath('C:\dynare\4.6.2\matlab')
+end
+
 % housekeeping
 close all; fclose all; clear; clc;
-
+%-------------------------------------
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2020-08-12"]; %
-p.scenarios = ["s1", "s2", "s3", "s4"];
-p.models = ["SW07"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
-p.executor = "Zexi";
+p.targetdynare = "4.6.2";
+p.vintages = ["2009-05-12"]; %
+p.scenarios = ["s4"];%, "s2", "s3", "s4"];
+p.models = ["GSW12"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.executor = "KaiLong";
+p.suffix = "_autotune_test";
 
 p.ExcelColumnUntil = "BE";
 
+% ------------------------------------
 % hyper-parameters
-p.chainLen = 500000;
+p.chainLen = 1000000;%500000;
 p.chainLenBVAR = 500000;
 p.subDraws = 5000;
 p.forecastHorizon = 40;
@@ -31,7 +39,7 @@ p.burnIn = 0.3;
 p.scalingParam =  0.3;
 p.presample = 4;
 p.nobs = 100;
-p.mode_compute_order = [4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
+p.mode_compute_order =  [6,6]; %[4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
 
 % locate main folders (stored as char type)
 p.path.root = convertCharsToStrings(pwd);
@@ -54,7 +62,7 @@ p.pos.GLP8v = '[1, 2, 4, 6, 7]';
 %% DSGE estimation
 
 p.dynareVersion = convertCharsToStrings(dynare_version);
-if p.dynareVersion ~= "4.5.7"
+if p.dynareVersion ~= p.targetdynare
     warning(sprintf("You are about to estimate models using Dynare %s.", p.dynareVersion));
     warning("Please make sure this is the version you need!");
     pause(5);
@@ -82,7 +90,7 @@ for model = p.models
                 % create folder and copy model files
                 cd(p.path.root);
                 t.name.workingpath = model + "_" + strrep(vintage, "-", "") + "_" + scenario;
-                t.path.working = p.path.estimations + "\\" + t.name.workingpath;
+                t.path.working = p.path.estimations + "\\" + t.name.workingpath + p.suffix;
                 
                 if isfolder(t.path.working)
                     warning('Folder %s already exists!', t.name.workingpath)
@@ -161,15 +169,17 @@ for model = p.models
                     sprintf("presample=%s, ", string(p.presample)) + ...
                     sprintf("mh_replic=%s, ", string(p.chainLen)) + ...
                     sprintf("mh_nblocks=%s, ", string(p.chainNum)) + ...
-                    sprintf("mh_jscale=%s, ", string(p.scalingParam)) + ...
                     sprintf("mh_drop=%s, ", string(p.burnIn)) + ...
+                    sprintf("mh_tune_jscale=0.3, ")+  ...
                     p.optionString.subDraws + ...
                     sprintf("forecast=%s, ", string(p.forecastHorizon)) + ...
                     sprintf("mode_compute=%s", string(p.mode_compute_order(1))) + ...
-                    ") gdp_rgd_obs;";
+                    ") gdp_rgd_obs gdpdef_obs;";
+                
+                %   sprintf("mh_jscale=%s, ", string(p.scalingParam)) + ...
                 
                 if model == "QPM08" || model == "QPM08_cql" || model == "IN10"
-                    t.script.estimation = strrep(t.script.estimation, ") gdp_rgd_obs;", ") gdpl_rgd_obs;");
+                    t.script.estimation = strrep(t.script.estimation, ") gdp_rgd_obs gdpdef_obs;", ") gdpl_rgd_obs;");
                 end
                 
                 cd(t.path.working);
@@ -248,8 +258,10 @@ for model = p.models
                 else
                     if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
                         t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end)'];
+                        t.output.forecast.inflation = [oo_.SmoothedVariables.Mean.gdpdef_obs(end:end)', oo_.MeanForecast.Mean.gdpdef_obs(1:end)'];                 
                     else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
                         t.output.forecast.gdp = [oo_.SmoothedVariables.Mean.gdp_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdp_rgd_obs(1:end-1)'];
+                        t.output.forecast.inflation = [oo_.SmoothedVariables.Mean.gdpdef_obs(end-1:end)', oo_.MeanForecast.Mean.gdpdef_obs(1:end-1)'];                  
                     end
                 end
                 
