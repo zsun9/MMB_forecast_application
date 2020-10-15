@@ -177,9 +177,12 @@ for model = p.models
                     ") gdp_rgd_obs gdpdef_obs;";
                 
                 %   sprintf("mh_jscale=%s, ", string(p.scalingParam)) + ...
-                
-                if model == "QPM08" || model == "QPM08_cql" || model == "IN10"
-                    t.script.estimation = strrep(t.script.estimation, ") gdp_rgd_obs gdpdef_obs;", ") gdpl_rgd_obs;");
+                if model == "IN10"
+                    t.script.estimation = strrep(t.script.estimation, ") gdp_rgd_obs gdpdef_obs;", ") gdpl_rgd_obs pi_dm_obs;");
+                end
+               
+                if model == "QPM08" || model == "QPM08_cql"
+                    t.script.estimation = strrep(t.script.estimation, ") gdp_rgd_obs gdpdef_obs;", ") gdpl_rgd_obs cpil_obs;");
                 end
                 
                 cd(t.path.working);
@@ -249,11 +252,21 @@ for model = p.models
                 end
                 
                 % save GDP forecasts (start from the last in-sample obs)
-                if model == "QPM08" || model == "QPM08_cql" || model == "IN10"
+                if model == "QPM08" || model == "QPM08_cql" 
                     if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
                         t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end)']);
+                        t.output.forecast.inflation = [oo_.SmoothedVariables.Mean.cpil_obs(end:end)', oo_.MeanForecast.Mean.cpil_obs(1:end)'];                 
                     else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
                         t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-2:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end-1)']);
+                        t.output.forecast.inflation = [oo_.SmoothedVariables.Mean.cpil_obs(end-1:end)', oo_.MeanForecast.Mean.cpil_obs(1:end-1)'];                 
+                    end
+                elseif  model == "IN10"
+                    if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
+                        t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-1:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end)']);
+                        t.output.forecast.inflation = [oo_.SmoothedVariables.Mean.pi_dm_obs(end:end)', oo_.MeanForecast.Mean.pi_dm_obs(1:end)'];                 
+                    else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
+                        t.output.forecast.gdp = diff([oo_.SmoothedVariables.Mean.gdpl_rgd_obs(end-2:end)', oo_.MeanForecast.Mean.gdpl_rgd_obs(1:end-1)']);
+                        t.output.forecast.inflation = [oo_.SmoothedVariables.Mean.pi_dm_obs(end-1:end)', oo_.MeanForecast.Mean.pi_dm_obs(1:end-1)'];                 
                     end
                 else
                     if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
@@ -273,7 +286,7 @@ for model = p.models
                 
                 % from quarter-on-quarter to year-on-year growth
                 t.output.forecast.gdp = t.output.forecast.gdp * 4;
-                
+                t.output.forecast.inflation = t.output.forecast.inflation*4;
                 tEnd = toc(tStart);
                 % save other outputs
                 t.output.model = model;
