@@ -9,6 +9,7 @@ paths = {
     'application': pathlib.Path('../application'),
     'data': pathlib.Path('../data'),
     'vintage_data': pathlib.Path('../data/vintage_data'),
+    'root': pathlib.Path('../')
 
 }
 for path in paths.values():
@@ -22,6 +23,8 @@ results = {
     'error': [],
     'external': [],
 }
+
+lastForecast = []
 
 actualForRMSE = {}
 jsonError = []
@@ -102,6 +105,8 @@ for directory in paths['estimations'].glob('*'):
                 for file in directory.glob('*_results.mat'):
                     file.unlink()
 
+                lastForecast.append((inst['model'], inst['vintage'], inst['scenario'], inst['forecast']['gdp'][-1]))
+
                 forecastValues = inst['forecast']['gdp'][1:lengthRMSE+1]
 
                 quarter = int(np.floor((int(inst['vintage'][5:7]) - 1) / 3) + 1)
@@ -173,3 +178,6 @@ with open(paths['application'] / 'src' / 'results.json', 'w') as file:
 
 with open(paths['application'] / 'src' /  'variables.json', 'w') as file:
     simplejson.dump(observed, file, ignore_nan=True, indent=2, sort_keys=True)
+
+with open(paths['root'] / 'lastForecast.txt', 'w') as outputFile:
+    outputFile.writelines([str(item) + '\n' for item in sorted(lastForecast, key=lambda x: x[-1])])

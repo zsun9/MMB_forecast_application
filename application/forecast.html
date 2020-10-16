@@ -299,6 +299,7 @@
             }
 
             let loopedOnce = false;
+            let chartNumber = 0;
             for (let scenario of selected['scenario']) {
 
               let divCol = document.createElement('div');
@@ -461,10 +462,10 @@
                     scales: {
                       yAxes: [{
                         ticks: {
-                          max: 6,
-                          min: -3,
-                          // suggestedMin: -8,
-                          // suggestedMax: 6,
+                          // max: 6,
+                          // min: -5,
+                          suggestedMin: -8,
+                          suggestedMax: 6,
                         }
                       }]
                     },
@@ -474,8 +475,11 @@
                   },
 
               });
-
-              document.querySelector('.legend').innerHTML = chart.generateLegend();
+              
+              if (chartNumber == 0) {
+                document.querySelector('.legend').innerHTML = chart.generateLegend();
+              }
+              chartNumber++;
               let lis = document.querySelectorAll('li');
               for (let item of lis) {
                 if (item.innerText == 'Individual SPF') {
