@@ -74,6 +74,8 @@ for index, row in df_sgf.iterrows():
 # calculate forecast errors
 for directory in paths['estimations'].glob('*'):
 
+    if 'dy462' in directory.stem:
+        print(f'Not included: {directory.stem}')
     if '20090811' in directory.stem or '20091110' in directory.stem:
         print(f'Not included: {directory.stem}')
     elif 'IN10' in directory.stem and 'adjusted' not in directory.stem:
@@ -105,7 +107,10 @@ for directory in paths['estimations'].glob('*'):
                 for file in directory.glob('*_results.mat'):
                     file.unlink()
 
-                lastForecast.append((inst['model'], inst['vintage'], inst['scenario'], inst['forecast']['gdp'][-1]))
+                try:
+                    lastForecast.append((inst['model'], inst['vintage'], inst['scenario'], inst['modeCompute'], inst['forecast']['gdp'][-1]))
+                except:
+                    lastForecast.append((inst['model'], inst['vintage'], inst['scenario'], inst['forecast']['gdp'][-1]))
 
                 forecastValues = inst['forecast']['gdp'][1:lengthRMSE+1]
 
