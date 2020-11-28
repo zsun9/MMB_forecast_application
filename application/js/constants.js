@@ -31,9 +31,14 @@ const modelColor = {
   'IN10': 'Red',
   'GSW12': 'Cyan',
   'GSW12_cql': 'Cyan',
-  'VI16_BGG': 'DodgerBlue',
-  'VI16_GK': 'LawnGreen',
+  // 'VI16_BGG': 'DodgerBlue',
+  // 'VI16_GK': 'LawnGreen',
   'FU20': 'Teal',
+
+  'VI16_BGG': 'Red',
+  'VI16_GK': 'Blue',
+  'VI16_BGG_new': 'Red',
+  'VI16_GK_new': 'Blue',
 };
 
 const modelDash = {
@@ -46,6 +51,9 @@ const modelDash = {
   'KR15_FF_dy457': [10, 5],
 
   'GSW12_cql': [10, 5],
+
+  'VI16_BGG': [10, 5],
+  'VI16_GK': [10, 5],
 }
 
 const scenarioStrings = {

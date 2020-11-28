@@ -88,6 +88,8 @@ for directory in paths['estimations'].glob('*'):
             for file in directory.glob('*.json'):
                 foundJSON = True
                 inst = json.loads(file.read_text())
+                if 'autotune' in directory.stem:
+                    inst['model'] = inst['model'] + '_new'
                 if 'cql' in directory.stem:
                     # assert 'cql' in inst['model']
                     inst['model'] = inst['model'].replace('_cql', '')

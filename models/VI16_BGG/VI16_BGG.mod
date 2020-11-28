@@ -205,7 +205,7 @@ IOTA_DY,       0.1133 ,-0.1,0.5,NORMAL_PDF,0.0625,0.05;
 VARKAPPA,      0.1041 , uniform_pdf, , ,0.01,0.3;
 %%%%%%%%%%%%%%%%%%%%%
 picbar,       0.8941 ,0.1,2.0,GAMMA_PDF,0.625,0.1;
-ctrend,       0.3982 ,0.1,0.8,NORMAL_PDF,0.4,0.10;
+ctrend,       0.3982 ,0.1,0.8,NORMAL_PDF,0.4,0.05;
 %%%constelab,   -3.4365 ,-10.0,10.0,NORMAL_PDF,0.0,2.0;
 % constebeta,0.7420,0.01,2.0,GAMMA_PDF,0.25,0.1;
 %%% CGY,0.05,-0.5,2.0,NORMAL_PDF,0.5,0.25;
