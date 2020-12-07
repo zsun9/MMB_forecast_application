@@ -22,7 +22,7 @@ close all; fclose all; clear; clc;
 p.targetdynare = "4.6.2";
 p.vintages = ["2020-08-12"]; %
 p.scenarios = ["s1", "s2", "s3", "s4"];%, "s2", "s3", "s4"];
-p.models = ["GSW12"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.models = ["SW07"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
 p.executor = "Yiran";
 p.suffix = "_autotune_test";
 
