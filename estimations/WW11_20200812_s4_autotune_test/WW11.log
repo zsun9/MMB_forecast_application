@@ -1,0 +1,192 @@
+Starting preprocessing of the model file ...
+Found 16 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 2).
+Processing outputs ...
+done
+Preprocessing completed.
+[Warning: Range cannot be used in 'basic' mode.  The entire sheet will be loaded.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('xlsread', '/Applications/MATLAB_R2019b.app/toolbox/matlab/iofun/xlsread.m', 208)" style="font-weight:bold">xlsread</a> (<a href="matlab: opentoline('/Applications/MATLAB_R2019b.app/toolbox/matlab/iofun/xlsread.m',208,0)">line 208</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load_xls_file_data', '/Applications/Dynare/4.6.3/matlab/modules/dseries/src/read/load_xls_file_data.m', 79)" style="font-weight:bold">load_xls_file_data</a> (<a href="matlab: opentoline('/Applications/Dynare/4.6.3/matlab/modules/dseries/src/read/load_xls_file_data.m',79,0)">line 79</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('load_data', '/Applications/Dynare/4.6.3/matlab/modules/dseries/src/read/load_data.m', 49)" style="font-weight:bold">load_data</a> (<a href="matlab: opentoline('/Applications/Dynare/4.6.3/matlab/modules/dseries/src/read/load_data.m',49,0)">line 49</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dseries', '/Applications/Dynare/4.6.3/matlab/modules/dseries/src/@dseries/dseries.m', 67)" style="font-weight:bold">dseries</a> (<a href="matlab: opentoline('/Applications/Dynare/4.6.3/matlab/modules/dseries/src/@dseries/dseries.m',67,0)">line 67</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('makedataset', '/Applications/Dynare/4.6.3/matlab/utilities/dataset/makedataset.m', 122)" style="font-weight:bold">makedataset</a> (<a href="matlab: opentoline('/Applications/Dynare/4.6.3/matlab/utilities/dataset/makedataset.m',122,0)">line 122</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_init', '/Applications/Dynare/4.6.3/matlab/dynare_estimation_init.m', 553)" style="font-weight:bold">dynare_estimation_init</a> (<a href="matlab: opentoline('/Applications/Dynare/4.6.3/matlab/dynare_estimation_init.m',553,0)">line 553</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', '/Applications/Dynare/4.6.3/matlab/dynare_estimation_1.m', 112)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('/Applications/Dynare/4.6.3/matlab/dynare_estimation_1.m',112,0)">line 112</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', '/Applications/Dynare/4.6.3/matlab/dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('/Applications/Dynare/4.6.3/matlab/dynare_estimation.m',105,0)">line 105</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('WW11.driver', '/Users/yiran/Documents/GitHub/MMB_forecast_application/estimations/WW11_20200812_s4_autotune_test/+WW11/driver.m', 332)" style="font-weight:bold">WW11.driver</a> (<a href="matlab: opentoline('/Users/yiran/Documents/GitHub/MMB_forecast_application/estimations/WW11_20200812_s4_autotune_test/+WW11/driver.m',332,0)">line 332</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', '/Applications/Dynare/4.6.3/matlab/dynare.m', 293)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('/Applications/Dynare/4.6.3/matlab/dynare.m',293,0)">line 293</a>)
+  In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gen_forecast_sys', '/Users/yiran/Documents/GitHub/MMB_forecast_application/gen_forecast_sys.m', 270)" style="font-weight:bold">gen_forecast_sys</a> (<a href="matlab: opentoline('/Users/yiran/Documents/GitHub/MMB_forecast_application/gen_forecast_sys.m',270,0)">line 270</a>)] 
+Initial value of the log posterior (or likelihood): -769.1361
+
+==========================================================
+   Change in the posterior covariance matrix = 0.24428.
+   Change in the posterior mean = 0.6129.
+   Mode improvement = 714.9349
+   New value of jscale = 0.068533
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.09969.
+   Change in the posterior mean = 0.086295.
+   Mode improvement = 0.16738
+   New value of jscale = 0.44233
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.034705.
+   Change in the posterior mean = 0.11809.
+   Mode improvement = 1.9713
+   New value of jscale = 0.33707
+==========================================================
+
+Optimal value of the scale parameter = 0.33707
+
+
+Final value of minus the log posterior (or likelihood):52.062628 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+         prior mean     mode    s.d. prior pstdev
+
+trend        0.500   0.4899  0.1597 norm 0.2500 
+piestarobs   1.000   0.4778  0.0959 norm 0.5000 
+rstarobs     0.125   0.0746  0.0357 gamm 0.0625 
+kappa        0.300   0.1601  0.0857 gamm 0.1500 
+sigma        2.000   2.2416  0.4518 gamm 0.5000 
+psi1         1.500   2.0849  0.2608 gamm 0.2500 
+psi2         0.125   0.0156  0.0567 gamm 0.1000 
+rhoR         0.500   0.8639  0.0189 beta 0.2000 
+rhog         0.800   0.8401  0.1018 beta 0.1000 
+rhoz         0.300   0.6471  0.0989 beta 0.1000 
+rhoxi        0.500   0.4860  0.1988 beta 0.2000 
+rhophi       0.500   0.8785  0.0363 beta 0.2000 
+
+standard deviation of shocks
+         prior mean     mode    s.d. prior pstdev
+
+eR           0.003   0.0011  0.0001 invg 0.0014 
+eg           0.006   0.0047  0.0015 invg 0.0032 
+ez           0.009   0.0075  0.0016 invg 0.0043 
+exi          0.005   0.0031  0.0020 invg 0.0040 
+ephi         0.005   0.0141  0.0028 invg 0.0040 
+
+
+Log data density [Laplace approximation] is -102.118653.
+
+mh_jscale has been set equal to 0.40268
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in WW11/metropolis/WW11_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 2 per block.
+Estimation::mcmc: Total number of generated files: 2.
+Estimation::mcmc: Total number of iterations: 1000000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 27.0323%
+Estimation::mcmc: Total number of MH draws per chain: 1000000.
+Estimation::mcmc: Total number of generated MH files: 2.
+Estimation::mcmc: I'll use mh-files 1 to 2.
+Estimation::mcmc: In MH-file number 1 I'll start at line 300001.
+Estimation::mcmc: Finally I keep 700000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter        Block 1
+SE_eR            113.509
+SE_eg            114.455
+SE_ez            128.016
+SE_exi           279.008
+SE_ephi          239.168
+trend            109.114
+piestarobs        77.310
+rstarobs         124.565
+kappa            197.956
+sigma            132.499
+psi1             133.440
+psi2             203.923
+rhoR             141.314
+rhog             110.765
+rhoz             144.410
+rhoxi            106.366
+rhophi           152.922
+
+
+Geweke (1992) Convergence Tests, based on means of draws 300000 to 440000 vs 650000 to 1000000.
+p-values are for Chi2-test for equality of means.
+Parameter          Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eR                   0.001            0.000            0.000            0.327            0.353            0.337
+SE_eg                   0.005            0.001            0.001            0.744            0.739            0.722
+SE_ez                   0.008            0.002            0.000            0.613            0.603            0.590
+SE_exi                  0.005            0.003            0.000            0.044            0.045            0.038
+SE_ephi                 0.015            0.003            0.000            0.781            0.777            0.755
+trend                   0.499            0.161            0.000            0.062            0.051            0.032
+piestarobs              0.480            0.072            0.314            0.908            0.905            0.895
+rstarobs                0.089            0.038            0.000            0.095            0.113            0.154
+kappa                   0.198            0.083            0.000            0.608            0.628            0.643
+sigma                   2.637            0.480            0.000            0.538            0.502            0.477
+psi1                    2.090            0.271            0.000            0.109            0.091            0.088
+psi2                    0.052            0.048            0.000            0.257            0.270            0.248
+rhoR                    0.865            0.019            0.000            0.221            0.222            0.192
+rhog                    0.794            0.104            0.000            0.103            0.109            0.125
+rhoz                    0.626            0.094            0.000            0.512            0.536            0.561
+rhoxi                   0.490            0.201            0.000            0.100            0.082            0.059
+rhophi                  0.874            0.036            0.000            0.094            0.113            0.135
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -104.044589.
+
+parameters
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+trend             0.500       0.4994      0.2332      0.7646    norm       0.2500
+piestarobs        1.000       0.4798      0.3680      0.5967    norm       0.5000
+rstarobs          0.125       0.0890      0.0277      0.1482    gamm       0.0625
+kappa             0.300       0.1973      0.0780      0.3170    gamm       0.1500
+sigma             2.000       2.6374      1.8604      3.4047    gamm       0.5000
+psi1              1.500       2.0930      1.6400      2.5375    gamm       0.2500
+psi2              0.125       0.0526      0.0002      0.1106    gamm       0.1000
+rhoR              0.500       0.8648      0.8332      0.8957    beta       0.2000
+rhog              0.800       0.7922      0.6356      0.9596    beta       0.1000
+rhoz              0.300       0.6265      0.4754      0.7799    beta       0.1000
+rhoxi             0.500       0.4905      0.1573      0.8183    beta       0.2000
+rhophi            0.500       0.8743      0.8184      0.9308    beta       0.2000
+
+standard deviation of shocks
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+eR                0.003       0.0012      0.0010      0.0014    invg       0.0014
+eg                0.006       0.0054      0.0031      0.0076    invg       0.0032
+ez                0.009       0.0079      0.0054      0.0104    invg       0.0043
+exi               0.005       0.0048      0.0017      0.0083    invg       0.0040
+ephi              0.005       0.0145      0.0099      0.0190    invg       0.0040
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 0h49m10s
+Note: warning(s) encountered in MATLAB/Octave code
