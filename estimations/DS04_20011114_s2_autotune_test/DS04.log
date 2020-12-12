@@ -1,0 +1,164 @@
+Starting preprocessing of the model file ...
+Substitution of endo lags >= 2: added 2 auxiliary variables and equations.
+Found 13 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 2).
+Processing outputs ...
+done
+Preprocessing completed.
+Initial value of the log posterior (or likelihood): -689.5914
+
+==========================================================
+   Change in the posterior covariance matrix = 0.1137.
+   Change in the posterior mean = 1.0373.
+   Mode improvement = 570.7557
+   New value of jscale = 0.064735
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.1335.
+   Change in the posterior mean = 0.22036.
+   Mode improvement = 0.10298
+   New value of jscale = 0.51132
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.026589.
+   Change in the posterior mean = 0.011809.
+   Mode improvement = 1.0237
+   New value of jscale = 0.40968
+==========================================================
+
+Optimal value of the scale parameter = 0.40968
+
+
+Final value of minus the log posterior (or likelihood):117.709001 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+             prior mean     mode    s.d. prior pstdev
+
+trend            0.500   0.6489  0.1298 norm 0.2500 
+inflationqstar   1.000   0.9199  0.4346 norm 0.5000 
+rstar            0.500   0.9329  0.0883 gamm 0.2500 
+kappa            0.300   0.1292  0.0559 gamm 0.1500 
+tau              2.000   3.1228  0.4932 gamm 0.5000 
+psi1             1.500   1.2498  0.1729 gamm 0.2500 
+psi2             0.125   0.2246  0.1410 gamm 0.1000 
+rhoR             0.500   0.6857  0.0483 beta 0.2000 
+rhog             0.800   0.9796  0.0100 beta 0.1000 
+rhoz             0.300   0.5526  0.0921 beta 0.1000 
+
+standard deviation of shocks
+             prior mean     mode    s.d. prior pstdev
+
+epsilon_R        0.003   0.0029  0.0002 invg 0.0014 
+epsilon_g        0.006   0.0030  0.0005 invg 0.0032 
+epsilon_z        0.009   0.0067  0.0008 invg 0.0043 
+
+
+Log data density [Laplace approximation] is -153.342827.
+
+mh_jscale has been set equal to 0.44653
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in DS04/metropolis\DS04_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 2 per block.
+Estimation::mcmc: Total number of generated files: 2.
+Estimation::mcmc: Total number of iterations: 1000000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 29.1293%
+Estimation::mcmc: Total number of MH draws per chain: 1000000.
+Estimation::mcmc: Total number of generated MH files: 2.
+Estimation::mcmc: I'll use mh-files 1 to 2.
+Estimation::mcmc: In MH-file number 1 I'll start at line 300001.
+Estimation::mcmc: Finally I keep 700000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter            Block 1
+SE_epsilon_R          94.314
+SE_epsilon_g         104.352
+SE_epsilon_z          83.145
+trend                 84.601
+inflationqstar        77.602
+rstar                 79.111
+kappa                129.789
+tau                   88.317
+psi1                  86.646
+psi2                  96.800
+rhoR                  90.219
+rhog                  84.940
+rhoz                  96.275
+
+
+Geweke (1992) Convergence Tests, based on means of draws 300000 to 440000 vs 650000 to 1000000.
+p-values are for Chi2-test for equality of means.
+Parameter              Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_epsilon_R                0.003            0.000            0.000            0.187            0.195            0.155
+SE_epsilon_g                0.003            0.001            0.222            0.903            0.905            0.884
+SE_epsilon_z                0.007            0.001            0.000            0.283            0.236            0.253
+trend                       0.646            0.131            0.000            0.557            0.519            0.505
+inflationqstar              0.927            0.430            0.000            0.092            0.063            0.047
+rstar                       0.930            0.089            0.000            0.276            0.259            0.194
+kappa                       0.132            0.058            0.000            0.323            0.279            0.213
+tau                         3.275            0.522            0.003            0.733            0.735            0.734
+psi1                        1.343            0.176            0.004            0.730            0.730            0.716
+psi2                        0.318            0.130            0.006            0.752            0.739            0.733
+rhoR                        0.699            0.046            0.402            0.919            0.919            0.919
+rhog                        0.977            0.010            0.000            0.258            0.259            0.207
+rhoz                        0.517            0.094            0.000            0.183            0.149            0.146
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -154.642593.
+
+parameters
+                 prior mean   post. mean        90% HPD interval    prior       pstdev
+
+trend                 0.500       0.6451      0.4211      0.8547    norm       0.2500
+inflationqstar        1.000       0.9266      0.2114      1.6253    norm       0.5000
+rstar                 0.500       0.9303      0.7822      1.0717    gamm       0.2500
+kappa                 0.300       0.1326      0.0410      0.2210    gamm       0.1500
+tau                   2.000       3.2701      2.4162      4.0979    gamm       0.5000
+psi1                  1.500       1.3408      1.0522      1.6121    gamm       0.2500
+psi2                  0.125       0.3154      0.1123      0.5149    gamm       0.1000
+rhoR                  0.500       0.6991      0.6230      0.7731    beta       0.2000
+rhog                  0.800       0.9767      0.9616      0.9931    beta       0.1000
+rhoz                  0.300       0.5173      0.3640      0.6676    beta       0.1000
+
+standard deviation of shocks
+                 prior mean   post. mean        90% HPD interval    prior       pstdev
+
+epsilon_R             0.003       0.0030      0.0026      0.0034    invg       0.0014
+epsilon_g             0.006       0.0032      0.0023      0.0040    invg       0.0032
+epsilon_z             0.009       0.0071      0.0058      0.0083    invg       0.0043
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 1h34m03s
