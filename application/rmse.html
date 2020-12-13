@@ -236,7 +236,7 @@
           let rmseArray = [];
           for (let entry of rmseMap) {
             let modelScenario = entry[0].split(':');
-            let rmse = entry[1][1].map(function (item) { return Math.sqrt(item/entry[1][0]).toFixed(3); });
+            let rmse = entry[1][1].map(function (item) { return Math.sqrt(item/entry[1][0]).toFixed(6); });
             let nowcast = (['s2', 's4'].includes(modelScenario[1])) ? '-' : rmse[0];
             rmseArray.push({
               'model': modelScenario[0],
