@@ -1,0 +1,52 @@
+# This script compares the data in /ComparisonFolder and in /Vintag_data
+# to use this script, put all the data inside the folder /ComparisonFolder
+# if you wish to change the names of the data inside the folder so that you can open both
+# files in excel, please change it to data_xxxxxxxx_ar.xlsx from data_xxxxxxxx.xlsx
+
+
+scriptloc = dirname(rstudioapi::getSourceEditorContext()$path)
+library(stringr)
+library(readxl)    
+setwd(scriptloc)
+
+comparefoldername= "Archive on 13122020" # list of xlsx set as benchmark here
+
+benchmarkfoldername = "vintage_data"
+
+excelfilelistArch = list.files(paste0(scriptloc, "/",comparefoldername ), pattern=NULL, all.files=FALSE,
+           full.names=FALSE)
+
+x = c("~")
+
+# Compare data list
+excelfilelistArch = excelfilelistArch[!excelfilelistArch %in% grep(paste0(x, collapse = "|"), excelfilelistArch, value = T)]
+# Vintage data list
+excelfilelist = str_replace(excelfilelistArch, pattern = "_ar", replacement = "")
+
+tol = 0.0000001
+
+
+read_excel_allsheets <- function(filename, tibble = FALSE) {
+  # I prefer straight data.frames
+  # but if you like tidyverse tibbles (the default with read_excel)
+  # then just pass tibble = TRUE
+  sheets <- readxl::excel_sheets(filename)
+  x <- lapply(sheets, function(X) readxl::read_excel(filename, sheet = X))
+  if(!tibble) x <- lapply(x, as.data.frame)
+  names(x) <- sheets
+  x
+}
+
+
+for (iiii in 1:length(excelfilelist)) {  
+  excelfilenameArch = excelfilelistArch[iiii]
+  excelfilename = excelfilelist[iiii]
+  print(paste0(excelfilename))
+  
+  setwd(paste0(scriptloc, "/" , comparefoldername))
+  Comparisonsheet <- read_excel_allsheets(excelfilenameArch)
+  setwd(paste0(scriptloc, "/", benchmarkfoldername))
+  benchmktsheet <- read_excel_allsheets(excelfilename) 
+ 
+  print(all.equal(Comparisonsheet, benchmktsheet, tolerance = tol)) 
+}
