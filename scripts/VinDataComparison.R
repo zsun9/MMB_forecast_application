@@ -22,7 +22,7 @@ excelfilelistArch = excelfilelistArch[!excelfilelistArch %in% grep(paste0(x, col
 # Vintage data list
 excelfilelist = str_replace(excelfilelistArch, pattern = "_ar", replacement = "")
 
-tol = 0.0000001
+tol = 0.00000001
 
 
 read_excel_allsheets <- function(filename, tibble = FALSE) {
