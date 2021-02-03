@@ -1,7 +1,6 @@
-# This script compares the data in /ComparisonFolder and in /Vintag_data
-# to use this script, put all the data inside the folder /ComparisonFolder
-# if you wish to change the names of the data inside the folder so that you can open both
-# files in excel, please change it to data_xxxxxxxx_ar.xlsx from data_xxxxxxxx.xlsx
+# This script compares the data in a folder (comparefoldername) and in (benchmarkfoldername).
+# To use this script, if you wish to change the names of the data inside the folder so 
+# that you can open both files in excel, please change it to data_xxxxxxxx_ar.xlsx from data_xxxxxxxx.xlsx
 
 
 scriptloc = dirname(rstudioapi::getSourceEditorContext()$path)
@@ -41,7 +40,7 @@ read_excel_allsheets <- function(filename, tibble = FALSE) {
 for (iiii in 1:length(excelfilelist)) {  
   excelfilenameArch = excelfilelistArch[iiii]
   excelfilename = excelfilelist[iiii]
-  print(paste0(excelfilename))
+  print(paste0("start of comparing filename ",excelfilename))
   
   setwd(paste0(scriptloc, "/" , comparefoldername))
   Comparisonsheet <- read_excel_allsheets(excelfilenameArch)
