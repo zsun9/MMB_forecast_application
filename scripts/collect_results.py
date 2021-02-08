@@ -45,7 +45,7 @@ for i, index in enumerate(actualGDP.index):
     results['actual'].append({'actual': {'gdp': series}, 'vintageQuarter': index})
 
 # collect SPF/GB/Fair forecasts
-df_sgf = pd.read_excel(paths['data'] / 'gb_spf_fair.xlsx')
+df_sgf = pd.read_excel(paths['data'] / 'gb_spf_fair.xls')
 for index, row in df_sgf.iterrows():
     inst = {
         'model': row['model'],
@@ -76,7 +76,7 @@ for directory in paths['estimations'].glob('*'):
 
     if 'dy462' in directory.stem:
         print(f'Not included: {directory.stem}')
-    if '20090811' in directory.stem or '20091110' in directory.stem:
+    if '20090811' in directory.stem or '20091110' in directory.stem or 'autotune' in directory.stem or 'VI16' in directory.stem:
         print(f'Not included: {directory.stem}')
     elif 'IN10' in directory.stem and 'adjusted' not in directory.stem:
         print(f'Not included: {directory.stem}')
@@ -154,37 +154,37 @@ results['error'] = jsonError
 # obtain observed series
 observed = []
 
-for file in paths['vintage_data'].glob('*.xlsx'):
-    vintage = file.stem
-    vintage = vintage[5:9] + '-' + vintage[9:11] + '-' + vintage[11:]
+# for file in paths['vintage_data'].glob('*.xlsx'):
+#     vintage = file.stem
+#     vintage = vintage[5:9] + '-' + vintage[9:11] + '-' + vintage[11:]
 
-    dfDict = pd.read_excel(file, sheet_name=None, index_col=0)
+#     dfDict = pd.read_excel(file, sheet_name=None, index_col=0)
 
-    for key, df in dfDict.items():
-        scenario = key
-        if scenario in {'s2', 's3'}:
+#     for key, df in dfDict.items():
+#         scenario = key
+#         if scenario in {'s2', 's3'}:
 
-            for col in df.columns.values:
-                valueCol = df[col].tolist()
-                for i, v in enumerate(valueCol):
-                    if np.isnan(v):
-                        valueCol[i] = v
-                    else:
-                        valueCol[i] = round(v*10000)/10000
+#             for col in df.columns.values:
+#                 valueCol = df[col].tolist()
+#                 for i, v in enumerate(valueCol):
+#                     if np.isnan(v):
+#                         valueCol[i] = v
+#                     else:
+#                         valueCol[i] = round(v*10000)/10000
 
-                observed.append({
-                    'vintage': vintage,
-                    'scenario': scenario,
-                    'variable': col,
-                    'value': valueCol
-                })
+#                 observed.append({
+#                     'vintage': vintage,
+#                     'scenario': scenario,
+#                     'variable': col,
+#                     'value': valueCol
+#                 })
 
 # save results
 with open(paths['application'] / 'src' / 'results.json', 'w') as file:
     simplejson.dump(results, file, ignore_nan=True, indent=2, sort_keys=True)
 
-with open(paths['application'] / 'src' /  'variables.json', 'w') as file:
-    simplejson.dump(observed, file, ignore_nan=True, indent=2, sort_keys=True)
+# with open(paths['application'] / 'src' /  'variables.json', 'w') as file:
+#     simplejson.dump(observed, file, ignore_nan=True, indent=2, sort_keys=True)
 
 with open(paths['root'] / 'lastForecast.txt', 'w') as outputFile:
     outputFile.writelines([str(item) + '\n' for item in sorted(lastForecast, key=lambda x: x[-1])])
