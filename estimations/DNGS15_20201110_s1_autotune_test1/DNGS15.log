@@ -1,0 +1,160 @@
+Starting preprocessing of the model file ...
+Substitution of exo lags: added 2 auxiliary variables and equations.
+Found 49 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 2).
+Processing outputs ...
+done
+Preprocessing completed.
+[Warning: Some of the parameters have no value (bet, pistar, sprd, Fom, zstar, rstar, Rstarn, rkstar, omegastar,
+Lstar, kstar, kbarstar, istar, ystar, cstar, wl_c, zwstar, sigwstar, omegabarstar, Gstar, Gammastar, dGdomegastar,
+d2Gdomega2star, dGammadomegastar, d2Gammadomega2star, dGdsigmastar, d2Gdomegadsigmastar, dGammadsigmastar,
+d2Gammadomegadsigmastar, muestar, nkstar, Rhostar, wekstar, vkstar, nstar, vstar, GammamuG, GammamuGprime,
+zeta_bw, zeta_zw, zeta_bw_zw, zeta_bsigw, zeta_zsigw, zeta_spsigw, zeta_bmue, zeta_zmue, zeta_spmue, Rkstar,
+zeta_Gw, zeta_Gsigw, zeta_nRk, zeta_nR, zeta_nqk, zeta_nn, zeta_nmue, zeta_nsigw) when using steady. If these
+parameters are not initialized in a steadystate file or a steady_state_model-block, Dynare may not be able to
+solve the model...] 
+
+STEADY-STATE RESULTS:
+
+y_t              		 0
+c_t              		 0
+i_t              		 0
+k_t              		 0
+kbar_t           		 0
+L_t              		 0
+mc_t             		 0
+pi_t             		 0
+R_t              		 0
+rk_t             		 0
+u_t              		 0
+w_t              		 0
+muw_t            		 0
+qk_t             		 0
+Rktil_t          		 0
+n_t              		 0
+z_t              		 0
+ztil_t           		 0
+b_t              		 0
+g_t              		 0
+laf_t            		 0
+law_t            		 0
+sigw_t           		 0
+mu_t             		 0
+rm_t             		 0
+gdp_rgd_obs      		 0.675032
+hours_dngs15_obs 		 0.467095
+wage_rgd_obs     		 0.675032
+gdpdef_obs       		 0.636515
+ffr_obs          		 1.24246
+c_rgd_obs        		 0.675032
+ifi_rgd_obs      		 0.675032
+baag10_obs       		 0.449254
+y_ft             		 0
+c_ft             		 0
+i_ft             		 0
+k_ft             		 0
+kbar_ft          		 0
+L_ft             		 0
+r_ft             		 0
+rk_ft            		 0
+u_ft             		 0
+w_ft             		 0
+qk_ft            		 0
+outputgap_t      		 0
+r_ft_obs         		 2.42378
+r_ann_t          		 2.42378
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+       8.974e-18       -8.974e-18                0
+       2.728e-17       -2.728e-17                0
+       3.683e-17       -3.683e-17                0
+       1.093e-16       -1.093e-16                0
+       1.576e-16        1.576e-16                0
+          0.2185           0.2185                0
+          0.2654           0.2654                0
+          0.3293           0.3293                0
+          0.3298           0.3298                0
+          0.3639           0.3639                0
+          0.6151           0.6151                0
+          0.7042           0.7042                0
+          0.8408           0.8408                0
+          0.9034           0.9002          0.07578
+          0.9034           0.9002         -0.07578
+          0.9077           0.9063          0.04968
+          0.9077           0.9063         -0.04968
+          0.9279           0.9279                0
+          0.9326           0.9326                0
+          0.9583           0.9583                0
+          0.9729           0.9729                0
+          0.9738           0.9738                0
+          0.9788           0.9788                0
+           1.053            1.053                0
+           1.108            1.106          0.07199
+           1.108            1.106         -0.07199
+           1.135            1.125           0.1509
+           1.135            1.125          -0.1509
+           1.253            1.225           0.2632
+           1.253            1.225          -0.2632
+       8.717e+16       -8.717e+16                0
+       2.359e+18       -2.359e+18                0
+       3.913e+18        3.913e+18                0
+       9.308e+18        9.308e+18                0
+             Inf             -Inf                0
+
+
+There are 12 eigenvalue(s) larger than 1 in modulus 
+for 12 forward-looking variable(s)
+
+The rank condition is verified.
+
+Initial value of the log posterior (or likelihood): -376312.8608
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('DNGS15_steadystate', 'C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_20201110_s1_autotune_test1\DNGS15_steadystate.m', 223)" style="font-weight:bold">DNGS15_steadystate</a> (<a href="matlab: opentoline('C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_20201110_s1_autotune_test1\DNGS15_steadystate.m',223,0)">line 223</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('evaluate_steady_state_file', 'C:\dynare\4.6.3\matlab\evaluate_steady_state_file.m', 49)" style="font-weight:bold">evaluate_steady_state_file</a> (<a href="matlab: opentoline('C:\dynare\4.6.3\matlab\evaluate_steady_state_file.m',49,0)">line 49</a>)
+    [ys,params1,check] = h_steadystate(ys_init, exo_ss,M,options);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('evaluate_steady_state', 'C:\dynare\4.6.3\matlab\evaluate_steady_state.m', 210)" style="font-weight:bold">evaluate_steady_state</a> (<a href="matlab: opentoline('C:\dynare\4.6.3\matlab\evaluate_steady_state.m',210,0)">line 210</a>)
+    [ys,params,info] = evaluate_steady_state_file(ys_init,exo_ss,M, options,steadystate_check_flag);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('resol', 'C:\dynare\4.6.3\matlab\resol.m', 61)" style="font-weight:bold">resol</a> (<a href="matlab: opentoline('C:\dynare\4.6.3\matlab\resol.m',61,0)">line 61</a>)
+[dr.ys,M.params,info] = evaluate_steady_state(oo.steady_state,M,options,oo,~options.steadystate.nocheck);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('compute_decision_rules', 'C:\dynare\4.6.3\matlab\compute_decision_rules.m', 35)" style="font-weight:bold">compute_decision_rules</a> (<a href="matlab: opentoline('C:\dynare\4.6.3\matlab\compute_decision_rules.m',35,0)">line 35</a>)
+    [dr,info,M_,options_,oo_] = resol(0,M_,options_,oo_);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_resolve', 'C:\dynare\4.6.3\matlab\dynare_resolve.m', 69)" style="font-weight:bold">dynare_resolve</a> (<a href="matlab: opentoline('C:\dynare\4.6.3\matlab\dynare_resolve.m',69,0)">line 69</a>)
+[dr,info,Model,DynareOptions,DynareResults] =compute_decision_rules(Model,DynareOptions,DynareResults);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsge_likelihood', 'C:\dynare\4.6.3\matlab\dsge_likelihood.m', 266)" style="font-weight:bold">dsge_likelihood</a> (<a href="matlab: opentoline('C:\dynare\4.6.3\matlab\dsge_likelihood.m',266,0)">line 266</a>)
+[T,R,SteadyState,info,Model,DynareOptions,DynareResults] =
+dynare_resolve(Model,DynareOptions,DynareResults,'restrict');
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gmhmaxlik_core', 'C:\dynare\4.6.3\matlab\optimization\gmhmaxlik_core.m', 105)" style="font-weight:bold">gmhmaxlik_core</a> (<a href="matlab: opentoline('C:\dynare\4.6.3\matlab\optimization\gmhmaxlik_core.m',105,0)">line 105</a>)
+        logpo2 = - feval(ObjFun,proposal,varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gmhmaxlik', 'C:\dynare\4.6.3\matlab\optimization\gmhmaxlik.m', 100)" style="font-weight:bold">gmhmaxlik</a> (<a href="matlab: opentoline('C:\dynare\4.6.3\matlab\optimization\gmhmaxlik.m',100,0)">line 100</a>)
+    [PostMode, PostVariance, Scale, PostMean] = gmhmaxlik_core(fun, OldPostMode, bounds, gmhmaxlikOptions, Scale,
+    flag, MeanPar, OldPostVariance, varargin{:});
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_minimize_objective', 'C:\dynare\4.6.3\matlab\optimization\dynare_minimize_objective.m', 271)" style="font-weight:bold">dynare_minimize_objective</a> (<a href="matlab: opentoline('C:\dynare\4.6.3\matlab\optimization\dynare_minimize_objective.m',271,0)">line 271</a>)
+    [opt_par_values, hessian_mat, Scale, fval] = gmhmaxlik(objective_function, start_par_value, ...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'C:\dynare\4.6.3\matlab\dynare_estimation_1.m', 219)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('C:\dynare\4.6.3\matlab\dynare_estimation_1.m',219,0)">line 219</a>)
+    [xparam1, fval, exitflag, hh, options_, Scale, new_rat_hess_info] =
+    dynare_minimize_objective(objective_function,xparam1,options_.mode_compute,options_,[bounds.lb
+    bounds.ub],bayestopt_.name,bayestopt_,hh,dataset_,dataset_info,options_,M_,estim_params_,bayestopt_,bounds,oo_);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'C:\dynare\4.6.3\matlab\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('C:\dynare\4.6.3\matlab\dynare_estimation.m',105,0)">line 105</a>)
+    dynare_estimation_1(var_list,dname);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('DNGS15.driver', 'C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_20201110_s1_autotune_test1\+DNGS15\driver.m', 952)" style="font-weight:bold">DNGS15.driver</a> (<a href="matlab: opentoline('C:\Users\jaspe\Documents\GitHub\MMB_forecast_application\estimations\DNGS15_20201110_s1_autotune_test1\+DNGS15\driver.m',952,0)">line 952</a>)
+oo_recursive_=dynare_estimation(var_list_);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'C:\dynare\4.6.3\matlab\dynare.m', 293)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('C:\dynare\4.6.3\matlab\dynare.m',293,0)">line 293</a>)
+evalin('base',[fname '.driver']) ;
+} 

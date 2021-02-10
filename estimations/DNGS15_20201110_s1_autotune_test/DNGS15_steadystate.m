@@ -9,7 +9,7 @@ function   [ys,params,check] = DNGS15_steadystate(ys,exo,M_,options_) %[ys,check
 %%
 NumberOfParameters = M_.param_nbr;                            % Number of deep parameters.
 for i = 1:NumberOfParameters                                  % Loop...
-   paramname = M_.param_names{i};
+   paramname = M_.param_names{ii};
 
   %  paramname = deblank(M_.param_names(i,:));                   %    Get the name of parameter i. 
   eval([ paramname ' = M_.params(' int2str(i) ');']);         %    Get the value of parameter i.
@@ -219,7 +219,7 @@ ys = zeros(NumberOfEndogenousVariables,1);                    % Initialization o
 % We don't need this as all steady state values are zero.
 for i = 1:NumberOfEndogenousVariables                         % Loop...
   %varname = deblank(M_.endo_names(i,:));                      %    Get the name of endogenous variable i.                     
-  varname = M_.endo_names{i};
+  varname = M_.endo_names{ii};
   if ~exist(varname)
       eval(['ys(' int2str(i) ') = 0;']);                      % to deal with auxiliary variables that are defined by dynare
   else
