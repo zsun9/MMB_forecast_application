@@ -1,0 +1,324 @@
+Starting preprocessing of the model file ...
+WARNING: QPM08.mod:138.1-94: ''unit_root_vars'' is now obsolete; use the ''diffuse_filter'' option of ''estimation'' instead
+Substitution of endo leads >= 2: added 6 auxiliary variables and equations.
+Substitution of endo lags >= 2: added 16 auxiliary variables and equations.
+Found 49 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 2).
+Processing outputs ...
+done
+Preprocessing completed.
+
+STEADY-STATE RESULTS:
+
+RR_US             		 1.8456
+RR_US_BAR         		 1.8456
+unr_obs           		 6.525
+unr_obs_GAP       		 0
+unr_obs_BAR       		 6.525
+PIE_US            		 2.5
+PIE_US4           		 2.5
+Y_US              		 0
+gdpl_rgd_obs      		 895.093
+gdpl_rgd_obs_BAR  		 895.093
+ffr_obs           		 1.0864
+G_US              		 2.7599
+cpil_obs          		 498.924
+E4_PIE_US4        		 2.5
+E1_Y_US           		 0
+E1_PIE_US         		 2.5
+UNR_G_US          		 0
+GROWTH_US         		 2.7599
+GROWTH4_US        		 2.7599
+GROWTH4_US_BAR    		 2.7599
+blt_obs           		 -8.87
+blt_obs_BAR       		 -8.87
+E                 		 0
+E2                		 0
+GROWTH_US_BAR     		 2.7599
+RR_US_GAP         		 0
+blt_obs_GAP       		 0
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+               0               -0                0
+               0               -0                0
+               0               -0                0
+               0                0                0
+               0               -0                0
+               0               -0                0
+               0               -0                0
+       1.235e-18        1.235e-18                0
+       1.942e-18        1.942e-18                0
+       2.211e-18        2.211e-18                0
+       5.884e-18       -5.884e-18                0
+       6.471e-18       -6.471e-18                0
+       6.883e-18        6.883e-18                0
+       1.077e-17        1.077e-17                0
+       1.239e-17        1.239e-17                0
+       3.545e-17       -3.545e-17                0
+       8.732e-17       -8.732e-17                0
+             0.1              0.1                0
+          0.4822          -0.4822                0
+          0.5118         -0.05828           0.5085
+          0.5118         -0.05828          -0.5085
+          0.6648           0.6648                0
+          0.6992           0.6992                0
+          0.7796           0.7796                0
+             0.9              0.9                0
+           0.951           0.9252           0.2203
+           0.951           0.9252          -0.2203
+               1                1                0
+               1                1                0
+               1                1                0
+               1                1                0
+           1.156            1.156                0
+           1.718          -0.2063            1.706
+           1.718          -0.2063           -1.706
+           1.824           -1.824                0
+           7.308            7.308                0
+       3.137e+04        1.568e+04        2.717e+04
+       3.137e+04        1.568e+04       -2.717e+04
+       3.137e+04       -3.137e+04                0
+             Inf              Inf                0
+
+
+There are 9 eigenvalue(s) larger than 1 in modulus 
+for 9 forward-looking variable(s)
+
+The rank condition is verified.
+
+Initial value of the log posterior (or likelihood): -2830.523
+
+==========================================================
+   Change in the posterior covariance matrix = 9.9985.
+   Change in the posterior mean = 5.5199.
+   Mode improvement = 2149.1356
+   New value of jscale = 0.0086172
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 1.4501.
+   Change in the posterior mean = 3.1435.
+   Mode improvement = 19.7439
+   New value of jscale = 0.22499
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.10517.
+   Change in the posterior mean = 0.6482.
+   Mode improvement = 9.0013
+   New value of jscale = 0.27404
+==========================================================
+
+Optimal value of the scale parameter = 0.27404
+
+
+Final value of minus the log posterior (or likelihood):652.642246 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+                                    prior mean     mode    s.d. prior pstdev
+
+alpha_us1                               0.800   0.7754  0.0811 beta 0.1000 
+alpha_us2                               0.300   0.2755  0.1484 gamm 0.2000 
+alpha_us3                               0.500   0.5114  0.1840 beta 0.2000 
+growth_us_ss                            2.500   2.4621  0.2169 norm 0.2500 
+rr_us_bar_ss                            2.000   1.5910  0.1719 norm 0.2000 
+rho_us                                  0.900   0.9235  0.0492 beta 0.0500 
+tau_us                                  0.100   0.0761  0.0357 beta 0.0500 
+beta_us1                                0.750   0.9875  0.0638 gamm 0.1000 
+beta_us2                                0.150   0.1152  0.0546 beta 0.1000 
+beta_us3                                0.200   0.1136  0.0243 gamm 0.0500 
+lambda_us1                              0.500   0.8250  0.0354 beta 0.1000 
+lambda_us2                              0.250   0.2450  0.0370 gamm 0.0500 
+gamma_us1                               0.500   0.7331  0.0269 beta 0.0500 
+gamma_us2                               0.500   0.6250  0.1965 gamm 0.3000 
+gamma_us4                               0.200   0.2284  0.0453 gamm 0.0500 
+kappa_us                               20.000  19.8069  0.4449 gamm 0.5000 
+theta                                   1.000   0.5703  0.2185 gamm 0.5000 
+
+standard deviation of shocks
+                                    prior mean     mode    s.d. prior pstdev
+
+RES_unr_obs_GAP                         0.200   0.9953  0.0925 invg    Inf 
+RES_unr_obs_BAR                         0.100   0.0460  0.0538 invg    Inf 
+RES_UNR_G_US                            0.100   0.0454  0.0872 invg    Inf 
+RES_Y_US                                0.250   0.0968  0.0360 invg    Inf 
+RES_gdpl_rgd_obs_BAR                    0.050   1.3175  0.0925 invg    Inf 
+RES_G_US                                0.100   0.0460  0.0579 invg    Inf 
+RES_PIE_US                              0.700   2.4771  0.2152 invg    Inf 
+RES_ffr_obs                             0.700   0.2383  0.0345 invg    Inf 
+RES_RR_US_BAR                           0.200   0.0932  0.1758 invg    Inf 
+RES_blt_obs                             0.400   0.1639  0.0854 invg    Inf 
+RES_blt_obs_BAR                         0.200   8.3079  0.8735 invg    Inf 
+
+correlation of shocks
+                                    prior mean     mode    s.d. prior pstdev
+
+RES_Y_US,RES_G_US                       0.250   0.2188  0.0591 beta 0.1000 
+RES_gdpl_rgd_obs_BAR,RES_PIE_US         0.050   0.0344  0.0164 beta 0.0200 
+
+
+Log data density [Laplace approximation] is -707.475650.
+
+mh_jscale has been set equal to 0.28491
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in QPM08/metropolis\QPM08_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 3 per block.
+Estimation::mcmc: Total number of generated files: 3.
+Estimation::mcmc: Total number of iterations: 1000000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 29.3814%
+Estimation::mcmc: Total number of MH draws per chain: 1000000.
+Estimation::mcmc: Total number of generated MH files: 3.
+Estimation::mcmc: I'll use mh-files 1 to 3.
+Estimation::mcmc: In MH-file number 1 I'll start at line 300001.
+Estimation::mcmc: Finally I keep 700000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter                                Block 1
+SE_RES_unr_obs_GAP                       535.996
+SE_RES_unr_obs_BAR                       673.783
+SE_RES_UNR_G_US                          201.554
+SE_RES_Y_US                              271.922
+SE_RES_gdpl_rgd_obs_BAR                  208.570
+SE_RES_G_US                              425.795
+SE_RES_PIE_US                            242.464
+SE_RES_ffr_obs                           318.798
+SE_RES_RR_US_BAR                         495.323
+SE_RES_blt_obs                           266.674
+SE_RES_blt_obs_BAR                       260.805
+CC_RES_Y_US_RES_G_US                     491.781
+CC_RES_gdpl_rgd_obs_BAR_RES_PIE_US       249.410
+alpha_us1                                344.795
+alpha_us2                                343.127
+alpha_us3                                351.920
+growth_us_ss                             232.838
+rr_us_bar_ss                             309.928
+rho_us                                   469.905
+tau_us                                   406.283
+beta_us1                                 320.807
+beta_us2                                 274.808
+beta_us3                                 275.906
+lambda_us1                               262.553
+lambda_us2                               382.852
+gamma_us1                                239.399
+gamma_us2                                252.249
+gamma_us4                                422.712
+kappa_us                                 284.154
+theta                                    380.002
+
+
+Geweke (1992) Convergence Tests, based on means of draws 300000 to 440000 vs 650000 to 1000000.
+p-values are for Chi2-test for equality of means.
+Parameter                                  Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_RES_unr_obs_GAP                              0.959            0.123            0.000            0.260            0.302            0.299
+SE_RES_unr_obs_BAR                              0.109            0.132            0.000            0.227            0.279            0.277
+SE_RES_UNR_G_US                                 0.091            0.060            0.000            0.223            0.202            0.126
+SE_RES_Y_US                                     0.118            0.041            0.000            0.088            0.091            0.074
+SE_RES_gdpl_rgd_obs_BAR                         1.333            0.098            0.005            0.872            0.890            0.885
+SE_RES_G_US                                     0.086            0.067            0.000            0.218            0.189            0.162
+SE_RES_PIE_US                                   2.455            0.224            0.000            0.213            0.232            0.216
+SE_RES_ffr_obs                                  0.235            0.039            0.000            0.220            0.201            0.150
+SE_RES_RR_US_BAR                                0.320            0.300            0.000            0.258            0.232            0.201
+SE_RES_blt_obs                                  0.217            0.117            0.000            0.644            0.626            0.610
+SE_RES_blt_obs_BAR                              8.031            1.326            0.000            0.111            0.116            0.127
+CC_RES_Y_US_RES_G_US                            0.249            0.100            0.000            0.521            0.532            0.450
+CC_RES_gdpl_rgd_obs_BAR_RES_PIE_US              0.041            0.016            0.878            0.994            0.994            0.993
+alpha_us1                                       0.704            0.095            0.000            0.310            0.298            0.254
+alpha_us2                                       0.376            0.179            0.000            0.825            0.828            0.826
+alpha_us3                                       0.491            0.197            0.000            0.720            0.720            0.726
+growth_us_ss                                    2.467            0.228            0.001            0.866            0.851            0.844
+rr_us_bar_ss                                    1.596            0.192            0.000            0.598            0.621            0.611
+rho_us                                          0.871            0.089            0.000            0.241            0.249            0.252
+tau_us                                          0.102            0.051            0.004            0.924            0.928            0.932
+beta_us1                                        0.981            0.072            0.000            0.103            0.097            0.080
+beta_us2                                        0.104            0.050            0.000            0.565            0.568            0.554
+beta_us3                                        0.126            0.027            0.030            0.924            0.918            0.919
+lambda_us1                                      0.820            0.043            0.000            0.437            0.399            0.388
+lambda_us2                                      0.247            0.048            0.000            0.764            0.760            0.752
+gamma_us1                                       0.735            0.029            0.000            0.411            0.396            0.348
+gamma_us2                                       0.642            0.180            0.000            0.684            0.701            0.701
+gamma_us4                                       0.255            0.066            0.000            0.893            0.894            0.894
+kappa_us                                       19.818            0.496            0.000            0.366            0.385            0.374
+theta                                           0.676            0.318            0.000            0.246            0.252            0.240
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -705.002690.
+
+parameters
+                                        prior mean   post. mean        90% HPD interval    prior       pstdev
+
+alpha_us1                                    0.800       0.7046      0.5479      0.8592    beta       0.1000
+alpha_us2                                    0.300       0.3717      0.0876      0.6374    gamm       0.2000
+alpha_us3                                    0.500       0.4908      0.1609      0.8060    beta       0.2000
+growth_us_ss                                 2.500       2.4663      2.0838      2.8375    norm       0.2500
+rr_us_bar_ss                                 2.000       1.5963      1.2847      1.9155    norm       0.2000
+rho_us                                       0.900       0.8800      0.7849      0.9775    beta       0.0500
+tau_us                                       0.100       0.1013      0.0225      0.1776    beta       0.0500
+beta_us1                                     0.750       0.9862      0.8759      1.0953    gamm       0.1000
+beta_us2                                     0.150       0.1032      0.0198      0.1814    beta       0.1000
+beta_us3                                     0.200       0.1250      0.0826      0.1669    gamm       0.0500
+lambda_us1                                   0.500       0.8205      0.7546      0.8922    beta       0.1000
+lambda_us2                                   0.250       0.2470      0.1684      0.3228    gamm       0.0500
+gamma_us1                                    0.500       0.7338      0.6908      0.7822    beta       0.0500
+gamma_us2                                    0.500       0.6485      0.3560      0.9316    gamm       0.3000
+gamma_us4                                    0.200       0.2558      0.1482      0.3617    gamm       0.0500
+kappa_us                                    20.000      19.8104     18.9949     20.6390    gamm       0.5000
+theta                                        1.000       0.6742      0.1628      1.1524    gamm       0.5000
+
+standard deviation of shocks
+                                        prior mean   post. mean        90% HPD interval    prior       pstdev
+
+RES_unr_obs_GAP                              0.200       0.9539      0.8190      1.1197    invg          Inf
+RES_unr_obs_BAR                              0.100       0.1177      0.0223      0.2189    invg          Inf
+RES_UNR_G_US                                 0.100       0.0898      0.0239      0.1660    invg          Inf
+RES_Y_US                                     0.250       0.1157      0.0630      0.1649    invg          Inf
+RES_gdpl_rgd_obs_BAR                         0.050       1.3332      1.1714      1.4924    invg          Inf
+RES_G_US                                     0.100       0.0874      0.0235      0.1600    invg          Inf
+RES_PIE_US                                   0.700       2.4633      2.0986      2.8114    invg          Inf
+RES_ffr_obs                                  0.700       0.2367      0.1744      0.2985    invg          Inf
+RES_RR_US_BAR                                0.200       0.2976      0.0448      0.7349    invg          Inf
+RES_blt_obs                                  0.400       0.2057      0.0940      0.3180    invg          Inf
+RES_blt_obs_BAR                              0.200       8.1512      6.6477      9.6735    invg          Inf
+
+correlation of shocks
+                                        prior mean   post. mean        90% HPD interval    prior       pstdev
+
+RES_Y_US,RES_G_US                            0.250       0.2514      0.0873      0.4136    beta       0.1000
+RES_gdpl_rgd_obs_BAR,RES_PIE_US              0.050       0.0411      0.0151      0.0662    beta       0.0200
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 8h17m06s
+Note: 1 warning(s) encountered in the preprocessor

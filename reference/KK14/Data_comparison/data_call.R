@@ -345,7 +345,7 @@ jointab = series.data.joint
 
 # calculate labor tax rate
 tau_w = ((jointab$IT+jointab$SIT)/(jointab$W+jointab$PRI/2+jointab$CI))*((jointab$W+jointab$PRI/2)/(jointab$EC+jointab$PRI/2))+jointab$CSI/(jointab$EC+jointab$PRI/2)
-ln_tau_w = log(tau_w)
+ln_tau_w = tau_w
 jointab = cbind(jointab ,"tau_w" =tau_w , "ln_tau_w" =ln_tau_w)
 
 tau_k = (jointab$IT/(jointab$W + jointab$PRI/2 + jointab$CI))*(jointab$CI/(jointab$CI + jointab$PT)) + (jointab$CT + jointab$PT)/(jointab$CI + jointab$PT)
