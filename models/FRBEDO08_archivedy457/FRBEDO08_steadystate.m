@@ -1,9 +1,8 @@
 % computes the steady state of dog.mod (growthless deterministic growth model). 
 % stephane [DOT] adjemian [AT] ens [DOT] fr
 
-function [ys,params,check] = FRBEDO08_steadystate(ys,exo,M_,options_)
-%function [ys,check] = FRBEDO08_steadystate(ys,exe)
-%global M_
+function [ys,check] = FRBEDO08_steadystate(ys,exe)
+global M_
 
 %% DO NOT CHANGE THIS PART.
 %%
@@ -11,9 +10,7 @@ function [ys,params,check] = FRBEDO08_steadystate(ys,exo,M_,options_)
 %%
 NumberOfParameters = M_.param_nbr;                            % Number of deep parameters.
 for i = 1:NumberOfParameters                                  % Loop...
-    paramname = M_.param_names{i};
-
-  %  paramname = deblank(M_.param_names(i,:));                   %    Get the name of parameter i. 
+  paramname = deblank(M_.param_names(i,:));                   %    Get the name of parameter i. 
   eval([ paramname ' = M_.params(' int2str(i) ');']);         %    Get the value of parameter i.
 end                                                           % End of the loop.  
 check = 0;
@@ -129,10 +126,6 @@ output = xc+xk+xgf;
 %%
 %% END OF THE MODEL SPECIFIC BLOCK.
 
-params=NaN(NumberOfParameters,1);
-for iter = 1:length(M_.params) %update parameters set in the file
-  eval([ 'params(' num2str(iter) ') = ' M_.param_names{iter} ';' ])
-end
 
 %% DO NOT CHANGE THIS PART.
 %%
@@ -142,9 +135,7 @@ end
 NumberOfEndogenousVariables = M_.endo_nbr;                    % Number of endogenous variables.
 ys = zeros(NumberOfEndogenousVariables,1);                    % Initialization of ys (steady state).
 for i = 1:NumberOfEndogenousVariables                         % Loop...
-   varname = M_.endo_names{i};
-
-%    varname = deblank(M_.endo_names(i,:));                      %    Get the name of endogenous variable i.                     
+  varname = deblank(M_.endo_names(i,:));                      %    Get the name of endogenous variable i.                     
   eval(['ys(' int2str(i) ') = ' varname ';']);                %    Get the steady state value of this variable.
 end                                                           % End of the loop.
 %%
