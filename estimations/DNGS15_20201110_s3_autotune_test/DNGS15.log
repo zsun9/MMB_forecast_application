@@ -1,0 +1,377 @@
+Starting preprocessing of the model file ...
+Substitution of exo lags: added 2 auxiliary variables and equations.
+Found 49 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 2).
+Processing outputs ...
+done
+Preprocessing completed.
+[Warning: Some of the parameters have no value (bet, pistar, sprd, Fom, zstar, rstar, Rstarn, rkstar,
+omegastar, Lstar, kstar, kbarstar, istar, ystar, cstar, wl_c, zwstar, sigwstar, omegabarstar, Gstar,
+Gammastar, dGdomegastar, d2Gdomega2star, dGammadomegastar, d2Gammadomega2star, dGdsigmastar,
+d2Gdomegadsigmastar, dGammadsigmastar, d2Gammadomegadsigmastar, muestar, nkstar, Rhostar, wekstar, vkstar,
+nstar, vstar, GammamuG, GammamuGprime, zeta_bw, zeta_zw, zeta_bw_zw, zeta_bsigw, zeta_zsigw, zeta_spsigw,
+zeta_bmue, zeta_zmue, zeta_spmue, Rkstar, zeta_Gw, zeta_Gsigw, zeta_nRk, zeta_nR, zeta_nqk, zeta_nn,
+zeta_nmue, zeta_nsigw) when using steady. If these parameters are not initialized in a steadystate file or a
+steady_state_model-block, Dynare may not be able to solve the model...] 
+
+STEADY-STATE RESULTS:
+
+y_t              		 0
+c_t              		 0
+i_t              		 0
+k_t              		 0
+kbar_t           		 0
+L_t              		 0
+mc_t             		 0
+pi_t             		 0
+R_t              		 0
+rk_t             		 0
+u_t              		 0
+w_t              		 0
+muw_t            		 0
+qk_t             		 0
+Rktil_t          		 0
+n_t              		 0
+z_t              		 0
+ztil_t           		 0
+b_t              		 0
+g_t              		 0
+laf_t            		 0
+law_t            		 0
+sigw_t           		 0
+mu_t             		 0
+rm_t             		 0
+gdp_rgd_obs      		 0.675032
+hours_dngs15_obs 		 0.467095
+wage_rgd_obs     		 0.675032
+gdpdef_obs       		 0.636515
+ffr_obs          		 1.24246
+c_rgd_obs        		 0.675032
+ifi_rgd_obs      		 0.675032
+baag10_obs       		 0.449254
+y_ft             		 0
+c_ft             		 0
+i_ft             		 0
+k_ft             		 0
+kbar_ft          		 0
+L_ft             		 0
+r_ft             		 0
+rk_ft            		 0
+u_ft             		 0
+w_ft             		 0
+qk_ft            		 0
+outputgap_t      		 0
+r_ft_obs         		 2.42378
+r_ann_t          		 2.42378
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+       8.974e-18       -8.974e-18                0
+       2.728e-17       -2.728e-17                0
+       3.683e-17       -3.683e-17                0
+       1.093e-16       -1.093e-16                0
+       1.576e-16        1.576e-16                0
+          0.2185           0.2185                0
+          0.2654           0.2654                0
+          0.3293           0.3293                0
+          0.3298           0.3298                0
+          0.3639           0.3639                0
+          0.6151           0.6151                0
+          0.7042           0.7042                0
+          0.8408           0.8408                0
+          0.9034           0.9002          0.07578
+          0.9034           0.9002         -0.07578
+          0.9077           0.9063          0.04968
+          0.9077           0.9063         -0.04968
+          0.9279           0.9279                0
+          0.9326           0.9326                0
+          0.9583           0.9583                0
+          0.9729           0.9729                0
+          0.9738           0.9738                0
+          0.9788           0.9788                0
+           1.053            1.053                0
+           1.108            1.106          0.07199
+           1.108            1.106         -0.07199
+           1.135            1.125           0.1509
+           1.135            1.125          -0.1509
+           1.253            1.225           0.2632
+           1.253            1.225          -0.2632
+       8.717e+16       -8.717e+16                0
+       2.359e+18       -2.359e+18                0
+       3.913e+18        3.913e+18                0
+       9.308e+18        9.308e+18                0
+             Inf             -Inf                0
+
+
+There are 12 eigenvalue(s) larger than 1 in modulus 
+for 12 forward-looking variable(s)
+
+The rank condition is verified.
+
+Initial value of the log posterior (or likelihood): -376629.57
+
+==========================================================
+   Change in the posterior covariance matrix = 24.5197.
+   Change in the posterior mean = 4.6748.
+   Mode improvement = 376007.1464
+   New value of jscale = 0.0027469
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.29955.
+   Change in the posterior mean = 6.6524.
+   Mode improvement = 249.6715
+   New value of jscale = 0.06242
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.84863.
+   Change in the posterior mean = 2.1474.
+   Mode improvement = 234.2432
+   New value of jscale = 0.19794
+==========================================================
+
+Optimal value of the scale parameter = 0.19794
+
+
+Final value of minus the log posterior (or likelihood):637.851989 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+         prior mean     mode    s.d. prior pstdev
+
+psi1         1.500   1.1993  0.0149 norm 0.2500 
+rho_r        0.750   0.8845  0.0140 beta 0.1000 
+psi2         0.120   0.2340  0.0048 norm 0.0500 
+psi3         0.120   0.1332  0.0027 norm 0.0500 
+zeta_p       0.500   0.6467  0.0107 beta 0.1000 
+zeta_w       0.500   0.7342  0.0123 beta 0.1000 
+iota_w       0.500   0.6081  0.0592 beta 0.1500 
+iota_p       0.500   0.2999  0.0106 beta 0.1500 
+zeta_spb     0.050   0.0524  0.0007 beta 0.0050 
+sprd_aux     2.000   2.0630  0.0292 gamm 0.1000 
+alp          0.300   0.2213  0.0058 norm 0.0500 
+Bigphi       1.250   1.1718  0.0247 norm 0.1200 
+h            0.700   0.5282  0.0121 beta 0.1000 
+nu_l         2.000   3.3714  0.1035 norm 0.7500 
+rstar_aux    0.250   0.0589  0.0088 gamm 0.1000 
+pistar_aux   0.750   0.1139  0.0132 gamm 0.4000 
+zstar_aux    0.400   0.5648  0.0089 norm 0.1000 
+s2           4.000   6.2228  0.3102 norm 1.5000 
+sigmac       1.500   1.1417  0.0514 norm 0.3700 
+ppsi         0.500   0.7766  0.0331 beta 0.1500 
+Lmean      -45.000 -50.1695  1.0146 norm 5.0000 
+rho_z        0.500   0.9726  0.0409 beta 0.2000 
+rho_b        0.500   0.6850  0.0072 beta 0.2000 
+rho_g        0.500   0.6091  0.0014 beta 0.2000 
+rho_mu       0.500   0.9902  0.0004 beta 0.2000 
+rho_rm       0.500   0.8142  0.0419 beta 0.2000 
+rho_laf      0.500   0.9657  0.0119 beta 0.2000 
+rho_law      0.500   0.3297  0.0336 beta 0.2000 
+eta_laf      0.500   0.5089  0.0508 beta 0.2000 
+eta_law      0.500   0.3785  0.0107 beta 0.2000 
+eta_gz       0.500   0.1571  0.0391 beta 0.2000 
+rho_sigw     0.750   0.9993  0.0381 beta 0.1500 
+
+standard deviation of shocks
+         prior mean     mode    s.d. prior pstdev
+
+z_sh         0.100   0.4941  0.2938 invg 2.0000 
+g_sh         0.100   3.1186  0.1552 invg 2.0000 
+b_sh         0.100   0.0924  0.0047 invg 2.0000 
+mu_sh        0.100   0.7023  0.1684 invg 2.0000 
+laf_sh       0.100   0.1541  0.0112 invg 2.0000 
+law_sh       0.100   0.6725  0.0920 invg 2.0000 
+sigw_sh      0.050   0.1394  0.0480 invg 4.0000 
+rm_sh        0.100   0.2735  0.0204 invg 2.0000 
+
+
+Log data density [Laplace approximation] is -835.151289.
+
+mh_jscale has been set equal to 0.14071
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in DNGS15/metropolis\DNGS15_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 4 per block.
+Estimation::mcmc: Total number of generated files: 4.
+Estimation::mcmc: Total number of iterations: 1000000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 29.1516%
+Estimation::mcmc: Total number of MH draws per chain: 1000000.
+Estimation::mcmc: Total number of generated MH files: 4.
+Estimation::mcmc: I'll use mh-files 2 to 4.
+Estimation::mcmc: In MH-file number 2 I'll start at line 2381.
+Estimation::mcmc: Finally I keep 700000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter        Block 1
+SE_z_sh          294.977
+SE_g_sh          699.337
+SE_b_sh          730.249
+SE_mu_sh         660.248
+SE_laf_sh        708.599
+SE_law_sh        679.600
+SE_sigw_sh       624.912
+SE_rm_sh         686.127
+psi1             747.690
+rho_r            744.474
+psi2             744.083
+psi3             724.034
+zeta_p           746.448
+zeta_w           699.827
+iota_w           741.881
+iota_p           745.876
+zeta_spb         714.097
+sprd_aux         735.471
+alp              743.175
+Bigphi           744.687
+h                741.948
+nu_l             745.089
+rstar_aux        711.248
+pistar_aux       740.454
+zstar_aux        747.425
+s2               742.862
+sigmac           737.270
+ppsi             746.809
+Lmean            726.921
+rho_z            373.570
+rho_b            747.143
+rho_g            749.165
+rho_mu           748.847
+rho_rm           742.871
+rho_laf          621.425
+rho_law          743.546
+eta_laf          734.659
+eta_law          738.253
+eta_gz           746.462
+rho_sigw         440.927
+
+
+Geweke (1992) Convergence Tests, based on means of draws 300000 to 440000 vs 650000 to 1000000.
+p-values are for Chi2-test for equality of means.
+Parameter          Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_z_sh                 0.527            0.044            0.000            0.000            0.000            0.000
+SE_g_sh                 2.703            0.300            0.000            0.000            0.000            0.001
+SE_b_sh                 0.066            0.023            0.000            0.000            0.000            0.000
+SE_mu_sh                0.472            0.136            0.000            0.000            0.000            0.000
+SE_laf_sh               0.206            0.037            0.000            0.030            0.089            0.152
+SE_law_sh               0.759            0.095            0.000            0.001            0.010            0.038
+SE_sigw_sh              0.102            0.028            0.000            0.000            0.000            0.000
+SE_rm_sh                0.272            0.033            0.000            0.000            0.000            0.000
+psi1                    1.167            0.098            0.000            0.000            0.000            0.000
+rho_r                   0.914            0.031            0.000            0.000            0.000            0.000
+psi2                    0.220            0.021            0.000            0.000            0.000            0.000
+psi3                    0.148            0.013            0.000            0.011            0.048            0.085
+zeta_p                  0.652            0.055            0.000            0.000            0.000            0.000
+zeta_w                  0.723            0.028            0.000            0.000            0.000            0.000
+iota_w                  0.749            0.120            0.000            0.000            0.000            0.000
+iota_p                  0.370            0.075            0.000            0.000            0.000            0.000
+zeta_spb                0.054            0.001            0.000            0.148            0.250            0.325
+sprd_aux                2.008            0.038            0.000            0.768            0.828            0.864
+alp                     0.188            0.022            0.000            0.000            0.000            0.000
+Bigphi                  1.073            0.057            0.000            0.000            0.000            0.000
+h                       0.519            0.021            0.000            0.000            0.001            0.010
+nu_l                    4.006            0.543            0.000            0.000            0.000            0.000
+rstar_aux               0.048            0.015            0.000            0.000            0.000            0.000
+pistar_aux              0.153            0.078            0.000            0.000            0.000            0.000
+zstar_aux               0.550            0.038            0.000            0.000            0.000            0.000
+s2                      5.617            0.832            0.000            0.000            0.000            0.000
+sigmac                  0.925            0.176            0.000            0.000            0.000            0.000
+ppsi                    0.693            0.107            0.000            0.000            0.000            0.000
+Lmean                 -54.938            2.613            0.000            0.000            0.000            0.000
+rho_z                   0.984            0.010            0.000            0.173            0.258            0.337
+rho_b                   0.881            0.124            0.000            0.000            0.000            0.000
+rho_g                   0.685            0.043            0.000            0.000            0.000            0.000
+rho_mu                  0.971            0.016            0.000            0.000            0.000            0.000
+rho_rm                  0.693            0.102            0.000            0.000            0.000            0.000
+rho_laf                 0.978            0.010            0.000            0.000            0.000            0.000
+rho_law                 0.305            0.090            0.000            0.000            0.000            0.000
+eta_laf                 0.536            0.054            0.000            0.139            0.271            0.384
+eta_law                 0.402            0.038            0.000            0.887            0.917            0.935
+eta_gz                  0.324            0.146            0.000            0.000            0.000            0.000
+rho_sigw                0.993            0.007            0.000            0.000            0.000            0.000
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -716.912182.
+
+parameters
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+psi1              1.500       1.1534      1.0044      1.3464    norm       0.2500
+rho_r             0.750       0.9229      0.8714      0.9704    beta       0.1000
+psi2              0.120       0.2163      0.1782      0.2496    norm       0.0500
+psi3              0.120       0.1542      0.1420      0.1667    norm       0.0500
+zeta_p            0.500       0.6576      0.5740      0.7587    beta       0.1000
+zeta_w            0.500       0.7159      0.6692      0.7574    beta       0.1000
+iota_w            0.500       0.8129      0.6790      0.9174    beta       0.1500
+iota_p            0.500       0.3847      0.2756      0.5254    beta       0.1500
+zeta_spb          0.050       0.0540      0.0521      0.0558    beta       0.0050
+sprd_aux          2.000       1.9910      1.9509      2.0394    gamm       0.1000
+alp               0.300       0.1780      0.1478      0.2052    norm       0.0500
+Bigphi            1.250       1.0432      0.9780      1.1028    norm       0.1200
+h                 0.700       0.5236      0.4910      0.5583    beta       0.1000
+nu_l              2.000       4.0442      3.1150      4.8832    norm       0.7500
+rstar_aux         0.250       0.0481      0.0224      0.0723    gamm       0.1000
+pistar_aux        0.750       0.1655      0.0333      0.2942    gamm       0.4000
+zstar_aux         0.400       0.5491      0.4701      0.6063    norm       0.1000
+s2                4.000       5.2729      4.0866      6.5460    norm       1.5000
+sigmac            1.500       0.8286      0.6487      0.9650    norm       0.3700
+ppsi              0.500       0.6456      0.5383      0.8166    beta       0.1500
+Lmean           -45.000     -56.2672    -58.4005    -53.3658    norm       5.0000
+rho_z             0.500       0.9873      0.9765      0.9990    beta       0.2000
+rho_b             0.500       0.9531      0.8521      0.9996    beta       0.2000
+rho_g             0.500       0.7073      0.6655      0.7509    beta       0.2000
+rho_mu            0.500       0.9640      0.9441      0.9821    beta       0.2000
+rho_rm            0.500       0.6512      0.5077      0.7925    beta       0.2000
+rho_laf           0.500       0.9823      0.9694      0.9959    beta       0.2000
+rho_law           0.500       0.3084      0.1721      0.4689    beta       0.2000
+eta_laf           0.500       0.5347      0.4384      0.6199    beta       0.2000
+eta_law           0.500       0.4002      0.3381      0.4738    beta       0.2000
+eta_gz            0.500       0.3782      0.2083      0.5812    beta       0.2000
+rho_sigw          0.750       0.9911      0.9812      0.9998    beta       0.1500
+
+standard deviation of shocks
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+z_sh              0.100       0.5376      0.4686      0.6067    invg       2.0000
+g_sh              0.100       2.6015      2.1964      3.0110    invg       2.0000
+b_sh              0.100       0.0534      0.0351      0.0809    invg       2.0000
+mu_sh             0.100       0.3965      0.2961      0.4978    invg       2.0000
+laf_sh            0.100       0.2214      0.1680      0.2728    invg       2.0000
+law_sh            0.100       0.7679      0.6083      0.9083    invg       2.0000
+sigw_sh           0.050       0.0875      0.0645      0.1149    invg       4.0000
+rm_sh             0.100       0.2760      0.2160      0.3316    invg       2.0000
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 8h45m54s
+Note: warning(s) encountered in MATLAB/Octave code

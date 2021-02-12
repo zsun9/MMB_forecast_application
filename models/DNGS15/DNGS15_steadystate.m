@@ -1,7 +1,7 @@
 % computes the steady state and additional parameters
 
-function [ys,check] = DNGS15_steadystate(ys,exe)
-global M_
+function   [ys,params,check] = DNGS15_steadystate(ys,exo,M_,options_) %[ys,check] = DNGS15_steadystate(ys,exe)
+%global M_
 
 %% DO NOT CHANGE THIS PART.
 %%
@@ -9,7 +9,9 @@ global M_
 %%
 NumberOfParameters = M_.param_nbr;                            % Number of deep parameters.
 for i = 1:NumberOfParameters                                  % Loop...
-  paramname = deblank(M_.param_names(i,:));                   %    Get the name of parameter i. 
+   paramname = M_.param_names{i};
+
+  %  paramname = deblank(M_.param_names(i,:));                   %    Get the name of parameter i. 
   eval([ paramname ' = M_.params(' int2str(i) ');']);         %    Get the value of parameter i.
 end                                                           % End of the loop.  
 check = 0;
@@ -199,9 +201,14 @@ baag10_obs         = 100*log(sprd);
 %% DO NOT CHANGE THIS PART.
 %%
 %% Update parameters set in the file
+params=NaN(NumberOfParameters,1);
 for iter = 1:length(M_.params) %update parameters set in the file
- eval([ 'M_.params(' num2str(iter) ') = ' M_.param_names(iter,:) ';' ])
+  eval([ 'params(' num2str(iter) ') = ' M_.param_names{iter} ';' ])
 end
+
+% for iter = 1:length(M_.params) %update parameters set in the file
+%  eval([ 'M_.params(' num2str(iter) ') = ' M_.param_names(iter,:) ';' ])
+% end
 
 %% Here we define the steady state values of the endogenous variables of
 %% the model.
@@ -211,7 +218,8 @@ ys = zeros(NumberOfEndogenousVariables,1);                    % Initialization o
 
 % We don't need this as all steady state values are zero.
 for i = 1:NumberOfEndogenousVariables                         % Loop...
-  varname = deblank(M_.endo_names(i,:));                      %    Get the name of endogenous variable i.                     
+  %varname = deblank(M_.endo_names(i,:));                      %    Get the name of endogenous variable i.                     
+  varname = M_.endo_names{i};
   if ~exist(varname)
       eval(['ys(' int2str(i) ') = 0;']);                      % to deal with auxiliary variables that are defined by dynare
   else
