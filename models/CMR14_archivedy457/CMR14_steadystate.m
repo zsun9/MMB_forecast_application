@@ -16,18 +16,15 @@
 % 
 % You should have received a copy of the GNU General Public License
 % along with this program.  If not, see http://www.gnu.org/licenses/.
-%function [ys,check]=CMR14_steadystate(ys,exe)
-function [ys,params,check] = CMR14_steadystate(ys,exo,M_,options_)
+function [ys,check]=CMR14_steadystate(ys,exe)
 % compute s.s.
-%global M_ options_
+global M_ options_
 check = 0;
 
 % Here we load the values of the deep parameters in a loop.
 Np = M_.param_nbr;                                            
 for i = 1:Np
-    paramname = M_.param_names{i};
-
-   % paramname = deblank(M_.param_names(i,:));
+    paramname = deblank(M_.param_names(i,:));
     eval([ paramname ' = M_.params(' int2str(i) ');']);
 end
 
@@ -136,8 +133,7 @@ ys = zeros(Ne,1);
 endoleadcount = 2;
 nonauxcount = 0;
 for indexvar = 1:Ne
-    varname=M_.endo_names{indexvar};
-   % varname = deblank(M_.endo_names(indexvar,:));
+    varname = deblank(M_.endo_names(indexvar,:));
         eval(['ys(' int2str(indexvar) ') = ' varname ';']);
 end
 
@@ -146,13 +142,6 @@ ys2 = add_auxiliary_variables_to_steadystate(ys(1:M_.orig_endo_nbr), ...
                                              M_.aux_vars, M_.fname, ...
                                              zeros(M_.exo_nbr,1), [], ...
                                              M_.params, byte_code);
-% dynare 4.6 adjustment                                         
-params=NaN(Np,1);
-for iter = 1:length(M_.params) %update parameters set in the file
-  eval([ 'params(' num2str(iter) ') = ' M_.param_names{iter} ';' ])
-end
-% end adjustment
-
 ys = ys2;
 
 
