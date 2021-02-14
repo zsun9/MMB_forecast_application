@@ -3,11 +3,11 @@ objective_model = "IN10";
 target_copy_model = "DNGS15";
 
 
-pthis.vintage = ["20010214","20010512","20010815","20011114","20080807","20081110","20090210","20090512","20200211","20200512","20200812"];
+pthis.vintage = ["20201110"];%,"20010512","20010815","20011114","20080807","20081110","20090210","20090512","20200211","20200512","20200812"];
 pthis.scenario = ["s1","s2","s3","s4"];
-pthis.suffix_of_model = ""; % suffix that ALREADY EXIST!!!
-pthis.suffix_of_target_copy = "";
-pthis.suffix_that_wish_to_add = "_gdp_adjusted";
+pthis.suffix_of_model = "_beforeadjt"; % suffix that ALREADY EXIST!!!
+pthis.suffix_of_target_copy = "_autotune_test";
+pthis.suffix_that_wish_to_add = "_autotune_test";
 
 pthis.path.root = convertCharsToStrings(pwd);
 pthis.path.estimations = pthis.path.root + "\\estimations";
