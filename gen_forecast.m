@@ -1,6 +1,6 @@
 % The file is used for estimating models and generating forecasts
 % Two structs: p - high-level parameters, t - temporary parameters in a loop
-% Last updated: Zexi Sun, 2020-09-11
+% Last updated: Zexi Sun, 2021-03-05
 
 %% settings
 
@@ -9,37 +9,31 @@ try
     cd(p.path.root)
 end
 
-if 0  % add path of dynare version
-   addpath C:\dynare\4.6.2\matlab 
-   rmpath('C:\dynare\4.6.2\matlab')
-end
-
 % housekeeping
 close all; fclose all; clear; clc;
 %-------------------------------------
 % user-specified parameters
 % Please use double quotes here!
 p.targetdynare = "4.6.2";
-p.vintages = ["2009-05-12"]; %
-p.scenarios = ["s4"];%, "s2", "s3", "s4"];
-p.models = ["GSW12"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
-p.executor = "KaiLong";
+p.vintages = ["2021-02-09"]; %
+p.scenarios = ["s1"];%, "s2", "s3", "s4"];
+p.models = ["DS04"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.executor = "Zexi";
 p.suffix = "_autotune_test";
-
-p.ExcelColumnUntil = "BE";
+p.ExcelColumnUntil = "AY";
 
 % ------------------------------------
 % hyper-parameters
-p.chainLen = 1000000;%500000;
+p.chainLen = 10000;%500000;
 p.chainLenBVAR = 500000;
-p.subDraws = 5000;
+p.subDraws = 1000;
 p.forecastHorizon = 40;
 p.chainNum = 1;
 p.burnIn = 0.3;
 p.scalingParam =  0.3;
 p.presample = 4;
 p.nobs = 100;
-p.mode_compute_order =  [6,6]; %[4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
+p.mode_compute_order =  [6]; %[4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
 
 % locate main folders (stored as char type)
 p.path.root = convertCharsToStrings(pwd);
@@ -161,7 +155,7 @@ for model = p.models
                     p.optionString.extra = "qz_zero_threshold = 1e-32, ";
                 end
                 
-                t.script.estimation = "\nestimation(nodisplay, smoother, order=1, prefilter=0, " + ...
+                t.script.estimation = "\nestimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, " + ...
                     p.optionString.extra + ...
                     sprintf("datafile=%s, ", t.dataFile) + ...
                     sprintf("xls_sheet=%s, ", scenario) + ...
@@ -420,8 +414,10 @@ for model = p.models
             % get GDP forecasts
             if scenario == "s1" % in scenario 1, first GDP forecast is nowcast
                 t.output.forecast.gdp = [data(end, 1), mean(res.mcmc.Dforecast(:,1,:),3)']*100;
+                t.output.forecast.inflation = [data(end, 2), mean(res.mcmc.Dforecast(:,2,:),3)']*100;
             else % in other scenarios, first GDP forecast is one step ahead forecast, while nowcast from smoothed variables
                 t.output.forecast.gdp = [data(end-1, 1), mean(res.mcmc.Dforecast(:,1,:),3)']*100;
+                t.output.forecast.inflation = [data(end-1, 2), mean(res.mcmc.Dforecast(:,2,:),3)']*100;
             end
             
             tEnd = toc(tStart);

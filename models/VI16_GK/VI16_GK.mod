@@ -70,7 +70,7 @@ picbar     = 0.8;
 ctrend      = 0.43;
  
 % now I insert the log-linearised equilibrium conditions
-model (linear);
+model(linear);
 
 %%%%%%transformed parameters%%%%%
 #GAMMAT     = 1 + ctrend/100;

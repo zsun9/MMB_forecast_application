@@ -67,10 +67,10 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 
     # load data information
     os.chdir(pathData)
-    infoObs = pd.read_excel('observed_variable_description.xls')
+    infoObs = pd.read_excel('observed_variable_description.xlsx')
     infoRaw = pd.read_csv('raw_variable_description.csv', encoding='utf-8')
-    infoFillNowcast = pd.read_excel('fill_nowcast.xls')
-    infoFillHistory = pd.read_excel('fill_history.xls')
+    infoFillNowcast = pd.read_excel('fill_nowcast.xlsx')
+    infoFillHistory = pd.read_excel('fill_history.xlsx')
     infoSpf = pd.read_csv('spf_dates.csv', encoding='utf-8', index_col=0)
 
     infoSpf['deadlines'] = pd.to_datetime(infoSpf['deadlines'])
@@ -295,7 +295,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                             if np.sum(infoSpf['deadlines'] == vintageDate) == 1 and obsEnd.to_period('Q') == vintageDate.to_period('Q'):
                                 
                                 variableNowcast = infoFillNowcast[infoFillNowcast['alfred']==variable]['fillVar'].values[0]
-                                dataSpf = pd.read_excel(pathSpf / 'meanLevel.xls', sheet_name=variableNowcast)
+                                dataSpf = pd.read_excel(pathSpf / 'meanLevel.xls', sheet_name=variableNowcast, engine='xlrd')
 
                                 row = dataSpf[dataSpf.apply(lambda x: x['YEAR'] == vintageDate.year and x['QUARTER'] == vintageDate.quarter, axis=1)]
                                 if np.sum(np.sum(~np.isnan(row))) == 0:
@@ -688,7 +688,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
 if __name__ == '__main__':
 
     main(
-        vintageDate = '2011-04-01', quarterStart = '1989Q1', quarterEnd = '2008Q2', raw = [],
-        observed = ['hours_A16_obs']
+        vintageDate = '2020-11-10', quarterStart = '1980Q1', quarterEnd = '2020Q4', raw = [],
+        observed = ['bbb1yffr_obs']
 
         )

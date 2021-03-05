@@ -127,7 +127,7 @@ DO_ESTIMATION  = 1 ;
 
 
 
-model ;
+model;
 
 
 # TRENDK = TREND_AC + 1/(1-MUC)*TREND_AK ;
@@ -384,7 +384,7 @@ a_s = RHO_AS * a_s(-1) + eps_s ;
 a_z = RHO_AZ * a_z(-1) + eps_z ;
 
 
-end ;
+end;
 
 
 

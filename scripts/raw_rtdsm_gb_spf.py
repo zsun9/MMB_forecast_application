@@ -1,4 +1,4 @@
-def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_variables=[]):
+def update_raw(rtdsm=False, spf=False, greenbook=False, specific_variables=[]):
 
     import requests, time, zipfile, io, pathlib
     timeout = 10
@@ -8,14 +8,13 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
     pathGreenbook = pathlib.Path('../data/raw/greenbook')
     assert pathRtdsm.exists() and pathSpf.exists() and pathGreenbook.exists(), 'Some paths not found.'
 
-    # update ALFRED data
-
     # update RTDSM data
     if rtdsm == True or len(specific_variables) > 0:
 
         print('Downloading RTDSM data ......')
 
-        rtdsm_url = 'https://www.philadelphiafed.org/-/media/research-and-data/real-time-center/real-time-data/data-files/files/xlsx/'
+        rtdsm_url = 'https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/real-time-data/data-files/xlsx/'
+        # rtdsm_url = 'https://www.philadelphiafed.org/-/media/research-and-data/real-time-center/real-time-data/data-files/files/xlsx/'
         rtdsm_names = [
 
             # quarterly observation, monthly vintage
@@ -80,7 +79,9 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
 
         print('Downloading SPF data ......')
 
-        spf_url = 'https://www.philadelphiafed.org/-/media/research-and-data/real-time-center/survey-of-professional-forecasters/data-files/files/'
+        spf_url = 'https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/survey-of-professional-forecasters/data-files/files/'
+        spf_url_for_meanLevel = 'https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/survey-of-professional-forecasters/historical-data/meanlevel.xlsx'
+        # spf_url = 'https://www.philadelphiafed.org/-/media/research-and-data/real-time-center/survey-of-professional-forecasters/data-files/files/'
         spf_names = [
 
             # all quarterly osbervation, individual forecasts
@@ -113,7 +114,10 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
                 print(name + ' ...', end=' ')
 
                 filename = name + '.xlsx'
-                url = spf_url + filename
+                if name == 'meanLevel':
+                    url = spf_url_for_meanLevel
+                else:
+                    url = spf_url + filename
 
                 time.sleep(10)
                 page = requests.get(url, timeout=timeout)
@@ -138,7 +142,7 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
 
         print('Downloading Greenbook data ......')
 
-        url = 'https://www.philadelphiafed.org/-/media/research-and-data/real-time-center/greenbook-data/gbweb/gbweb_all_column_format.zip?la=en'
+        url = 'https://www.philadelphiafed.org/-/media/frbp/assets/surveys-and-data/greenbook-data/gbweb/gbweb_all_column_format.zip'
         time.sleep(10)
         page = requests.get(url, timeout=timeout)
 
@@ -159,4 +163,4 @@ def update_raw(alfred=False, rtdsm=False, spf=False, greenbook=False, specific_v
 
 
 if __name__ == '__main__':
-    update_raw(alfred=True, rtdsm=True, spf=True, greenbook=True)
+    update_raw(rtdsm=True, spf=True, greenbook=True)
