@@ -1,6 +1,6 @@
 % computes the steady state and additional parameters
 
-function [ys,check] = DNGS15_steadystate(ys,exe)
+function [ys,check] = US_NK_FA_steadystate(ys,exe)
 global M_
 
 %% DO NOT CHANGE THIS PART.

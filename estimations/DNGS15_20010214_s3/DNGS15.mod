@@ -597,4 +597,4 @@ varobs gdp_rgd_obs hours_dngs15_obs wage_rgd_obs gdpdef_obs ffr_obs c_rgd_obs if
 
 % start in 1959
 %estimation(datafile=DataDSGE,xls_sheet=Data,xls_range=R2:Z229,mode_compute=4,first_obs=2,nobs=226,mh_replic=25000,mh_nblocks=1,mh_jscale=0.3,mh_drop=0.1,smoother);
-estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20010214, xls_sheet=s3, xls_range=B1:X101, presample=4, mh_replic=1000000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=4) gdp_rgd_obs;
+estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20010214, xls_sheet=s3, xls_range=B1:X101, presample=4, mh_replic=1000000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=5) gdp_rgd_obs;

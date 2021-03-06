@@ -1,0 +1,168 @@
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+WARNING: QPM08.mod:138.1-94: ''unit_root_vars'' is now obsolete; use the ''diffuse_filter'' option of ''estimation'' instead
+Substitution of endo leads >= 2: added 6 auxiliary variables and equations.
+Substitution of endo lags >= 2: added 16 auxiliary variables and equations.
+Found 49 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+ - order 2
+Processing outputs ...
+done
+Preprocessing completed.
+
+STEADY-STATE RESULTS:
+
+RR_US             		 1.8456
+RR_US_BAR         		 1.8456
+unr_obs           		 6.525
+unr_obs_GAP       		 0
+unr_obs_BAR       		 6.525
+PIE_US            		 2.5
+PIE_US4           		 2.5
+Y_US              		 0
+gdpl_rgd_obs      		 895.093
+gdpl_rgd_obs_BAR  		 895.093
+ffr_obs           		 1.0864
+G_US              		 2.7599
+cpil_obs          		 498.924
+E4_PIE_US4        		 2.5
+E1_Y_US           		 0
+E1_PIE_US         		 2.5
+UNR_G_US          		 0
+GROWTH_US         		 2.7599
+GROWTH4_US        		 2.7599
+GROWTH4_US_BAR    		 2.7599
+blt_obs           		 -8.87
+blt_obs_BAR       		 -8.87
+E                 		 0
+E2                		 0
+GROWTH_US_BAR     		 2.7599
+RR_US_GAP         		 0
+blt_obs_GAP       		 0
+
+EIGENVALUES:
+         Modulus             Real        Imaginary
+
+               0               -0                0
+               0               -0                0
+               0               -0                0
+               0                0                0
+               0               -0                0
+               0               -0                0
+               0               -0                0
+       1.235e-18        1.235e-18                0
+       1.942e-18        1.942e-18                0
+       2.211e-18        2.211e-18                0
+       5.884e-18       -5.884e-18                0
+       6.471e-18       -6.471e-18                0
+       6.883e-18        6.883e-18                0
+       1.077e-17        1.077e-17                0
+       1.239e-17        1.239e-17                0
+       3.545e-17       -3.545e-17                0
+       8.732e-17       -8.732e-17                0
+             0.1              0.1                0
+          0.4822          -0.4822                0
+          0.5118         -0.05828           0.5085
+          0.5118         -0.05828          -0.5085
+          0.6648           0.6648                0
+          0.6992           0.6992                0
+          0.7796           0.7796                0
+             0.9              0.9                0
+           0.951           0.9252           0.2203
+           0.951           0.9252          -0.2203
+               1                1                0
+               1                1                0
+               1                1                0
+               1                1                0
+           1.156            1.156                0
+           1.718          -0.2063            1.706
+           1.718          -0.2063           -1.706
+           1.824           -1.824                0
+           7.308            7.308                0
+       3.137e+04        1.568e+04        2.717e+04
+       3.137e+04        1.568e+04       -2.717e+04
+       3.137e+04       -3.137e+04                0
+             Inf              Inf                0
+
+
+There are 9 eigenvalue(s) larger than 1 in modulus 
+for 9 forward-looking variable(s)
+
+The rank condition is verified.
+
+
+Initial value of the log posterior (or likelihood): -186.6533
+
+MODE CHECK
+
+Fval obtained by the minimization routine (minus the posterior/likelihood)): 186.653260
+{Operation terminated by user during <a href="matlab:matlab.internal.language.introspective.errorDocCallback('univariate_kalman_filter_d', 'D:\dynare\matlab\kalman\likelihood\univariate_kalman_filter_d.m', 165)" style="font-weight:bold">univariate_kalman_filter_d</a> (<a href="matlab: opentoline('D:\dynare\matlab\kalman\likelihood\univariate_kalman_filter_d.m',165,0)">line 165</a>)
+
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dsge_likelihood', 'D:\dynare\matlab\dsge_likelihood.m', 423)" style="font-weight:bold">dsge_likelihood</a> (<a href="matlab: opentoline('D:\dynare\matlab\dsge_likelihood.m',423,0)">line 423</a>)
+        [dLIK,dlik,a,Pstar] = univariate_kalman_filter_d(DatasetInfo.missing.aindex,...
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('mode_check', 'D:\dynare\matlab\mode_check.m', 158)" style="font-weight:bold">mode_check</a> (<a href="matlab: opentoline('D:\dynare\matlab\mode_check.m',158,0)">line 158</a>)
+            [fval, info, exit_flag] =
+            feval(fun,xx,DynareDataset,DatasetInfo,DynareOptions,Model,EstimatedParameters,BayesInfo,BoundsInfo,DynareResults);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation_1', 'D:\dynare\matlab\dynare_estimation_1.m', 323)" style="font-weight:bold">dynare_estimation_1</a> (<a href="matlab: opentoline('D:\dynare\matlab\dynare_estimation_1.m',323,0)">line 323</a>)
+    mode_check(objective_function,xparam1,hh,dataset_,dataset_info,options_,M_,estim_params_,bayestopt_,bounds,oo_);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare_estimation', 'D:\dynare\matlab\dynare_estimation.m', 105)" style="font-weight:bold">dynare_estimation</a> (<a href="matlab: opentoline('D:\dynare\matlab\dynare_estimation.m',105,0)">line 105</a>)
+    dynare_estimation_1(var_list,dname);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('QPM08', 'D:\GitHub\MMB_forecast_application\estimations\QPM08_20081110_s3\QPM08.m', 566)" style="font-weight:bold">QPM08</a> (<a href="matlab: opentoline('D:\GitHub\MMB_forecast_application\estimations\QPM08_20081110_s3\QPM08.m',566,0)">line 566</a>)
+oo_recursive_=dynare_estimation(var_list_);
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('dynare', 'D:\dynare\matlab\dynare.m', 235)" style="font-weight:bold">dynare</a> (<a href="matlab: opentoline('D:\dynare\matlab\dynare.m',235,0)">line 235</a>)
+evalin('base',fname) ;
+
+In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gen_forecast', 'D:\GitHub\MMB_forecast_application\gen_forecast.m', 194)" style="font-weight:bold">gen_forecast</a> (<a href="matlab: opentoline('D:\GitHub\MMB_forecast_application\gen_forecast.m',194,0)">line 194</a>)
+                    dynare(convertStringsToChars(t.name.modfile));
+} 
+gen_forecast
+[Warning: Folder QPM08_20081110_s4 already exists!] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gen_forecast', 'D:\GitHub\MMB_forecast_application\gen_forecast.m', 88)" style="font-weight:bold">gen_forecast</a> (<a href="matlab: opentoline('D:\GitHub\MMB_forecast_application\gen_forecast.m',88,0)">line 88</a>)] 
+[Warning: Enter Y to delete existing files and continue.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gen_forecast', 'D:\GitHub\MMB_forecast_application\gen_forecast.m', 89)" style="font-weight:bold">gen_forecast</a> (<a href="matlab: opentoline('D:\GitHub\MMB_forecast_application\gen_forecast.m',89,0)">line 89</a>)] 
+[Warning: Enter C to keep existing files and continue.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gen_forecast', 'D:\GitHub\MMB_forecast_application\gen_forecast.m', 90)" style="font-weight:bold">gen_forecast</a> (<a href="matlab: opentoline('D:\GitHub\MMB_forecast_application\gen_forecast.m',90,0)">line 90</a>)] 
+[Warning: Enter N to keep existing files and skip this estimation.] 
+[> In <a href="matlab:matlab.internal.language.introspective.errorDocCallback('gen_forecast', 'D:\GitHub\MMB_forecast_application\gen_forecast.m', 91)" style="font-weight:bold">gen_forecast</a> (<a href="matlab: opentoline('D:\GitHub\MMB_forecast_application\gen_forecast.m',91,0)">line 91</a>)] 
+c
+Mode file exists, and the ML estimation will be skipped.
+
+Configuring Dynare ...
+[mex] Generalized QZ.
+[mex] Sylvester equation solution.
+[mex] Kronecker products.
+[mex] Sparse kronecker products.
+[mex] Local state space iteration (second order).
+[mex] Bytecode evaluation.
+[mex] k-order perturbation solver.
+[mex] k-order solution simulation.
+[mex] Quasi Monte-Carlo sequence (Sobol).
+[mex] Markov Switching SBVAR.
+
+Using 64-bit preprocessor
+Starting Dynare (version 4.5.7).
+Starting preprocessing of the model file ...
+WARNING: QPM08.mod:138.1-94: ''unit_root_vars'' is now obsolete; use the ''diffuse_filter'' option of ''estimation'' instead
+Substitution of endo leads >= 2: added 6 auxiliary variables and equations.
+Substitution of endo lags >= 2: added 16 auxiliary variables and equations.
+Found 49 equation(s).
+Evaluating expressions...done
+Computing static model derivatives:
+ - order 1
+Computing dynamic model derivatives:
+ - order 1
+ - order 2
+Processing outputs ...
+done
+Preprocessing completed.
+

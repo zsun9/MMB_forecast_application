@@ -406,4 +406,4 @@ write_latex_prior_table;
 
 //shock_decomposition y;
 
-estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20010214, xls_sheet=s1, xls_range=B1:J100, presample=4, mh_replic=1000000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=4) gdp_rgd_obs;
+estimation(nodisplay, smoother, order=1, prefilter=0, datafile=data_20010214, xls_sheet=s1, xls_range=B1:BE100, presample=4, mh_replic=1000000, mh_nblocks=1, mh_drop=0.3, mh_tune_jscale=0.3, sub_draws=5000, forecast=40, mode_compute=6) gdp_rgd_obs gdpdef_obs;
