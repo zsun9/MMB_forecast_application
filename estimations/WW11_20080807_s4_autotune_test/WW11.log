@@ -1,0 +1,179 @@
+Starting preprocessing of the model file ...
+Found 16 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 2).
+Processing outputs ...
+done
+Preprocessing completed.
+Initial value of the log posterior (or likelihood): -394.18
+
+==========================================================
+   Change in the posterior covariance matrix = 0.24002.
+   Change in the posterior mean = 2.3268.
+   Mode improvement = 394.6944
+   New value of jscale = 0.07395
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.16725.
+   Change in the posterior mean = 0.10501.
+   Mode improvement = 0.45807
+   New value of jscale = 0.39996
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.013777.
+   Change in the posterior mean = 0.092018.
+   Mode improvement = 1.6933
+   New value of jscale = 0.36436
+==========================================================
+
+Optimal value of the scale parameter = 0.36436
+
+
+Final value of minus the log posterior (or likelihood):-2.665852 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+         prior mean     mode    s.d. prior pstdev
+
+trend        0.500   0.6760  0.0704 norm 0.2500 
+piestarobs   1.000   0.6011  0.0926 norm 0.5000 
+rstarobs     0.125   0.3597  0.0910 gamm 0.0625 
+kappa        0.300   0.1936  0.0651 gamm 0.1500 
+sigma        2.000   4.1049  0.5835 gamm 0.5000 
+psi1         1.500   1.8174  0.2285 gamm 0.2500 
+psi2         0.125   0.0239  0.0505 gamm 0.1000 
+rhoR         0.500   0.8419  0.0211 beta 0.2000 
+rhog         0.800   0.8973  0.0874 beta 0.1000 
+rhoz         0.300   0.3729  0.0910 beta 0.1000 
+rhoxi        0.500   0.5269  0.1988 beta 0.2000 
+rhophi       0.500   0.8291  0.0429 beta 0.2000 
+
+standard deviation of shocks
+         prior mean     mode    s.d. prior pstdev
+
+eR           0.003   0.0015  0.0001 invg 0.0014 
+eg           0.006   0.0030  0.0005 invg 0.0032 
+ez           0.009   0.0042  0.0005 invg 0.0043 
+exi          0.005   0.0029  0.0012 invg 0.0040 
+ephi         0.005   0.0203  0.0073 invg 0.0040 
+
+
+Log data density [Laplace approximation] is -48.312972.
+
+mh_jscale has been set equal to 0.39559
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in WW11/metropolis\WW11_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 2 per block.
+Estimation::mcmc: Total number of generated files: 2.
+Estimation::mcmc: Total number of iterations: 1000000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 28.515%
+Estimation::mcmc: Total number of MH draws per chain: 1000000.
+Estimation::mcmc: Total number of generated MH files: 2.
+Estimation::mcmc: I'll use mh-files 1 to 2.
+Estimation::mcmc: In MH-file number 1 I'll start at line 300001.
+Estimation::mcmc: Finally I keep 700000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter        Block 1
+SE_eR            127.035
+SE_eg            112.622
+SE_ez            112.663
+SE_exi           171.405
+SE_ephi          518.100
+trend            102.822
+piestarobs       133.276
+rstarobs         107.892
+kappa            386.463
+sigma            114.174
+psi1             142.661
+psi2             207.047
+rhoR             167.770
+rhog             100.026
+rhoz             107.101
+rhoxi            105.369
+rhophi           268.158
+
+
+Geweke (1992) Convergence Tests, based on means of draws 300000 to 440000 vs 650000 to 1000000.
+p-values are for Chi2-test for equality of means.
+Parameter          Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_eR                   0.001            0.000            0.000            0.249            0.234            0.113
+SE_eg                   0.003            0.000            0.000            0.267            0.265            0.275
+SE_ez                   0.004            0.000            0.129            0.881            0.871            0.858
+SE_exi                  0.004            0.001            0.000            0.549            0.547            0.533
+SE_ephi                 0.024            0.010            0.000            0.313            0.387            0.396
+trend                   0.675            0.069            0.000            0.503            0.492            0.426
+piestarobs              0.599            0.093            0.000            0.546            0.566            0.542
+rstarobs                0.349            0.089            0.000            0.205            0.193            0.166
+kappa                   0.196            0.091            0.000            0.530            0.563            0.555
+sigma                   4.344            0.594            0.015            0.822            0.834            0.842
+psi1                    1.849            0.253            0.000            0.388            0.418            0.357
+psi2                    0.070            0.056            0.000            0.792            0.809            0.801
+rhoR                    0.848            0.022            0.000            0.788            0.804            0.796
+rhog                    0.858            0.078            0.000            0.546            0.484            0.389
+rhoz                    0.377            0.089            0.000            0.551            0.517            0.518
+rhoxi                   0.524            0.199            0.000            0.562            0.509            0.471
+rhophi                  0.824            0.048            0.000            0.406            0.477            0.492
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -49.021820.
+
+parameters
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+trend             0.500       0.6751      0.5602      0.7866    norm       0.2500
+piestarobs        1.000       0.6001      0.4549      0.7474    norm       0.5000
+rstarobs          0.125       0.3494      0.2007      0.4928    gamm       0.0625
+kappa             0.300       0.1957      0.0451      0.3259    gamm       0.1500
+sigma             2.000       4.3469      3.3788      5.3026    gamm       0.5000
+psi1              1.500       1.8457      1.4213      2.2525    gamm       0.2500
+psi2              0.125       0.0700      0.0007      0.1446    gamm       0.1000
+rhoR              0.500       0.8476      0.8120      0.8835    beta       0.2000
+rhog              0.800       0.8583      0.7459      0.9775    beta       0.1000
+rhoz              0.300       0.3774      0.2315      0.5255    beta       0.1000
+rhoxi             0.500       0.5247      0.2044      0.8551    beta       0.2000
+rhophi            0.500       0.8236      0.7490      0.9025    beta       0.2000
+
+standard deviation of shocks
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+eR                0.003       0.0015      0.0013      0.0017    invg       0.0014
+eg                0.006       0.0031      0.0023      0.0038    invg       0.0032
+ez                0.009       0.0042      0.0034      0.0050    invg       0.0043
+exi               0.005       0.0036      0.0018      0.0054    invg       0.0040
+ephi              0.005       0.0247      0.0125      0.0369    invg       0.0040
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 1h16m38s

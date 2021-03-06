@@ -218,4 +218,4 @@ stderr 1.8201+pietar_us_ss;
 end;
 
 // stoch_simul (order=1,irf = 20, ar=100) ffr_obs PIE_US Y_US gdpl_rgd_obs;
-estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20081110, xls_sheet=s4, xls_range=B1:X101, presample=4, mh_replic=1000000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=4) gdpl_rgd_obs;
+estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20081110, xls_sheet=s4, xls_range=B1:AN101, presample=4, mh_replic=1000000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=0, mode_file=QPM08_mode) gdpl_rgd_obs;

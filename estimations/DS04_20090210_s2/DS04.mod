@@ -99,4 +99,4 @@ end;
 varobs gdp_rgd_obs gdpdef_obs ffr_obs;
 
 //estimation(optim=('MaxIter',2000),mh_nblocks=2,mh_replic=20000,datafile=US_data_20084,xls_sheet=data,xls_range=AB3:AH300,first_obs=166,nobs=80,presample=4,lik_init=1,mode_compute=6,prefilter=0,filtered_vars,smoother,forecast=20);
-estimation(nodisplay, smoother, order=1, prefilter=0, datafile=data_20090210, xls_sheet=s2, xls_range=B1:BE101, presample=4, mh_replic=1000000, mh_nblocks=1, mh_drop=0.3, mh_tune_jscale=0.3, sub_draws=5000, forecast=40, mode_compute=6) gdp_rgd_obs gdpdef_obs;
+estimation(nodisplay, smoother, order=1, prefilter=0, mode_check, bayesian_irf, datafile=data_20090210, xls_sheet=s2, xls_range=B1:J101, presample=4, mh_replic=1000000, mh_nblocks=1, mh_jscale=0.3, mh_drop=0.3, sub_draws=5000, forecast=40, mode_compute=4) gdp_rgd_obs;

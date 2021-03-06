@@ -15,9 +15,9 @@ tic0 = tic;
 global M_ options_ oo_ estim_params_ bayestopt_ dataset_ dataset_info estimation_info ys0_ ex0_
 options_ = [];
 M_.fname = 'DS04';
-M_.dynare_version = '4.6.3';
-oo_.dynare_version = '4.6.3';
-options_.dynare_version = '4.6.3';
+M_.dynare_version = '4.6.1';
+oo_.dynare_version = '4.6.1';
+options_.dynare_version = '4.6.1';
 %
 % Some global variables initialization
 %
@@ -183,8 +183,6 @@ M_.nsfwrd   = 2;
 M_.nspred   = 7;
 M_.ndynamic   = 7;
 M_.dynamic_tmp_nbr = [2; 0; 0; 0; ];
-M_.model_local_variables_dynamic_tt_idxs = {
-};
 M_.equations_tags = {
   1 , 'name' , 'inflation' ;
   2 , 'name' , 'outputgap' ;
@@ -227,9 +225,7 @@ oo_.exo_steady_state = zeros(3, 1);
 M_.params = NaN(10, 1);
 M_.endo_trends = struct('deflator', cell(13, 1), 'log_deflator', cell(13, 1), 'growth_factor', cell(13, 1), 'log_growth_factor', cell(13, 1));
 M_.NNZDerivatives = [42; 0; -1; ];
-M_.static_tmp_nbr = [2; 0; 0; 0; ];
-M_.model_local_variables_static_tt_idxs = {
-};
+M_.static_tmp_nbr = [1; 0; 0; 0; ];
 M_.params(8) = 0.500;
 trend = M_.params(8);
 M_.params(9) = 1.000;
@@ -275,13 +271,14 @@ estim_params_.param_vals = [estim_params_.param_vals; 7, NaN, (-Inf), Inf, 1, 0.
 estim_params_.var_exo = [estim_params_.var_exo; 1, NaN, (-Inf), Inf, 4, 0.0025, 0.0014, NaN, NaN, NaN ];
 estim_params_.var_exo = [estim_params_.var_exo; 2, NaN, (-Inf), Inf, 4, 0.0063, 0.0032, NaN, NaN, NaN ];
 estim_params_.var_exo = [estim_params_.var_exo; 3, NaN, (-Inf), Inf, 4, 0.0088, 0.0043, NaN, NaN, NaN ];
+options_.bayesian_irf = true;
 options_.forecast = 40;
 options_.mh_drop = 0.3;
+options_.mh_jscale = 0.3;
 options_.mh_nblck = 1;
 options_.mh_replic = 1000000;
-options_.mh_tune_jscale.status = true;
-options_.mh_tune_jscale.target = 0.3;
-options_.mode_compute = 6;
+options_.mode_check.status = true;
+options_.mode_compute = 4;
 options_.nodisplay = true;
 options_.order = 1;
 options_.prefilter = 0;
@@ -289,9 +286,9 @@ options_.presample = 4;
 options_.smoother = true;
 options_.sub_draws = 5000;
 options_.datafile = 'data_20200512';
-options_.xls_range = 'B1:BE100';
+options_.xls_range = 'B1:J100';
 options_.xls_sheet = 's1';
-var_list_ = {'gdp_rgd_obs';'gdpdef_obs'};
+var_list_ = {'gdp_rgd_obs'};
 oo_recursive_=dynare_estimation(var_list_);
 save('DS04_results.mat', 'oo_', 'M_', 'options_');
 if exist('estim_params_', 'var') == 1

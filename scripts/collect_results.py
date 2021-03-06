@@ -45,7 +45,7 @@ for i, index in enumerate(actualGDP.index):
     results['actual'].append({'actual': {'gdp': series}, 'vintageQuarter': index})
 
 # collect SPF/GB/Fair forecasts
-df_sgf = pd.read_excel(paths['data'] / 'gb_spf_fair.xlsx')
+df_sgf = pd.read_excel(paths['data'] / 'gb_spf_fair.xls')
 for index, row in df_sgf.iterrows():
     inst = {
         'model': row['model'],
@@ -74,9 +74,13 @@ for index, row in df_sgf.iterrows():
 # calculate forecast errors
 for directory in paths['estimations'].glob('*'):
 
-    if 'autotune' in directory.stem:
+    if 'dy462' in directory.stem:
+        print(f'Not included: {directory.stem}')
+    if '20090811' in directory.stem or '20091110' in directory.stem or 'autotune' in directory.stem or 'VI16' in directory.stem:
         print(f'Not included: {directory.stem}')
     elif 'IN10' in directory.stem and 'adjusted' not in directory.stem:
+        print(f'Not included: {directory.stem}')
+    elif ('DNGS15' in directory.stem or 'FRBEDO08' in directory.stem or 'GSW12' in directory.stem or 'QPM08' in directory.stem) and ('s3' in directory.stem or 's4' in directory.stem) and ('cql' not in directory.stem):
         print(f'Not included: {directory.stem}')
     else:
         if directory.is_dir():
@@ -84,13 +88,21 @@ for directory in paths['estimations'].glob('*'):
             for file in directory.glob('*.json'):
                 foundJSON = True
                 inst = json.loads(file.read_text())
-                inst['model'] = inst['model'].replace('_cql', '')
-
+                if 'autotune' in directory.stem:
+                    inst['model'] = inst['model'] + '_new'
+                if 'cql' in directory.stem:
+                    # assert 'cql' in inst['model']
+                    inst['model'] = inst['model'].replace('_cql', '')
+                if 'nofa' in directory.stem:
+                    assert 'nofa' in inst['model']
+                if 'ew' in directory.stem:
+                    inst['model'] += '_ew'
+                if 'KR15' in directory.stem and 'dy424' not in directory.stem:
+                    inst['model'] += '_dy457'
                 if 'GLP' in inst['model']:
                     results['ts'].append(inst)
                 else:
                     results['dsge'].append(inst)
-
             if foundJSON == False:
                 print(f'No JSON: {directory.stem}')
             else:
