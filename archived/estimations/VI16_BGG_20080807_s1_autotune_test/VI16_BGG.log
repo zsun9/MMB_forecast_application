@@ -1,0 +1,231 @@
+Starting preprocessing of the model file ...
+Found 43 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 2).
+Processing outputs ...
+done
+Preprocessing completed.
+Initial value of the log posterior (or likelihood): -510.2145
+
+==========================================================
+   Change in the posterior covariance matrix = 4.
+   Change in the posterior mean = 0.24253.
+   Mode improvement = 66.1639
+   New value of jscale = 0.0052499
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.19341.
+   Change in the posterior mean = 0.59009.
+   Mode improvement = 19.0228
+   New value of jscale = 0.38987
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.56604.
+   Change in the posterior mean = 1.2109.
+   Mode improvement = 13.5846
+   New value of jscale = 0.26218
+==========================================================
+
+Optimal value of the scale parameter = 0.26218
+
+
+Final value of minus the log posterior (or likelihood):411.443226 
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+             prior mean     mode    s.d. prior pstdev
+
+RHO_A            0.500   0.9669  0.0198 beta 0.2000 
+RHO_EFP          0.500   0.9227  0.0225 beta 0.2000 
+RHO_G            0.500   0.9820  0.0145 beta 0.2000 
+RHO_X            0.500   0.9859  0.0143 beta 0.2000 
+RHO_MS           0.500   0.3530  0.0810 beta 0.2000 
+RHO_P            0.500   0.9951  0.0167 beta 0.2000 
+RHO_W            0.500   0.1743  0.0873 beta 0.2000 
+S_PRIMEP         4.000   5.6046  0.9317 norm 1.5000 
+H                0.700   0.6141  0.0434 beta 0.1000 
+SIGMA_W          0.750   0.8461  0.0217 beta 0.0500 
+SIGMAP           0.750   0.7811  0.0275 beta 0.0500 
+FCP              1.450   1.3931  0.0758 norm 0.1250 
+PPHI             0.330   2.0700  0.2709 gamm 0.2500 
+SIGMA_WI         0.500   0.2527  0.1020 beta 0.1500 
+SIGMA_PI         0.500   0.1152  0.0447 beta 0.1500 
+ZETA             0.250   0.8890  0.0394 beta 0.1500 
+IOTA_PI          1.700   1.6194  0.1640 norm 0.1500 
+RHO_I            0.750   0.8025  0.0277 beta 0.1000 
+IOTA_Y           0.125   0.0522  0.0138 gamm 0.0500 
+IOTA_DY          0.063   0.1652  0.0256 norm 0.0500 
+VARKAPPA         0.155   0.1206  0.0119 unif 0.0837 
+picbar           0.625   0.6355  0.0783 gamm 0.1000 
+ctrend           0.400   0.4704  0.0584 norm 0.0500 
+
+standard deviation of shocks
+             prior mean     mode    s.d. prior pstdev
+
+ea               0.100   0.3682  0.0320 invg 2.0000 
+e_kq             0.100   0.2341  0.0457 invg 2.0000 
+eg               0.100   2.1957  0.1596 invg 2.0000 
+eqs              0.100   0.5228  0.1763 invg 2.0000 
+em               0.100   0.1173  0.0100 invg 2.0000 
+epinf            0.100   0.0690  0.0107 invg 2.0000 
+ew               0.100   0.2647  0.0293 invg 2.0000 
+
+
+Log data density [Laplace approximation] is -487.754507.
+
+mh_jscale has been set equal to 0.30825
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in VI16_BGG/metropolis\VI16_BGG_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 3 per block.
+Estimation::mcmc: Total number of generated files: 3.
+Estimation::mcmc: Total number of iterations: 1000000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 26.9921%
+Estimation::mcmc: Total number of MH draws per chain: 1000000.
+Estimation::mcmc: Total number of generated MH files: 3.
+Estimation::mcmc: I'll use mh-files 1 to 3.
+Estimation::mcmc: In MH-file number 1 I'll start at line 300001.
+Estimation::mcmc: Finally I keep 700000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter       Block 1
+SE_ea           199.171
+SE_e_kq         244.787
+SE_eg           201.773
+SE_eqs          379.894
+SE_em           206.229
+SE_epinf        325.817
+SE_ew           198.600
+RHO_A           195.604
+RHO_EFP         251.101
+RHO_G           228.457
+RHO_X           439.128
+RHO_MS          190.785
+RHO_P            68.092
+RHO_W           162.356
+S_PRIMEP        361.644
+H               331.533
+SIGMA_W         297.332
+SIGMAP          305.419
+FCP             298.024
+PPHI            501.072
+SIGMA_WI        332.030
+SIGMA_PI        291.456
+ZETA            210.441
+IOTA_PI         180.211
+RHO_I           200.710
+IOTA_Y          217.494
+IOTA_DY         203.056
+VARKAPPA        325.853
+picbar          344.944
+ctrend          284.311
+
+
+Geweke (1992) Convergence Tests, based on means of draws 300000 to 440000 vs 650000 to 1000000.
+p-values are for Chi2-test for equality of means.
+Parameter         Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_ea                  0.381            0.033            0.062            0.916            0.912            0.890
+SE_e_kq                0.274            0.050            0.000            0.230            0.251            0.257
+SE_eg                  2.240            0.173            0.000            0.263            0.264            0.191
+SE_eqs                 0.684            0.199            0.000            0.439            0.458            0.414
+SE_em                  0.121            0.010            0.000            0.760            0.768            0.779
+SE_epinf               0.073            0.013            0.000            0.440            0.436            0.359
+SE_ew                  0.268            0.030            0.000            0.094            0.102            0.082
+RHO_A                  0.957            0.018            0.995            1.000            1.000            1.000
+RHO_EFP                0.907            0.027            0.000            0.402            0.402            0.436
+RHO_G                  0.975            0.014            0.000            0.464            0.490            0.447
+RHO_X                  0.975            0.018            0.000            0.372            0.411            0.383
+RHO_MS                 0.371            0.079            0.000            0.638            0.649            0.663
+RHO_P                  0.992            0.005            0.000            0.420            0.415            0.366
+RHO_W                  0.196            0.074            0.000            0.094            0.092            0.071
+S_PRIMEP               5.461            1.101            0.000            0.157            0.189            0.193
+H                      0.627            0.053            0.000            0.845            0.848            0.836
+SIGMA_W                0.841            0.024            0.000            0.876            0.885            0.879
+SIGMAP                 0.774            0.027            0.000            0.711            0.706            0.680
+FCP                    1.394            0.081            0.000            0.172            0.154            0.116
+PPHI                   2.111            0.424            0.000            0.728            0.723            0.675
+SIGMA_WI               0.288            0.110            0.000            0.833            0.834            0.822
+SIGMA_PI               0.145            0.060            0.000            0.838            0.830            0.824
+ZETA                   0.882            0.041            0.152            0.925            0.927            0.934
+IOTA_PI                1.634            0.139            0.000            0.422            0.402            0.339
+RHO_I                  0.797            0.027            0.183            0.931            0.930            0.930
+IOTA_Y                 0.055            0.013            0.000            0.590            0.550            0.505
+IOTA_DY                0.162            0.025            0.000            0.176            0.177            0.175
+VARKAPPA               0.111            0.014            0.003            0.894            0.894            0.890
+picbar                 0.633            0.092            0.000            0.104            0.098            0.107
+ctrend                 0.476            0.044            0.000            0.283            0.297            0.218
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -485.907225.
+
+parameters
+                 prior mean   post. mean        90% HPD interval    prior       pstdev
+
+RHO_A                 0.500       0.9574      0.9313      0.9849    beta       0.2000
+RHO_EFP               0.500       0.9059      0.8645      0.9495    beta       0.2000
+RHO_G                 0.500       0.9750      0.9554      0.9954    beta       0.2000
+RHO_X                 0.500       0.9748      0.9520      0.9966    beta       0.2000
+RHO_MS                0.500       0.3690      0.2398      0.4971    beta       0.2000
+RHO_P                 0.500       0.9925      0.9858      0.9992    beta       0.2000
+RHO_W                 0.500       0.1965      0.0738      0.3159    beta       0.2000
+S_PRIMEP              4.000       5.4549      3.6136      7.2219    norm       1.5000
+H                     0.700       0.6262      0.5402      0.7137    beta       0.1000
+SIGMA_W               0.750       0.8401      0.8016      0.8793    beta       0.0500
+SIGMAP                0.750       0.7742      0.7302      0.8184    beta       0.0500
+FCP                   1.450       1.3941      1.2628      1.5296    norm       0.1250
+PPHI                  0.330       2.1297      1.4171      2.8265    gamm       0.2500
+SIGMA_WI              0.500       0.2877      0.1100      0.4595    beta       0.1500
+SIGMA_PI              0.500       0.1440      0.0488      0.2334    beta       0.1500
+ZETA                  0.250       0.8812      0.8163      0.9502    beta       0.1500
+IOTA_PI               1.700       1.6339      1.4097      1.8636    norm       0.1500
+RHO_I                 0.750       0.7979      0.7562      0.8429    beta       0.1000
+IOTA_Y                0.125       0.0550      0.0331      0.0762    gamm       0.0500
+IOTA_DY               0.063       0.1621      0.1216      0.2046    norm       0.0500
+VARKAPPA              0.155       0.1107      0.0887      0.1321    unif       0.0837
+picbar                0.625       0.6344      0.4858      0.7815    gamm       0.1000
+ctrend                0.400       0.4751      0.4027      0.5474    norm       0.0500
+
+standard deviation of shocks
+                 prior mean   post. mean        90% HPD interval    prior       pstdev
+
+ea                    0.100       0.3810      0.3277      0.4347    invg       2.0000
+e_kq                  0.100       0.2755      0.1949      0.3534    invg       2.0000
+eg                    0.100       2.2385      1.9554      2.5124    invg       2.0000
+eqs                   0.100       0.6854      0.3769      0.9873    invg       2.0000
+em                    0.100       0.1207      0.1044      0.1368    invg       2.0000
+epinf                 0.100       0.0732      0.0519      0.0938    invg       2.0000
+ew                    0.100       0.2674      0.2184      0.3155    invg       2.0000
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 2h27m54s
