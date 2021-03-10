@@ -12,7 +12,7 @@
 
   <body data-spy='scroll' data-target='#navbar-example'>
 
-    <!-- <div id='navbar_placeholder'></div> -->
+    <div id='navbar_placeholder'></div>
 
     <div class='container'>
       <h1 class='page-header'>Forecast chart</h1>
@@ -321,13 +321,13 @@
                   for (let i = 0; i < data[type].length; i++) {
                     if (data[type][i].model == model) {
                       gdpData = data[type][i].forecast.gdp;
-                      for (let i = 0; i < gdpData.length; i++) {
-                        if (Math.abs(gdpData[i]) > gdpDataThreshold) {
-                          console.log(gdpData[i]);
-                          gdpData = gdpData.slice(0, i+1);
-                          break;
-                        }
-                      }
+                      // for (let i = 0; i < gdpData.length; i++) {
+                      //   if (Math.abs(gdpData[i]) > gdpDataThreshold) {
+                      //     console.log(gdpData[i]);
+                      //     gdpData = gdpData.slice(0, i+1);
+                      //     break;
+                      //   }
+                      // }
                       if ((data[type][i].vintageQuarter == vintageQuarter) && (data[type][i].scenario == undefined) && (data[type][i].model == 'SPFMean')) {
                         datasets.push({
                           fill: false,
@@ -425,6 +425,11 @@
               Chart.defaults.global.defaultFontSize = 16;
               Chart.defaults.global.elements.point.radius = 1;
               Chart.defaults.global.elements.line.tension = 0;
+              let minY = 1000, maxY = -1000;
+              for (let datum of datasets) {
+                minY = Math.min(minY, Math.round(Math.min(...datum['data'].slice(0, 6))-1));
+                maxY = Math.max(maxY, Math.round(Math.max(...datum['data'].slice(0, 6))+1));
+              }
               let chart = new Chart(ctx, {
                   type: 'line',
                   
@@ -468,10 +473,10 @@
                     scales: {
                       yAxes: [{
                         ticks: {
-                          // max: 30,
-                          // min: -40,
-                          suggestedMin: -8,
-                          suggestedMax: 6,
+                          min: minY,
+                          max: maxY,
+                          // suggestedMin: -8,
+                          // suggestedMax: 6,
                         }
                       }]
                     },
