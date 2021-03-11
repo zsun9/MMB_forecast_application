@@ -1,0 +1,198 @@
+Starting preprocessing of the model file ...
+Found 34 equation(s).
+Evaluating expressions...done
+Computing static model derivatives (order 1).
+Computing dynamic model derivatives (order 2).
+Processing outputs ...
+done
+Preprocessing completed.
+
+Initial value of the log posterior (or likelihood): -13562.5915
+
+==========================================================
+   Change in the posterior covariance matrix = 15.8508.
+   Change in the posterior mean = 4.8884.
+   Mode improvement = 13350.2211
+   New value of jscale = 0.012109
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.26545.
+   Change in the posterior mean = 4.2577.
+   Mode improvement = 15.315
+   New value of jscale = 0.2687
+==========================================================
+
+==========================================================
+   Change in the posterior covariance matrix = 0.90267.
+   Change in the posterior mean = 1.4842.
+   Mode improvement = 3.3544
+   New value of jscale = 0.29951
+==========================================================
+
+Optimal value of the scale parameter = 0.29951
+
+
+Final value of minus the log posterior (or likelihood):193.701041 
+
+MODE CHECK
+
+Fval obtained by the minimization routine (minus the posterior/likelihood)): 193.701041
+
+RESULTS FROM POSTERIOR ESTIMATION
+parameters
+         prior mean     mode    s.d. prior pstdev
+
+para_sp_b    0.050   0.0429  0.0044 beta 0.0050 
+phiv         4.000   0.4652  0.3409 norm 1.5000 
+thetav       0.500   0.5662  0.0618 beta 0.1000 
+rhov         0.500   0.8009  0.0230 beta 0.2000 
+zetav        1.500   1.7325  0.2104 gamm 0.2500 
+zetay        0.125   0.1082  0.0262 gamm 0.1000 
+pi_bar       0.620   0.5683  0.0918 gamm 0.1000 
+iotapi       0.500   0.1155  0.0670 beta 0.1500 
+constebeta   0.300   0.1235  0.0421 gamm 0.1000 
+ytrend       0.400   0.4781  0.0429 norm 0.1000 
+s_bar        0.500   0.3550  0.0472 gamm 0.1000 
+rhov_a       0.500   0.9588  0.0092 beta 0.2000 
+rhov_g       0.500   0.9682  0.0494 beta 0.2000 
+rhov_i       0.500   0.9368  0.0326 beta 0.2000 
+rhov_f       0.750   0.8195  0.0364 beta 0.1500 
+
+standard deviation of shocks
+         prior mean     mode    s.d. prior pstdev
+
+e_a          0.100   1.7519  0.2069 invg 2.0000 
+e_g          0.100   7.9388  1.1063 invg 2.0000 
+e_rn         0.100   0.1145  0.0106 invg 2.0000 
+e_i          0.100   0.8304  0.2970 invg 2.0000 
+e_f          0.050   4.4669  0.7063 invg 4.0000 
+
+
+Log data density [Laplace approximation] is -236.227289.
+
+mh_jscale has been set equal to 0.32992
+
+Estimation::mcmc: One Chain mode.
+Estimation::mcmc: Initialization at the posterior mode.
+
+Estimation::mcmc: Write details about the MCMC... Ok!
+Estimation::mcmc: Details about the MCMC are available in NKBGG/metropolis\NKBGG_mh_history_0.mat
+
+
+Estimation::mcmc: Number of mh files: 2 per block.
+Estimation::mcmc: Total number of generated files: 2.
+Estimation::mcmc: Total number of iterations: 1000000.
+Estimation::mcmc: Current acceptance ratio per chain: 
+                                                       Chain  1: 30.1346%
+Estimation::mcmc: Total number of MH draws per chain: 1000000.
+Estimation::mcmc: Total number of generated MH files: 2.
+Estimation::mcmc: I'll use mh-files 1 to 2.
+Estimation::mcmc: In MH-file number 1 I'll start at line 300001.
+Estimation::mcmc: Finally I keep 700000 draws per chain.
+
+
+
+MCMC Inefficiency factors per block
+Parameter        Block 1
+SE_e_a           212.888
+SE_e_g           333.304
+SE_e_rn          167.282
+SE_e_i           456.257
+SE_e_f           192.405
+para_sp_b        127.397
+phiv             439.698
+thetav           267.468
+rhov             213.387
+zetav            179.844
+zetay            213.510
+pi_bar           199.572
+iotapi           173.797
+constebeta       171.739
+ytrend           260.525
+s_bar            200.654
+rhov_a           236.678
+rhov_g           360.114
+rhov_i           306.394
+rhov_f           176.834
+
+
+Geweke (1992) Convergence Tests, based on means of draws 300000 to 440000 vs 650000 to 1000000.
+p-values are for Chi2-test for equality of means.
+Parameter          Post. Mean        Post. Std   p-val No Taper   p-val 4% Taper   p-val 8% Taper  p-val 15% Taper
+SE_e_a                  1.881            0.225            0.000            0.123            0.147            0.109
+SE_e_g                  7.022            1.388            0.000            0.035            0.040            0.046
+SE_e_rn                 0.114            0.011            0.000            0.059            0.053            0.040
+SE_e_i                  1.101            0.342            0.000            0.229            0.248            0.240
+SE_e_f                  4.910            0.761            0.000            0.092            0.117            0.112
+para_sp_b               0.044            0.004            0.000            0.276            0.211            0.137
+phiv                    0.736            0.385            0.000            0.222            0.244            0.229
+thetav                  0.595            0.065            0.000            0.083            0.106            0.092
+rhov                    0.816            0.024            0.000            0.171            0.188            0.168
+zetav                   1.820            0.211            0.052            0.910            0.916            0.924
+zetay                   0.100            0.028            0.000            0.000            0.000            0.000
+pi_bar                  0.548            0.091            0.000            0.648            0.655            0.651
+iotapi                  0.149            0.071            0.000            0.525            0.550            0.567
+constebeta              0.126            0.042            0.000            0.026            0.018            0.011
+ytrend                  0.443            0.054            0.000            0.044            0.043            0.053
+s_bar                   0.333            0.052            0.000            0.033            0.041            0.041
+rhov_a                  0.959            0.010            0.000            0.288            0.283            0.220
+rhov_g                  0.930            0.052            0.000            0.021            0.037            0.052
+rhov_i                  0.922            0.035            0.000            0.315            0.306            0.279
+rhov_f                  0.832            0.037            0.000            0.215            0.198            0.118
+
+
+Estimation::marginal density: I'm computing the posterior mean and covariance...  Done!
+Estimation::marginal density: I'm computing the posterior log marginal density (modified harmonic mean)... Done!
+
+
+ESTIMATION RESULTS
+
+Log data density is -238.296320.
+
+parameters
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+para_sp_b         0.050       0.0442      0.0374      0.0508    beta       0.0050
+phiv              4.000       0.7533      0.2883      1.1953    norm       1.5000
+thetav            0.500       0.5979      0.4940      0.7036    beta       0.1000
+rhov              0.500       0.8164      0.7781      0.8557    beta       0.2000
+zetav             1.500       1.8196      1.4777      2.1640    gamm       0.2500
+zetay             0.125       0.1002      0.0531      0.1454    gamm       0.1000
+pi_bar            0.620       0.5468      0.3964      0.6892    gamm       0.1000
+iotapi            0.500       0.1473      0.0417      0.2506    beta       0.1500
+constebeta        0.300       0.1264      0.0595      0.1917    gamm       0.1000
+ytrend            0.400       0.4423      0.3568      0.5290    norm       0.1000
+s_bar             0.500       0.3328      0.2468      0.4163    gamm       0.1000
+rhov_a            0.500       0.9584      0.9432      0.9751    beta       0.2000
+rhov_g            0.500       0.9284      0.8431      0.9857    beta       0.2000
+rhov_i            0.500       0.9211      0.8716      0.9750    beta       0.2000
+rhov_f            0.750       0.8320      0.7718      0.8926    beta       0.1500
+
+standard deviation of shocks
+             prior mean   post. mean        90% HPD interval    prior       pstdev
+
+e_a               0.100       1.8845      1.5262      2.2580    invg       2.0000
+e_g               0.100       6.9939      4.7143      9.0539    invg       2.0000
+e_rn              0.100       0.1142      0.0962      0.1317    invg       2.0000
+e_i               0.100       1.1146      0.6942      1.5073    invg       2.0000
+e_f               0.050       4.9169      3.6921      6.0732    invg       4.0000
+Estimation::mcmc: Posterior (dsge) IRFs...
+Estimation::mcmc: Posterior IRFs, done!
+Estimation::mcmc: Smoothed variables
+Estimation::mcmc: Smoothed variables, done!
+Estimation::mcmc: Smoothed shocks
+Estimation::mcmc: Smoothed shocks, done!
+Estimation::mcmc: Trend_coefficients
+Estimation::mcmc: Trend_coefficients, done!
+Estimation::mcmc: Smoothed constant
+Estimation::mcmc: Smoothed constant, done!
+Estimation::mcmc: Smoothed trend
+Estimation::mcmc: Smoothed trend, done!
+Estimation::mcmc: Updated Variables
+Estimation::mcmc: Updated Variables, done!
+Estimation::mcmc: Forecasted variables (mean)
+Estimation::mcmc: Forecasted variables (mean), done!
+Estimation::mcmc: Forecasted variables (point)
+Estimation::mcmc: Forecasted variables (point), done!
+Total computing time : 3h43m41s
