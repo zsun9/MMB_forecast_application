@@ -6,24 +6,24 @@
 var c_b i_d pi i_h psi_b q_psi div lambda l_h w nu_h h_s h_b
     d c_s psi_s
     x
-    y k_e h l_e q_k i_e nu_e lambda_e v 
-    k_B pi_B i_l l k_BL 
-    c  
-    xi_z xi_d xi_i varepsilon_e varepsilon_h  xi_psi xi_p 
-    pi_obs q_psi_obs   y_obs  l_h_obs l_e_obs d_obs i_d_obs i_h_obs i_e_obs;  // div_e
+    y k_e h l_e q_k i_e nu_e lambda_e v
+    k_B pi_B i_l l k_BL
+    c
+    xi_z xi_d xi_i varepsilon_e varepsilon_h  xi_psi xi_p
+    pi_obs q_psi_obs   gdp_rgd_obs  l_h_obs l_e_obs d_obs ff_obs i_h_obs i_e_obs;  // div_e
 
-varexo epsilon_p epsilon_z epsilon_i epsilon_d epsilon_h epsilon_e epsilon_nu_h epsilon_nu_e epsilon_psi; // 
+varexo epsilon_p epsilon_z epsilon_i epsilon_d epsilon_h epsilon_e epsilon_nu_h epsilon_nu_e epsilon_psi; //
 
 parameters beta_b phi R_d R_h R_psi Nu_h phi_w eta gamma gamma_b
            beta_s
            theta_R varepsilon_p gamma_p
            alpha Nu_e phi_k R_e beta_e delta_e
            kappa_v
-           phi_s 
+           phi_s
            delta_B kappa_k tau kappa_e varepsilon_ess beta_B kappa_h varepsilon_hss L_hL L_eL phi_psi phi_B phi_div
-           kappa_i kappa_pi kappa_y  
-           CY K_BY LY PsiY  
-           rho_z rho_d rho_i rho_e rho_h rho_nuh rho_nue rho_psi rho_p 
+           kappa_i kappa_pi kappa_y
+           CY K_BY LY PsiY
+           rho_z rho_d rho_i rho_e rho_h rho_nuh rho_nue rho_psi rho_p
            i_h_ss i_e_ss i_d_ss pi_ss; //  //  K_eY  PsiY //  theta_w varepsilon_w gamma_w
 
 //Calibrated Parameters
@@ -116,7 +116,7 @@ model(linear);
 
 #gamma_psib = PsiY/CY;   // 1.225  calculated from PsiY and CY
 //#aa = 1/(1 + ((1/R_h) - beta_b)*Nu_h*phi_w);  // 0.99, note saver ratio = 1 // in FOC borrower labour parameter, equal to (W/P)/MRS_b; (1/R_h - beta_b) must be positive = 0.01977, the combination of beta_b R_h and varepsilon_hss must be satisfied.
-#Gamma_w = ((1/R_h) - beta_b)*Nu_h*phi_w;                                    // 
+#Gamma_w = ((1/R_h) - beta_b)*Nu_h*phi_w;                                    //
 
 //#gamma_ds = 1/(1 - beta_s*R_d);   //               // FOC deposits for savers deposit:consumption ratio
 #gamma_ds = 0.789;     // 0.789 calibrated
@@ -146,31 +146,31 @@ model(linear);
 //EQUATIONS
 
 //BORROWERS
-     
-psi_b = beta_b*(gamma_psib/(1 - phi))*(q_psi(+1) + (R_psi - 1)*div(+1) - (R_psi)*(gamma_b/(1 - phi))*(c_b(+1) - phi*c_b)) + (gamma_psib/(1 - phi))*((gamma_b/(1 - phi))*(c_b - phi*c_b(-1)) - q_psi) 
-        + (gamma_psib/(1 - phi))*Nu_h*(1-phi_w)*((1/R_h) - beta_b)*(R_psi*(lambda + nu_h + pi(+1)) + q_psi(+1) + (R_psi - 1)*div(+1));      //   
 
-l_h = (phi_w/R_h)*(w(+1) + h_b) + ((1 - phi_w)/(R_h*R_psi))*(q_psi(+1) + (R_psi - 1)*div(+1) + R_psi*psi_b) - i_h + (1/R_h)*pi(+1) + (1/R_h)*nu_h;                    
+psi_b = beta_b*(gamma_psib/(1 - phi))*(q_psi(+1) + (R_psi - 1)*div(+1) - (R_psi)*(gamma_b/(1 - phi))*(c_b(+1) - phi*c_b)) + (gamma_psib/(1 - phi))*((gamma_b/(1 - phi))*(c_b - phi*c_b(-1)) - q_psi)
+        + (gamma_psib/(1 - phi))*Nu_h*(1-phi_w)*((1/R_h) - beta_b)*(R_psi*(lambda + nu_h + pi(+1)) + q_psi(+1) + (R_psi - 1)*div(+1));      //
 
-((1/R_h) - beta_b)*lambda = beta_b*((gamma_b/(1 - phi))*(c_b(+1) - phi*c_b) + pi(+1)) - (1/R_h)*((gamma_b/(1 - phi))*(c_b - phi*c_b(-1)) + i_h);                                                   
+l_h = (phi_w/R_h)*(w(+1) + h_b) + ((1 - phi_w)/(R_h*R_psi))*(q_psi(+1) + (R_psi - 1)*div(+1) + R_psi*psi_b) - i_h + (1/R_h)*pi(+1) + (1/R_h)*nu_h;
+
+((1/R_h) - beta_b)*lambda = beta_b*((gamma_b/(1 - phi))*(c_b(+1) - phi*c_b) + pi(+1)) - (1/R_h)*((gamma_b/(1 - phi))*(c_b - phi*c_b(-1)) + i_h);
 
 w = (gamma_b/(1 - phi))*(c_b - phi*c_b(-1)) + (1 + Gamma_w)*eta*h_b - Gamma_w*(lambda + nu_h + w(+1) + pi(+1));      // FOC H with w see p. 20 dynare manual
 
-   //Borrower HH flow of funds 
+   //Borrower HH flow of funds
 //c_b + R_h*L_hL*LY*(1/((1 - phi_s)*CY))*(l_h(-1) + i_h(-1) - pi) + gamma_psib*(q_psi + psi_b) = ((1-alpha)/X)*(1/((1 - phi_s)*CY))*(y - x) + L_hL*LY*(1/((1 - phi_s)*CY))*(l_h) + gamma_psib*(q_psi + psi_b(-1)) + (R_psi - 1)*gamma_psib*(div + psi_b(-1));
 
 //SAVERS
 
 d = (gamma_ds/(1 - phi))*(gamma/(1 - phi))*(c_s - phi*c_s(-1)) - (beta_s*R_d*(gamma_ds/(1 - phi)))*((gamma/(1 - phi))*(c_s(+1) - phi*c_s) - i_d + pi(+1)); // FOC for D_s
 
-psi_s = beta_s*(gamma_psis/(1 - phi))*(q_psi(+1) + (R_psi - 1)*div(+1) - (R_psi)*(gamma/(1 - phi))*(c_s(+1) - phi*c_s)) + (gamma_psis/(1 - phi))*((gamma/(1 - phi))*(c_s - phi*c_s(-1)) - q_psi); //  
+psi_s = beta_s*(gamma_psis/(1 - phi))*(q_psi(+1) + (R_psi - 1)*div(+1) - (R_psi)*(gamma/(1 - phi))*(c_s(+1) - phi*c_s)) + (gamma_psis/(1 - phi))*((gamma/(1 - phi))*(c_s - phi*c_s(-1)) - q_psi); //
 
-w = eta*h_s + (gamma/(1 - phi))*(c_s - phi*c_s(-1)); // 
+w = eta*h_s + (gamma/(1 - phi))*(c_s - phi*c_s(-1)); //
 
    //Saver household flow of funds constraint
 c_s + gamma_ds*(d) + gamma_psis*(q_psi + psi_s) = ((1-alpha)/X)*(1/(CY))*(w + h_s) + R_d*gamma_ds*(i_d(-1) + d(-1) - pi) + gamma_psis*(q_psi + psi_s(-1)) + (R_psi - 1)*gamma_psis*(div + psi_s(-1));
 
-// add retailer profits to saver HH flow of funds? --->  + (1/((phi_s)*CY))*(y - (1/X)*(y - x)) // for simplicity, ignore: see Iacoviello 2005 
+// add retailer profits to saver HH flow of funds? --->  + (1/((phi_s)*CY))*(y - (1/X)*(y - x)) // for simplicity, ignore: see Iacoviello 2005
 
 //RETAILERS
 
@@ -180,7 +180,7 @@ pi = (beta_R/(1 + beta_R*gamma_p))*pi(+1) + (gamma_p/(1 + beta_R*gamma_p))*pi(-1
 
 h = y - x - w;                                             // FOC H
 ((1/R_e) - beta_e)*lambda_e = beta_e*(pi(+1)) - (1/R_e)*(i_e); // FOC L_e
-  
+
 (v - k_e(-1)) = (beta_e)*(v(+1) - k_e) + (1/kappa_v)*(1 - beta_e*(1 - delta_e) - Upsilon_k)*(y(+1) - x(+1) - k_e) + (1/kappa_v)*(Upsilon_k)*(lambda_e + nu_e + q_k(+1)); // FOC K_e determines the investment schedule
 
 q_k = kappa_v*(v - k_e(-1));   // Shadow price of capital
@@ -193,10 +193,10 @@ k_e = (1 - delta_e)*k_e(-1) + delta_e*v;       // Capital accumulation equation
 //Unions and Wage setting equations
    // indexation
 //w = (theta_w/(1 + (theta_w^2)*beta))*w(-1) + (theta_w*beta/(1 + (theta_w^2)*beta))*w(+1) + (theta_w*beta/(1 + (theta_w^2)*beta))*pi(+1) - (theta_w/(1 + (theta_w^2)*beta))*pi
-//     - (((theta_w^2)*beta*gamma_w)/(1 + (theta_w^2)*beta))*pi + ((theta_w*gamma_w)/(1 + (theta_w^2)*beta))*pi(-1) 
+//     - (((theta_w^2)*beta*gamma_w)/(1 + (theta_w^2)*beta))*pi + ((theta_w*gamma_w)/(1 + (theta_w^2)*beta))*pi(-1)
 //     + (((1 - theta_w)*(1 - theta_w*beta))/((1 + (theta_w^2)*beta)*(1 + varepsilon_w*eta)))*(varepsilon_w*eta*w + chi_s*((gamma/(1 - phi))*(c_s - phi*c_s(-1)) + eta*h) + chi_b*((gamma_b/(1 - phi))*(c_b - phi*c_b(-1)) + eta*h));  //    + xi_w
    // no indexation
-//w = (theta_w/(1 + (theta_w^2)*beta))*w(-1) + (theta_w*beta/(1 + (theta_w^2)*beta))*w(+1) + (theta_w*beta/(1 + (theta_w^2)*beta))*pi(+1) - (theta_w/(1 + (theta_w^2)*beta))*pi 
+//w = (theta_w/(1 + (theta_w^2)*beta))*w(-1) + (theta_w*beta/(1 + (theta_w^2)*beta))*w(+1) + (theta_w*beta/(1 + (theta_w^2)*beta))*pi(+1) - (theta_w/(1 + (theta_w^2)*beta))*pi
 //     + (((1 - theta_w)*(1 - theta_w*beta))/((1 + (theta_w^2)*beta)*(1 + varepsilon_w*eta)))*(varepsilon_w*eta*w + chi_s*((gamma/(1 - phi))*(c_s - phi*c_s(-1)) + eta*h) + (chi_b*((gamma_b/(1 - phi))*(c_b - phi*c_b(-1)) + eta*h)))
 //     + epsilon_w;
 
@@ -209,18 +209,18 @@ i_l = i_d - ((1/(R_d - 1))*kappa_k*((tau)^3))*(k_B - l);  //  - xi_t  spread bet
 
  //Retail: loan branch
 i_e = (kappa_e/(varepsilon_ess - 1 + kappa_e + kappa_e*beta_B))*i_e(-1) + (beta_B*kappa_e/(varepsilon_ess - 1 + kappa_e + kappa_e*beta_B))*i_e(+1)
-      + ((varepsilon_ess - 1)/(varepsilon_ess - 1 + kappa_e + kappa_e*beta_B))*i_l 
-      - (varepsilon_e/(varepsilon_ess - 1 + kappa_e + kappa_e*beta_B));              // loan rate setting charged to entrepreneurs; the simplified case where varepsilon is a constant, drop last term. 
+      + ((varepsilon_ess - 1)/(varepsilon_ess - 1 + kappa_e + kappa_e*beta_B))*i_l
+      - (varepsilon_e/(varepsilon_ess - 1 + kappa_e + kappa_e*beta_B));              // loan rate setting charged to entrepreneurs; the simplified case where varepsilon is a constant, drop last term.
 // not log-linearized// i_e = varepsilon_e/(varepsilon_e-1)*i_l;                       //perfectly flexible interest rates gives the markup over the wholesale loan rate, see derivation for i_e - i spread
 
 i_h = (kappa_h/(varepsilon_hss - 1 + kappa_h + kappa_h*beta_B))*i_h(-1) + (beta_B*kappa_h/(varepsilon_hss - 1 + kappa_h + kappa_h*beta_B))*i_h(+1)
-      + ((varepsilon_hss - 1)/(varepsilon_hss - 1 + kappa_h + kappa_h*beta_B))*i_l 
+      + ((varepsilon_hss - 1)/(varepsilon_hss - 1 + kappa_h + kappa_h*beta_B))*i_l
       - (varepsilon_h/(varepsilon_hss - 1 + kappa_h + kappa_h*beta_B));              // loan rate setting charged to HHs; the simplified case where varepsilon is a constant, drop last term.
 // not log-linearized// i_h = varepsilon_h/(varepsilon_h-1)*i_l;                       // perfectly flexible interest rates gives the markup over the wholesale loan rate, see derivation for i_h - i spread
 
  //Retail: deposit branch
 //i_d = (kappa_d/(1 - varepsilon_dss + kappa_d + kappa_d*beta_B))*i_d(-1) + (beta_B*kappa_d/(1 - varepsilon_dss + kappa_d + kappa_d*beta_B))*i_d(+1)
-//      + ((1 - varepsilon_dss)/(1 - varepsilon_dss + kappa_d + kappa_d*beta_B))*i 
+//      + ((1 - varepsilon_dss)/(1 - varepsilon_dss + kappa_d + kappa_d*beta_B))*i
 //      + (varepsilon_d/(1 - varepsilon_dss + kappa_d + kappa_d*beta_B));              // deposit rate setting to HHs; the simplified case where varepsilon is a constant, drop last term.
 // Note: varepsilon_dss is negative, Gerali et al. 2010 working paper they write denominator with a positive sign, implying they convert varepsilon_dss to positive, perhaps for AR(1) shock.
 // not log-linearized// i_d = varepsilon_d/(varepsilon_d-1)*i;                       // note for markdown varepsilon_h is negative, may need to convert to positive by subst. minus into above equation.
@@ -250,7 +250,7 @@ div = (phi_div)*(R_psi - 1)*q_psi + (1 - phi_div)*pi_B;
 
 l = L_hL*l_h + L_eL*l_e;                                              // aggregate loans
 
-l = tau*k_B + DL*(d  - xi_d);  //  - xi_d bank balance sheet identity Gerali et al 2010 
+l = tau*k_B + DL*(d  - xi_d);  //  - xi_d bank balance sheet identity Gerali et al 2010
 
 //Shocks
 xi_z = rho_z*xi_z(-1) + epsilon_z;                      // productivity shock
@@ -270,14 +270,14 @@ k_BL = k_B - l;   // bank capital-asset ratio
 
 pi_obs = pi + pi_ss;
 q_psi_obs = q_psi - q_psi(-1) + 0.01537;
-y_obs = y - y(-1) + 0.0039;
+gdp_rgd_obs/100 = y - y(-1) + 0.0039;
 l_h_obs = l_h - l_h(-1) + 0.007885;
 l_e_obs = l_e - l_e(-1) + 0.006;
 d_obs = d - d(-1) + 0.0046;
 // taken out // i_obs = i + i_ss; // i_d is still fed funds rate
 i_h_obs = i_h + i_h_ss;
 i_e_obs = i_e + i_e_ss;
-i_d_obs = i_d + i_d_ss;
+ff_obs/100 = i_d + i_d_ss;
 
 end;
 
@@ -294,7 +294,7 @@ theta_R, beta_pdf, 0.7, 0.05;            // price stickiness or 0.75
 gamma_p, beta_pdf, 0.5, 0.05;            // degree of price indexation
 //theta_w, beta_pdf, 0.75, 0.05;           // wage stickiness
 //gamma_w, beta_pdf, 0.5, 0.05;            // degree of wage indexation
-//phi_s, beta_pdf, 0.53, 0.05;              // share of savers   
+//phi_s, beta_pdf, 0.53, 0.05;              // share of savers
 phi_w, beta_pdf, 0.5, 0.05;              // 0.65 weight in borrowing constraint
 Nu_h, beta_pdf, 0.75, 0.05;               // LTV ratio
 
@@ -336,11 +336,11 @@ rho_p, beta_pdf, 0.5, 0.1;              // AR(1) parameter for Cost-push shock
 
 //innovations of the 11 shocks - 10 AR(1) shocks and 1 i.i.d shocks
 
-stderr epsilon_z, inv_gamma_pdf, 0.01, inf; 
+stderr epsilon_z, inv_gamma_pdf, 0.01, inf;
 stderr epsilon_i, inv_gamma_pdf, 0.01, inf;
-stderr epsilon_d, inv_gamma_pdf, 0.01, inf; 
-stderr epsilon_e, inv_gamma_pdf, 0.01, inf; 
-stderr epsilon_h, inv_gamma_pdf, 0.01, inf;   
+stderr epsilon_d, inv_gamma_pdf, 0.01, inf;
+stderr epsilon_e, inv_gamma_pdf, 0.01, inf;
+stderr epsilon_h, inv_gamma_pdf, 0.01, inf;
 stderr epsilon_nu_h, inv_gamma_pdf, 0.01, inf;
 stderr epsilon_nu_e, inv_gamma_pdf, 0.01, inf;
 stderr epsilon_psi, inv_gamma_pdf, 0.005, inf;
@@ -349,16 +349,16 @@ stderr epsilon_p, inv_gamma_pdf, 0.005, inf;
 
 end;
 
-//varobs pi_obs q_psi_obs  y_obs w_obs l_h_obs l_e_obs d_obs i_d_obs i_h_obs i_e_obs; // c_obs i_obs  k_e_obs h_obs omega_e_obs   q_k_obs   
+//varobs pi_obs q_psi_obs  gdp_rgd_obs w_obs l_h_obs l_e_obs d_obs ff_obs i_h_obs i_e_obs; // c_obs i_obs  k_e_obs h_obs omega_e_obs   q_k_obs
 
-varobs pi_obs q_psi_obs y_obs l_h_obs l_e_obs d_obs i_d_obs i_h_obs i_e_obs;  // 9 shock retest
+varobs pi_obs q_psi_obs gdp_rgd_obs l_h_obs l_e_obs d_obs ff_obs i_h_obs i_e_obs;  // 9 shock retest
 
 //datafile=
-//load_mh_file, mode_file=HLaEst2013BEP4bNEW_mode, //  mode_file=HLaEst2013BEP4brerun_mode, 
+//load_mh_file, mode_file=HLaEst2013BEP4bNEW_mode, //  mode_file=HLaEst2013BEP4brerun_mode,
 //conditional_variance_decomposition=[1:20], nodisplay
 
-estimation(datafile=HL2015Estimation9shock, mh_nblocks=3, mh_replic=10000, mh_drop=0.5, mh_jscale=0.34, 
-           mode_compute=0, mode_file=HLaEst2013BEP4brerun_mode, mode_check, bayesian_irf, irf=20, moments_varendo, conditional_variance_decomposition=[1:20], 
+estimation(datafile=HL2015Estimation9shock, mh_nblocks=3, mh_replic=10000, mh_drop=0.5, mh_jscale=0.34,
+           mode_compute=0, mode_file=HLaEst2013BEP4brerun_mode, mode_check, bayesian_irf, irf=20, moments_varendo, conditional_variance_decomposition=[1:20],
            graph_format=fig) y pi q_psi i_d i_e i_h d l_e l_h k_BL div l i_l pi_B v q_k k_e c_s c_b w h psi_s psi_b; // wh qke
 
-// shock_decomposition pi_obs q_psi_obs y_obs i_d_obs;
+// shock_decomposition pi_obs q_psi_obs gdp_rgd_obs ff_obs;
