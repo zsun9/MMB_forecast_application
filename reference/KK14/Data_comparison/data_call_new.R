@@ -251,3 +251,6 @@ plot2graphs_rep_ori(tax_rate_table[,"ln_tau_w"],tax_rate_table[,"Orig_tau_w"],ta
 plot2graphs_rep_ori(b_obs_tb[,"ln_govdebt"],b_obs_tb[,"Orig_b_obs"],b_obs_tb[,"date"] ,"bottomleft")
 
 
+## random try
+
+aaa=as.data.frame(tax_rate_table$Orig_tau_k) 
