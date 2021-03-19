@@ -1,3 +1,14 @@
+# function that plots with adjusting y-axis
+plot2graphs_rep_ori <- function(vec1, vec2, datevec, legpos) {
+  line1=as.numeric(vec1)
+  line2=as.numeric(vec2)
+  plot(datevec,line1,type="l",col="black",ylab="", xlab="date", ylim=c(min(min(line1),min(line2)),max(max(line1),max(line2))))
+  lines(datevec,line2,col="red")
+  legend(legpos, legend = c("replicated", "original"), col=c("black", "red"),lty=1, pch=NA)
+ }
+
+
+
 #----------------------------------------------------------------------------------------
 # function search for closest vintage date
 clost_vin_search <- function(tmpdataset.vindates , tmpdate ){

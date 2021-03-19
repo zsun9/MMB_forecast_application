@@ -576,8 +576,47 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
            # ΔLN(CES2000000008) - mean(ΔLN(CES2000000008))
                 df.loc[:, obs] = np.log(df[d['CES2000000008']].values) -  np.log(df[d['CES2000000008']].shift().values) - np.nanmean(np.log(df[d['CES2000000008']].values)[1:-1] -  np.log(df[d['CES2000000008']].shift().values)[1:-1])     
  
-                                                                                                                                            
-          
+            elif obs == 'c_rpc_obs'  :
+            #diff(log((PCND+ PCESV)/(index(GDPCTPI*CNP16OV))))-mean(log((PCND+ PCESV)/(index(GDPCTPI*CNP16OV))))                                                                                                                           
+                temp_vec1 =  np.log((df[d['PCND']].values+ df[d['PCESV']].values)/(df[d['GDPCTPI']].values*(df[d['CNP16OV']].values/226959)))    
+                temp_vec1 = np.ediff1d(temp_vec1)
+                temp_vec1 = np.insert(temp_vec1, 0, 0)
+                df.loc[:, obs]= temp_vec1 - np.nanmean(temp_vec1[1:])
+ 
+            elif obs == 'hrw_pc_obs'  :
+            #log((PRS85006023* CE16OV)/(index(CNP16OV)))-mean(log((PRS85006023* CE16OV)/(index(CNP16OV))))                                                                                                                           
+                temp_vec1 =  np.log((df[d['PRS85006023']].values*df[d['CE16OV']].values)/(df[d['CNP16OV']].values/226959))    
+                df.loc[:, obs]= temp_vec1 - np.nanmean(temp_vec1[1:])   
+                
+            elif obs == 'I_rgpc_obs'  :
+            #diff(log((GPDI+ PCDG)/(GDPCTPI*CNP16OV)))-mean(diff(log((GPDI+ PCDG)/(GDPCTPI*CNP16OV))))                                                                                                                           
+                temp_vec1 =  np.log((df[d['GPDI']].values+ df[d['PCDG']].values)/(df[d['GDPCTPI']].values*(df[d['CNP16OV']].values/226959)))    
+                temp_vec1 = np.ediff1d(temp_vec1)
+                temp_vec1 = np.insert(temp_vec1, 0, 0)
+                df.loc[:, obs]= temp_vec1 - np.nanmean(temp_vec1[1:])                
+                
+            elif obs == 'gexp_rgpc_obs'  :
+            #X= (A957RC1Q027SBEA + A787RC1Q027SBEA + AD08RC1Q027SBEA - A918RC1Q027SBEA)/(GDPCTPI*CNP16OV)  ,   diff(X)-mean(diff(X))                                                                                                                
+                temp_vec1 =  np.log((df[d['A957RC1Q027SBEA']].values+ df[d['A787RC1Q027SBEA']].values+ df[d['AD08RC1Q027SBEA']].values-df[d['A918RC1Q027SBEA']].values)/(df[d['GDPCTPI']].values*(df[d['CNP16OV']].values/226959)))    
+                temp_vec1 = np.ediff1d(temp_vec1)
+                temp_vec1 = np.insert(temp_vec1, 0, 0)
+                df.loc[:, obs]= temp_vec1 - np.nanmean(temp_vec1[1:])               
+            
+            elif obs == 'tau_w_obs'  :
+            # Too complicated, consist of   RENTIN,CPROFIT,W255RC1Q027SBEA,PROPINC,A074RC1Q027SBEA,W071RC1Q027SBEA,WASCUR,PROPINC,COE,W780RC1Q027SBEA                                                                                                       
+                temp_vec1 = df[d['RENTIN']].values + df[d['CPROFIT']].values+df[d['W255RC1Q027SBEA']].values+df[d['PROPINC']].values/2
+                temp_vec_tau_w = ((df[d['A074RC1Q027SBEA']].values+df[d['W071RC1Q027SBEA']].values)/(df[d['WASCUR']].values+df[d['PROPINC']].values/2+temp_vec1))*((df[d['WASCUR']].values+df[d['PROPINC']].values/2)/(df[d['COE']].values+df[d['PROPINC']].values/2))+df[d['W780RC1Q027SBEA']].values/(df[d['COE']].values+df[d['PROPINC']].values/2)
+                temp_vec_tau_w = np.log(temp_vec_tau_w)
+                df.loc[:, obs]= temp_vec_tau_w - np.nanmean(temp_vec_tau_w[1:]) 
+                
+                
+            elif obs == 'tau_k_obs'  :
+            # Too complicated, consist of   RENTIN,CPROFIT,W255RC1Q027SBEA,PROPINC,A074RC1Q027SBEA,W071RC1Q027SBEA,WASCUR,PROPINC,COE,W780RC1Q027SBEA                                                                                                       
+                temp_vec1 = df[d['RENTIN']].values + df[d['CPROFIT']].values+df[d['W255RC1Q027SBEA']].values+df[d['PROPINC']].values/2
+             
+                
+                
+                
             
             
             else:

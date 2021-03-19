@@ -1,7 +1,7 @@
 ## --- Housekeeping-------------
 rm(list = ls())
-gen_data =1  # if 1, retrieve data from alfred
-trytry = 0
+gen_data =0  # if 1, retrieve data from alfred
+trytry = 0  # if 1, enforce the trial adjustments
 # install.packages(c("fredr","writexl","dplyr","readxl","R.matlab"))
 library(fredr)
 library(writexl)
@@ -20,9 +20,9 @@ datalist <- list() #initiate list to store data
 ## -- retrieve data from ALFRED -----------
 
 # Define vector of series to be retrieved and their respective column names
-DataCodeVec <- c("PCND"  , "PCESV" ,
-                  "GPDI", "PCDG" , "A957RC1Q027SBEA" , "A787RC1Q027SBEA" , "AD08RC1Q027SBEA" , "A918RC1Q027SBEA",
-                  "W780RC1Q027SBEA","COE", "A074RC1Q027SBEA", "W071RC1Q027SBEA", "PROPINC", "WASCUR", 
+DataCodeVec <- c("PRS85006023" ,  "CE16OV"  , "PCND"  , "PCESV" ,
+                 "GPDI", "PCDG" , "A957RC1Q027SBEA" , "A787RC1Q027SBEA" , "AD08RC1Q027SBEA" , "A918RC1Q027SBEA",
+                 "W780RC1Q027SBEA","COE", "A074RC1Q027SBEA", "W071RC1Q027SBEA", "PROPINC", "WASCUR", 
                  "RENTIN", "CPROFIT", 
                  "W255RC1Q027SBEA", #"BOGZ1FA086130003Q"
                  "B075RC1Q027SBEA", "B249RC1Q027SBEA", "CNP16OV",
@@ -31,9 +31,9 @@ DataCodeVec <- c("PCND"  , "PCESV" ,
                  "W011RC1Q027SBEA" ,"W020RC1Q027SBEA" ,"B232RC1Q027SBEA", "W006RC1Q027SBEA",
                  "W780RC1Q027SBEA","W009RC1Q027SBEA","B097RC1Q027SBEA" , "B096RC1Q027SBEA", "A091RC1Q027SBEA")
 
-DataNameVec <- c("PCND" , "PCESV" ,
-                  "GPDI" , "PCDG", "GovConExp" , "GovGrossInv" , "GovNetPurNPAss" , "GovConsFixCap" ,
-                  "CSI","EC", "IT", "SIT", "PRI" ,"W" ,
+DataNameVec <- c("PRS85006023" ,  "CE16OV"  , "PCND" , "PCESV" ,
+                 "GPDI" , "PCDG", "GovConExp" , "GovGrossInv" , "GovNetPurNPAss" , "GovConsFixCap" ,
+                 "CSI","EC", "IT", "SIT", "PRI" ,"W" ,
                  "rentalinc", "CPROFIT",
                  "interestinc"  ##
                  ,"CT", "PT" ,"popindex" ,
@@ -108,8 +108,23 @@ if (trytry == 1) {
 
 
 ## --- Observables constructions according to online Appendix-----------
-# construct c_
-
+# construct c_obs
+  c_nonadj = joinseries$PCND+joinseries$PCESV
+  cons_obs = c_nonadj/(joinseries$popindex*joinseries$deflator)
+  joinseries = cbind(joinseries, "cons_obs" = cons_obs , "ln_c_obs" = log(cons_obs))
+  c_obs_tb = cbind.data.frame("date" = joinseries$date, "c_obs" =joinseries$ln_c_obs)
+  c_obs_tb[-1,2] = diff(c_obs_tb[,2])
+  c_obs_tb = betweendates(DATE1,DATE2,c_obs_tb)
+  c_obs_tb[,2] = c_obs_tb[,2] - mean(c_obs_tb[,2])
+  
+# Construct lp -> hours worked
+  lp_nonadj = joinseries$PRS85006023*joinseries$CE16OV
+  lp_obs = lp_nonadj/(joinseries$popindex)
+  joinseries = cbind(joinseries, "lp_obs" = lp_obs , "ln_lp_obs" = log(lp_obs))
+  lp_obs_tb = cbind.data.frame("date" = joinseries$date, "lp" =joinseries$ln_lp_obs)
+  lp_obs_tb = betweendates(DATE1,DATE2,lp_obs_tb)
+  lp_obs_tb[,2] = lp_obs_tb[,2] - mean(lp_obs_tb[,2])
+  
 
 # Construct i_obs 
   PriInv =(joinseries$GPDI+joinseries$PCDG)/(joinseries$popindex*joinseries$deflator)
@@ -120,9 +135,9 @@ if (trytry == 1) {
   I_obs_tb[,2] = (I_obs_tb[,2] - mean(I_obs_tb[,2]))
 
 # Construct g_obs (government expenditure)
-  govexp = ((joinseries$GovConExp + joinseries$GovGrossInv + joinseries$GovNetPurNPAss - joinseries$GovConsFixCap)/
-            (joinseries$popindex*joinseries$deflator))
-  joinseries = cbind(joinseries, "govexp" = govexp , "g_obs" = log(govexp))
+  govexp_nonadj = (joinseries$GovConExp + joinseries$GovGrossInv + joinseries$GovNetPurNPAss - joinseries$GovConsFixCap)
+  govexp    =  govexp_nonadj/(joinseries$popindex*joinseries$deflator)
+  joinseries = cbind(joinseries,"govexp_nonadj"=govexp_nonadj,  "govexp" = govexp , "g_obs" = log(govexp))
   g_obs_tb = cbind.data.frame("date" = joinseries$date, "g_obs" =joinseries$g_obs)
   g_obs_tb[-1,2] = diff(g_obs_tb[,2])
   g_obs_tb = betweendates(DATE1,DATE2,g_obs_tb)
@@ -152,9 +167,10 @@ if (trytry == 1) {
 
 
 # calculate tax_obs (gov tax revenue)
-  govtaxrev = (joinseries$tau_w*(joinseries$EC + joinseries$PRI/2) + joinseries$tau_k*(joinseries$CI + joinseries$PT))/(joinseries$popindex*joinseries$deflator)
+  govtaxrev_nonadj = (joinseries$tau_w*(joinseries$EC + joinseries$PRI/2) + joinseries$tau_k*(joinseries$CI + joinseries$PT))
+  govtaxrev=govtaxrev_nonadj /(joinseries$popindex*joinseries$deflator)
   ln_taxrev = log(govtaxrev)
-  joinseries = cbind(joinseries , "govtaxrev" = govtaxrev,  "tax_obs" =ln_taxrev )
+  joinseries = cbind(joinseries ,"govtaxrev_nonadj" = govtaxrev_nonadj,   "govtaxrev" = govtaxrev,  "tax_obs" =ln_taxrev )
   
   tax_obs = joinseries[, c("date" , "tax_obs")]
   tax_obs[-1,2] = diff(tax_obs[,2])
@@ -162,23 +178,34 @@ if (trytry == 1) {
   tax_obs[,2] = (tax_obs[,2] - mean(tax_obs[,2]))
 
 # calculate government transfers
-  govtrans = (joinseries$CurTransPmt- joinseries$CurTransRpt) +  # net current transfers
+  govtrans_noadj = (joinseries$CurTransPmt- joinseries$CurTransRpt) +  # net current transfers
     (joinseries$CapTransPmt -joinseries$CapTransRpt) +  # net capital transfers
     joinseries$subsidies - # sibsidies
-    (joinseries$CurTaxRpt + joinseries$ConGovSocIns + joinseries$IncRcptAss + joinseries$CurSurpGovEntp  - joinseries$govtaxrev) # tax residual
-    
-  joinseries = cbind(joinseries , "govtrans" = govtrans , "ln_real_pc_govtrans" = log(govtrans/(joinseries$popindex*joinseries$deflator)))
+    (joinseries$CurTaxRpt + joinseries$ConGovSocIns + joinseries$IncRcptAss + joinseries$CurSurpGovEntp  - joinseries$govtaxrev_nonadj) # tax residual
+  govtrans=govtrans_noadj/(joinseries$popindex*joinseries$deflator)
+  joinseries = cbind(joinseries , "govtrans_noadj"=govtrans_noadj, "govtrans" = govtrans , "ln_govtrans" = log(govtrans))
 
 # Then calculates b_obs (government debts)
   # (this is a problematic section)
-  govdebts = ((joinseries$govexp + joinseries$govtrans - joinseries$govtaxrev + joinseries$IntPmt)/
-              (joinseries$popindex*joinseries$deflator))
-  joinseries = cbind(joinseries , "govdebts" = govdebts, "b_obs" = log(govdebts))
   
-  b_obs_tb = joinseries[, c("date" , "govdebts")]
-  #b_obs_tb[, "govdebts"] = b_obs_tb[, "govdebts"] -b_obs_tb[1, "govdebts"] + 263944*1000000
-  b_obs_tb[, "govdebts"] = log(b_obs_tb[, "govdebts"] )
+  debt_vec= NA
+  for (iii in 1:length(joinseries$govexp_nonadj)) {
+    if (iii == 1) {
+      debt_t = 200 +  joinseries$govexp_nonadj[iii]+joinseries$govtrans_noadj[iii]-joinseries$govtaxrev_nonadj[iii]+joinseries$IntPmt[iii]
+      debt_vec = debt_t
+    } else {
+      debt_t = debt_t + joinseries$govexp_nonadj[iii]+joinseries$govtrans_noadj[iii]-joinseries$govtaxrev_nonadj[iii]+joinseries$IntPmt[iii]
+      debt_vec = c(debt_vec,debt_t)
+    }
+  }
   
+  govdebt = debt_vec/(joinseries$popindex*joinseries$deflator)
+  joinseries = cbind(joinseries , "govdebt_noadj"=debt_vec, "govdebt" =govdebt , "ln_govdebt" = log(govdebt))
+  
+  
+  
+  b_obs_tb = joinseries[, c("date" , "ln_govdebt")]
+
   b_obs_tb[-1,2] = diff(b_obs_tb[,2])
   b_obs_tb = betweendates(DATE1,DATE2,b_obs_tb) #truncation of data series between DATE1 and DATE2
   b_obs_tb[,2] = (b_obs_tb[,2] - mean(b_obs_tb[,2]))
@@ -195,36 +222,32 @@ tax_rate_table = cbind(tax_rate_table, "Orig_tau_k" = ReplicData[["tau.k"]], "Or
 g_obs_tb = cbind(g_obs_tb, "Orig_g_obs" = ReplicData[["g.obs"]])
 b_obs_tb = cbind(b_obs_tb, "Orig_b_obs" = ReplicData[["b.obs"]])
 I_obs_tb = cbind(I_obs_tb, "Orig_I_obs" = ReplicData[["I.obs"]])
+c_obs_tb = cbind(c_obs_tb, "Orig_c_obs" = ReplicData[["c.obs"]])
+lp_obs_tb = cbind(lp_obs_tb, "Orig_lp" = ReplicData[["lp"]])
 
 ## -- Compare the data with plotting -----
-## For I_obs
-plot(I_obs_tb[,"date"],I_obs_tb[,"I_obs"],type="l",col="black" ,ylab="", xlab="date")
-lines(I_obs_tb[,"date"],I_obs_tb[,"Orig_I_obs"],col="red")
-legend("bottomleft", legend = c("replicated", "original"), col=c("black", "red"),lty=1, pch=NA) 
+## For c_obs
+plot2graphs_rep_ori(c_obs_tb[,"c_obs"],c_obs_tb[,"Orig_c_obs"],c_obs_tb[,"date"] ,"bottomleft")
 
+## For lp
+plot2graphs_rep_ori(lp_obs_tb[,"lp"],lp_obs_tb[,"Orig_lp"],lp_obs_tb[,"date"] ,"bottomleft")
+
+## For I_obs
+plot2graphs_rep_ori(I_obs_tb[,"I_obs"],I_obs_tb[,"Orig_I_obs"],I_obs_tb[,"date"] ,"bottomleft")
 
 ## For g_obs
-plot(g_obs_tb[,"date"],g_obs_tb[,"g_obs"],type="l",col="black" ,ylab="", xlab="date")
-lines(g_obs_tb[,"date"],g_obs_tb[,"Orig_g_obs"],col="red")
-legend("bottomleft", legend = c("replicated", "original"), col=c("black", "red"),lty=1, pch=NA) 
-
+plot2graphs_rep_ori(g_obs_tb[,"g_obs"],g_obs_tb[,"Orig_g_obs"],g_obs_tb[,"date"] ,"bottomleft")
 
 ## For tax_obs
-plot(tax_obs[,"date"],tax_obs[,"tax_obs"],type="l",col="black" ,ylab="", xlab="date")
-lines(tax_obs[,"date"],tax_obs[,"Orig_tax_obs"],col="red")
-legend("bottomleft", legend = c("replicated", "original"), col=c("black", "red"),lty=1, pch=NA) 
-
+plot2graphs_rep_ori(tax_obs[,"tax_obs"],tax_obs[,"Orig_tax_obs"],tax_obs[,"date"] ,"bottomleft")
 
 ## For tau_k
-plot(tax_rate_table[,"date"],tax_rate_table[,"ln_tau_k"],type="l",col="black",ylab="", xlab="date")
-lines(tax_rate_table[,"date"],tax_rate_table[,"Orig_tau_k"],col="red")
-legend("topleft", legend = c("replicated", "original"), col=c("black", "red"),lty=1, pch=NA) 
-
+plot2graphs_rep_ori(tax_rate_table[,"ln_tau_k"],tax_rate_table[,"Orig_tau_k"],tax_rate_table[,"date"] ,"bottomleft")
 
 ## For tau_w
-plot(tax_rate_table[,"date"],tax_rate_table[,"ln_tau_w"],type="l",col="black",ylab="", xlab="date", ylim=c(-0.09,0.1))
-lines(tax_rate_table[,"date"],tax_rate_table[,"Orig_tau_w"],col="red")  
-legend("topleft", legend = c("replicated", "original"), col=c("black", "red"),lty=1, pch=NA) 
+plot2graphs_rep_ori(tax_rate_table[,"ln_tau_w"],tax_rate_table[,"Orig_tau_w"],tax_rate_table[,"date"] ,"bottomleft")
 
+## For b_obs
+plot2graphs_rep_ori(b_obs_tb[,"ln_govdebt"],b_obs_tb[,"Orig_b_obs"],b_obs_tb[,"date"] ,"bottomleft")
 
 
