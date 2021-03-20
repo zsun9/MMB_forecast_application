@@ -29,7 +29,8 @@ DataCodeVec <- c("PRS85006023" ,  "CE16OV"  , "PCND"  , "PCESV" ,
                  "GDPCTPI" ,
                  "W014RC1Q027SBEA", #"W014RC1Q027SBEA" ,
                  "W011RC1Q027SBEA" ,"W020RC1Q027SBEA" ,"B232RC1Q027SBEA", "W006RC1Q027SBEA",
-                 "W780RC1Q027SBEA","W009RC1Q027SBEA","B097RC1Q027SBEA" , "B096RC1Q027SBEA", "A091RC1Q027SBEA")
+                 "W780RC1Q027SBEA","W009RC1Q027SBEA","B097RC1Q027SBEA" , "B096RC1Q027SBEA", "A091RC1Q027SBEA",
+                 "MVGFD027MNFRBDAL")
 
 DataNameVec <- c("PRS85006023" ,  "CE16OV"  , "PCND" , "PCESV" ,
                  "GPDI" , "PCDG", "GovConExp" , "GovGrossInv" , "GovNetPurNPAss" , "GovConsFixCap" ,
@@ -40,7 +41,8 @@ DataNameVec <- c("PRS85006023" ,  "CE16OV"  , "PCND" , "PCESV" ,
                  "deflator" ,
                  "CurTransPmt" , ##
                  "CurTransRpt" , "CapTransPmt" ,"CapTransRpt","CurTaxRpt",
-                 "ConGovSocIns","IncRcptAss","CurSurpGovEntp" , "subsidies" , "IntPmt")
+                 "ConGovSocIns","IncRcptAss","CurSurpGovEntp" , "subsidies" , "IntPmt",
+                 "MVFedDebtGross")
 
 # cater for unit difference!! Everything should be in Billions!
 # below vector is of other units
@@ -186,18 +188,10 @@ if (trytry == 1) {
   joinseries = cbind(joinseries , "govtrans_noadj"=govtrans_noadj, "govtrans" = govtrans , "ln_govtrans" = log(govtrans))
 
 # Then calculates b_obs (government debts)
-  # (this is a problematic section)
   
-  debt_vec= NA
-  for (iii in 1:length(joinseries$govexp_nonadj)) {
-    if (iii == 1) {
-      debt_t = 200 +  joinseries$govexp_nonadj[iii]+joinseries$govtrans_noadj[iii]-joinseries$govtaxrev_nonadj[iii]+joinseries$IntPmt[iii]
-      debt_vec = debt_t
-    } else {
-      debt_t = debt_t + joinseries$govexp_nonadj[iii]+joinseries$govtrans_noadj[iii]-joinseries$govtaxrev_nonadj[iii]+joinseries$IntPmt[iii]
-      debt_vec = c(debt_vec,debt_t)
-    }
-  }
+  debt_vec =  joinseries$govexp_nonadj+joinseries$govtrans_noadj-joinseries$govtaxrev_nonadj+joinseries$IntPmt
+  debt_vec = cumsum(debt_vec)# + 200
+
   
   govdebt = debt_vec/(joinseries$popindex*joinseries$deflator)
   joinseries = cbind(joinseries , "govdebt_noadj"=debt_vec, "govdebt" =govdebt , "ln_govdebt" = log(govdebt))
