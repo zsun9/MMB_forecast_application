@@ -589,7 +589,7 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 temp_vec1 =  np.log((df[d['PRS85006023']].values*df[d['CE16OV']].values)/(df[d['CNP16OV']].values/226959))    
                 df.loc[:, obs]= temp_vec1 - np.nanmean(temp_vec1[1:])   
                 
-            elif obs == 'I_rgpc_obs'  :
+            elif obs == 'i_rgpc_obs'  :
             #diff(log((GPDI+ PCDG)/(GDPCTPI*CNP16OV)))-mean(diff(log((GPDI+ PCDG)/(GDPCTPI*CNP16OV))))                                                                                                                           
                 temp_vec1 =  np.log((df[d['GPDI']].values+ df[d['PCDG']].values)/(df[d['GDPCTPI']].values*(df[d['CNP16OV']].values/226959)))    
                 temp_vec1 = np.ediff1d(temp_vec1)
@@ -644,6 +644,30 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
                 temp_vec1 = np.ediff1d(temp_vec1)
                 temp_vec1 = np.insert(temp_vec1, 0, 0)
                 df.loc[:, obs]= temp_vec1 - np.nanmean(temp_vec1[1:])  
+            
+            elif obs == 'govdebt_rcpc_obs':
+                # too complicated, construct from raw data series RENTIN-CPROFIT-W255RC1Q027SBEA-PROPINC-A074RC1Q027SBEA-W071RC1Q027SBEA-WASCUR-PROPINC-COE-W780RC1Q027SBEA-B249RC1Q027SBEA-B075RC1Q027SBEA-GDPCTPI-CNP16OV-A957RC1Q027SBEA-A787RC1Q027SBEA-AD08RC1Q027SBEA-A918RC1Q027SBEA-MVGFD027MNFRBDAL-W014RC1Q027SBEA-W011RC1Q027SBEA-W020RC1Q027SBEA-B232RC1Q027SBEA-B096RC1Q027SBEA-W006RC1Q027SBEA-W780RC1Q027SBEA-W009RC1Q027SBEA-B097RC1Q027SBEA-A091RC1Q027SBEA
+                # using MVGFD027MNFRBDAL : Market Value of Gross Federal Debt as the initial value of the debt series
+                temp_vec_CI = df[d['RENTIN']].values + df[d['CPROFIT']].values+df[d['W255RC1Q027SBEA']].values+df[d['PROPINC']].values/2
+                temp_vec_tau_w = ((df[d['A074RC1Q027SBEA']].values+df[d['W071RC1Q027SBEA']].values)/(df[d['WASCUR']].values+df[d['PROPINC']].values/2+temp_vec_CI))*((df[d['WASCUR']].values+df[d['PROPINC']].values/2)/(df[d['COE']].values+df[d['PROPINC']].values/2))+df[d['W780RC1Q027SBEA']].values/(df[d['COE']].values+df[d['PROPINC']].values/2)
+                temp_vec_tau_k = (df[d['A074RC1Q027SBEA']].values/(df[d['WASCUR']].values + df[d['PROPINC']].values/2 + temp_vec_CI))*(temp_vec_CI/(temp_vec_CI + df[d['B249RC1Q027SBEA']].values)) + (df[d['B075RC1Q027SBEA']].values + df[d['B249RC1Q027SBEA']].values)/(temp_vec_CI + df[d['B249RC1Q027SBEA']].values)
+                temp_vec_govtaxrev_nonadj = (temp_vec_tau_w*(df[d['COE']].values + df[d['PROPINC']].values/2) + temp_vec_tau_k*(temp_vec_CI + df[d['B249RC1Q027SBEA']].values))
+                temp_vec_govexp_nonadj =  (df[d['A957RC1Q027SBEA']].values+ df[d['A787RC1Q027SBEA']].values+ df[d['AD08RC1Q027SBEA']].values-df[d['A918RC1Q027SBEA']].values)
+                temp_vec_govtrans_noadj = (df[d['W014RC1Q027SBEA']].values- df[d['W011RC1Q027SBEA']].values) +   (df[d['W020RC1Q027SBEA']].values -df[d['B232RC1Q027SBEA']].values) +  df[d['B096RC1Q027SBEA']].values -  (df[d['W006RC1Q027SBEA']].values + df[d['W780RC1Q027SBEA']].values + df[d['W009RC1Q027SBEA']].values + df[d['B097RC1Q027SBEA']].values  - temp_vec_govtaxrev_nonadj)
+                temp_vec_IntPmt = df[d['A091RC1Q027SBEA']].values
+                temp_vec_MVdebtgross = df[d['MVGFD027MNFRBDAL']].values
+                from itertools import accumulate
+                temp_vec_b_change =  temp_vec_govexp_nonadj + temp_vec_govtrans_noadj - temp_vec_govtaxrev_nonadj + temp_vec_IntPmt
+                temp_vec1 = list(accumulate(temp_vec_b_change))
+                temp_vec1 = temp_vec1 + 200 #-temp_vec1[0]+temp_vec_MVdebtgross[0]
+                temp_vec1 = temp_vec1/(df[d['GDPCTPI']].values*(df[d['CNP16OV']].values/226959))
+                temp_vec1 = np.log(temp_vec1)
+                temp_vec1 = np.ediff1d(temp_vec1)
+                temp_vec1 = np.insert(temp_vec1, 0, 0)
+                df.loc[:, obs]= temp_vec1 - np.nanmean(temp_vec1[1:])  
+
+            
+            
             
             else:
                 print(f'{obs} is not exported as an osbervable.')

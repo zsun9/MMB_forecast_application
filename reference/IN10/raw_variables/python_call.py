@@ -22,4 +22,4 @@ from get_vintage_data import main
 
 
 
-main(vintageDate='2012-10-10', quarterStart= '1983Q1' ,  quarterEnd= '2008Q3', observed=list(set(['nom_w_pc_obs' ])))
+main(vintageDate='2012-10-10', quarterStart= '1983Q1' ,  quarterEnd= '2008Q3', observed=list(set(['govdebt_rcpc_obs' ])))

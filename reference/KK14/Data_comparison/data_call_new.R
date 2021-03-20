@@ -224,6 +224,10 @@ b_obs_tb = cbind(b_obs_tb, "Orig_b_obs" = ReplicData[["b.obs"]])
 I_obs_tb = cbind(I_obs_tb, "Orig_I_obs" = ReplicData[["I.obs"]])
 c_obs_tb = cbind(c_obs_tb, "Orig_c_obs" = ReplicData[["c.obs"]])
 lp_obs_tb = cbind(lp_obs_tb, "Orig_lp" = ReplicData[["lp"]])
+inf_p_tb = cbind(lp_obs_tb, "Orig_inf_p" = ReplicData[["inf.p"]])
+W_tb = cbind(lp_obs_tb, "Orig_W" = ReplicData[["W"]])
+
+
 
 ## -- Compare the data with plotting -----
 ## For c_obs
@@ -253,4 +257,4 @@ plot2graphs_rep_ori(b_obs_tb[,"ln_govdebt"],b_obs_tb[,"Orig_b_obs"],b_obs_tb[,"d
 
 ## random try
 
-aaa=as.data.frame(tax_rate_table$Orig_tau_k) 
+  aaa=as.data.frame(b_obs_tb$Orig_b_obs) 
