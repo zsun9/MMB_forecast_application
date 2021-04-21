@@ -190,7 +190,7 @@ if (trytry == 1) {
 # Then calculates b_obs (government debts)
   
   debt_vec =  joinseries$govexp_nonadj+joinseries$govtrans_noadj-joinseries$govtaxrev_nonadj+joinseries$IntPmt
-  debt_vec = cumsum(debt_vec)# + 200
+  debt_vec = cumsum(debt_vec) - debt_vec[1]+ joinseries$MVFedDebtGross[1]# + 200
 
   
   govdebt = debt_vec/(joinseries$popindex*joinseries$deflator)
