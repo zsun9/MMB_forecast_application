@@ -3,11 +3,11 @@ objective_model = "IN10";
 target_copy_model = "DS04";
 
 
-pthis.vintage = ["20201110"];%,"20010512","20010815","20011114","20080807","20081110","20090210","20090512","20200211","20200512","20200812"];
-pthis.scenario = ["s1","s2","s3","s4"];
-pthis.suffix_of_model = ""; % suffix that ALREADY EXIST!!!
+pthis.vintage = ["20081110"];%,"20010512","20010815","20011114","20080807","20081110","20090210","20090512","20200211","20200512","20200812"];
+pthis.scenario = ["s1","s3"];%["s1","s2","s3","s4"];
+pthis.suffix_of_model = "_dtb3"; % suffix that ALREADY EXIST!!!
 pthis.suffix_of_target_copy = "";
-pthis.suffix_that_wish_to_add = "_adj";
+pthis.suffix_that_wish_to_add = "_dtb3_adj";
 
 pthis.path.root = convertCharsToStrings(pwd);
 pthis.path.estimations = pthis.path.root + "\\estimations";
