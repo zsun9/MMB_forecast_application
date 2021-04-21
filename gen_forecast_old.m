@@ -14,10 +14,11 @@ close all; fclose all; clear; clc;
 
 % user-specified parameters
 % Please use double quotes here!
-p.vintages = ["2020-08-12"]; %
-p.scenarios = ["s1", "s2", "s3", "s4"];
-p.models = ["SW07"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
-p.executor = "Zexi";
+p.vintages = ["2008-11-10"]; %
+p.scenarios = ["s1"];
+p.models = ["IN10"]; % "DS04", "WW11", "NKBGG", "DNGS15", "SW07", "QPM08", "KR15_FF"
+p.executor = "KaiLong";
+p.suffix="_dtb3";
 p.ExcelColumnUntil = "AY";
 
 % hyper-parameters
@@ -30,7 +31,7 @@ p.burnIn = 0.3;
 p.scalingParam =  0.3;
 p.presample = 4;
 p.nobs = 100;
-p.mode_compute_order = [4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
+p.mode_compute_order = [6];% [4, 4, 7, 7, 1, 1, 3, 3, 5, 5, 6];
 
 % locate main folders (stored as char type)
 p.path.root = convertCharsToStrings(pwd);
@@ -81,7 +82,7 @@ for model = p.models
                 % create folder and copy model files
                 cd(p.path.root);
                 t.name.workingpath = model + "_" + strrep(vintage, "-", "") + "_" + scenario;
-                t.path.working = p.path.estimations + "\\" + t.name.workingpath;
+                t.path.working = p.path.estimations + "\\" + t.name.workingpath + p.suffix;
                 
                 if isfolder(t.path.working)
                     warning('Folder %s already exists!', t.name.workingpath)
