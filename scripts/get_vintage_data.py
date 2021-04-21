@@ -567,7 +567,8 @@ def main(vintageDate = '', quarterStart = '', quarterEnd = '', raw = [], observe
         
             elif obs == 'i_nom_obs':
            # TB3MS/400 - mean (TB3MS/400)
-                df.loc[:, obs] = df[d['TB3MS']].values/400 - np.nanmean(df[d['TB3MS']][1:-1].values/400)       
+           #     df.loc[:, obs] = df[d['TB3MS']].values/400 - np.nanmean(df[d['TB3MS']][1:-1].values/400)       
+                df.loc[:, obs] = df[d['DTB3']].values/400 - np.nanmean(df[d['DTB3']][1:-1].values/400)   
 
             elif obs == 'c_winf_obs':  
            # ΔLN(AHETPI) - mean(ΔLN(AHETPI))
