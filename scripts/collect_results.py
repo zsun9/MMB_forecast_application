@@ -2,7 +2,10 @@ import json, pathlib
 import pandas as pd
 import numpy as np
 from json import encoder
+#import json as simplejson #
 import simplejson
+from datetime import datetime
+import ast
 
 paths = {
     'estimations': pathlib.Path('../estimations'),
@@ -53,6 +56,7 @@ for index, row in df_sgf.iterrows():
         'forecast': {'gdp': row.tolist()[2:]},
         }
     if row['model'] == 'Fair':
+       # inst['ModelClass'] = 'Pre-crisis'
         results['dsge'].append(inst)
     else:
         results['external'].append(inst)
@@ -69,6 +73,10 @@ for index, row in df_sgf.iterrows():
                 'model': inst['model'],
                 'vintageQuarter': vintageQuarter,
             })
+
+# Get model type, pre or post crisis
+modelclass = pd.read_excel(paths['data'] / 'ModelClass.xlsx', index_col=0).to_dict()  # KL add
+modelclass = modelclass['Class']
 
 # collect forecast results from the estimation folder
 # calculate forecast errors
@@ -89,6 +97,7 @@ for directory in paths['estimations'].glob('*'):
             for file in directory.glob('*.json'):
                 foundJSON = True
                 inst = json.loads(file.read_text())
+                
                 # if 'autotune' in directory.stem:
                 #     inst['model'] = inst['model'] + '_new'
                 if 'cql' in directory.stem:
@@ -100,6 +109,19 @@ for directory in paths['estimations'].glob('*'):
                 #     inst['model'] += '_ew'
                 # if 'KR15' in directory.stem and 'dy424' not in directory.stem:
                 #     inst['model'] += '_dy457'
+                                
+                # KL add             
+                if inst['model'] in modelclass:
+                    inst['ModelClass']=modelclass[inst['model']]
+                else:
+                    inst['ModelClass']='Not Catagorized'
+                       
+                quartertmp = int(np.floor((int(inst['vintage'][5:7]) - 1) / 3) + 1)
+                yeartmp = int(inst['vintage'][0:4])
+                vintageQuartertmp = str(yeartmp) + 'Q' + str(quartertmp)
+                inst['vintageQuarter']=vintageQuartertmp
+                
+    
                 if 'GLP' in inst['model']:
                     results['ts'].append(inst)
                 else:
@@ -179,6 +201,41 @@ observed = []
 #                     'variable': col,
 #                     'value': valueCol
 #                 })
+
+## Get average of pre-crisis and post-crisis models
+#  get unique vintagequarter vector
+all_unique_dates=[]
+for index, value in enumerate(results['dsge']):
+    if 'vintage' in value:
+        all_unique_dates.append(value['vintage'])
+all_unique_dates=set(all_unique_dates)
+unique_scenarios = ['s1', 's2', 's3', 's4']
+
+# get list of models forecast, by vintagequarter by modelclass, (pre or post crisis)
+avg_postcri_list=[]
+avg_precri_list=[]
+for vinqua_ind in all_unique_dates:
+    for scen in unique_scenarios:
+        avg_postcrigdp_dataframe = []
+        avg_precrigdp_dataframe =[]
+        for index, value in enumerate(results['dsge']):
+            if 'vintage' in value:
+                if (value['vintage'] == vinqua_ind) and ('ModelClass' in value) and (value['scenario'] == scen):
+                    if value['ModelClass']=='Post-crisis':
+                        tmp_postgdp = value['forecast']['gdp']
+                        avg_postcrigdp_dataframe.append(tmp_postgdp)
+                    if value['ModelClass']=='Pre-crisis':
+                        tmp_pregdp = value['forecast']['gdp']
+                        avg_precrigdp_dataframe.append(tmp_pregdp)
+        avg_postcrigdp_dataframe = pd.DataFrame(avg_postcrigdp_dataframe)
+        avg_precrigdp_dataframe =  pd.DataFrame(avg_precrigdp_dataframe)
+        # append the average forecast to results
+        results['dsge'].append({'forecast':{'gdp': avg_postcrigdp_dataframe.mean(axis=0).values.tolist() },'ModelClass':'Post-crisis', 
+                                 'model':'Post-crisis models avg', 'vintage':vinqua_ind,'scenario':scen})
+        results['dsge'].append({'forecast':{'gdp': avg_precrigdp_dataframe.mean(axis=0).values.tolist() },'ModelClass':'Pre-crisis', 
+                                 'model':'Pre-crisis models avg', 'vintage':vinqua_ind,'scenario':scen})
+
+
 
 # save results
 with open(paths['application'] / 'src' / 'results.json', 'w') as file:

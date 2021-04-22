@@ -10,7 +10,9 @@ const modelColor = {
   'FRBEDO08': 'LawnGreen',
   'FRBEDO08_cql': 'LawnGreen',
   'Fair': 'SandyBrown',
+  'Pre-crisis models avg': 'Blue',
   // Selective post crisis
+  'Post-crisis models avg': 'Red',
   'NKBGG': 'Cyan',
   'QPM08': 'DarkMagenta',
   'QPM08_cql': 'DarkMagenta',
