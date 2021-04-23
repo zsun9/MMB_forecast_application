@@ -56,7 +56,7 @@ for index, row in df_sgf.iterrows():
         'forecast': {'gdp': row.tolist()[2:]},
         }
     if row['model'] == 'Fair':
-       # inst['ModelClass'] = 'Pre-crisis'
+        inst['ModelClass'] = 'Pre-crisis'
         results['dsge'].append(inst)
     else:
         results['external'].append(inst)
@@ -207,33 +207,49 @@ observed = []
 all_unique_dates=[]
 for index, value in enumerate(results['dsge']):
     if 'vintage' in value:
-        all_unique_dates.append(value['vintage'])
-all_unique_dates=set(all_unique_dates)
+        all_unique_dates.append([value['vintage'],value['vintageQuarter']])
+#all_unique_dates=set(all_unique_dates)
+all_unique_dates = [list(x) for x in set(tuple(x) for x in all_unique_dates)]
+
+
 unique_scenarios = ['s1', 's2', 's3', 's4']
 
 # get list of models forecast, by vintagequarter by modelclass, (pre or post crisis)
 avg_postcri_list=[]
 avg_precri_list=[]
-for vinqua_ind in all_unique_dates:
+#for vinqua_ind in all_unique_dates:
+for vinqua_ind, vinqua_value in enumerate(all_unique_dates):
+    vindate = vinqua_value[0]
+    vinqua = vinqua_value[1]
     for scen in unique_scenarios:
         avg_postcrigdp_dataframe = []
         avg_precrigdp_dataframe =[]
         for index, value in enumerate(results['dsge']):
             if 'vintage' in value:
-                if (value['vintage'] == vinqua_ind) and ('ModelClass' in value) and (value['scenario'] == scen):
+                if (value['vintage'] == vindate) and ('ModelClass' in value) and (value['scenario'] == scen):
                     if value['ModelClass']=='Post-crisis':
                         tmp_postgdp = value['forecast']['gdp']
                         avg_postcrigdp_dataframe.append(tmp_postgdp)
                     if value['ModelClass']=='Pre-crisis':
                         tmp_pregdp = value['forecast']['gdp']
                         avg_precrigdp_dataframe.append(tmp_pregdp)
+            elif  'vintageQuarter' in value:
+                 if (value['vintageQuarter'] == vinqua) and ('ModelClass' in value) and (value['model'] == 'Fair'):
+                    if value['ModelClass']=='Post-crisis':
+                        tmp_postgdp = value['forecast']['gdp']
+                        avg_postcrigdp_dataframe.append(tmp_postgdp)
+                    if value['ModelClass']=='Pre-crisis':
+                        tmp_pregdp = value['forecast']['gdp']
+                        avg_precrigdp_dataframe.append(tmp_pregdp)
+            else:
+                print('Have to check, other cases exists')
         avg_postcrigdp_dataframe = pd.DataFrame(avg_postcrigdp_dataframe)
         avg_precrigdp_dataframe =  pd.DataFrame(avg_precrigdp_dataframe)
         # append the average forecast to results
         results['dsge'].append({'forecast':{'gdp': avg_postcrigdp_dataframe.mean(axis=0).values.tolist() },'ModelClass':'Post-crisis', 
-                                 'model':'Post-crisis models avg', 'vintage':vinqua_ind,'scenario':scen})
+                                 'model':'Post-crisis models avg', 'vintage':vindate,'scenario':scen})
         results['dsge'].append({'forecast':{'gdp': avg_precrigdp_dataframe.mean(axis=0).values.tolist() },'ModelClass':'Pre-crisis', 
-                                 'model':'Pre-crisis models avg', 'vintage':vinqua_ind,'scenario':scen})
+                                 'model':'Pre-crisis models avg', 'vintage':vindate,'scenario':scen})
 
 
 
