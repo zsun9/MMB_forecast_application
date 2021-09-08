@@ -232,23 +232,47 @@
           }
         bigChart.innerHTML = `<p class="legend" style='text-align: center;'></p>`;
 
-        for (let scenario of selected['scenario']) {
+        for (let ivintage = 0; ivintage < selected['vintage'].length; ivintage++) {
 
           // console.log(ivintage);
           // let warningShowDescription = document.createElement('p');
           // warningShowDescription.innerHTML = `Forecasts from ${selected['dsge']} on ${selected['vintage']} in scenario ${selected['scenario']} will be shown.`;
           // document.getElementById('warning').appendChild(warningShowDescription);
 
+          let yearStart = parseInt(selected['vintage'][ivintage].substring(0, 4));
+          let quarterStart = Math.floor((parseInt(selected['vintage'][ivintage].substring(5,7)) - 1) / 3) + 1;
+          let vintageQuarter = yearStart + 'Q' + quarterStart;
+          // selected['vintageQuarter'].push(vintageQuarter);
+
+          if (quarterStart == 1) {
+            quarterStart = 4;
+            yearStart -= 1;
+          } else {
+            quarterStart -= 1;
+          }
+          let xlabels = new Array(40);
+          let quarter = quarterStart, year = yearStart;
+          for (let i = 0; i < xlabels.length; i++) {
+            xlabels[i] = year.toString().substring(2) + 'Q' + quarter;
+            if (quarter == 4) {
+              quarter = 1;
+              year += 1;
+            } else {
+              quarter += 1;
+            }
+          }
+
+
           fetch('./src/results.json').then(response => response.json()).then(data => {
 
-            // let supTitle = document.createElement('h5');
-            // supTitle.setAttribute('style', 'margin: 0%; padding: 0; text-align:center; font-weight: bold; font-size: 16pt;');
-            // supTitle.innerText = `Forecast start ${vintageQuarter}`;
-            // bigChart.appendChild(supTitle);
+            let supTitle = document.createElement('h5');
+            supTitle.setAttribute('style', 'margin: 0%; padding: 0; text-align:center; font-weight: bold; font-size: 16pt;');
+            supTitle.innerText = `Forecast start ${vintageQuarter}`;
+            bigChart.appendChild(supTitle);
 
             let charts = document.createElement('div');
             charts.classList.add('row');
-            // charts.id = `charts${ivintage}`;
+            charts.id = `charts${ivintage}`;
             bigChart.appendChild(charts);
 
             // let charts = document.getElementById('charts');
@@ -265,46 +289,22 @@
             // charts.appendChild(supTitle);
             // charts.appendChild(breakTitle);
 
+            // get actual GDP series
+            let actualSeries = [];
+            for (let i = 0; i < data['actual'].length; i++) {
+              if (data['actual'][i].vintageQuarter == vintageQuarter) {
+                actualSeries = data['actual'][i].actual.gdp;
+                break;
+              }
+            }
+
             let loopedOnce = false;
             let chartNumber = 0;
-            for (let ivintage = 0; ivintage < selected['vintage'].length; ivintage++) {
+            for (let scenario of selected['scenario']) {
 
-              let yearStart = parseInt(selected['vintage'][ivintage].substring(0, 4));
-              let quarterStart = Math.floor((parseInt(selected['vintage'][ivintage].substring(5,7)) - 1) / 3) + 1;
-              let vintageQuarter = yearStart + 'Q' + quarterStart;
-              // selected['vintageQuarter'].push(vintageQuarter);
-
-              if (quarterStart == 1) {
-                quarterStart = 4;
-                yearStart -= 1;
-              } else {
-                quarterStart -= 1;
-              }
-              let xlabels = new Array(40);
-              let quarter = quarterStart, year = yearStart;
-              for (let i = 0; i < xlabels.length; i++) {
-                xlabels[i] = year.toString().substring(2) + 'Q' + quarter;
-                if (quarter == 4) {
-                  quarter = 1;
-                  year += 1;
-                } else {
-                  quarter += 1;
-                }
-              }
-
-              // get actual GDP series
-              let actualSeries = [];
-              for (let i = 0; i < data['actual'].length; i++) {
-                if (data['actual'][i].vintageQuarter == vintageQuarter) {
-                  actualSeries = data['actual'][i].actual.gdp;
-                  break;
-                }
-              }
-
-              // create a new chart element
               let divCol = document.createElement('div');
-              divCol.classList.add(`col-sm-${12/2}`);
-              divCol.classList.add(`col-xs-${12/2}`);
+              divCol.classList.add(`col-sm-${12/selected['scenario'].length}`);
+              divCol.classList.add(`col-xs-${12/selected['scenario'].length}`);
               let canvas = document.createElement('canvas');
               divCol.appendChild(canvas);
               charts.appendChild(divCol);
@@ -336,7 +336,6 @@
                           backgroundColor: 'DarkGreen',
                           borderColor: 'DarkGreen',
                           borderWidth: 4,
-                          pointRadius: 0,
                         });
                       } else if ((data[type][i].vintage == selected['vintage'][ivintage]) && (data[type][i].scenario == scenario)) {
                         gdpLastQuarter = gdpData[0];
@@ -347,7 +346,7 @@
                           backgroundColor: modelColor[model],
                           borderColor: modelColor[model],
                           borderDash: modelDash[model],
-                          pointRadius: 0,
+                          pointRadius: 2.5,
                         });
                         break;
                       } else if ((data[type][i].vintageQuarter == vintageQuarter) && (data[type][i].scenario == undefined)) {
@@ -387,7 +386,7 @@
               }
 
               if (loopedOnce == false) {
-                // loopedOnce = true;
+                loopedOnce = true;
                 actualSeries.unshift(gdpLastQuarter);
               }
 
@@ -398,7 +397,6 @@
                 backgroundColor: 'Black',
                 borderColor: 'Black',
                 borderWidth: 4,
-                pointRadius: 0,
               });
 
               let recessionPeriods = [];
@@ -419,29 +417,8 @@
                   backgroundColor: 'rgba(220, 220, 220, 0.5)',
                 })
               }
-              
-              if (scenario == "s1" || scenario == "s3") {
-                recessionPeriods.push({
-                  type: 'box',
-                  xScaleID: 'x-axis-0',
-                  drawTime: 'beforeDatasetsDraw',
-                  borderWidth: 1,
-                  borderColor: 'black',
-                  xMin: xlabels[0],
-                  xMax: xlabels[0],
-                });
-              } else {
-                recessionPeriods.push({
-                  type: 'box',
-                  xScaleID: 'x-axis-0',
-                  drawTime: 'beforeDatasetsDraw',
-                  borderWidth: 1,
-                  borderColor: 'black',
-                  xMin: xlabels[1],
-                  xMax: xlabels[1],
-                });
-              };
 
+              
 
               Chart.defaults.global.defaultFontFamily = 'Arial';
               Chart.defaults.global.defaultFontColor = 'Black';
@@ -467,7 +444,7 @@
 
                     title: {
                       display: true,
-                      text: `${vintageQuarter}, ${scenarioStrings[scenario]}`,
+                      text: `${scenarioStrings[scenario]}`,
                     },
 
                     // legend: {
@@ -496,17 +473,15 @@
                     scales: {
                       yAxes: [{
                         ticks: {
-                          // min: minY,
-                          // max: maxY,
+                          min: minY,
+                          max: maxY,
                           // suggestedMin: -8,
                           // suggestedMax: 6,
-                          min: -8,
-                          max: 6,
                         }
                       }]
                     },
 
-                    annotation: {annotations: recessionPeriods},
+                    annotation: {annotations: recessionPeriods}
 
                   },
 
