@@ -333,8 +333,8 @@
                           fill: false,
                           label: data[type][i].model,
                           data: gdpData,
-                          backgroundColor: 'DarkGreen',
-                          borderColor: 'DarkGreen',
+                          backgroundColor: 'brown',
+                          borderColor: 'brown',
                           borderWidth: 4,
                           pointRadius: 0,
                         });
@@ -347,6 +347,7 @@
                           backgroundColor: modelColor[model],
                           borderColor: modelColor[model],
                           borderDash: modelDash[model],
+                          borderWidth: 1.5,
                           pointRadius: 0,
                         });
                         break;
@@ -362,7 +363,7 @@
                             borderDash: modelDash[model],
                             pointRadius: 0,
                             pointHitRadius: 0,
-                            borderWidth: 2,
+                            borderWidth: 1,
                           });
                         } else {
                           datasets.push({
@@ -373,6 +374,7 @@
                             borderColor: modelColor[model],
                             borderDash: modelDash[model],
                             pointRadius: 0,
+                            borderWidth: 2,
                           });
                           alreadyHaveThisLabel.push(model);
                         }

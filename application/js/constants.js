@@ -1,6 +1,6 @@
 const modelColor = {
   // Always appear
-  'SPFMean': 'DarkGreen',
+  'SPFMean': 'Yellow',
   'SPFIndividual': 'rgba(0, 0, 0, 0.1)',
   // Selective pre crisis
   'DS04': 'Blue',//org//'Red',
