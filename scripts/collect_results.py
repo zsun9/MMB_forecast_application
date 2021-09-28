@@ -2,8 +2,8 @@ import json, pathlib
 import pandas as pd
 import numpy as np
 from json import encoder
-#import json as simplejson #
-import simplejson
+import json as simplejson #
+#import simplejson
 from datetime import datetime
 import ast
 
@@ -255,7 +255,8 @@ for vinqua_ind, vinqua_value in enumerate(all_unique_dates):
 
 # save results
 with open(paths['application'] / 'src' / 'results.json', 'w') as file:
-    simplejson.dump(results, file, ignore_nan=True, indent=2, sort_keys=True)
+    #simplejson.dump(results, file, ignore_nan=True, indent=2, sort_keys=True)
+    simplejson.dump(results, file,  indent=2, sort_keys=True)
 
 # with open(paths['application'] / 'src' /  'variables.json', 'w') as file:
 #     simplejson.dump(observed, file, ignore_nan=True, indent=2, sort_keys=True)
