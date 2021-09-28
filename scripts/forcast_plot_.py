@@ -297,13 +297,13 @@ mpl.rcParams['font.size'] = 14
 
 
 ## Plot
-case_ind =2  # case 1 -> s1 s3 for every yearquarter
+case_ind =1  # case 1 -> s1 s3 for every yearquarter
              # case 2 -> s1 for 4 periods
 ## case 1
 if case_ind ==1:
     forecastQuartersList=['2001Q1', '2001Q2', '2001Q3', '2001Q4','2008Q3', '2008Q4', '2009Q1', '2009Q2', '2020Q1', '2020Q2', '2020Q3', '2020Q4']
     #forecastQuartersList=['2001Q1', '2001Q2', '2001Q3', '2001Q4','2008Q3', '2008Q4', '2009Q1', '2009Q2', '2020Q1']
-    #forecastQuartersList=[ '2020Q2', '2020Q3', '2020Q4']
+    forecastQuartersList=[ '2020Q2', '2020Q3', '2020Q4']
     for ind_tmp, indname_tmp in enumerate(forecastQuartersList):
         a, _ = plotForecasts(forecastStartQuarters=indname_tmp, 
                              sources=[  'SPFIndividual', 'SPFMean',
@@ -316,7 +316,7 @@ if case_ind ==1:
                              topCandidates = ['SW07','GSW12',
                                               'CMR14', 'DNGS15', 'IN10',],
                              scenarios=['s1','s3'],
-                             forecastHorizon=5, move=False, GraphGroupType = 2, casenum = case_ind)
+                             forecastHorizon=7, move=False, GraphGroupType = 2, casenum = case_ind)
     #nberRecessionQuarters = ['2001Q1', '2001Q2', '2001Q3', 
     #                            '2008Q1', '2008Q2', '2008Q3', '2008Q4', '2009Q1', 
     #                          '2020Q1', '2020Q2',]
