@@ -6,6 +6,7 @@ import json as simplejson #
 #import simplejson
 from datetime import datetime
 import ast
+from itertools import compress
 
 paths = {
     'estimations': pathlib.Path('../estimations'),
@@ -250,6 +251,21 @@ for vinqua_ind, vinqua_value in enumerate(all_unique_dates):
                                  'model':'Post-crisis models avg', 'vintage':vindate,'scenario':scen})
         results['dsge'].append({'forecast':{'gdp': avg_precrigdp_dataframe.mean(axis=0).values.tolist() },'ModelClass':'Pre-crisis', 
                                  'model':'Pre-crisis models avg', 'vintage':vindate,'scenario':scen})
+
+
+# Manual adjustment for some data, mostly from model KR15_HH (and KR15_FF)
+    # reason: using dyare 4.2.4 to run, some values are wrongly duplicated. Length of list of forecast is 42, either first two are duplicated or value number 2 and 3 are duplicated.
+for tmp_ind, tmp_value in enumerate(results['dsge']):
+    if len(tmp_value['forecast']['gdp']) == 42:
+        zero_position = []
+        first_diff = np.diff(tmp_value['forecast']['gdp'])
+        zero_position = np.absolute(first_diff )<0.000000000001
+        zero_position= [False] + zero_position.tolist()
+        zero_position = np.logical_not(zero_position)
+        tmp_value['forecast']['gdp'] = list(compress(tmp_value['forecast']['gdp'], zero_position))
+
+
+
 
 
 
