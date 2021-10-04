@@ -418,10 +418,7 @@ if case_ind ==1:
                                               ],
                              scenarios=['s1','s3'],
                              forecastHorizon=5, rollbkActualPeriods = 2, move=False, GraphGroupType = 2, casenum = case_ind , hideModelLabel=0)
-    #nberRecessionQuarters = ['2001Q1', '2001Q2', '2001Q3', 
-    #                            '2008Q1', '2008Q2', '2008Q3', '2008Q4', '2009Q1', 
-    #                          '2020Q1', '2020Q2',]
-    #a.savefig('aa.svg')
+
         nametag = 'Pre_crisis_'+indname_tmp + '.png'
     
         a.savefig(nametag, bbox_inches='tight')
@@ -451,10 +448,7 @@ if case_ind==2:
                                         ],
                       scenarios=['s1'],
                       forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = case_ind,hideModelLabel=1)
-         #nberRecessionQuarters = ['2001Q1', '2001Q2', '2001Q3', 
-         #                            '2008Q1', '2008Q2', '2008Q3', '2008Q4', '2009Q1', 
-         #                          '2020Q1', '2020Q2',]
-         #a.savefig('aa.svg')
+
         nametag = 'FinVSMacro_individual_'+ periodname_tmp + '.png'
          
         a.savefig(nametag, bbox_inches='tight')
