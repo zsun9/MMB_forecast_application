@@ -77,8 +77,10 @@ topCandidateColors = {
     'WW11': 'cyan',
     'DS04': 'slategray',
     'FRBEDO08':'firebrick',
-    'FU20': 'darkslateblue',
-}
+    'FU20': 'darkslateblue',  
+    'KR15_FF': 'red',
+    'KR15_HH' : 'red',
+    }
 
 GraphRecessionHorizon = {
     '2001Q1':3,
@@ -244,7 +246,7 @@ for instance in results['dsge']:
         modelClasses[instance['model']] = instance['ModelClass']
         
 ##
-def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, forecastHorizon, rollbkActualPeriods, move,GraphGroupType, casenum ,hideModelLabel,modelIndiOpacity ):
+def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, forecastHorizon, rollbkActualPeriods, move,GraphGroupType, casenum ,hideModelLabel,modelIndiOpacity=1 ):
     if casenum ==1:
         forecastStartQuarters=[forecastStartQuarters]       
     elif casenum==2:
@@ -429,7 +431,7 @@ if ac_hoc_graphs:
                                                     'WW11','DS04','FRBEDO08',
                                                 ],
                                 scenarios=['s1','s3'],
-                                forecastHorizon=5, rollbkActualPeriods = 2, move=False, GraphGroupType = 2, casenum = case_ind , hideModelLabel=0, modelIndiOpacity = 1)
+                                forecastHorizon=5, rollbkActualPeriods = 2, move=False, GraphGroupType = 2, casenum = case_ind , hideModelLabel=0)
 
             nametag = 'Pre_crisis_'+indname_tmp + '.png'
         
@@ -459,7 +461,7 @@ if ac_hoc_graphs:
                                         #'CMR14', 'DNGS15', 'IN10',],
                                             ],
                         scenarios=['s1'],
-                        forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = case_ind,hideModelLabel=1,modelIndiOpacity = 1)
+                        forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = case_ind,hideModelLabel=1)
 
             nametag = 'FinVSMacro_individual_'+ periodname_tmp + '.png'
             
@@ -493,7 +495,7 @@ if ac_hoc_graphs ==0:
                                     #'CMR14', 'DNGS15', 'IN10',],
                                         ],
                     scenarios=['s1'],
-                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0,modelIndiOpacity = 1)
+                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0)
 
         nametag = 'Actual_vs_SPF_'+ periodname_tmp + '.png'
         
@@ -518,7 +520,7 @@ if ac_hoc_graphs ==0:
                                     #'CMR14', 'DNGS15', 'IN10',],
                                     ],
                     scenarios=['s1'],
-                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0 ,modelIndiOpacity = 1)
+                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0 )
 
         nametag = 'MacroFin_vs_Macro_avg_'+ periodname_tmp + '.png'
         
@@ -569,7 +571,7 @@ if ac_hoc_graphs ==0:
                                     #'CMR14', 'DNGS15', 'IN10',],
                                     ],
                     scenarios=['s1'],
-                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=1,modelIndiOpacity = 0.6)
+                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=1)
 
         nametag = 'MacroFin_vs_Macro_indi'+ periodname_tmp + '.png'
         
@@ -596,7 +598,7 @@ if ac_hoc_graphs ==0:
                                     #'CMR14', 'DNGS15', 'IN10',],
                                     ],
                     scenarios=['s1'],
-                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0,modelIndiOpacity = 1)
+                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0)
 
         nametag = 'Struct_vs_BVAR_'+ periodname_tmp + '.png'
         
@@ -628,7 +630,7 @@ if ac_hoc_graphs ==0:
                                             'NKBGG','FU20', 'SW07' ,#'CMR14'
                                             ],
                             scenarios=['s1','s3'],
-                            forecastHorizon=5, rollbkActualPeriods = 0, move=False, GraphGroupType = 2, casenum = 1 , hideModelLabel=0,modelIndiOpacity = 1)
+                            forecastHorizon=5, rollbkActualPeriods = 0, move=False, GraphGroupType = 2, casenum = 1 , hideModelLabel=0)
 
         nametag = 'Top3_models_'+indname_tmp + '.png'
     
@@ -660,19 +662,22 @@ if ac_hoc_graphs ==0:
                                              'NKBGG','FU20', 'SW07' ,#'CMR14'
                                             ],
                             scenarios=['s1','s3'],
-                            forecastHorizon=5, rollbkActualPeriods = 0, move=False, GraphGroupType = 2, casenum = 1 , hideModelLabel=0,modelIndiOpacity = 1)
+                            forecastHorizon=5, rollbkActualPeriods = 0, move=False, GraphGroupType = 2, casenum = 1 , hideModelLabel=0)
 
         nametag = 'Top3_models_'+indname_tmp + '.png'
     
         a.savefig(nametag, bbox_inches='tight')
 
-    # for recession 2021
+    # for recession 2021, selected top 4 based on BP RMSE, nowcast
     forecastQuartersList=['2020Q1', '2020Q2', '2020Q3', '2020Q4'] 
 
     topCandidateColors['QPM08'] = 'darkorange'
-    topCandidateColors['DS04'] = 'royalblue'
+    topCandidateColors['IN10'] = 'red'
     topCandidateColors['NKBGG'] = 'crimson'
-    topCandidateColors['WW11'] = 'darkslateblue'
+    topCandidateColors['KR15_FF'] = 'maroon'
+
+    yaxisminval['2020Q2'] =-70
+    yaxisminval['2020Q3'] =-40
 
     for ind_tmp, indname_tmp in enumerate(forecastQuartersList):
         a, _ = plotForecasts(forecastStartQuarters=indname_tmp, 
@@ -682,21 +687,55 @@ if ac_hoc_graphs ==0:
                                     #'Fair', # Fair model not available for 2020Q2
                                     #'SW07', 'DS04', 'GLP3v', 'GLP8v',
                                     #'Post-crisis models avg', 'Pre-crisis models avg'
-                                     'DS04','WW11', 'QPM08' ,'NKBGG'
-                                    ], 
+                                     #'DS04','WW11', 'QPM08' ,'NKBGG'
+                                    'QPM08', 'NKBGG' ,'IN10', ], 
                             topCandidates = [#'SW07','GSW12',
                                             #'CMR14', 'DNGS15', 'IN10',
                                             #'NKBGG','QPM08','IN10' ,
                                             #    'WW11','DS04','FRBEDO08',
-                                             'DS04','WW11', 'QPM08' ,'NKBGG'
+                                            'QPM08', 'NKBGG' ,'IN10', 
+                                             #'DS04','WW11', 'QPM08' ,'NKBGG'
                                             ],
                             scenarios=['s1','s3'],
-                            forecastHorizon=5, rollbkActualPeriods = 0, move=False, GraphGroupType = 2, casenum = 1 , hideModelLabel=0,modelIndiOpacity = 1)
+                            forecastHorizon=5, rollbkActualPeriods = 0, move=False, GraphGroupType = 2, casenum = 1 , hideModelLabel=0)
 
-        nametag = 'Top3_models_'+indname_tmp + '.png'
+        nametag = 'Top3_models_BP_'+indname_tmp + '.png'
     
         a.savefig(nametag, bbox_inches='tight')
+    # for recession 2021, selected top 4 based on cql RMSE, nowcast
+    forecastQuartersList=['2020Q1', '2020Q2', '2020Q3', '2020Q4'] 
 
+    topCandidateColors['QPM08'] = 'darkorange'
+    topCandidateColors['IN10'] = 'red'
+    topCandidateColors['DNGS15'] = 'crimson'
+    topCandidateColors['FRBEDO08'] = 'dodgerblue'
+
+    yaxisminval['2020Q2'] =-70
+    yaxisminval['2020Q3'] =-40
+
+    for ind_tmp, indname_tmp in enumerate(forecastQuartersList):
+        a, _ = plotForecasts(forecastStartQuarters=indname_tmp, 
+                            sources=[ 'SPFMean', # 'SPFIndividual', 
+                                    #'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
+                                    #'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
+                                    #'Fair', # Fair model not available for 2020Q2
+                                    #'SW07', 'DS04', 'GLP3v', 'GLP8v',
+                                    #'Post-crisis models avg', 'Pre-crisis models avg'
+                                     #'DS04','WW11', 'QPM08' ,'NKBGG'
+                                    'QPM08', 'IN10', 'FRBEDO08',], 
+                            topCandidates = [#'SW07','GSW12',
+                                            #'CMR14', 'DNGS15', 'IN10',
+                                            #'NKBGG','QPM08','IN10' ,
+                                            #    'WW11','DS04','FRBEDO08',
+                                            'QPM08', 'IN10', 'FRBEDO08',
+                                             #'DS04','WW11', 'QPM08' ,'NKBGG'
+                                            ],
+                            scenarios=['s1','s3'],
+                            forecastHorizon=5, rollbkActualPeriods = 0, move=False, GraphGroupType = 2, casenum = 1 , hideModelLabel=0)
+
+        nametag = 'Top3_models_cql_'+indname_tmp + '.png'
+    
+        a.savefig(nametag, bbox_inches='tight')
 
        
     os.system("pdflatex Graphs_pdf.tex")
