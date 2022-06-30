@@ -55,7 +55,9 @@ sourceWidths = {
     'GLP': 1.5, # class of models
     'CMR14': 2.3,
     'IN10':2.3,
-    'DNGS15': 2.3, 
+    'DNGS15': 2.3,
+    #'DNGS15': 3,
+    #'GLP8v': 3,
     'QPM08': 2.3,
     'NKBGG':2.3,
     'SW07':2.3,
@@ -69,17 +71,22 @@ sourceWidths = {
 topCandidateColors = {
     'CMR14': 'gold',
     'IN10':'aqua',
-    'DNGS15': 'purple', 
+    'DNGS15': 'green',
+    #'DNGS15': 'purple', 
     'QPM08': 'slategray',
-    'NKBGG':'purple',
+    #'NKBGG':'purple',
+    'NKBGG':'maroon',
     'SW07':'violet', 
-    'GSW12':'gold',
+    #'GSW12':'gold',
+    'GSW12':'green',
     'WW11': 'cyan',
     'DS04': 'slategray',
-    'FRBEDO08':'firebrick',
+    #'FRBEDO08':'firebrick',
+    'FRBEDO08':'red',
     'FU20': 'darkslateblue',  
     'KR15_FF': 'red',
-    'KR15_HH' : 'red',
+    'KR15_HH' : 'blue',
+    #'KR15_HH' : 'red',
     }
 
 GraphRecessionHorizon = {
@@ -315,17 +322,39 @@ def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, fore
                         if SPFIndividualLegend == False:
                             nan_list = np.repeat(np.nan,rollbkActualPeriods)
                             nan_list = nan_list.tolist()
-                            ax.plot(range(forecastHorizon+1+rollbkActualPeriods), nan_list + external[quarter][key][:forecastHorizon+1], label='SPFIndividual', color=sourceColors['SPFIndividual'], linewidth=sourceWidths['SPFIndividual'], alpha=0.3)
+                            Extralength = len(nan_list +external[quarter][key][:forecastHorizon+1])
+                            if (forecastHorizon+1+rollbkActualPeriods)>Extralength:
+                                 addextraperiodNAN = (forecastHorizon+1+rollbkActualPeriods)-Extralength
+                                 nan_listaddextraAfter = np.repeat(np.nan,addextraperiodNAN)
+                                 nan_listaddextraAfter = nan_listaddextraAfter.tolist()
+                                 ax.plot(range(forecastHorizon+1+rollbkActualPeriods), nan_list + external[quarter][key][:forecastHorizon+1]+nan_listaddextraAfter, label='SPFIndividual', color=sourceColors['SPFIndividual'], linewidth=sourceWidths['SPFIndividual'], alpha=0.3)
+                            else:
+                                 ax.plot(range(forecastHorizon+1+rollbkActualPeriods), nan_list + external[quarter][key][:forecastHorizon+1], label='SPFIndividual', color=sourceColors['SPFIndividual'], linewidth=sourceWidths['SPFIndividual'], alpha=0.3)
                             SPFIndividualLegend = True
                         else:
                             nan_list = np.repeat(np.nan,rollbkActualPeriods)
                             nan_list = nan_list.tolist()
-                            ax.plot(range(forecastHorizon+1+rollbkActualPeriods), nan_list + external[quarter][key][:forecastHorizon+1], color=sourceColors['SPFIndividual'], linewidth=sourceWidths['SPFIndividual'], alpha=0.3)
-                        
+                            Extralength = len(nan_list +external[quarter][key][:forecastHorizon+1])
+                            if (forecastHorizon+1+rollbkActualPeriods)>Extralength:
+                                 addextraperiodNAN = (forecastHorizon+1+rollbkActualPeriods)-Extralength
+                                 nan_listaddextraAfter = np.repeat(np.nan,addextraperiodNAN)
+                                 nan_listaddextraAfter = nan_listaddextraAfter.tolist()
+                                 ax.plot(range(forecastHorizon+1+rollbkActualPeriods), nan_list + external[quarter][key][:forecastHorizon+1]+ nan_listaddextraAfter, color=sourceColors['SPFIndividual'], linewidth=sourceWidths['SPFIndividual'], alpha=0.3)
+
+                            else:
+                                 ax.plot(range(forecastHorizon+1+rollbkActualPeriods), nan_list + external[quarter][key][:forecastHorizon+1], color=sourceColors['SPFIndividual'], linewidth=sourceWidths['SPFIndividual'], alpha=0.3)
+                            
             if 'SPFMean' in sources:
                 nan_list = np.repeat(np.nan,rollbkActualPeriods)
                 nan_list = nan_list.tolist()
-                ax.plot(range(forecastHorizon+1+rollbkActualPeriods), nan_list + external[quarter]['SPFMean'][:forecastHorizon+1], label='SPFMean', color=sourceColors['SPFMean'], linewidth=sourceWidths['SPFMean'])
+                Extralength = len(nan_list +external[quarter]['SPFMean'][:forecastHorizon+1])
+                if (forecastHorizon+1+rollbkActualPeriods)>Extralength:
+                    addextraperiodNAN = (forecastHorizon+1+rollbkActualPeriods)-Extralength
+                    nan_listaddextraAfter = np.repeat(np.nan,addextraperiodNAN)
+                    nan_listaddextraAfter = nan_listaddextraAfter.tolist()
+                    ax.plot(range(forecastHorizon+1+rollbkActualPeriods), nan_list + external[quarter]['SPFMean'][:forecastHorizon+1] + nan_listaddextraAfter, label='SPFMean', color=sourceColors['SPFMean'], linewidth=sourceWidths['SPFMean'])
+                else:
+                    ax.plot(range(forecastHorizon+1+rollbkActualPeriods), nan_list + external[quarter]['SPFMean'][:forecastHorizon+1], label='SPFMean', color=sourceColors['SPFMean'], linewidth=sourceWidths['SPFMean'])
             
             # GLP
             for source in sources:
@@ -407,20 +436,21 @@ mpl.rcParams['font.size'] = 14
 
 
 ## Plot
-ac_hoc_graphs =0
+ac_hoc_graphs =1
 if ac_hoc_graphs:
-    case_ind =2  # case 1 -> s1 s3 for every yearquarter
+    case_ind =1  # case 1 -> s1 s3 for every yearquarter
                 # case 2 -> s1 for 4 periods
     ## case 1
     if case_ind ==1:
         #forecastQuartersList=['2001Q1', '2001Q2', '2001Q3', '2001Q4','2008Q3', '2008Q4', '2009Q1', '2009Q2', '2020Q1', '2020Q2', '2020Q3', '2020Q4']
         #forecastQuartersList=['2001Q1', '2001Q2', '2001Q3', '2001Q4','2008Q3', '2008Q4', '2009Q1', '2009Q2', '2020Q1']
-        forecastQuartersList=['2020Q2', '2020Q3']
+        #forecastQuartersList=['2020Q2', '2020Q3']
+        forecastQuartersList=['2020Q3']
         for ind_tmp, indname_tmp in enumerate(forecastQuartersList):
             a, _ = plotForecasts(forecastStartQuarters=indname_tmp, 
-                                sources=[  'SPFIndividual', 'SPFMean',
-                                        #'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
-                                        'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
+                                sources=[ 'SPFMean', 'SPFIndividual', 
+                                        'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
+                                        #'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
                                         #'Fair', # Fair model not available for 2020Q2
                                         #'SW07', 'DS04', 'GLP3v', 'GLP8v',
                                         #'Post-crisis models avg', 'Pre-crisis models avg'
@@ -428,10 +458,13 @@ if ac_hoc_graphs:
                                 topCandidates = [#'SW07','GSW12',
                                                 #'CMR14', 'DNGS15', 'IN10',
                                                 #'NKBGG','QPM08','IN10' ,
-                                                    'WW11','DS04','FRBEDO08',
+                                                #    'WW11','DS04','FRBEDO08',
+                                                'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
+                                                #'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
+                                                #'Fair',
                                                 ],
                                 scenarios=['s1','s3'],
-                                forecastHorizon=5, rollbkActualPeriods = 2, move=False, GraphGroupType = 2, casenum = case_ind , hideModelLabel=0)
+                                forecastHorizon=6, rollbkActualPeriods = 2, move=False, GraphGroupType = 2, casenum = case_ind , hideModelLabel=0)
 
             nametag = 'Pre_crisis_'+indname_tmp + '.png'
         
@@ -444,24 +477,25 @@ if ac_hoc_graphs:
                                 '20202021':[ '2020Q1', '2020Q2','2020Q3', '2020Q4'],
                                 }
         
-        forecastQuarterskey=['20202021','20202021','20202021']
+        forecastQuarterskey=['20082009']
         
         for period_tmp,  periodname_tmp in enumerate(forecastQuarterskey):
             forecastQuartersList = forecastQuartersDict[periodname_tmp]
         
             a, _ = plotForecasts(forecastStartQuarters=forecastQuartersList, 
                         sources=[  'SPFIndividual', 'SPFMean',
-                                'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
-                                'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
+                                #'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
+                                #'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
                                 #'Fair', # Fair model not available for 2020Q2
-                                # 'DNGS15', 'GLP8v',
+                                'DNGS15', 'GLP8v',
                                 #'Post-crisis models avg', 'Pre-crisis models avg'
                                 ], 
                         topCandidates = [#'SW07','GSW12',
                                         #'CMR14', 'DNGS15', 'IN10',],
+                                        'DNGS15', 'GLP8v',
                                             ],
-                        scenarios=['s1'],
-                        forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = case_ind,hideModelLabel=1)
+                        scenarios=['s3'],
+                        forecastHorizon=5, rollbkActualPeriods = 1, move=True, GraphGroupType = 1, casenum = case_ind, hideModelLabel=0)
 
             nametag = 'FinVSMacro_individual_'+ periodname_tmp + '.png'
             
@@ -475,7 +509,7 @@ if ac_hoc_graphs:
 # 保存圖片為svg格式，也就是可以放大不失真的矢量圖
 
 
-if ac_hoc_graphs ==0:
+if ac_hoc_graphs ==1:
     # plot SPF_vs_actual
     forecastQuarterskey=['20012002','20082009','20202021']
     yaxisminval['2009Q1'] =-8
@@ -710,7 +744,7 @@ if ac_hoc_graphs ==0:
     topCandidateColors['DNGS15'] = 'crimson'
     topCandidateColors['FRBEDO08'] = 'dodgerblue'
 
-    yaxisminval['2020Q2'] =-70
+    yaxisminval['2020Q2'] =-80
     yaxisminval['2020Q3'] =-40
 
     for ind_tmp, indname_tmp in enumerate(forecastQuartersList):
@@ -722,12 +756,12 @@ if ac_hoc_graphs ==0:
                                     #'SW07', 'DS04', 'GLP3v', 'GLP8v',
                                     #'Post-crisis models avg', 'Pre-crisis models avg'
                                      #'DS04','WW11', 'QPM08' ,'NKBGG'
-                                    'QPM08', 'IN10', 'FRBEDO08',], 
+                                    'QPM08', 'IN10', 'FRBEDO08', 'GSW12'], 
                             topCandidates = [#'SW07','GSW12',
                                             #'CMR14', 'DNGS15', 'IN10',
                                             #'NKBGG','QPM08','IN10' ,
                                             #    'WW11','DS04','FRBEDO08',
-                                            'QPM08', 'IN10', 'FRBEDO08',
+                                            'QPM08', 'IN10', 'FRBEDO08', 'GSW12'
                                              #'DS04','WW11', 'QPM08' ,'NKBGG'
                                             ],
                             scenarios=['s1','s3'],
