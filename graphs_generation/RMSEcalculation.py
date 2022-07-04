@@ -73,23 +73,27 @@ for instance in results['dsge']:
         modelClasses[instance['model']] = instance['ModelClass']
 
 
-#quarterlist = ['2020Q1', '2020Q2', '2020Q3' ,'2020Q4']
-quarterlist = ['2008Q3', '2008Q4', '2009Q1' ,'2009Q2']
+quarterlist = ['2020Q1', '2020Q2', '2020Q3' ,'2020Q4']
+#quarterlist = ['2008Q3', '2008Q4', '2009Q1' ,'2009Q2']
+#quarterlist = ['2001Q2']
 #quarterlist = ['2001Q1', '2001Q2', '2001Q3' ,'2001Q4']
 forecastHorizon = 1
-scenario = 's1'
+scenario = 's3'
 
 sources=[ 'QPM08','CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG',
             'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',]
+            #'Fair', ]
 SquareError = np.zeros((0,len(sources)))
 row_tmp = []
 for quater_ind, quarter in enumerate(quarterlist):
     actualGDP = actual[quarter][:forecastHorizon]
     row_tmp = []
+    spf_tmp = []
     for ind_tmp, model_name_tmp in enumerate(sources):
         nowcast = dsge[quarter+scenario][model_name_tmp][1:forecastHorizon+1]
         sqerr = np.sum((np.asarray(nowcast)-np.asarray(actualGDP))**2)
         row_tmp = row_tmp + [sqerr]
+        spf_nowcast = external[quarter]['SPFMean']
     #print(row_tmp)
     SquareError = np.vstack((SquareError,row_tmp))
     

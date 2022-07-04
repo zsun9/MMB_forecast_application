@@ -167,7 +167,8 @@ yaxisminval = {
      '2001Q1':-2,
      '2001Q2':-2,
      '2001Q3':-2,
-     '2001Q4':-6,
+     #'2001Q4':-6,
+     '2001Q4':-2,
      '2008Q1':-8,
      '2008Q2':-8, 
      '2008Q3':-8,
@@ -175,12 +176,11 @@ yaxisminval = {
      '2009Q1':-9, 
      '2009Q2':-8,
      '2020Q1':-40, 
-     '2020Q2':-50,
+     '2020Q2':-80,
      '2020Q3':-50,
      '2020Q4':-10}
 
-nberRecessionQuarters = ['2001Q1', '2001Q2', '2001Q3', '2008Q1', '2008Q2', '2008Q3', '2008Q4', '2009Q1', '2020Q1', '2020Q2',]
-
+nberRecessionQuarters = ['2001Q1', '2001Q2', '2001Q3','2007Q4', '2008Q1', '2008Q2', '2008Q3', '2008Q4', '2009Q1', '2009Q2', '2020Q1', '2020Q2',]
 forecastQuartersDict = {
                         '20012002': ['2001Q1', '2001Q2', '2001Q3', '2001Q4'],
                         '20082009':['2008Q3', '2008Q4', '2009Q1', '2009Q2'],    
@@ -311,9 +311,12 @@ def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, fore
             #ax.plot(range(forecastHorizon+1), [gdpLastQuarter] + actual[quarter][:forecastHorizon], label='Actual', color=sourceColors['Actual'], linewidth=sourceWidths['Actual'])
             ax.plot(range(forecastHorizon+1+rollbkActualPeriods), actGDProllback+ [gdpLastQuarter] + actualGDPplot, label='Actual', color=sourceColors['Actual'], linewidth=sourceWidths['Actual'])
             if move==True:
-                ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart ) ,firstGraphRecHoriz + rollbkActualPeriods -q], minval, maxval, color='grey', alpha=0.1)
-                    
-            
+                #ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart -q) ,firstGraphRecHoriz + rollbkActualPeriods -q], minval, maxval, color='grey', alpha=0.1)
+                #ad hoc for 2001 recession
+                ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart -q+1) ,firstGraphRecHoriz + rollbkActualPeriods -q], minval, maxval, color='grey', alpha=0.1)
+                #adhoc for 2008 recession
+                #ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart -q) ,firstGraphRecHoriz + rollbkActualPeriods -q+1], minval, maxval, color='grey', alpha=0.1)
+
             # SPF data
             SPFIndividualLegend = False
             if 'SPFIndividual' in sources:
@@ -399,7 +402,12 @@ def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, fore
             ax.set_xlim([0, (forecastHorizon + rollbkActualPeriods)])
             ax.set_ylim([minval, maxval])
             if move ==False:
-                ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart ),firstGraphRecHoriz+ rollbkActualPeriods], minval, maxval, color='grey', alpha=0.1)
+                #ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart ),firstGraphRecHoriz+ rollbkActualPeriods], minval, maxval, color='grey', alpha=0.1)
+                # change only for 2001 recession, ad hoc
+                ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart+1 ),firstGraphRecHoriz+ rollbkActualPeriods+1], minval, maxval, color='grey', alpha=0.1)
+                # change only for 2008 recession, ad hoc
+                #ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart ),firstGraphRecHoriz+ rollbkActualPeriods+1], minval, maxval, color='grey', alpha=0.1)
+
             ax.spines['top'].set_color('grey')
             ax.spines['bottom'].set_color('grey')
             ax.spines['left'].set_color('grey')
@@ -416,7 +424,8 @@ def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, fore
         ax.legend(loc='upper center', bbox_to_anchor=(-1.3, 1.3), ncol=len(sources)+2, fancybox=False, shadow=False)
     elif GraphGroupType ==2:
         if len(sources) <= 7:
-            ax.legend(ncol=len(sources)+1, bbox_to_anchor=(0.5, 1.2))
+           # ax.legend(ncol=len(sources)+1, bbox_to_anchor=(0.5, 1.2))
+           ax.legend(ncol=len(sources)+1, bbox_to_anchor=(0.75, 1.2)) # change only if 1 graph, ad hoc
         else:
             ax.legend(ncol=len(sources) // 2 + 1, bbox_to_anchor=(0.5, 1.2))
     else:
@@ -438,10 +447,11 @@ mpl.rcParams['font.size'] = 14
 ## Plot
 ac_hoc_graphs =1
 if ac_hoc_graphs:
-    case_ind =1  # case 1 -> s1 s3 for every yearquarter
+    case_ind =2  # case 1 -> s1 s3 for every yearquarter
                 # case 2 -> s1 for 4 periods
     ## case 1
     if case_ind ==1:
+    
         #forecastQuartersList=['2001Q1', '2001Q2', '2001Q3', '2001Q4','2008Q3', '2008Q4', '2009Q1', '2009Q2', '2020Q1', '2020Q2', '2020Q3', '2020Q4']
         #forecastQuartersList=['2001Q1', '2001Q2', '2001Q3', '2001Q4','2008Q3', '2008Q4', '2009Q1', '2009Q2', '2020Q1']
         #forecastQuartersList=['2020Q2', '2020Q3']
@@ -464,40 +474,45 @@ if ac_hoc_graphs:
                                                 #'Fair',
                                                 ],
                                 scenarios=['s1','s3'],
-                                forecastHorizon=6, rollbkActualPeriods = 2, move=False, GraphGroupType = 2, casenum = case_ind , hideModelLabel=0)
+                                forecastHorizon=6, rollbkActualPeriods = 2, move=True, GraphGroupType = 2, casenum = case_ind , hideModelLabel=0)
 
             nametag = 'Pre_crisis_'+indname_tmp + '.png'
         
             a.savefig(nametag, bbox_inches='tight')
 
     if case_ind==2:
+        
+        topCandidateColors['QPM08'] = 'darkorange'
+        topCandidateColors['FRBEDO08'] = 'royalblue'
+        topCandidateColors['NKBGG'] = 'purple'
+        topCandidateColors['IN10'] = 'red'
         forecastQuartersDict = {
                                 '20012002': ['2001Q1', '2001Q2', '2001Q3', '2001Q4'],
                                 '20082009':['2008Q3', '2008Q4', '2009Q1', '2009Q2'],    
                                 '20202021':[ '2020Q1', '2020Q2','2020Q3', '2020Q4'],
                                 }
         
-        forecastQuarterskey=['20082009']
+        forecastQuarterskey=['20202021']
         
         for period_tmp,  periodname_tmp in enumerate(forecastQuarterskey):
             forecastQuartersList = forecastQuartersDict[periodname_tmp]
         
             a, _ = plotForecasts(forecastStartQuarters=forecastQuartersList, 
-                        sources=[  'SPFIndividual', 'SPFMean',
+                        sources=[ 'SPFMean', # 'SPFIndividual', 
                                 #'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
                                 #'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
                                 #'Fair', # Fair model not available for 2020Q2
-                                'DNGS15', 'GLP8v',
+                                'QPM08','FRBEDO08', 'IN10' ,#'CMR14'
                                 #'Post-crisis models avg', 'Pre-crisis models avg'
                                 ], 
                         topCandidates = [#'SW07','GSW12',
                                         #'CMR14', 'DNGS15', 'IN10',],
-                                        'DNGS15', 'GLP8v',
+                                'QPM08','FRBEDO08', 'IN10' ,#'CMR14'
                                             ],
                         scenarios=['s3'],
-                        forecastHorizon=5, rollbkActualPeriods = 1, move=True, GraphGroupType = 1, casenum = case_ind, hideModelLabel=0)
+                        forecastHorizon=5, rollbkActualPeriods = 2, move=True, GraphGroupType = 1, casenum = case_ind, hideModelLabel=0)
 
-            nametag = 'FinVSMacro_individual_'+ periodname_tmp + '.png'
+            nametag = 'Top3adhoc'+ periodname_tmp + '.png'
             
             a.savefig(nametag, bbox_inches='tight')
     
@@ -509,143 +524,145 @@ if ac_hoc_graphs:
 # 保存圖片為svg格式，也就是可以放大不失真的矢量圖
 
 
-if ac_hoc_graphs ==1:
-    # plot SPF_vs_actual
-    forecastQuarterskey=['20012002','20082009','20202021']
-    yaxisminval['2009Q1'] =-8
+if ac_hoc_graphs ==0:
+    if 0:
+        # plot SPF_vs_actual
+        forecastQuarterskey=['20012002','20082009','20202021']
+        yaxisminval['2009Q1'] =-8
+            
+        for period_tmp,  periodname_tmp in enumerate(forecastQuarterskey):
+            forecastQuartersList = forecastQuartersDict[periodname_tmp]
         
-    for period_tmp,  periodname_tmp in enumerate(forecastQuarterskey):
-        forecastQuartersList = forecastQuartersDict[periodname_tmp]
+            a, _ = plotForecasts(forecastStartQuarters=forecastQuartersList, 
+                        sources=[  'SPFIndividual', 'SPFMean',
+                                #'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
+                                #'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
+                                #'Fair', # Fair model not available for 2020Q2
+                                # 'DNGS15', 'GLP8v',
+                                #'Post-crisis models avg', 'Pre-crisis models avg'
+                                ], 
+                        topCandidates = [#'SW07','GSW12',
+                                        #'CMR14', 'DNGS15', 'IN10',],
+                                            ],
+                        scenarios=['s1'],
+                        forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0)
     
-        a, _ = plotForecasts(forecastStartQuarters=forecastQuartersList, 
-                    sources=[  'SPFIndividual', 'SPFMean',
-                            #'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
-                            #'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
-                            #'Fair', # Fair model not available for 2020Q2
-                            # 'DNGS15', 'GLP8v',
-                            #'Post-crisis models avg', 'Pre-crisis models avg'
-                            ], 
-                    topCandidates = [#'SW07','GSW12',
-                                    #'CMR14', 'DNGS15', 'IN10',],
+            nametag = 'Actual_vs_SPF_'+ periodname_tmp + '.png'
+            
+            a.savefig(nametag, bbox_inches='tight')
+    
+        # plot post and pre model averages 
+        sourceWidths['Pre-crisis'] = 3  
+        sourceWidths['Post-crisis'] = 3 
+    
+        for period_tmp,  periodname_tmp in enumerate(forecastQuarterskey):
+            forecastQuartersList = forecastQuartersDict[periodname_tmp]
+        
+            a, _ = plotForecasts(forecastStartQuarters=forecastQuartersList, 
+                        sources=['SPFIndividual', 'SPFMean',
+                                #'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
+                                #'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
+                                #'Fair', # Fair model not available for 2020Q2
+                                # 'DNGS15', 'GLP8v',
+                                'Post-crisis models avg', 'Pre-crisis models avg'
+                                ], 
+                        topCandidates = [#'SW07','GSW12',
+                                        #'CMR14', 'DNGS15', 'IN10',],
                                         ],
-                    scenarios=['s1'],
-                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0)
-
-        nametag = 'Actual_vs_SPF_'+ periodname_tmp + '.png'
-        
-        a.savefig(nametag, bbox_inches='tight')
-
-    # plot post and pre model averages 
-    sourceWidths['Pre-crisis'] = 3  
-    sourceWidths['Post-crisis'] = 3 
-
-    for period_tmp,  periodname_tmp in enumerate(forecastQuarterskey):
-        forecastQuartersList = forecastQuartersDict[periodname_tmp]
+                        scenarios=['s1'],
+                        forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0 )
     
-        a, _ = plotForecasts(forecastStartQuarters=forecastQuartersList, 
-                    sources=['SPFIndividual', 'SPFMean',
-                            #'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
-                            #'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
-                            #'Fair', # Fair model not available for 2020Q2
-                            # 'DNGS15', 'GLP8v',
-                            'Post-crisis models avg', 'Pre-crisis models avg'
-                            ], 
-                    topCandidates = [#'SW07','GSW12',
-                                    #'CMR14', 'DNGS15', 'IN10',],
-                                    ],
-                    scenarios=['s1'],
-                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0 )
-
-        nametag = 'MacroFin_vs_Macro_avg_'+ periodname_tmp + '.png'
-        
-        a.savefig(nametag, bbox_inches='tight')   
-
-
-    # plot all individual models
-    sourceWidths['Pre-crisis'] = 1  
-    sourceWidths['Post-crisis'] = 1     
-    forecastQuarterskey=['20012002','20082009']#,'20202021']
-
-    for period_tmp,  periodname_tmp in enumerate(forecastQuarterskey):
-        forecastQuartersList = forecastQuartersDict[periodname_tmp]
+            nametag = 'MacroFin_vs_Macro_avg_'+ periodname_tmp + '.png'
+            
+            a.savefig(nametag, bbox_inches='tight')   
     
-        a, _ = plotForecasts(forecastStartQuarters=forecastQuartersList, 
-                    sources=['SPFIndividual', 'SPFMean',
-                            'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
-                            'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
-                            'Fair', # Fair model not available for 2020Q2
-                            # 'DNGS15', 'GLP8v',
-                            #'Post-crisis models avg', 'Pre-crisis models avg'
-                            ], 
-                    topCandidates = [#'SW07','GSW12',
-                                    #'CMR14', 'DNGS15', 'IN10',],
-                                    ],
-                    scenarios=['s1'],
-                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=1,modelIndiOpacity = 0.6)
-
-        nametag = 'MacroFin_vs_Macro_indi'+ periodname_tmp + '.png'
-        
-        a.savefig(nametag, bbox_inches='tight')   
-
-    # All models (except Fair model, no forecast in year 20222021)
-    forecastQuarterskey=['20202021']#,'20202021']
-
-    for period_tmp,  periodname_tmp in enumerate(forecastQuarterskey):
-        forecastQuartersList = forecastQuartersDict[periodname_tmp]
     
-        a, _ = plotForecasts(forecastStartQuarters=forecastQuartersList, 
-                    sources=['SPFIndividual', 'SPFMean',
-                            'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
-                            'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
-                            #'Fair', # Fair model not available for 2020Q2
-                            # 'DNGS15', 'GLP8v',
-                            #'Post-crisis models avg', 'Pre-crisis models avg'
-                            ], 
-                    topCandidates = [#'SW07','GSW12',
-                                    #'CMR14', 'DNGS15', 'IN10',],
-                                    ],
-                    scenarios=['s1'],
-                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=1)
-
-        nametag = 'MacroFin_vs_Macro_indi'+ periodname_tmp + '.png'
-        
-        a.savefig(nametag, bbox_inches='tight')   
-
-
-     # Structural VS BVAR   
-    forecastQuarterskey=['20012002','20082009','20202021']
-    yaxisminval['2020Q3'] =-100
-    sourceWidths['Pre-crisis'] = 2.3  
-    sourceWidths['Post-crisis'] = 2.3   
-    for period_tmp,  periodname_tmp in enumerate(forecastQuarterskey):
-        forecastQuartersList = forecastQuartersDict[periodname_tmp]
+        # plot all individual models
+        sourceWidths['Pre-crisis'] = 1  
+        sourceWidths['Post-crisis'] = 1     
+        forecastQuarterskey=['20012002','20082009']#,'20202021']
     
-        a, _ = plotForecasts(forecastStartQuarters=forecastQuartersList, 
-                    sources=['SPFIndividual', 'SPFMean',
-                            #'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
-                            #'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
-                            #'Fair', # Fair model not available for 2020Q2
-                             'DNGS15', 'GLP8v',
-                            #'Post-crisis models avg', 'Pre-crisis models avg'
-                            ], 
-                    topCandidates = [#'SW07','GSW12',
-                                    #'CMR14', 'DNGS15', 'IN10',],
-                                    ],
-                    scenarios=['s1'],
-                    forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0)
-
-        nametag = 'Struct_vs_BVAR_'+ periodname_tmp + '.png'
+        for period_tmp,  periodname_tmp in enumerate(forecastQuarterskey):
+            forecastQuartersList = forecastQuartersDict[periodname_tmp]
         
-        a.savefig(nametag, bbox_inches='tight') 
+            a, _ = plotForecasts(forecastStartQuarters=forecastQuartersList, 
+                        sources=['SPFIndividual', 'SPFMean',
+                                'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
+                                'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
+                                'Fair', # Fair model not available for 2020Q2
+                                # 'DNGS15', 'GLP8v',
+                                #'Post-crisis models avg', 'Pre-crisis models avg'
+                                ], 
+                        topCandidates = [#'SW07','GSW12',
+                                        #'CMR14', 'DNGS15', 'IN10',],
+                                        ],
+                        scenarios=['s1'],
+                        forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=1,modelIndiOpacity = 0.6)
     
+            nametag = 'MacroFin_vs_Macro_indi'+ periodname_tmp + '.png'
+            
+            a.savefig(nametag, bbox_inches='tight')   
+    
+        # All models (except Fair model, no forecast in year 20222021)
+        forecastQuarterskey=['20202021']#,'20202021']
+    
+        for period_tmp,  periodname_tmp in enumerate(forecastQuarterskey):
+            forecastQuartersList = forecastQuartersDict[periodname_tmp]
+        
+            a, _ = plotForecasts(forecastStartQuarters=forecastQuartersList, 
+                        sources=['SPFIndividual', 'SPFMean',
+                                'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
+                                'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
+                                #'Fair', # Fair model not available for 2020Q2
+                                # 'DNGS15', 'GLP8v',
+                                #'Post-crisis models avg', 'Pre-crisis models avg'
+                                ], 
+                        topCandidates = [#'SW07','GSW12',
+                                        #'CMR14', 'DNGS15', 'IN10',],
+                                        ],
+                        scenarios=['s1'],
+                        forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=1)
+    
+            nametag = 'MacroFin_vs_Macro_indi'+ periodname_tmp + '.png'
+            
+            a.savefig(nametag, bbox_inches='tight')   
+    
+    
+         # Structural VS BVAR   
+        forecastQuarterskey=['20012002','20082009','20202021']
+        yaxisminval['2020Q3'] =-100
+        sourceWidths['Pre-crisis'] = 2.3  
+        sourceWidths['Post-crisis'] = 2.3   
+        for period_tmp,  periodname_tmp in enumerate(forecastQuarterskey):
+            forecastQuartersList = forecastQuartersDict[periodname_tmp]
+        
+            a, _ = plotForecasts(forecastStartQuarters=forecastQuartersList, 
+                        sources=['SPFIndividual', 'SPFMean',
+                                #'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
+                                #'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
+                                #'Fair', # Fair model not available for 2020Q2
+                                 'DNGS15', 'GLP8v',
+                                #'Post-crisis models avg', 'Pre-crisis models avg'
+                                ], 
+                        topCandidates = [#'SW07','GSW12',
+                                        #'CMR14', 'DNGS15', 'IN10',],
+                                        ],
+                        scenarios=['s1'],
+                        forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0)
+    
+            nametag = 'Struct_vs_BVAR_'+ periodname_tmp + '.png'
+            
+            a.savefig(nametag, bbox_inches='tight') 
+    
+        
     #Plot top 3 (from all models) for lowest RMSE
     # for recession 0102
     forecastQuartersList=['2001Q1', '2001Q2', '2001Q3', '2001Q4'] 
 
-    topCandidateColors['NKBGG'] = 'darkorange'
+    topCandidateColors['CMR14'] = 'darkorange'
     topCandidateColors['FU20'] = 'royalblue'
-    topCandidateColors['CMR14'] = 'crimson'
-    topCandidateColors['SW07'] = 'darkslateblue'
+    topCandidateColors['NKBGG'] = 'red'
+    #topCandidateColors['QPM08'] = 'red'
     for ind_tmp, indname_tmp in enumerate(forecastQuartersList):
         a, _ = plotForecasts(forecastStartQuarters=indname_tmp, 
                             sources=[ 'SPFMean', # 'SPFIndividual', 
@@ -655,16 +672,17 @@ if ac_hoc_graphs ==1:
                                     #'SW07', 'DS04', 'GLP3v', 'GLP8v',
                                     #'Post-crisis models avg', 'Pre-crisis models avg'
                                     #'DNGS15', 'IN10','DS04','SW07'
-                                    'NKBGG','FU20', 'SW07' ,#'CMR14'
+                                    'NKBGG','CMR14', 'FU20' ,#'CMR14'
                                     ], 
                             topCandidates = [#'SW07','GSW12',
                                             #'CMR14', 'DNGS15', 'IN10',
                                             #'NKBGG','QPM08','IN10' ,
                                             #    'WW11','DS04','FRBEDO08',
-                                            'NKBGG','FU20', 'SW07' ,#'CMR14'
+                                            'NKBGG','CMR14', 'FU20' ,#'CMR14'
                                             ],
-                            scenarios=['s1','s3'],
-                            forecastHorizon=5, rollbkActualPeriods = 0, move=False, GraphGroupType = 2, casenum = 1 , hideModelLabel=0)
+                            #scenarios=['s1','s3'],
+                            scenarios=['s1'],
+                            forecastHorizon=5, rollbkActualPeriods = 2, move=False, GraphGroupType = 2, casenum = 1 , hideModelLabel=0)
 
         nametag = 'Top3_models_'+indname_tmp + '.png'
     
@@ -674,9 +692,9 @@ if ac_hoc_graphs ==1:
     # for recession 0809
     forecastQuartersList=['2008Q3', '2008Q4', '2009Q1', '2009Q2'] 
 
-    topCandidateColors['NKBGG'] = 'darkorange'
-    topCandidateColors['FU20'] = 'royalblue'
-    topCandidateColors['CMR14'] = 'crimson'
+    topCandidateColors['CMR14'] = 'darkorange'
+    topCandidateColors['GSW12'] = 'royalblue'
+    topCandidateColors['DNGS15'] = 'crimson'
     topCandidateColors['SW07'] = 'darkslateblue'
 
     for ind_tmp, indname_tmp in enumerate(forecastQuartersList):
@@ -687,16 +705,16 @@ if ac_hoc_graphs ==1:
                                     #'Fair', # Fair model not available for 2020Q2
                                     #'SW07', 'DS04', 'GLP3v', 'GLP8v',
                                     #'Post-crisis models avg', 'Pre-crisis models avg'
-                                     'NKBGG','FU20', 'SW07' ,#'CMR14'
+                                     'CMR14','DNGS15', 'GSW12' ,#'CMR14'
                                     ], 
                             topCandidates = [#'SW07','GSW12',
                                             #'CMR14', 'DNGS15', 'IN10',
                                             #'NKBGG','QPM08','IN10' ,
                                             #    'WW11','DS04','FRBEDO08',
-                                             'NKBGG','FU20', 'SW07' ,#'CMR14'
+                                             'CMR14','DNGS15', 'GSW12' ,#'CMR14'
                                             ],
-                            scenarios=['s1','s3'],
-                            forecastHorizon=5, rollbkActualPeriods = 0, move=False, GraphGroupType = 2, casenum = 1 , hideModelLabel=0)
+                            scenarios=['s3'],#,'s3'],
+                            forecastHorizon=5, rollbkActualPeriods = 2, move=False, GraphGroupType = 2, casenum = 1 , hideModelLabel=0)
 
         nametag = 'Top3_models_'+indname_tmp + '.png'
     
