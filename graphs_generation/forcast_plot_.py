@@ -94,12 +94,12 @@ GraphRecessionHorizon = {
      '2001Q2':2,
      '2001Q3':1,
      '2001Q4':0,
-     '2008Q1':5,
-     '2008Q2':4, 
-     '2008Q3':3,
-     '2008Q4':2, 
-     '2009Q1':1, 
-     '2009Q2':0,
+     '2008Q1':6,
+     '2008Q2':5, 
+     '2008Q3':4,
+     '2008Q4':3, 
+     '2009Q1':2, 
+     '2009Q2':1,
      '2020Q1':2, 
      '2020Q2':1,
      '2020Q3':0,
@@ -111,17 +111,19 @@ GraphRecessionlookbackstart = {
      '2001Q2':1,
      '2001Q3':2,
      '2001Q4':3,
-     '2008Q1':0,
-     '2008Q2':1, 
-     '2008Q3':2,
-     '2008Q4':3, 
-     '2009Q1':4, 
-     '2009Q2':5,
+     '2008Q1':1,
+     '2008Q2':2, 
+     '2008Q3':3,
+     '2008Q4':4, 
+     '2009Q1':5, 
+     '2009Q2':6,
      '2020Q1':0, 
      '2020Q2':1,
      '2020Q3':2,
-     '2020Q4':0,
+     '2020Q4':3,
     }
+nberRecessionQuarters = ['2001Q1', '2001Q2', '2001Q3','2007Q4', '2008Q1', '2008Q2', '2008Q3', '2008Q4', '2009Q1', '2009Q2', '2020Q1', '2020Q2',]
+
 
 modelclassdic = {
     'CMR14':'Post-crisis',
@@ -182,7 +184,6 @@ yaxisminval = {
      '2020Q3':-40,
      '2020Q4':-10}
 
-nberRecessionQuarters = ['2001Q1', '2001Q2', '2001Q3','2007Q4', '2008Q1', '2008Q2', '2008Q3', '2008Q4', '2009Q1', '2009Q2', '2020Q1', '2020Q2',]
 forecastQuartersDict = {
                         '20012002': ['2001Q1', '2001Q2', '2001Q3', '2001Q4'],
                         '20082009':['2008Q3', '2008Q4', '2009Q1', '2009Q2'],    
@@ -255,7 +256,7 @@ for instance in results['dsge']:
         modelClasses[instance['model']] = instance['ModelClass']
         
 ##
-def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, forecastHorizon, rollbkActualPeriods, move,GraphGroupType, casenum ,hideModelLabel,modelIndiOpacity=1,nonsenariostring=0 ):
+def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, forecastHorizon, rollbkActualPeriods, move,GraphGroupType, casenum ,hideModelLabel,modelIndiOpacity=1,nonsenariostring=0,  forecastQuartersListLoopIdx = 0, startdatefix=False):
     if casenum ==1:
         forecastStartQuarters=[forecastStartQuarters]       
     elif casenum==2:
@@ -313,9 +314,9 @@ def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, fore
             #ax.plot(range(forecastHorizon+1), [gdpLastQuarter] + actual[quarter][:forecastHorizon], label='Actual', color=sourceColors['Actual'], linewidth=sourceWidths['Actual'])
             ax.plot(range(forecastHorizon+1+rollbkActualPeriods), actGDProllback+ [gdpLastQuarter] + actualGDPplot, label='Actual', color=sourceColors['Actual'], linewidth=sourceWidths['Actual'])
             if move==True:
-                #ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart -q) ,firstGraphRecHoriz + rollbkActualPeriods -q], minval, maxval, color='grey', alpha=0.1)
-                #ad hoc for 2001,2020 recession
                 ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart -q+1) ,firstGraphRecHoriz + rollbkActualPeriods -q], minval, maxval, color='grey', alpha=0.1)
+                #ad hoc for 2001,2020 recession
+                #ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart -q+1) ,firstGraphRecHoriz + rollbkActualPeriods -q], minval, maxval, color='grey', alpha=0.1)
                 #adhoc for 2008 recession
                 #ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart -q) ,firstGraphRecHoriz + rollbkActualPeriods -q+1], minval, maxval, color='grey', alpha=0.1)
 
@@ -407,9 +408,9 @@ def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, fore
             ax.set_xlim([0, (forecastHorizon + rollbkActualPeriods)])
             ax.set_ylim([minval, maxval])
             if move ==False:
-                #ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart ),firstGraphRecHoriz+ rollbkActualPeriods], minval, maxval, color='grey', alpha=0.1)
+                ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart +1),firstGraphRecHoriz+ rollbkActualPeriods], minval, maxval, color='grey', alpha=0.1)
                 # change only for 2001 recession, ad hoc
-                ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart+1 ),firstGraphRecHoriz+ rollbkActualPeriods+1], minval, maxval, color='grey', alpha=0.1)
+                #ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart+1 ),firstGraphRecHoriz+ rollbkActualPeriods+1], minval, maxval, color='grey', alpha=0.1)
                 # change only for 2008 recession, ad hoc
                 #ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart ),firstGraphRecHoriz+ rollbkActualPeriods+1], minval, maxval, color='grey', alpha=0.1)
 
@@ -453,8 +454,8 @@ mpl.rcParams['font.size'] = 14
 ## Plot
 ac_hoc_graphs =0
 if ac_hoc_graphs:
-    case_ind =2  # case 1 -> s1 s3 for every yearquarter
-                # case 2 -> s1 for 4 periods
+    case_ind =2  # case 1 -> two senarios for every yearquarter
+                # case 2 -> one senario for 4 periods
     ## case 1
     if case_ind ==1:
     
@@ -464,6 +465,8 @@ if ac_hoc_graphs:
         forecastQuartersList=['2020Q3']
         for ind_tmp, indname_tmp in enumerate(forecastQuartersList):
             a, _ = plotForecasts(forecastStartQuarters=indname_tmp, 
+                                 forecastQuartersListLoopIdx = ind_tmp,
+                                 startdatefix = 0,
                                 sources=[ 'SPFMean', 'SPFIndividual', 
                                         'CMR14', 'DNGS15', 'IN10', 'KR15_FF','KR15_HH', 'NKBGG','QPM08',
                                         #'DS04','FRBEDO08','FU20','GSW12','SW07','WW11',
