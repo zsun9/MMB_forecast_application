@@ -168,7 +168,7 @@ yaxisminval = {
      '2001Q2':-2,
      '2001Q3':-2,
      #'2001Q4':-6,
-     '2001Q4':-2,
+     '2001Q4':-4,
      '2008Q1':-8,
      '2008Q2':-8, 
      '2008Q3':-8,
@@ -176,8 +176,10 @@ yaxisminval = {
      '2009Q1':-9, 
      '2009Q2':-8,
      '2020Q1':-40, 
-     '2020Q2':-80,
-     '2020Q3':-50,
+     #'2020Q2':-80,
+     '2020Q2':-40,
+     #'2020Q3':-50,
+     '2020Q3':-40,
      '2020Q4':-10}
 
 nberRecessionQuarters = ['2001Q1', '2001Q2', '2001Q3','2007Q4', '2008Q1', '2008Q2', '2008Q3', '2008Q4', '2009Q1', '2009Q2', '2020Q1', '2020Q2',]
@@ -253,7 +255,7 @@ for instance in results['dsge']:
         modelClasses[instance['model']] = instance['ModelClass']
         
 ##
-def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, forecastHorizon, rollbkActualPeriods, move,GraphGroupType, casenum ,hideModelLabel,modelIndiOpacity=1 ):
+def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, forecastHorizon, rollbkActualPeriods, move,GraphGroupType, casenum ,hideModelLabel,modelIndiOpacity=1,nonsenariostring=0 ):
     if casenum ==1:
         forecastStartQuarters=[forecastStartQuarters]       
     elif casenum==2:
@@ -262,11 +264,11 @@ def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, fore
         forecastStartQuarters=[forecastStartQuarters] 
         
     if GraphGroupType == 1:
-        fig, axes = plt.subplots(len(scenarios), len(forecastStartQuarters), squeeze=False, sharex=False, sharey=False, figsize=(5*(len(forecastStartQuarters)+rollbkActualPeriods),5))
+        fig, axes = plt.subplots(len(scenarios), len(forecastStartQuarters), squeeze=False, sharex=False, sharey=False, figsize=(5*(len(forecastStartQuarters)+rollbkActualPeriods),1.3*(len(forecastStartQuarters)+rollbkActualPeriods)))
     elif GraphGroupType== 2:
-        fig, axes = plt.subplots(len(forecastStartQuarters), len(scenarios), squeeze=False, sharex=False, sharey=False, figsize=(16,9*(len(forecastStartQuarters))))
+        fig, axes = plt.subplots(len(forecastStartQuarters), len(scenarios), squeeze=False, sharex=False, sharey=False, figsize=(16,9*(len(forecastStartQuarters)+rollbkActualPeriods)))
     else:
-        fig, axes = plt.subplots(len(scenarios), len(forecastStartQuarters), squeeze=False, sharex=False, sharey=False, figsize=(5*len(forecastStartQuarters),5))
+        fig, axes = plt.subplots(len(scenarios), len(forecastStartQuarters), squeeze=False, sharex=False, sharey=False, figsize=(5*(len(forecastStartQuarters)+rollbkActualPeriods),5))
     FirstQuarter = forecastStartQuarters[0]
     firstGraphRecHoriz = GraphRecessionHorizon[FirstQuarter]
     firstGraphRecStart = GraphRecessionlookbackstart[FirstQuarter]
@@ -312,7 +314,7 @@ def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, fore
             ax.plot(range(forecastHorizon+1+rollbkActualPeriods), actGDProllback+ [gdpLastQuarter] + actualGDPplot, label='Actual', color=sourceColors['Actual'], linewidth=sourceWidths['Actual'])
             if move==True:
                 #ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart -q) ,firstGraphRecHoriz + rollbkActualPeriods -q], minval, maxval, color='grey', alpha=0.1)
-                #ad hoc for 2001 recession
+                #ad hoc for 2001,2020 recession
                 ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart -q+1) ,firstGraphRecHoriz + rollbkActualPeriods -q], minval, maxval, color='grey', alpha=0.1)
                 #adhoc for 2008 recession
                 #ax.fill_between([max(0,rollbkActualPeriods - firstGraphRecStart -q) ,firstGraphRecHoriz + rollbkActualPeriods -q+1], minval, maxval, color='grey', alpha=0.1)
@@ -399,6 +401,9 @@ def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, fore
             # styling
             #ax.set_title(f'{quarter}, {scenarioStrings[scenario]}', fontsize=14)
             ax.set_title(f'{quarter}\n {scenarioStrings[scenario]}', fontsize=14)
+            if nonsenariostring ==1:
+                ax.set_title(f'{quarter}', fontsize=14)
+
             ax.set_xlim([0, (forecastHorizon + rollbkActualPeriods)])
             ax.set_ylim([minval, maxval])
             if move ==False:
@@ -424,8 +429,8 @@ def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, fore
         ax.legend(loc='upper center', bbox_to_anchor=(-1.3, 1.3), ncol=len(sources)+2, fancybox=False, shadow=False)
     elif GraphGroupType ==2:
         if len(sources) <= 7:
-           # ax.legend(ncol=len(sources)+1, bbox_to_anchor=(0.5, 1.2))
-           ax.legend(ncol=len(sources)+1, bbox_to_anchor=(0.75, 1.2)) # change only if 1 graph, ad hoc
+           ax.legend(ncol=len(sources)+1, bbox_to_anchor=(0.5, 1.2))
+           #ax.legend(ncol=len(sources)+1, bbox_to_anchor=(0.75, 1.2)) # change only if 1 graph, ad hoc
         else:
             ax.legend(ncol=len(sources) // 2 + 1, bbox_to_anchor=(0.5, 1.2))
     else:
@@ -437,7 +442,8 @@ def plotForecasts(forecastStartQuarters, sources, topCandidates, scenarios, fore
 
     
     fig.tight_layout()
-    plt.subplots_adjust(wspace=0.3, hspace=0.5)
+    #plt.subplots_adjust(wspace=0.3, hspace=0.5)
+    plt.subplots_adjust(wspace=0.1, hspace=0.5)
     return fig, axes
 
 mpl.rcParams['font.family'] = 'Arial'
@@ -445,7 +451,7 @@ mpl.rcParams['font.size'] = 14
 
 
 ## Plot
-ac_hoc_graphs =1
+ac_hoc_graphs =0
 if ac_hoc_graphs:
     case_ind =2  # case 1 -> s1 s3 for every yearquarter
                 # case 2 -> s1 for 4 periods
@@ -525,7 +531,7 @@ if ac_hoc_graphs:
 
 
 if ac_hoc_graphs ==0:
-    if 0:
+    if 1:
         # plot SPF_vs_actual
         forecastQuarterskey=['20012002','20082009','20202021']
         yaxisminval['2009Q1'] =-8
@@ -545,7 +551,7 @@ if ac_hoc_graphs ==0:
                                         #'CMR14', 'DNGS15', 'IN10',],
                                             ],
                         scenarios=['s1'],
-                        forecastHorizon=5, rollbkActualPeriods = 0, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0)
+                        forecastHorizon=5, rollbkActualPeriods = 2, move=True, GraphGroupType = 1, casenum = 2 ,hideModelLabel=0,nonsenariostring=1)
     
             nametag = 'Actual_vs_SPF_'+ periodname_tmp + '.png'
             
@@ -790,4 +796,4 @@ if ac_hoc_graphs ==0:
         a.savefig(nametag, bbox_inches='tight')
 
        
-    os.system("pdflatex Graphs_pdf.tex")
+   # os.system("pdflatex Graphs_pdf.tex")
